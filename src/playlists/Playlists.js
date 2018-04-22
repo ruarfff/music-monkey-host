@@ -1,16 +1,16 @@
-import React from "react";
-import { GridList, GridTile } from "material-ui/GridList";
-import Subheader from "material-ui/Subheader";
+import React from 'react';
+import { GridList, GridTile } from 'material-ui/GridList';
+import Subheader from 'material-ui/Subheader';
 
 const styles = {
   root: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around"
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around'
   },
   gridList: {
-    width: "40%",
-    height: "80%"
+    width: '40%',
+    height: '80%'
   }
 };
 
@@ -35,7 +35,14 @@ const Playlists = ({ playlists }) => (
                 </span>
               }
             >
-              <img src={playlist.images.length > 0 ? playlist.images[0].url : '/img/partycover-sm.png'} alt="playlist" />
+              <img
+                src={
+                  playlist.images.length > 0
+                    ? playlist.images[0].url
+                    : '/img/partycover-sm.png'
+                }
+                alt="playlist"
+              />
             </GridTile>
           </a>
         ))
