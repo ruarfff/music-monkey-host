@@ -7,12 +7,8 @@ import axios from 'axios'
 import logo from '../spotify-login.svg'
 import Playlists from '../playlists/Playlists'
 
-// const servieUrl = "http://localhost:8080";
-// const redirectToUrl = "http://localhost:3000";
-
-const servieUrl = 'http://music-monkey-api.eu-west-1.elasticbeanstalk.com'
-const redirectToUrl =
-  'http://musicmonkeyhost-hosting-mobilehub-246253618.s3-website.eu-west-1.amazonaws.com'
+const servieUrl = process.env.REACT_APP_MM_API_URL;
+const redirectToUrl = process.env.REACT_APP_REDIRECT_URL;
 
 class Token extends Component {
   constructor(props) {
