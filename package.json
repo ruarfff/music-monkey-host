@@ -10,13 +10,17 @@
     "react": "^16.3.2",
     "react-cookie": "^2.1.4",
     "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
+    "react-router-redux": "^4.0.8",
     "react-scripts": "1.1.4",
+    "redux": "^4.0.0",
+    "redux-saga": "^0.16.0",
     "spotify-web-api-js": "^0.24.0"
   },
   "scripts": {
-    "start": "REACT_APP_REDIRECT_URL='http://localhost:3000' react-scripts start",
-    "build": "react-scripts build",
+    "start": "NODE_ENV='development' REACT_APP_REDIRECT_URL='http://localhost:3000' react-scripts start",
+    "build": "NODE_ENV='production' react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "awsmobile publish",
@@ -27,9 +31,11 @@
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jest": "^21.15.1",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-react": "^7.7.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "redux-immutable-state-invariant": "^2.1.0"
   }
 }

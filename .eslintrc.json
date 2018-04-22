@@ -12,6 +12,10 @@
     "browser": true,
     "node": true
   },
-  "plugins": ["react"],
-  "extends": ["eslint:recommended", "plugin:react/recommended"]
+  "plugins": ["react", "jest"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:jest/recommended"
+  ]
 }
