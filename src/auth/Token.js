@@ -6,7 +6,7 @@ import axios from "axios";
 import logo from "../spotify-login.svg";
 import Playlists from "../playlists/Playlists";
 
-const servieUrl = 'http://music-monkey-api.eu-west-1.elasticbeanstalk.com/';
+const servieUrl = 'http://localhost:8080';
 
 class Token extends Component {
   static propTypes = {
@@ -91,7 +91,7 @@ class Token extends Component {
       return (
         <div>
           <h1 className="App-title">Welcome to MusicMonkey for Hosts</h1>
-          <a href={servieUrl + '/login'}>
+          <a href={servieUrl + '/login?redirectTo=http://localhost:3000'}>
             <img src={logo} className="App-login" alt="login" />
           </a>
         </div>
