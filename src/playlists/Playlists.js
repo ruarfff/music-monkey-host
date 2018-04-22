@@ -35,7 +35,7 @@ const Playlists = ({ playlists }) => (
                 </span>
               }
             >
-              <img src={playlist.images.length > 0 ? playlist.images[0].url : '/img/partycover.png'} alt="playlist" />
+              <img src={playlist.images.length > 0 ? playlist.images[0].url : '/img/partycover-sm.png'} alt="playlist" />
             </GridTile>
           </a>
         ))
