@@ -7,8 +7,6 @@ const parseToken = searchString =>
 
 const Home = ({ location }) => (
   <div className="Home-header">
-    <h3 className="Home-title">Home!</h3>
-
     <Token refreshToken={parseToken(location.search)} />
   </div>
 );

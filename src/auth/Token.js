@@ -35,7 +35,6 @@ class Token extends Component {
 
   refreshAuth = token => {
     const self = this;
-    console.log('Refreshing wiht: ', token);
     const { cookies } = this.props;
     axios
       .post(servieUrl + "/refresh", {
@@ -50,7 +49,6 @@ class Token extends Component {
   };
 
   getUser = () => {
-    console.log("Get user");
     const self = this;
     const { cookies } = this.props;
     const token = cookies.get("access_token");
@@ -84,7 +82,6 @@ class Token extends Component {
       spotifyApi.setAccessToken(token);
       spotifyApi.getUserPlaylists().then(
         function(data) {
-          console.log(JSON.stringify(data, null, 4));
           self.setState({ ...self.state, user: user, playlists: data });
         },
         function(err) {
