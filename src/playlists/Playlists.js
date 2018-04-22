@@ -1,6 +1,7 @@
-import React from 'react';
-import { GridList, GridTile } from 'material-ui/GridList';
-import Subheader from 'material-ui/Subheader';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { GridList, GridTile } from 'material-ui/GridList'
+import Subheader from 'material-ui/Subheader'
 
 const styles = {
   root: {
@@ -12,7 +13,7 @@ const styles = {
     width: '40%',
     height: '80%'
   }
-};
+}
 
 const Playlists = ({ playlists }) => (
   <div style={styles.root}>
@@ -49,6 +50,10 @@ const Playlists = ({ playlists }) => (
       )}
     </GridList>
   </div>
-);
+)
 
-export default Playlists;
+Playlists.propTypes = {
+  playlists: PropTypes.array.isRequired
+}
+
+export default Playlists
