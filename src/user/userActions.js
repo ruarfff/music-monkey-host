@@ -1,16 +1,17 @@
-export const USER_LOGIN = 'USER_LOGIN'
-export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
-export const USER_LOGGED_OUT = 'USER_LOGGED_OUT'
+export const FETCH_USER = 'FETCH_USER'
+export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS'
+export const FETCH_USER_ERROR = 'FETCH_USER_ERROR'
 
-export const login = () => ({
-  type: USER_LOGIN
+export const fetchUser = () => ({
+  type: FETCH_USER
 })
 
-export const loginSuccess = data => ({
-  type: USER_LOGIN_SUCCESS,
+export const fetchUserSuccess = data => ({
+  type: FETCH_USER_SUCCESS,
   payload: data
 })
 
-export const logout = () => ({
-    type: USER_LOGGED_OUT
+export const fetchUserError = (error) => ({
+    type: FETCH_USER_ERROR,
+    payload: error
 })

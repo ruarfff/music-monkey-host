@@ -1,14 +1,14 @@
-import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGGED_OUT } from './userActions'
+import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_USER_ERROR } from './userActions'
 import initialState from './userInitialState'
 
 export default function user(state = initialState, { type, payload }) {
   switch (type) {
-    case USER_LOGIN:
+    case FETCH_USER:
       return { ...initialState, isLoading: true }
-    case USER_LOGIN_SUCCESS:
-      return { data: payload, isLoading: false }
-    case USER_LOGGED_OUT:
-      return initialState
+    case FETCH_USER_SUCCESS:
+      return { ...initialState, data: payload, isLoading: false }
+    case FETCH_USER_ERROR:
+      return {...initialState, error: payload }
     default:
       return state
   }

@@ -1,4 +1,4 @@
-import { USER_LOGIN_SUCCESS, USER_LOGGED_OUT, USER_LOGIN } from './userActions'
+import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_USER_ERROR } from './userActions'
 import initialState from './userInitialState'
 import user from './userReducer'
 
@@ -6,43 +6,36 @@ it('should return the initial state when no action matches', () => {
   expect(user(undefined, {})).toEqual(initialState)
 })
 
-it('should handle USER_LOGIN', () => {
-  expect(user({}, { type: USER_LOGIN })).toEqual({
-    data: null,
+it('should handle FETCH_USER', () => {
+  expect(user(initialState, { type: FETCH_USER })).toEqual({
+    ...initialState,
     isLoading: true
   })
 })
 
-it('user should handle USER_LOGIN_SUCCESS', () => {
+it('should handle FETCH_USER_SUCCESS', () => {
   expect(
     user(
-      {},
+      { ...initialState, isLoading: true },
       {
-        type: USER_LOGIN_SUCCESS,
+        type: FETCH_USER_SUCCESS,
         payload: {
           id: 'test-id'
         }
       }
     )
   ).toEqual({
+    ...initialState,
     data: { id: 'test-id' },
     isLoading: false
   })
 })
 
-it('user should handle LOGOUT_SUCCESS', () => {
+it('should handle FETCH_USER_ERROR', () => {
   expect(
-    user(
-      {
-        data: {
-          name: 'harry',
-          id: 'test-id'
-        },
-        isLoading: false
-      },
-      {
-        type: USER_LOGGED_OUT
-      }
-    )
-  ).toEqual({ data: null, isLoading: false })
+    user(initialState, {
+      type: FETCH_USER_ERROR,
+      payload: new Error('Oh dear :(')
+    })
+  ).toEqual({ ...initialState, error: new Error('Oh dear :(') })
 })

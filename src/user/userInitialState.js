@@ -1,4 +1,5 @@
 export default {
   data: null,
-  isLoading: false
+  isLoading: false,
+  error: null
 }
