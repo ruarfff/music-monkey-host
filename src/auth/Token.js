@@ -4,11 +4,11 @@ import PropTypes, { instanceOf } from 'prop-types'
 import { withCookies, Cookies } from 'react-cookie'
 import SpotifyWebApi from 'spotify-web-api-js'
 import axios from 'axios'
-import logo from '../spotify-login.svg'
+
+import Login from './Login';
 import Playlists from '../playlists/Playlists'
 
-const servieUrl = process.env.REACT_APP_MM_API_URL;
-const redirectToUrl = process.env.REACT_APP_REDIRECT_URL;
+const serviceUrl = process.env.REACT_APP_MM_API_URL;
 
 class Token extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class Token extends Component {
     const self = this
     const { cookies } = this.props
     axios
-      .post(servieUrl + '/refresh', {
+      .post(serviceUrl + '/refresh', {
         refreshToken: token
       })
       .then(response => {
@@ -97,12 +97,7 @@ class Token extends Component {
       )
     } else {
       return (
-        <div>
-          <h1 className="App-title">Welcome to MusicMonkey for Hosts</h1>
-          <a href={servieUrl + '/login?redirectTo=' + redirectToUrl}>
-            <img src={logo} className="App-login" alt="login" />
-          </a>
-        </div>
+        <Login />
       )
     }
   }
