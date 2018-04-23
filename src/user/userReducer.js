@@ -1,4 +1,4 @@
-import { USER_LOGGING_IN, USER_LOGGED_IN, USER_LOGGED_OUT } from './userActions'
+import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGGED_OUT } from './userActions'
 
 const initialState = {
   data: null,
@@ -7,9 +7,9 @@ const initialState = {
 
 export default function userUpdate(state = initialState, { type, payload }) {
   switch (type) {
-    case USER_LOGGING_IN:
+    case USER_LOGIN:
       return { ...initialState, isLoading: true }
-    case USER_LOGGED_IN:
+    case USER_LOGIN_SUCCESS:
       return { data: payload, isLoading: false }
     case USER_LOGGED_OUT:
       return initialState
