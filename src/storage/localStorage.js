@@ -1,21 +1,13 @@
 export default {
-    set: function(key, value) {
-        console.log('Storage: ', key + ' - ' + value)
-        
-        localStorage[key] = value;
-        return localStorage[key];
-    },
-    get: function(key, defaultValue) {
-        return localStorage[key] || defaultValue;
-    },
-    setObject: function(key, value) {
-        localStorage[key] = JSON.stringify(value);
-        return localStorage[key];
-    },
-    getObject: function(key) {
-        return JSON.parse(localStorage[key] || '{}');
-    },
-    clear: function() {
-        return localStorage.clear();
-    }
+  set: (key, value) => {
+    localStorage[key] = value
+    return localStorage[key]
+  },
+  get: (key, defaultValue) => localStorage[key] || defaultValue,
+  setObject: (key, value) => {
+    localStorage[key] = JSON.stringify(value)
+    return localStorage[key]
+  },
+  getObject: key => JSON.parse(localStorage[key] || '{}'),
+  clear: () => localStorage.clear()
 }
