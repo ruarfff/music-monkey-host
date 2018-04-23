@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Token from '../auth/Token'
 import './Home.css'
 
 const parseToken = searchString =>
@@ -8,7 +7,7 @@ const parseToken = searchString =>
 
 const Home = ({ location }) => (
   <div className="Home-header">
-    <Token refreshToken={parseToken(location.search)} />
+    Home!!!!
   </div>
 )
 

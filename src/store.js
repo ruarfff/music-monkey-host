@@ -11,7 +11,7 @@ import saga from './saga'
 LogRocket.init('ftequc/music-monkey-host')
 
 const isDevBuild = process.env.NODE_ENV !== 'production'
-const history = createHistory()
+export const history = createHistory()
 
 const reactRouterMiddleware = routerMiddleware(history)
 const sagaMiddleware = createSagaMiddleware()
@@ -35,10 +35,8 @@ const composeEnhancers = isDevBuild
   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
   : compose
 
-const store = createStore(
+export const store = createStore(
   reducers,
   composeEnhancers(applyMiddleware(...middleware))
 )
 sagaMiddleware.run(saga)
-
-export default store

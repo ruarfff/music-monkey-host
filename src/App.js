@@ -4,9 +4,8 @@ import { CookiesProvider } from 'react-cookie'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import Home from './home/Home'
+import Routes from './routes'
 import './App.css'
 
 class App extends Component {
@@ -16,9 +15,7 @@ class App extends Component {
         <CookiesProvider>
           <div className="App">
             <Provider store={this.props.store}>
-              <Router>
-                <Route path="/" component={Home} />
-              </Router>
+              <Routes history={this.props.history} />
             </Provider>
           </div>
         </CookiesProvider>
@@ -28,7 +25,8 @@ class App extends Component {
 }
 
 App.propTypes = {
-  store: PropTypes.object.isRequired
+  store: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 }
 
 export default App
