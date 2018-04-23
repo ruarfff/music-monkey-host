@@ -1,5 +1,7 @@
 export default {
     set: function(key, value) {
+        console.log('Storage: ', key + ' - ' + value)
+        
         localStorage[key] = value;
         return localStorage[key];
     },

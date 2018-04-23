@@ -1,7 +1,7 @@
-import { all } from 'redux-saga/effects'
-import { loginFlow, logoutFlow, storeRefreshToken } from './auth/authSaga'
+import { fork } from 'redux-saga/effects'
+import { loginFlow, logoutFlow } from './auth/authSaga'
 import {} from './user/userSaga'
 
 export default function* saga() {
-  yield all([loginFlow, logoutFlow, storeRefreshToken])
+  yield [fork(loginFlow), fork(logoutFlow)]
 }

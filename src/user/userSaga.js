@@ -1,4 +1,4 @@
-import {take, put, call, fork, cancel} from 'redux-saga/effects';
+/**import {take, put, call, fork, cancel} from 'redux-saga/effects';
 import SpotifyWebApi from 'spotify-web-api-js'
 
 const getUser = () => {
@@ -25,3 +25,4 @@ const getUser = () => {
     }
   }
 
+*/

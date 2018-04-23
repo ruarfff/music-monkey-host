@@ -30,3 +30,5 @@ awsmobilejs/\#current-backend-info
 ~awsmobilejs-*/
 
 .vscode
+
+.env.local

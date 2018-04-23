@@ -1,4 +1,4 @@
-import { take, put, call, fork, cancel, takeEvery } from 'redux-saga/effects'
+import { take, put, call, fork, cancel } from 'redux-saga/effects'
 import axios from 'axios'
 
 import { refreshTokenKey, accessTokenKey } from './authConstants'
@@ -7,9 +7,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   LOGGING_OUT,
-  LOGGED_OUT,
-  STORE_REFRESH_TOKEN,
-  REFRESH_TOKEN_STORED
+  LOGGED_OUT
 } from './authActions'
 import localStorage from '../storage/localStorage'
 
@@ -20,7 +18,7 @@ function logout() {
   localStorage.set(accessTokenKey, null)
 }
 
-function login(token) {
+function login() {
   return new Promise((resolve, reject) => {
     const refreshToken = localStorage.get(refreshTokenKey)
     if (!refreshToken) {
@@ -31,7 +29,6 @@ function login(token) {
           refreshToken: refreshToken
         })
         .then(response => {
-          localStorage.set(refreshTokenKey, token)
           localStorage.set(accessTokenKey, response.data.access_token)
           resolve()
         })
@@ -47,15 +44,6 @@ function* authorize() {
   } catch (error) {
     yield put({ type: LOGIN_FAILURE, error })
   }
-}
-
-function* storeToken(action) {
-  localStorage.put(refreshTokenKey, action.payload)
-  yield put({ type: REFRESH_TOKEN_STORED })
-}
-
-export function* storeRefreshToken() {
-  yield takeEvery(STORE_REFRESH_TOKEN, storeToken)
 }
 
 export function* loginFlow() {

@@ -2,6 +2,15 @@
   "name": "music-monkey-host",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start":
+      "NODE_ENV='development' REACT_APP_REDIRECT_URL='http://localhost:3000/callback' react-scripts start",
+    "build": "NODE_ENV='production' react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "deploy": "awsmobile publish",
+    "lint": "eslint src/**/*.js"
+  },
   "dependencies": {
     "aws-amplify": "^0.3.0",
     "aws-amplify-react": "^0.1.41",
@@ -20,14 +29,6 @@
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
     "spotify-web-api-js": "^0.24.0"
-  },
-  "scripts": {
-    "start": "NODE_ENV='development' REACT_APP_REDIRECT_URL='http://localhost:3000' react-scripts start",
-    "build": "NODE_ENV='production' react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "deploy": "awsmobile publish",
-    "lint": "eslint src/**/*.js"
   },
   "devDependencies": {
     "awsmobile-cli": "^1.1.1",

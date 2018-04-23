@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import logo from './spotify-login.svg'
 import localStorage from '../storage/localStorage'
-import {refreshTokenKey} from './authConstants'
+import { refreshTokenKey } from './authConstants'
 import './Login.css'
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
 const redirectToUrl = process.env.REACT_APP_REDIRECT_URL
 
 class Login extends Component {
-
   componentDidMount() {
-    if(localStorage.get(refreshTokenKey)) {
+    if (localStorage.get(refreshTokenKey)) {
       this.props.login()
-    }  
+    }
   }
 
   render() {
