@@ -17,17 +17,19 @@ class Login extends Component {
   }
 
   render() {
-    if(this.props.auth.isAuthenticating) {
+    if (this.props.auth.isAuthenticating) {
       return <LoadingSpinner />
     }
     return (
-      <div>
+      <div className="Login">
         <div className="Login-header">
           <h1 className="Login-title">Welcome to MusicMonkey for Hosts</h1>
         </div>
-        <a href={serviceUrl + '/login?redirectTo=' + redirectToUrl}>
-          <img src={logo} className="Login-button" alt="login" />
-        </a>
+        <div className="Login-content">
+          <a href={serviceUrl + '/login?redirectTo=' + redirectToUrl}>
+            <img src={logo} className="Login-button" alt="login" />
+          </a>
+        </div>
       </div>
     )
   }
