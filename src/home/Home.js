@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import AppBar from 'material-ui/AppBar'
 import Avatar from 'material-ui/Avatar'
 import LoadingSpinner from '../loading/LoadingSpinner'
+import Playlists from '../playlists/PlaylistContainer'
 import './Home.css'
 
 class Home extends Component {
@@ -43,6 +44,9 @@ class Home extends Component {
             }
             iconElementLeft={<span />}
           />
+
+          <Playlists />
+          
         </div>
       )
     } else {

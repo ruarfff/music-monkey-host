@@ -1,59 +1,59 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { GridList, GridTile } from 'material-ui/GridList'
-import Subheader from 'material-ui/Subheader'
+import Paper from 'material-ui/Paper'
 
-const styles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around'
-  },
-  gridList: {
-    width: '40%',
-    height: '80%'
+import './Playlist.css'
+
+const style = {
+  height: 200,
+  width: 200,
+  margin: 20,
+  textAlign: 'center',
+  display: 'inline-block'
+}
+
+class Playlists extends Component {
+  componentDidMount() {
+    this.props.fetchPlaylists()
+  }
+
+  render() {
+    let playlists = []
+    let playlistView = <p>No Playlists yet</p>
+
+    if (this.props.playlists.data) {
+      playlists = this.props.playlists.data.items
+      playlistView = playlists.map((playlist, i) => (
+        <Paper style={style} zDepth={3} key={i}>
+          <div className="Playist-card">
+            <div>
+              <a href={playlist.external_urls.spotify} target="_blank">
+                <img
+                  src={
+                    playlist.images.length > 0
+                      ? playlist.images[0].url
+                      : '/img/partycover-sm.png'
+                  }
+                  alt="playlist"
+                  className="Playist-img hvrPulseGrow"
+                />
+              </a>
+            </div>
+            <div className="Playlist-info">
+              <b>{playlist.name}</b> - {playlist.tracks.total} tracks
+            </div>
+          </div>
+        </Paper>
+      ))
+    }
+
+    return <div>{playlistView}</div>
   }
 }
 
-const Playlists = ({ playlists }) => (
-  <div style={styles.root}>
-    <GridList cellHeight={180} style={styles.gridList}>
-      <Subheader>Your Playlists</Subheader>
-      {playlists.length === 0 ? (
-        <p>No Playlists</p>
-      ) : (
-        playlists.map(playlist => (
-          <a
-            href={playlist.external_urls.spotify}
-            target="_blank"
-            key={playlist.id}
-          >
-            <GridTile
-              title={playlist.name}
-              subtitle={
-                <span>
-                  <b>{playlist.tracks.total}</b> tracks
-                </span>
-              }
-            >
-              <img
-                src={
-                  playlist.images.length > 0
-                    ? playlist.images[0].url
-                    : '/img/partycover-sm.png'
-                }
-                alt="playlist"
-              />
-            </GridTile>
-          </a>
-        ))
-      )}
-    </GridList>
-  </div>
-)
-
 Playlists.propTypes = {
-  playlists: PropTypes.array.isRequired
+  playlists: PropTypes.object.isRequired,
+  fetchPlaylists: PropTypes.func.isRequired
 }
 
 export default Playlists
