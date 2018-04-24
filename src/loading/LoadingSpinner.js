@@ -1,10 +1,10 @@
 import React from 'react'
-import CircularProgress from 'material-ui/CircularProgress'
+import CircularProgress from 'material-ui/Progress/CircularProgress';
 import './LoadingSpinner.css'
 
 const LoadingSpinner = () => (
-  <div>
-    <CircularProgress size={400} thickness={5} />
+  <div className="LoadingSpinner">
+    <CircularProgress size={400} thickness={7} />
   </div>
 )
 

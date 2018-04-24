@@ -1,28 +1,23 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { CookiesProvider } from 'react-cookie'
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { Provider } from 'react-redux'
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import Routes from './routes'
-import './App.css'
+import CssBaseline from 'material-ui/CssBaseline'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-injectTapEventPlugin();
+import theme from './theme'
 
 class App extends Component {
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-        <CookiesProvider>
-          <div className="App">
-            <Provider store={this.props.store}>
-              <Routes history={this.props.history} />
-            </Provider>
-          </div>
-        </CookiesProvider>
-      </MuiThemeProvider>
+      <React.Fragment>
+        <CssBaseline />
+        <MuiThemeProvider theme={theme}>
+          <Provider store={this.props.store}>
+            <Routes history={this.props.history} />
+          </Provider>
+        </MuiThemeProvider>
+      </React.Fragment>
     )
   }
 }
