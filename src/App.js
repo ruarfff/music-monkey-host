@@ -5,8 +5,11 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { Provider } from 'react-redux'
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import Routes from './routes'
 import './App.css'
+
+injectTapEventPlugin();
 
 class App extends Component {
   render() {

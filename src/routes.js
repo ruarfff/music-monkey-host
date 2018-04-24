@@ -8,7 +8,6 @@ import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper'
 import Callback from './auth/Callback'
 import Login from './auth/LoginContainer'
 import Home from './home/HomeContainer'
-import Loading from './loading/LoadingSpinner'
 
 const locationHelper = locationHelperBuilder({})
 
@@ -23,9 +22,7 @@ const userIsNotAuthenticated = connectedRouterRedirect({
 const userIsAuthenticated = connectedRouterRedirect({
   redirectPath: '/login',
   authenticatedSelector: state => state.auth.isAuthenticated,
-  authenticatingSelector: state => state.auth.isAuthenticating,
   redirectAction: routerActions.replace,
-  AuthenticatingComponent: Loading,
   wrapperDisplayName: 'UserIsAuthenticated'
 })
 

@@ -1,24 +1,11 @@
-import React from 'react';
-import RefreshIndicator from 'material-ui/RefreshIndicator';
-
-const style = {
-  container: {
-    position: 'relative',
-  },
-  refresh: {
-    display: 'inline-block',
-    position: 'relative',
-  },
-};
+import React from 'react'
+import CircularProgress from 'material-ui/CircularProgress'
+import './LoadingSpinner.css'
 
 const LoadingSpinner = () => (
-  <div style={style.container}>
-    <RefreshIndicator
-      size={200}
-      status="loading"
-      style={style.refresh}
-    />
+  <div>
+    <CircularProgress size={400} thickness={5} />
   </div>
-);
+)
 
-export default LoadingSpinner;
+export default LoadingSpinner

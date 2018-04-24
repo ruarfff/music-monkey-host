@@ -1,28 +1,32 @@
-/**import {take, put, call, fork, cancel} from 'redux-saga/effects';
+import { take, put, call, fork, cancel } from 'redux-saga/effects'
 import SpotifyWebApi from 'spotify-web-api-js'
 
-const getUser = () => {
-    const self = this
-    const { cookies } = this.props
-    const token = cookies.get('access_token')
-    const refreshToken = cookies.get('refresh_token')
+import localStorage from '../storage/localStorage'
+import { accessTokenKey } from '../auth/authConstants'
+import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_USER_ERROR } from './userActions'
 
-    if (token) {
-      const spotifyApi = new SpotifyWebApi()
-      spotifyApi.setAccessToken(token)
+function fetchUser() {
+  const token = localStorage.get(accessTokenKey)
 
-      spotifyApi.getMe().then(
-        function(data) {
-          self.getUsersPlaylists(data)
-        },
-        function(err) {
-          if (err.status === 401) {
-            self.refreshAuth(refreshToken)
-          }
-          console.error(err)
-        }
-      )
-    }
+  const spotifyApi = new SpotifyWebApi()
+  spotifyApi.setAccessToken(token)
+  return spotifyApi.getMe()
+}
+
+function* fetchUserFlow() {
+  try {
+    const user = yield call(fetchUser)
+    yield put({ type: FETCH_USER_SUCCESS, payload: user })
+  } catch (error) {
+    yield put({ type: FETCH_USER_ERROR, payload: error })
   }
+}
 
-*/
+export function* watchFetchUser() {
+  while (true) {
+    yield take(FETCH_USER)
+    const task = yield fork(fetchUserFlow)
+    const action = yield take([FETCH_USER_ERROR])
+    if (action.type === FETCH_USER_ERROR) yield cancel(task)
+  }
+}

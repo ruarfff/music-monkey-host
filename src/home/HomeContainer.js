@@ -1,13 +1,13 @@
-import {connect} from 'react-redux';
-import Home from './Home';
+import { connect } from 'react-redux'
+import { fetchUser } from '../user/userActions'
+import Home from './Home'
 
-const mapStateToProps =(state) => ({auth: state.auth});
+const mapStateToProps = state => ({ auth: state.auth, user: state.user })
 
-const mapDispatchToProps = ({});
+const mapDispatchToProps = {
+  fetchUser
+}
 
-const HomeContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+const HomeContainer = connect(mapStateToProps, mapDispatchToProps)(Home)
 
-export default HomeContainer;
+export default HomeContainer

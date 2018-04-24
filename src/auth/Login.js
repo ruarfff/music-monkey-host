@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import logo from './spotify-login.svg'
 import localStorage from '../storage/localStorage'
 import { refreshTokenKey } from './authConstants'
+import LoadingSpinner from '../loading/LoadingSpinner'
 import './Login.css'
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
@@ -16,6 +17,9 @@ class Login extends Component {
   }
 
   render() {
+    if(this.props.auth.isAuthenticating) {
+      return <LoadingSpinner />
+    }
     return (
       <div>
         <div className="Login-header">
@@ -30,7 +34,8 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
 }
 
 export default Login
