@@ -1,11 +1,13 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { shallow } from 'enzyme'
 import Home from './Home'
 
-describe('Home component', () => {
-  xit('renders without crashing', () => {
-    const div = document.createElement('div')
-    ReactDOM.render(<Home />, div)
-    ReactDOM.unmountComponentAtNode(div)
+describe('<Home />', () => {
+  it('should render without crashing', () => {
+    const fetchUser = () => {}
+    const user = {}
+    const wrapper = shallow(<Home fetchUser={fetchUser} user={user} />)
+
+    expect(wrapper).toBeTruthy()
   })
 })

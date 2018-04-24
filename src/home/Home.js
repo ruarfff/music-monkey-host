@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import Playlists from '../playlists/PlaylistContainer'
 import MainAppBar from '../appbar/MainAppBar'
+import Events from '../events/Events'
 import './Home.css'
 
 class Home extends Component {
@@ -23,6 +24,7 @@ class Home extends Component {
       return (
         <div>
           <MainAppBar user={this.props.user.data} />
+          <Events />
           <Playlists />
         </div>
       )
