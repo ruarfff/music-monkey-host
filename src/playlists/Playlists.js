@@ -47,7 +47,7 @@ class Playlists extends Component {
       ))
     }
 
-    return <div>{playlistView}</div>
+    return <div className="Playlist-list">{playlistView}</div>
   }
 }
 
