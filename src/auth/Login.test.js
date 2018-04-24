@@ -1,9 +1,14 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { shallow } from 'enzyme'
 import Login from './Login'
 
-xit('renders without crashing', () => {
-  const div = document.createElement('div')
-  ReactDOM.render(<Login auth={{}} />, div)
-  ReactDOM.unmountComponentAtNode(div)
+describe('<Login />', () => {
+  it('should render without crashing', () => {
+    const auth = {}
+    const login = () => {}
+    const wrapper = shallow(<Login auth={auth} login={login} />)
+
+    expect(wrapper).toBeTruthy()
+  })
 })
+

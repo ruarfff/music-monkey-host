@@ -1,11 +1,12 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import MainAppBar from './MainAppBar'
+import Login from './Login'
 
-describe('MainAppBar Snapshot', () => {
+describe('Login Snapshot', () => {
   it('has not changed unexpectedly', () => {
-    const user = {}
-    const component = renderer.create(<MainAppBar user={user} />)
+    const auth = {}
+    const login = () => {}
+    const component = renderer.create(<Login auth={auth} login={login} />)
     let tree = component.toJSON()
     expect(tree).toMatchSnapshot()
   })

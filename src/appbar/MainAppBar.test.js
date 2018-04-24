@@ -5,8 +5,8 @@ import MainAppBar from './MainAppBar'
 describe('<MainAppBar />', () => {
   it('should render without crashing', () => {
     const user = {}
-    const mainAppBar = shallow(<MainAppBar user={user} />)
+    const wrapper = shallow(<MainAppBar user={user} />)
 
-    expect(mainAppBar).toBeTruthy()
+    expect(wrapper).toBeTruthy()
   })
 })

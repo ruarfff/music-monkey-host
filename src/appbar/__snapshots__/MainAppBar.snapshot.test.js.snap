@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Something 1`] = `
+exports[`MainAppBar Snapshot has not changed unexpectedly 1`] = `
 <div
   className="MainAppBar-root-1"
 >

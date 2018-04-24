@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import logo from './spotify-login.svg'
-import localStorage from '../storage/localStorage'
-import { refreshTokenKey } from './authConstants'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import './Login.css'
 
@@ -11,9 +9,7 @@ const redirectToUrl = process.env.REACT_APP_REDIRECT_URL
 
 class Login extends Component {
   componentDidMount() {
-    if (localStorage.get(refreshTokenKey)) {
-      this.props.login()
-    }
+    this.props.login()
   }
 
   render() {
