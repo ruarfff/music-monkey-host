@@ -24,7 +24,7 @@ class Playlists extends Component {
     if (this.props.playlists.data) {
       playlists = this.props.playlists.data.items
       playlistView = playlists.map((playlist, i) => (
-        <Paper style={style} zDepth={3} key={i}>
+        <Paper style={style} elevation={4} key={i}>
           <div className="Playist-card">
             <div>
               <a href={playlist.external_urls.spotify} target="_blank">
