@@ -42,7 +42,7 @@ function* authorize() {
     yield call(login)
     yield put({ type: LOGIN_SUCCESS })
   } catch (error) {
-    yield put({ type: LOGIN_FAILURE, error })
+    yield put({ type: LOGIN_FAILURE, payload: error })
   }
 }
 
