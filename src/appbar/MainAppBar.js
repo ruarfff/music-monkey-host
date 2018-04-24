@@ -6,7 +6,8 @@ import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
 import Menu, { MenuItem } from 'material-ui/Menu'
-import Avatar from 'material-ui/Avatar';
+import Avatar from 'material-ui/Avatar'
+import AccountCircle from '@material-ui/icons/AccountCircle'
 
 const styles = {
   root: {
@@ -38,6 +39,7 @@ class MainAppBar extends React.Component {
     const { classes, user } = this.props
     const { anchorEl } = this.state
     const open = Boolean(anchorEl)
+    const userHasProfileImage = user.images && user.images.length > 0
 
     return (
       <div className={classes.root}>
@@ -59,7 +61,11 @@ class MainAppBar extends React.Component {
                 onClick={this.handleMenu}
                 color="inherit"
               >
-                <Avatar alt="user profile" src={user.images[0].url} />
+                {userHasProfileImage ? (
+                  <Avatar alt="user profile" src={user.images[0].url} />
+                ) : (
+                  <AccountCircle />
+                )}
               </IconButton>
               <Menu
                 id="menu-appbar"
