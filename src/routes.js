@@ -8,7 +8,6 @@ import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper'
 import Callback from './auth/Callback'
 import Login from './auth/LoginContainer'
 import Home from './home/HomeContainer'
-import Events from './events/EventsContainer'
 import CreateEvent from './events/CreateEventContainer'
 import EventView from './events/EventView'
 
@@ -59,8 +58,7 @@ export const Routes = ({ history }) => (
     <div>
       <Route path="/callback" component={Callback} />
       <Route path="/login" component={userIsNotAuthenticated(Login)} />      
-      {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
-      <Route exact path="/" component={userIsAuthenticated(Events)}/>
+      {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}      
     </div>
   </ConnectedRouter>
 )
