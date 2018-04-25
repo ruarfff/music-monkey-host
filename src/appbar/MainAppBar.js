@@ -14,11 +14,10 @@ const styles = {
     flexGrow: 1
   },
   title: {
-    flex: 1
+    flex: 1    
   },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
+  profilePic: {
+    marginLeft: -50
   }
 }
 
@@ -41,6 +40,40 @@ class MainAppBar extends React.Component {
     const open = Boolean(anchorEl)
     const userHasProfileImage = user.images && user.images.length > 0
 
+    const profilePic = (
+      <div className={classes.profilePic}>
+        <IconButton
+          aria-owns={open ? 'menu-appbar' : null}
+          aria-haspopup="true"
+          onClick={this.handleMenu}
+          color="inherit"
+        >
+          {userHasProfileImage ? (
+            <Avatar alt="user profile" src={user.images[0].url} />
+          ) : (
+            <AccountCircle />
+          )}
+        </IconButton>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right'
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right'
+          }}
+          open={open}
+          onClose={this.handleClose}
+        >
+          <MenuItem onClick={this.handleClose}>My account</MenuItem>
+          <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+        </Menu>
+      </div>
+    )
+
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -53,38 +86,7 @@ class MainAppBar extends React.Component {
             >
               MusicMonkey
             </Typography>
-
-            <div>
-              <IconButton
-                aria-owns={open ? 'menu-appbar' : null}
-                aria-haspopup="true"
-                onClick={this.handleMenu}
-                color="inherit"
-              >
-                {userHasProfileImage ? (
-                  <Avatar alt="user profile" src={user.images[0].url} />
-                ) : (
-                  <AccountCircle />
-                )}
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right'
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right'
-                }}
-                open={open}
-                onClose={this.handleClose}
-              >
-                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                <MenuItem onClick={this.handleClose}>My account</MenuItem>
-              </Menu>
-            </div>
+            {profilePic}
           </Toolbar>
         </AppBar>
       </div>
