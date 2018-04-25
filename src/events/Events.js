@@ -11,7 +11,7 @@ class Events extends Component {
       <div className="Events">
         <div className="Events-no-events-message">
           <h3>
-            Looks like you have not createtd any events yet. Would you like to{' '}
+            Looks like you have not created any events yet. Would you like to{' '}
             <Link to="/create-event">Create One</Link>?
           </h3>
         </div>
