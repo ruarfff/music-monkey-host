@@ -129,9 +129,11 @@ class MainAppBar extends React.Component {
       >
         <Toolbar disableGutters={!sidebarIsOpen}>
           {menuButton}
+
           <Typography variant="title" color="inherit" className={classes.title}>
             MusicMonkey
           </Typography>
+
           {profilePic}
         </Toolbar>
       </AppBar>

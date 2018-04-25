@@ -8,8 +8,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import EventIcon from '@material-ui/icons/Event'
 import IconButton from 'material-ui/IconButton'
 import Divider from 'material-ui/Divider'
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
 import { drawerWidth } from './homeConstants'
+import Link from 'react-router-dom/Link'
 
 const styles = theme => ({
   menuButton: {
@@ -72,14 +73,15 @@ class Sidebar extends Component {
         </div>
         <Divider />
         <List>
-        <ListItem button>
-          <ListItemIcon>
-            <EventIcon />
-          </ListItemIcon>
-          <ListItemText primary="Events" />
-        </ListItem>
+          <Link to="/">
+            <ListItem button>
+              <ListItemIcon>
+                <EventIcon />
+              </ListItemIcon>
+              <ListItemText primary="Events" />
+            </ListItem>
+          </Link>
         </List>
-        
       </Drawer>
     )
   }
