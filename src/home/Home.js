@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { RouteWithSubRoutes } from '../routes'
 import LoadingSpinner from '../loading/LoadingSpinner'
-import Playlists from '../playlists/PlaylistContainer'
 import MainAppBar from '../appbar/MainAppBar'
-import Events from '../events/Events'
 import './Home.css'
 
 class Home extends Component {
@@ -24,8 +23,9 @@ class Home extends Component {
       return (
         <div>
           <MainAppBar user={this.props.user.data} />
-          <Events />
-          <Playlists />
+          {this.props.routes.map((route, i) => (
+            <RouteWithSubRoutes key={i} {...route} />
+          ))}
         </div>
       )
     } else {
@@ -36,7 +36,8 @@ class Home extends Component {
 
 Home.propTypes = {
   fetchUser: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  routes: PropTypes.array.isRequired
 }
 
 export default Home

@@ -6,7 +6,10 @@ describe('<Home />', () => {
   it('should render without crashing', () => {
     const fetchUser = () => {}
     const user = {}
-    const wrapper = shallow(<Home fetchUser={fetchUser} user={user} />)
+    const routes = []
+    const wrapper = shallow(
+      <Home fetchUser={fetchUser} user={user} routes={routes} />
+    )
 
     expect(wrapper).toBeTruthy()
   })

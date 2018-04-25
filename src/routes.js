@@ -8,6 +8,9 @@ import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper'
 import Callback from './auth/Callback'
 import Login from './auth/LoginContainer'
 import Home from './home/HomeContainer'
+import Events from './events/EventsContainer'
+import CreateEvent from './events/CreateEventContainer'
+import EventView from './events/EventView'
 
 const locationHelper = locationHelperBuilder({})
 
@@ -26,23 +29,38 @@ const userIsAuthenticated = connectedRouterRedirect({
   wrapperDisplayName: 'UserIsAuthenticated'
 })
 
-const routes = []
+const routes = [
+  {
+    path: '/',
+    component: userIsAuthenticated(Home),
+    routes: [
+      {
+        path: '/create-event',
+        component: CreateEvent,
+        exact: true
+      },
+      {
+        path: '/event-view',
+        component: EventView
+      }
+    ]
+  }
+]
 
-const RouteWithSubRoutes = route => (
+export const RouteWithSubRoutes = route => (
   <Route
     path={route.path}
     render={props => <route.component {...props} routes={route.routes} />}
   />
 )
 
-const Routes = ({ history }) => (
+export const Routes = ({ history }) => (
   <ConnectedRouter history={history}>
     <div>
-      <Route exact path="/" component={userIsAuthenticated(Home)} />
       <Route path="/callback" component={Callback} />
-      <Route path="/login" component={userIsNotAuthenticated(Login)} />
-      <Route exact path="/create-event" component={userIsAuthenticated(Home)} />
+      <Route path="/login" component={userIsNotAuthenticated(Login)} />      
       {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
+      <Route exact path="/" component={userIsAuthenticated(Events)}/>
     </div>
   </ConnectedRouter>
 )
@@ -50,5 +68,3 @@ const Routes = ({ history }) => (
 Routes.propTypes = {
   history: PropTypes.object.isRequired
 }
-
-export default Routes

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
-import Routes from './routes'
+import { Routes } from './routes'
 import CssBaseline from 'material-ui/CssBaseline'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 

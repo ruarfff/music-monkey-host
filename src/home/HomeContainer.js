@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import {withRouter} from 'react-router'
 import { fetchUser } from '../user/userActions'
 import Home from './Home'
 
@@ -8,6 +9,6 @@ const mapDispatchToProps = {
   fetchUser
 }
 
-const HomeContainer = connect(mapStateToProps, mapDispatchToProps)(Home)
+const HomeContainer = withRouter(connect(mapStateToProps, mapDispatchToProps)(Home))
 
 export default HomeContainer

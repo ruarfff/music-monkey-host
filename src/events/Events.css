@@ -1,0 +1,12 @@
+.Events {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 4em;
+}
+
+.Events-no-events-message {
+  text-align: center;
+}
