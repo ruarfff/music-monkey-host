@@ -41,6 +41,7 @@ const Routes = ({ history }) => (
       <Route exact path="/" component={userIsAuthenticated(Home)} />
       <Route path="/callback" component={Callback} />
       <Route path="/login" component={userIsNotAuthenticated(Login)} />
+      <Route exact path="/create-event" component={userIsAuthenticated(Home)} />
       {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
     </div>
   </ConnectedRouter>

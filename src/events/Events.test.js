@@ -9,4 +9,3 @@ describe('<Events />', () => {
     expect(wrapper).toBeTruthy()
   })
 })
-

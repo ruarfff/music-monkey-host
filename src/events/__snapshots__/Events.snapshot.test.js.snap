@@ -22,19 +22,24 @@ exports[`Events Snapshot has not changed unexpectedly 1`] = `
     <span
       className="MuiButton-label-2"
     >
-      <svg
-        aria-hidden="true"
-        className="MuiSvgIcon-root-18"
-        color={undefined}
-        focusable="false"
-        viewBox="0 0 24 24"
+      <a
+        href="/create-event"
+        onClick={[Function]}
       >
-        <g>
-          <path
-            d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
-          />
-        </g>
-      </svg>
+        <svg
+          aria-hidden="true"
+          className="MuiSvgIcon-root-18"
+          color={undefined}
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <g>
+            <path
+              d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+            />
+          </g>
+        </svg>
+      </a>
     </span>
     <span
       className="MuiTouchRipple-root-24"

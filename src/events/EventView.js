@@ -4,10 +4,7 @@ import './EventView.css'
 
 class EventView extends Component {
   render() {
-    return (
-      <div>
-      </div>
-    )
+    return <div />
   }
 }
 
