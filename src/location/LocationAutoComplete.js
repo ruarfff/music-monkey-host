@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import PlacesAutocomplete from 'react-places-autocomplete'
 import match from 'autosuggest-highlight/match'
 import parse from 'autosuggest-highlight/parse'
-import TextField from 'material-ui/TextField'
 import Paper from 'material-ui/Paper'
 import { MenuItem } from 'material-ui/Menu'
 import Input, { InputLabel } from 'material-ui/Input'
@@ -31,7 +30,6 @@ const styles = theme => ({
 })
 
 function renderInput(inputProps) {
-  console.log(inputProps)
   return (
     <FormGroup row>
       <FormControl className={inputProps.formClass}>
@@ -39,6 +37,8 @@ function renderInput(inputProps) {
         <Input
           id="ce-l"
           onChange={inputProps.onChange}
+          onBlur={inputProps.onBlur}
+          onKeyDown={inputProps.onKeyDown}
           placeholder={inputProps.plpaceholder}
         />
       </FormControl>
@@ -46,10 +46,13 @@ function renderInput(inputProps) {
   )
 }
 
-function renderSuggestion(suggestion, { query, className }) {
+function renderSuggestion(
+  suggestion,
+  { query, className, getSuggestionItemProps }
+) {
   const matches = match(suggestion.description, query)
   const parts = parse(suggestion.description, matches)
-
+  const itemProps = getSuggestionItemProps(suggestion)
   return (
     <MenuItem
       className={className}
@@ -57,7 +60,7 @@ function renderSuggestion(suggestion, { query, className }) {
       component="div"
       key={suggestion.id}
     >
-      <div>
+      <div {...itemProps}>
         {parts.map((part, index) => {
           return part.highlight ? (
             <span key={String(index)} style={{ fontWeight: 300 }}>
@@ -93,7 +96,7 @@ const LocationAutoComplete = ({
 }) => (
   <div className={classes.container}>
     <PlacesAutocomplete onChange={onChange} onSelect={onSelect} value={value}>
-      {({ getInputProps, suggestions }) => (
+      {({ getInputProps, suggestions, getSuggestionItemProps }) => (
         <div>
           {renderInput({
             ...getInputProps({
@@ -101,11 +104,15 @@ const LocationAutoComplete = ({
               formClass
             })
           })}
+
           {renderSuggestionsContainer({
-            children: suggestions.map(renderSuggestion, {
-              query: value,
-              className: classes.suggestion
-            }),
+            children: suggestions.map(suggestion =>
+              renderSuggestion(suggestion, {
+                query: value,
+                className: classes.suggestion,
+                getSuggestionItemProps
+              })
+            ),
             className: classes.suggestionsContainerOpen
           })}
         </div>
@@ -115,6 +122,7 @@ const LocationAutoComplete = ({
 )
 
 LocationAutoComplete.propTypes = {
+  formClass: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   onSelect: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -123,3 +131,12 @@ LocationAutoComplete.propTypes = {
 }
 
 export default withStyles(styles)(LocationAutoComplete)
+
+/**
+ * 
+ *           
+
+ * 
+ * 
+ * 
+ */
