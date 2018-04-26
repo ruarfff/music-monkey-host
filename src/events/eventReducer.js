@@ -1,6 +1,7 @@
 import {
   EVENT_LOCATION_CHANGED,
-  EVENT_LOCATION_POPULATED
+  EVENT_LOCATION_POPULATED,
+  EVENT_CONTENT_UPDATED
 } from './eventActions'
 import initialState from './eventInitialState'
 
@@ -20,6 +21,14 @@ export default function events(state = initialState, { type, payload }) {
         savingEvent: {
           ...state.savingEvent,
           location: { ...state.savingEvent.location, ...payload }
+        }
+      }
+    case EVENT_CONTENT_UPDATED:
+      return {
+        ...state,
+        savingEvent: {
+          ...state.savingEvent,
+          ...payload
         }
       }
     default:
