@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { locationChanged, locationSelected } from './eventActions'
 import CreateEvent from './CreateEvent'
 
-const mapStateToProps = state => ({ event: state.events.savingEvent })
+const mapStateToProps = state => ({ events: state.events })
 
 const mapDispatchToProps = {
   locationChanged,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import { FormGroup, FormControl } from 'material-ui/Form'
@@ -19,124 +19,118 @@ const styles = theme => ({
   }
 })
 
-class CreateEvent extends Component {
-  render() {
-    const { event, classes, locationChanged, locationSelected } = this.props
+const CreateEvent = ({ events, classes, locationChanged, locationSelected }) => (
+  <form className={classes.root} noValidate autoComplete="off">
+    <Grid
+      container
+      spacing={24}
+      justify="center"
+      alignItems="center"
+      direction="row"
+    >
+      <Grid item xs={12} sm={6}>
+        <FormGroup row>
+          <FormControl className={classes.formItem}>
+            <InputLabel htmlFor="ce-event-name">Event Name</InputLabel>
+            <Input id="ce-event-name" onChange={() => {}} />
+          </FormControl>
+        </FormGroup>
+      </Grid>
 
-    return (
-      <form className={classes.root} noValidate autoComplete="off">
-        <Grid
-          container
-          spacing={24}
-          justify="center"
-          alignItems="center"
-          direction="row"
-        >
-          <Grid item xs={12} sm={6}>
-            <FormGroup row>
-              <FormControl className={classes.formItem}>
-                <InputLabel htmlFor="ce-event-name">Event Name</InputLabel>
-                <Input id="ce-event-name" onChange={() => {}} />
-              </FormControl>
-            </FormGroup>
-          </Grid>
+      <Grid item xs={12} sm={6}>
+        <FormGroup row>
+          <FormControl className={classes.formItem}>
+            <InputLabel htmlFor="ce-organizer">Organizer</InputLabel>
+            <Input id="ce-organizer" onChange={() => {}} />
+          </FormControl>
+        </FormGroup>
+      </Grid>
 
-          <Grid item xs={12} sm={6}>
-            <FormGroup row>
-              <FormControl className={classes.formItem}>
-                <InputLabel htmlFor="ce-organizer">Organizer</InputLabel>
-                <Input id="ce-organizer" onChange={() => {}} />
-              </FormControl>
-            </FormGroup>
-          </Grid>
+      <Grid item xs={12} sm={6}>
+        <FileUpload />
+      </Grid>
 
-          <Grid item xs={12} sm={6}>
-            <FileUpload />
-          </Grid>
+      <Grid item xs={12} sm={6}>
+        <FormGroup row>
+          <FormControl className={classes.formItem}>
+            <InputLabel htmlFor="ce-description">Description</InputLabel>
+            <Input id="ce-description" onChange={() => {}} />
+          </FormControl>
+        </FormGroup>
+      </Grid>
 
-          <Grid item xs={12} sm={6}>
-            <FormGroup row>
-              <FormControl className={classes.formItem}>
-                <InputLabel htmlFor="ce-description">Description</InputLabel>
-                <Input id="ce-description" onChange={() => {}} />
-              </FormControl>
-            </FormGroup>
-          </Grid>
+      <Grid item xs={12} sm={6}>
+        <FormGroup row>
+          <FormControl className={classes.formItem}>
+            <InputLabel htmlFor="ce-venue">Venue</InputLabel>
+            <Input id="ce-venue" onChange={() => {}} />
+          </FormControl>
+        </FormGroup>
+      </Grid>
 
-          <Grid item xs={12} sm={6}>
-            <FormGroup row>
-              <FormControl className={classes.formItem}>
-                <InputLabel htmlFor="ce-venue">Venue</InputLabel>
-                <Input id="ce-venue" onChange={() => {}} />
-              </FormControl>
-            </FormGroup>
-          </Grid>
+      <Grid item xs={12} sm={6}>
+        <LocationAutoComplete
+          value={events.savingEvent.location.address}
+          onSelect={locationSelected}
+          onChange={locationChanged}
+          placeholder="Search for place"
+          formClass={classes.formItem}
+        />
+      </Grid>
 
-          <Grid item xs={12} sm={6}>
-            <LocationAutoComplete
-              value={event.location.address}
-              onSelect={locationSelected}
-              onChange={locationChanged}
-              placeholder="Search for place"
-              formClass={classes.formItem}
+      <Grid item xs={12} sm={6}>
+        <FormGroup row>
+          <FormControl className={classes.formItem}>
+            <DateTimePicker
+              id="ce-start-datetime"
+              disablePast
+              autoOk
+              ampm={false}
+              onChange={() => {}}
+              label="Starting At"
             />
-          </Grid>
+          </FormControl>
+        </FormGroup>
+      </Grid>
 
-          <Grid item xs={12} sm={6}>
-            <FormGroup row>
-              <FormControl className={classes.formItem}>
-                <DateTimePicker
-                  id="ce-start-datetime"
-                  disablePast
-                  autoOk
-                  ampm={false}
-                  onChange={() => {}}
-                  label="Starting At"
-                />
-              </FormControl>
-            </FormGroup>
-          </Grid>
+      <Grid item xs={12} sm={6}>
+        <FormGroup row>
+          <FormControl className={classes.formItem}>
+            <DateTimePicker
+              id="ce-end-datetime"
+              disablePast
+              autoOk
+              ampm={false}
+              onChange={() => {}}
+              label="Finishing At"
+            />
+          </FormControl>
+        </FormGroup>
+      </Grid>
 
-          <Grid item xs={12} sm={6}>
-            <FormGroup row>
-              <FormControl className={classes.formItem}>
-                <DateTimePicker
-                  id="ce-end-datetime"
-                  disablePast
-                  autoOk
-                  ampm={false}
-                  onChange={() => {}}
-                  label="Finishing At"
-                />
-              </FormControl>
-            </FormGroup>
-          </Grid>
+      <Grid item xs={12} sm={6}>
+        <FormGroup row>
+          <FormControl className={classes.formItem}>
+            <InputLabel htmlFor="ce-eventcode">Event Code</InputLabel>
+            <Input id="ce-eventcode" onChange={() => {}} />
+          </FormControl>
+        </FormGroup>
+      </Grid>
 
-          <Grid item xs={12} sm={6}>
-            <FormGroup row>
-              <FormControl className={classes.formItem}>
-                <InputLabel htmlFor="ce-eventcode">Event Code</InputLabel>
-                <Input id="ce-eventcode" onChange={() => {}} />
-              </FormControl>
-            </FormGroup>
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <FormGroup row>
-              <FormControl className={classes.formItem}>
-                <InputLabel htmlFor="ce-playlist">Playlist</InputLabel>
-                <Input id="ce-playlist" onChange={() => {}} />
-              </FormControl>
-            </FormGroup>
-          </Grid>
-        </Grid>
-      </form>
-    )
-  }
-}
+      <Grid item xs={12} sm={6}>
+        <FormGroup row>
+          <FormControl className={classes.formItem}>
+            <InputLabel htmlFor="ce-playlist">Playlist</InputLabel>
+            <Input id="ce-playlist" onChange={() => {}} />
+          </FormControl>
+        </FormGroup>
+      </Grid>
+    </Grid>
+  </form>
+)
 
 CreateEvent.propTypes = {
-  event: PropTypes.object.isRequired,
+  events: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   locationChanged: PropTypes.func.isRequired,
   locationSelected: PropTypes.func.isRequired

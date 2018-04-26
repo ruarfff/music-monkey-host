@@ -19,7 +19,7 @@ export default function events(state = initialState, { type, payload }) {
         ...state,
         savingEvent: {
           ...state.savingEvent,
-          location: { ...payload }
+          location: { ...state.savingEvent.location, ...payload }
         }
       }
     default:

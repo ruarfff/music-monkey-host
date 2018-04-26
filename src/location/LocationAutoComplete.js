@@ -39,7 +39,8 @@ function renderInput(inputProps) {
           onChange={inputProps.onChange}
           onBlur={inputProps.onBlur}
           onKeyDown={inputProps.onKeyDown}
-          placeholder={inputProps.plpaceholder}
+          placeholder={inputProps.placeholder}
+          value={inputProps.value}
         />
       </FormControl>
     </FormGroup>
@@ -131,12 +132,3 @@ LocationAutoComplete.propTypes = {
 }
 
 export default withStyles(styles)(LocationAutoComplete)
-
-/**
- * 
- *           
-
- * 
- * 
- * 
- */
