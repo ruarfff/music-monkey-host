@@ -1,12 +1,18 @@
 export const EVENT_LOCATION_CHANGED = 'EVENT_LOCATION_CHANGED'
 export const EVENT_LOCATION_SELECTED = 'EVENT_LOCATION_SELECTED'
+export const EVENT_LOCATION_POPULATED = 'EVENT_LOCATION_POPULATED'
 
-export const locationChanged = location => ({
+export const locationChanged = address => ({
   type: EVENT_LOCATION_CHANGED,
-  payload: location
+  payload: address
 })
 
-export const locationSelected = location => ({
+export const locationSelected = address => ({
   type: EVENT_LOCATION_SELECTED,
-  payload: location
+  payload: address
+})
+
+export const locationPopulated = location => ({
+    type: EVENT_LOCATION_POPULATED,
+    payload: location
 })
