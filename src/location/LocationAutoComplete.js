@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import PlacesAutocomplete from 'react-places-autocomplete'
 
-const LocationAutoComplete = ({ onChange, onSelect, placeholder }) => (
-  <PlacesAutocomplete onChange={onChange} onSelect={onSelect}>
+const LocationAutoComplete = ({ onChange, onSelect, placeholder, value }) => (
+  <PlacesAutocomplete onChange={onChange} onSelect={onSelect} value={value}>
     {({ getInputProps, suggestions, getSuggestionItemProps }) => (
       <div>
         <input
@@ -40,7 +40,9 @@ const LocationAutoComplete = ({ onChange, onSelect, placeholder }) => (
 
 LocationAutoComplete.propTypes = {
   onSelect: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired
 }
 
 export default LocationAutoComplete

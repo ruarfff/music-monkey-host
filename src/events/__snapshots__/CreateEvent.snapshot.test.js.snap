@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`CreateEvent Snapshot has not changed unexpectedly 1`] = `
-<div>
-  Create Event!
-</div>
-`;
