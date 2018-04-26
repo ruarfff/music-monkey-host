@@ -77,7 +77,8 @@ class CreateEvent extends Component {
               value={event.location.address}
               onSelect={locationSelected}
               onChange={locationChanged}
-              placeholder="Location"
+              placeholder="Search for place"
+              formClass={classes.formItem}
             />
           </Grid>
 
