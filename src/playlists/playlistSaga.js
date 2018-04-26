@@ -1,4 +1,4 @@
-import { take, put, call, fork, cancel } from 'redux-saga/effects'
+import { put, call, takeEvery } from 'redux-saga/effects'
 import SpotifyWebApi from 'spotify-web-api-js'
 
 import localStorage from '../storage/localStorage'
@@ -27,10 +27,5 @@ function* fetchPlaylistsFlow() {
 }
 
 export function* watchFetchPlaylists() {
-  while (true) {
-    yield take(FETCH_PLAYLISTS)
-    const task = yield fork(fetchPlaylistsFlow)
-    const action = yield take([FETCH_PLAYLISTS_ERROR])
-    if (action.type === FETCH_PLAYLISTS_ERROR) yield cancel(task)
-  }
+  yield takeEvery(FETCH_PLAYLISTS, fetchPlaylistsFlow)
 }
