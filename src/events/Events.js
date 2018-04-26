@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 import './Events.css'
 
 class Events extends Component {
+  componentDidCatch(error, info) {}
+
   render() {
     return (
       <div className="Events">

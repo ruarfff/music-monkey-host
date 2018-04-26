@@ -19,7 +19,13 @@ const styles = theme => ({
   }
 })
 
-const CreateEvent = ({ events, classes, locationChanged, locationSelected }) => (
+const CreateEvent = ({
+  events,
+  classes,
+  locationChanged,
+  locationSelected,
+  eventContentUpdated
+}) => (
   <form className={classes.root} noValidate autoComplete="off">
     <Grid
       container
@@ -32,7 +38,12 @@ const CreateEvent = ({ events, classes, locationChanged, locationSelected }) => 
         <FormGroup row>
           <FormControl className={classes.formItem}>
             <InputLabel htmlFor="ce-event-name">Event Name</InputLabel>
-            <Input id="ce-event-name" onChange={() => {}} />
+            <Input
+              id="ce-event-name"
+              onChange={event =>
+                eventContentUpdated({ name: event.target.value })
+              }
+            />
           </FormControl>
         </FormGroup>
       </Grid>
@@ -41,7 +52,12 @@ const CreateEvent = ({ events, classes, locationChanged, locationSelected }) => 
         <FormGroup row>
           <FormControl className={classes.formItem}>
             <InputLabel htmlFor="ce-organizer">Organizer</InputLabel>
-            <Input id="ce-organizer" onChange={() => {}} />
+            <Input
+              id="ce-organizer"
+              onChange={event =>
+                eventContentUpdated({ organizer: event.target.value })
+              }
+            />
           </FormControl>
         </FormGroup>
       </Grid>
@@ -54,7 +70,12 @@ const CreateEvent = ({ events, classes, locationChanged, locationSelected }) => 
         <FormGroup row>
           <FormControl className={classes.formItem}>
             <InputLabel htmlFor="ce-description">Description</InputLabel>
-            <Input id="ce-description" onChange={() => {}} />
+            <Input
+              id="ce-description"
+              onChange={event =>
+                eventContentUpdated({ description: event.target.value })
+              }
+            />
           </FormControl>
         </FormGroup>
       </Grid>
@@ -63,7 +84,12 @@ const CreateEvent = ({ events, classes, locationChanged, locationSelected }) => 
         <FormGroup row>
           <FormControl className={classes.formItem}>
             <InputLabel htmlFor="ce-venue">Venue</InputLabel>
-            <Input id="ce-venue" onChange={() => {}} />
+            <Input
+              id="ce-venue"
+              onChange={event =>
+                eventContentUpdated({ vanue: event.target.value })
+              }
+            />
           </FormControl>
         </FormGroup>
       </Grid>
@@ -86,7 +112,7 @@ const CreateEvent = ({ events, classes, locationChanged, locationSelected }) => 
               disablePast
               autoOk
               ampm={false}
-              onChange={() => {}}
+              onChange={value => eventContentUpdated({ startDateTime: value })}
               label="Starting At"
             />
           </FormControl>
@@ -101,7 +127,7 @@ const CreateEvent = ({ events, classes, locationChanged, locationSelected }) => 
               disablePast
               autoOk
               ampm={false}
-              onChange={() => {}}
+              onChange={value => eventContentUpdated({ endDateTime: value })}
               label="Finishing At"
             />
           </FormControl>
@@ -112,7 +138,12 @@ const CreateEvent = ({ events, classes, locationChanged, locationSelected }) => 
         <FormGroup row>
           <FormControl className={classes.formItem}>
             <InputLabel htmlFor="ce-eventcode">Event Code</InputLabel>
-            <Input id="ce-eventcode" onChange={() => {}} />
+            <Input
+              id="ce-eventcode"
+              onChange={event =>
+                eventContentUpdated({ eventCode: event.target.value })
+              }
+            />
           </FormControl>
         </FormGroup>
       </Grid>
@@ -121,7 +152,12 @@ const CreateEvent = ({ events, classes, locationChanged, locationSelected }) => 
         <FormGroup row>
           <FormControl className={classes.formItem}>
             <InputLabel htmlFor="ce-playlist">Playlist</InputLabel>
-            <Input id="ce-playlist" onChange={() => {}} />
+            <Input
+              id="ce-playlist"
+              onChange={event =>
+                eventContentUpdated({ playlist: event.target.value })
+              }
+            />
           </FormControl>
         </FormGroup>
       </Grid>
@@ -133,7 +169,8 @@ CreateEvent.propTypes = {
   events: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   locationChanged: PropTypes.func.isRequired,
-  locationSelected: PropTypes.func.isRequired
+  locationSelected: PropTypes.func.isRequired,
+  eventContentUpdated: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(CreateEvent)
