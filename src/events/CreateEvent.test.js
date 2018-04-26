@@ -4,9 +4,17 @@ import CreateEvent from './CreateEvent'
 
 describe('<CreateEvent />', () => {
   it('should render without crashing', () => {
-    const wrapper = shallow(<CreateEvent />)
+    const event = {}
+    const locationChanged = () => {}
+    const locationSelected = () => {}
+    const wrapper = shallow(
+      <CreateEvent
+        event={event}
+        locationChanged={locationChanged}
+        locationSelected={locationSelected}
+      />
+    )
 
     expect(wrapper).toBeTruthy()
   })
 })
-

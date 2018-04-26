@@ -21,7 +21,7 @@ const styles = theme => ({
 
 class CreateEvent extends Component {
   render() {
-    const { classes } = this.props
+    const { event, classes, locationChanged, locationSelected } = this.props
 
     return (
       <form className={classes.root} noValidate autoComplete="off">
@@ -74,9 +74,9 @@ class CreateEvent extends Component {
 
           <Grid item xs={12} sm={6}>
             <LocationAutoComplete
-              value=""
-              onSelect={() => {}}
-              onChange={() => {}}
+              value={event.location.address}
+              onSelect={locationSelected}
+              onChange={locationChanged}
               placeholder="Location"
             />
           </Grid>
@@ -135,7 +135,10 @@ class CreateEvent extends Component {
 }
 
 CreateEvent.propTypes = {
-  classes: PropTypes.object.isRequired
+  event: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+  locationChanged: PropTypes.func.isRequired,
+  locationSelected: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(CreateEvent)

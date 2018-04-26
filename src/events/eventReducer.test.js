@@ -8,18 +8,32 @@ describe('eventReducer', () => {
   })
 
   it('should handle EVENT_LOCATION_SELECTED', () => {
-    expect(events(initialState, { type: EVENT_LOCATION_SELECTED })).toEqual({
-      ...initialState
+    expect(
+      events(initialState, {
+        type: EVENT_LOCATION_SELECTED,
+        payload: { address: 'test-address', latLng: 'test-latlng' }
+      })
+    ).toEqual({
+      ...initialState,
+      savingEvent: {
+        ...initialState.savingEvent,
+        location: { address: 'test-address', latLng: 'test-latlng' }
+      }
     })
   })
 
   it('should handle EVENT_LOCATION_CHANGED', () => {
     expect(
       events(initialState, {
-        type: EVENT_LOCATION_CHANGED
+        type: EVENT_LOCATION_CHANGED,
+        payload: 'test'
       })
     ).toEqual({
-      ...initialState
+      ...initialState,
+      savingEvent: {
+        ...initialState.savingEvent,
+        location: { address: 'test', latLng: '' }
+      }
     })
   })
 })

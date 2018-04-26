@@ -1,5 +1,5 @@
 export default {
-  createEvent: {},
+  savingEvent: {location: {address: '', latLng: ''}},
   selectedEvent: {},
   events: []
 }

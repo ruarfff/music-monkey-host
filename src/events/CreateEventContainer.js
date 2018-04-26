@@ -1,10 +1,13 @@
 import { connect } from 'react-redux'
-
+import { locationChanged, locationSelected } from './eventActions'
 import CreateEvent from './CreateEvent'
 
-const mapStateToProps = () => ({})
+const mapStateToProps = state => ({ event: state.events.savingEvent })
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {
+  locationChanged,
+  locationSelected
+}
 
 const CreateEventContainer = connect(mapStateToProps, mapDispatchToProps)(
   CreateEvent

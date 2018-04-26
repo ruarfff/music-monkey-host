@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import PlacesAutocomplete from 'react-places-autocomplete'
 
+
 const LocationAutoComplete = ({ onChange, onSelect, placeholder, value }) => (
   <PlacesAutocomplete onChange={onChange} onSelect={onSelect} value={value}>
     {({ getInputProps, suggestions, getSuggestionItemProps }) => (
