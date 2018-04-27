@@ -6,7 +6,8 @@ import Button from 'material-ui/Button'
 import AddIcon from '@material-ui/icons/Add'
 import Tooltip from 'material-ui/Tooltip'
 import { Link } from 'react-router-dom'
-
+import Hidden from 'material-ui/Hidden'
+import Paper from 'material-ui/Paper'
 import NoEvents from './NoEvents'
 import Event from './Event'
 
@@ -49,7 +50,7 @@ class Events extends Component {
               alignItems="center"
               direction="row"
             >
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6} hidden={{ xsDown: true }}>
                 <Typography
                   className="Events-list-caption"
                   align="center"
@@ -59,7 +60,7 @@ class Events extends Component {
                   Upcoming Events
                 </Typography>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6} hidden={{ xsDown: true }}>
                 <Typography
                   className="Events-list-caption"
                   align="center"
@@ -70,11 +71,37 @@ class Events extends Component {
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6} className="Events-upcoming">
+                <Hidden smUp>
+                  <Paper>
+                    <Typography
+                      className="Events-list-caption"
+                      align="center"
+                      variant="subheading"
+                      gutterBottom
+                    >
+                      Upcoming Events
+                    </Typography>
+                  </Paper>
+                </Hidden>
+
                 <div className="Events-list">
                   {events.map((event, i) => <Event key={i} event={event} />)}
                 </div>
               </Grid>
               <Grid item xs={12} sm={6}>
+                <Hidden smUp>
+                  <Paper>
+                    <Typography
+                      className="Events-list-caption"
+                      align="center"
+                      variant="subheading"
+                      gutterBottom
+                    >
+                      Past Events
+                    </Typography>
+                  </Paper>
+                </Hidden>
+
                 <div className="Events-list">
                   <Typography
                     className="Events-list-caption"
