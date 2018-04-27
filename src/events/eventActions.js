@@ -5,6 +5,8 @@ export const EVENT_LOCATION_ERROR = 'EVENT_LOCATION_ERROR'
 export const EVENT_CONTENT_UPDATED = 'EVENT_CONTENT_UPDATED'
 export const EVENT_IMAGE_UPLOADED = 'EVENT_IMAGE_UPLOADED'
 export const EVENT_IMAGE_UPLOAD_ERROR = 'EVENT_IMAGE_UPLOAD_ERROR'
+export const EVENT_SAVED = 'EVENT_SAVED'
+export const EVENT_SAVE_ERROR = 'EVENT_SAVE_ERROR'
 
 export const EVENT_SAVING_RESET = 'EVENT_SAVING_RESET'
 
@@ -45,4 +47,14 @@ export const eventImageUploadError = err => ({
 
 export const eventSavingReset = () => ({
   type: EVENT_SAVING_RESET
+})
+
+export const eventSaved = event => ({
+  type: EVENT_SAVED,
+  payload: event
+})
+
+export const eventSaveError = err => ({
+  type: EVENT_SAVE_ERROR,
+  payload: err
 })

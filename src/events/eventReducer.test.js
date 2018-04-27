@@ -5,7 +5,9 @@ import {
   EVENT_LOCATION_ERROR,
   EVENT_IMAGE_UPLOAD_ERROR,
   EVENT_IMAGE_UPLOADED,
-  EVENT_SAVING_RESET
+  EVENT_SAVING_RESET,
+  EVENT_SAVED,
+  EVENT_SAVE_ERROR
 } from './eventActions'
 import initialState from './eventInitialState'
 import events from './eventReducer'
@@ -145,5 +147,35 @@ describe('eventReducer', () => {
         }
       )
     ).toEqual({ ...initialState })
+  })
+
+  it('should handle EVENT_SAVED', () => {
+    const event = { ...initialState.savingEvent, name: 'save-me' }
+    expect(
+      events(
+        {
+          ...initialState,
+          savingEvent: event
+        },
+        {
+          type: EVENT_SAVED
+        }
+      )
+    ).toEqual({ ...initialState, events: [event], savingEvent: event })
+  })
+
+  it('should handle EVENT_SAVE_ERROR', () => {
+    expect(
+      events(initialState, {
+        type: EVENT_SAVE_ERROR,
+        payload: new Error('oh the humanity')
+      })
+    ).toEqual({
+      ...initialState,
+      errors: {
+        ...initialState.errors,
+        saving: new Error('oh the humanity')
+      }
+    })
   })
 })
