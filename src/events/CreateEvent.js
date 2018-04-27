@@ -195,7 +195,7 @@ const CreateEvent = ({
       <SweetAlert
         show={events.showSavedDialogue}
         title="Event Saved!"
-        confirmButtonColor="#90a4ae"
+        confirmButtonColor="#00838F"
         onConfirm={() => {
           cancel()
         }}
