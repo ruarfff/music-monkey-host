@@ -1,5 +1,6 @@
 export default {
-  savingEvent: {location: {address: '', latLng: ''}},
+  savingEvent: { location: { address: '', latLng: '' } },
   selectedEvent: {},
-  events: []
+  events: [],
+  errors: { location: null, imageUpload: null }
 }

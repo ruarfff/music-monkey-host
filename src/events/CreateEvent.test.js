@@ -7,11 +7,13 @@ describe('<CreateEvent />', () => {
     const events = {}
     const locationChanged = () => {}
     const locationSelected = () => {}
+    const eventContentUpdated = () => {}
     const wrapper = shallow(
       <CreateEvent
         events={events}
         locationChanged={locationChanged}
         locationSelected={locationSelected}
+        eventContentUpdated={eventContentUpdated}
       />
     )
 

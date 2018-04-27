@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 import DropzoneComponent from 'react-dropzone-component'
-import axios from 'axios'
-import '../../node_modules/dropzone/dist/min/dropzone.min.css'
-import '../../node_modules/react-dropzone-component/styles/filepicker.css'
 import AWS from 'aws-sdk'
 import uuidv1 from 'uuid/v1'
+import '../../node_modules/dropzone/dist/min/dropzone.min.css'
+import '../../node_modules/react-dropzone-component/styles/filepicker.css'
 
 const bucket = 'musicmonkey-uploads'
 var bucketRegion = 'eu-west-1'
@@ -23,8 +22,6 @@ var s3 = new AWS.S3({
   params: { Bucket: bucket }
 })
 
-const serviceUrl = process.env.REACT_APP_MM_API_URL
-
 const djsConfig = {
   autoProcessQueue: false,
   maxFiles: 1,
@@ -34,29 +31,25 @@ const djsConfig = {
 function upload(file) {
   const key = 'event-images/'
   const fileName = uuidv1() + '-' + file.name
-  console.log(fileName)
-  s3.putObject(
-    {
-      Key: key + fileName,
-      Body: file,
-      ACL: 'public-read'
-    },
-    err => {
-      if (err) {
-        console.log(err)
-      } else {
-        console.log(`http://${bucket}.s3.amazonaws.com/${key}${fileName}`)
+
+  return new Promise((resolve, reject) => {
+    s3.putObject(
+      {
+        Key: key + fileName,
+        Body: file,
+        ACL: 'public-read'
+      },
+      err => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(`http://${bucket}.s3.amazonaws.com/${key}${fileName}`)
+        }
       }
-    }
-  )
+    )
+  })
 }
 
-const eventHandlers = {
-  addedfile: file => {
-    console.log(file)
-    upload(file)
-  }
-}
 const componentConfig = {
   iconFiletypes: ['.jpg', '.png', '.gif'],
   showFiletypeIcon: true,
@@ -64,14 +57,13 @@ const componentConfig = {
 }
 
 class FileUpload extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      imageFiles: []
-    }
-  }
-
   render() {
+    const { onUpload } = this.props
+    const eventHandlers = {
+      addedfile: file => {
+        upload(file).then(onUpload)
+      }
+    }
     return (
       <div>
         <DropzoneComponent
@@ -82,6 +74,10 @@ class FileUpload extends Component {
       </div>
     )
   }
+}
+
+FileUpload.propTypes = {
+  onUpload: PropTypes.func.isRequired
 }
 
 export default FileUpload
