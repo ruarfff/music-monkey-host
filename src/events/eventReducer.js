@@ -67,12 +67,14 @@ export default function events(state = initialState, { type, payload }) {
         ...state,
         savingEvent: {
           ...initialState.savingEvent
-        }
+        },
+        showSavedDialogue: false
       }
     case EVENT_SAVED:
       return {
         ...state,
-        events: [...state.events, state.savingEvent]
+        events: [...state.events, state.savingEvent],
+        showSavedDialogue: true
       }
     case EVENT_SAVE_ERROR:
       return {

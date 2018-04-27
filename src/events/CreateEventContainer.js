@@ -7,7 +7,8 @@ import {
   eventContentUpdated,
   eventImageUploaded,
   eventImageUploadError,
-  eventSavingReset
+  eventSavingReset,
+  eventSaved
 } from './eventActions'
 import CreateEvent from './CreateEvent'
 
@@ -24,7 +25,8 @@ const mapDispatchToProps = dispatch => ({
       locationSelected,
       eventContentUpdated,
       eventImageUploaded,
-      eventImageUploadError
+      eventImageUploadError,
+      eventSaved
     },
     dispatch
   )

@@ -10,6 +10,7 @@ import LocationAutoComplete from '../location/LocationAutoComplete'
 import Button from 'material-ui/Button'
 import Delete from '@material-ui/icons/Delete'
 import Save from '@material-ui/icons/Save'
+import SweetAlert from 'sweetalert2-react'
 import './CreateEvent.css'
 
 const styles = theme => ({
@@ -37,7 +38,9 @@ const CreateEvent = ({
   eventContentUpdated,
   eventImageUploaded,
   eventImageUploadError,
-  cancel
+  eventSaved,
+  cancel,
+  onSavedAccepted
 }) => (
   <form className={classes.root} noValidate autoComplete="off">
     <Grid
@@ -51,7 +54,7 @@ const CreateEvent = ({
         <FormGroup row>
           <FormControl className={classes.formItem}>
             <InputLabel htmlFor="ce-event-name">Event Name</InputLabel>
-            <Input            
+            <Input
               id="ce-event-name"
               fullWidth={true}
               onChange={event =>
@@ -180,14 +183,36 @@ const CreateEvent = ({
       </Grid>
     </Grid>
     <div>
-      <Button className={classes.button} variant="raised" color="primary" onClick={cancel}>
+      <Button
+        className={classes.button}
+        variant="raised"
+        color="primary"
+        onClick={() => {
+          cancel()
+        }}
+      >
         Cancel
         <Delete className={classes.rightIcon} />
       </Button>
-      <Button className={classes.button} variant="raised" color="secondary">
+      <Button
+        className={classes.button}
+        variant="raised"
+        color="secondary"
+        onClick={() => {
+          eventSaved()
+        }}
+      >
         Save
         <Save className={classes.rightIcon} />
       </Button>
+
+      <SweetAlert
+        show={events.showSavedDialogue}
+        title="Event Saved!"        
+        onConfirm={() => {
+          cancel()
+        }}
+      />
     </div>
   </form>
 )
@@ -200,7 +225,9 @@ CreateEvent.propTypes = {
   eventContentUpdated: PropTypes.func.isRequired,
   eventImageUploaded: PropTypes.func.isRequired,
   eventImageUploadError: PropTypes.func.isRequired,
-  cancel: PropTypes.func.isRequired
+  cancel: PropTypes.func.isRequired,
+  eventSaved: PropTypes.func.isRequired,
+  onSavedAccepted: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(CreateEvent)

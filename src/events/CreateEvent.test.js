@@ -10,6 +10,9 @@ describe('<CreateEvent />', () => {
     const eventContentUpdated = () => {}
     const eventImageUploaded = () => {}
     const eventImageUploadedError = () => {}
+    const eventSaved = () => {}
+    const cancel = () => {}
+    const onSavedAccepted = () => {}
     const wrapper = shallow(
       <CreateEvent
         events={events}
@@ -18,6 +21,9 @@ describe('<CreateEvent />', () => {
         eventContentUpdated={eventContentUpdated}
         eventImageUploaded={eventImageUploaded}
         eventImageUploadError={eventImageUploadedError}
+        eventSaved={eventSaved}
+        cancel={cancel}
+        onSavedAccepted={onSavedAccepted}
       />
     )
 

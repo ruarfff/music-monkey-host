@@ -140,7 +140,8 @@ describe('eventReducer', () => {
       events(
         {
           ...initialState,
-          savingEvent: { ...initialState.savingEvent, name: 'whataname' }
+          savingEvent: { ...initialState.savingEvent, name: 'whataname' },
+          showSavedDialogue: true
         },
         {
           type: EVENT_SAVING_RESET
@@ -161,7 +162,12 @@ describe('eventReducer', () => {
           type: EVENT_SAVED
         }
       )
-    ).toEqual({ ...initialState, events: [event], savingEvent: event })
+    ).toEqual({
+      ...initialState,
+      events: [event],
+      savingEvent: event,
+      showSavedDialogue: true
+    })
   })
 
   it('should handle EVENT_SAVE_ERROR', () => {

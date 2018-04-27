@@ -38,6 +38,7 @@
     "redux-saga": "^0.16.0",
     "spotify-web-api-js": "^0.24.0",
     "superagent": "^3.8.2",
+    "sweetalert2-react": "^0.7.2",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
