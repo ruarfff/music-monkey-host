@@ -7,6 +7,9 @@ import Grid from 'material-ui/Grid'
 import { DateTimePicker } from 'material-ui-pickers'
 import FileUpload from '../upload/FileUpload'
 import LocationAutoComplete from '../location/LocationAutoComplete'
+import Button from 'material-ui/Button'
+import Delete from '@material-ui/icons/Delete'
+import Save from '@material-ui/icons/Save'
 import './CreateEvent.css'
 
 const styles = theme => ({
@@ -16,6 +19,12 @@ const styles = theme => ({
   formItem: {
     padding: theme.spacing.unit * 2,
     textAlign: 'center'
+  },
+  button: {
+    margin: theme.spacing.unit
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit
   }
 })
 
@@ -162,6 +171,16 @@ const CreateEvent = ({
         </FormGroup>
       </Grid>
     </Grid>
+    <div>
+      <Button className={classes.button} variant="raised" color="secondary">
+        Cancel
+        <Delete className={classes.rightIcon} />
+      </Button>
+      <Button className={classes.button} variant="raised" color="primary">
+        Save
+        <Save className={classes.rightIcon} />
+      </Button>
+    </div>
   </form>
 )
 
