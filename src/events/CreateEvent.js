@@ -3,13 +3,16 @@ import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 import { DateTimePicker } from 'material-ui-pickers'
-import FileUpload from '../upload/FileUpload'
-import LocationAutoComplete from '../location/LocationAutoComplete'
 import Button from 'material-ui/Button'
 import Delete from '@material-ui/icons/Delete'
 import Save from '@material-ui/icons/Save'
 import SweetAlert from 'sweetalert2-react'
 import TextField from 'material-ui/TextField'
+
+import FileUpload from '../upload/FileUpload'
+import LocationAutoComplete from '../location/LocationAutoComplete'
+import PlaylistSelection from './PlaylistSelection'
+
 import './CreateEvent.css'
 
 const styles = theme => ({
@@ -156,14 +159,10 @@ const CreateEvent = ({
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <TextField
-          label="Spotify Playlist"
-          placeholder="Enter Spotify Playlist URL"
-          fullWidth
-          margin="normal"
+        <PlaylistSelection
           value={events.savingEvent.playlist}
-          onChange={event =>
-            eventContentUpdated({ playlist: event.target.value })
+          onPlaylistAdded={playlistUrl =>
+            eventContentUpdated({ playlist: playlistUrl })
           }
         />
       </Grid>
