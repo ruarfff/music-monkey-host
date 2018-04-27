@@ -4,7 +4,8 @@ import Events from './Events'
 
 describe('<Events />', () => {
   it('should render without crashing', () => {
-    const wrapper = shallow(<Events />)
+    const events = { events: [] }
+    const wrapper = shallow(<Events events={events} />)
 
     expect(wrapper).toBeTruthy()
   })

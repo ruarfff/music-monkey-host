@@ -39,8 +39,7 @@ const CreateEvent = ({
   eventImageUploaded,
   eventImageUploadError,
   eventSaved,
-  cancel,
-  onSavedAccepted
+  cancel
 }) => (
   <form className={classes.root} noValidate autoComplete="off">
     <Grid
@@ -186,7 +185,7 @@ const CreateEvent = ({
       <Button
         className={classes.button}
         variant="raised"
-        color="primary"
+        color="secondary"
         onClick={() => {
           cancel()
         }}
@@ -197,7 +196,7 @@ const CreateEvent = ({
       <Button
         className={classes.button}
         variant="raised"
-        color="secondary"
+        color="primary"
         onClick={() => {
           eventSaved()
         }}
@@ -208,7 +207,8 @@ const CreateEvent = ({
 
       <SweetAlert
         show={events.showSavedDialogue}
-        title="Event Saved!"        
+        title="Event Saved!" 
+        confirmButtonColor='#90a4ae'
         onConfirm={() => {
           cancel()
         }}
@@ -226,8 +226,7 @@ CreateEvent.propTypes = {
   eventImageUploaded: PropTypes.func.isRequired,
   eventImageUploadError: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
-  eventSaved: PropTypes.func.isRequired,
-  onSavedAccepted: PropTypes.func.isRequired
+  eventSaved: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(CreateEvent)
