@@ -33,7 +33,9 @@ const CreateEvent = ({
   classes,
   locationChanged,
   locationSelected,
-  eventContentUpdated
+  eventContentUpdated,
+  eventImageUploaded,
+  eventImageUploadError
 }) => (
   <form className={classes.root} noValidate autoComplete="off">
     <Grid
@@ -72,7 +74,10 @@ const CreateEvent = ({
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <FileUpload />
+        <FileUpload
+          onUpload={eventImageUploaded}
+          onUploadError={eventImageUploadError}
+        />
       </Grid>
 
       <Grid item xs={12} sm={6}>
@@ -189,7 +194,9 @@ CreateEvent.propTypes = {
   classes: PropTypes.object.isRequired,
   locationChanged: PropTypes.func.isRequired,
   locationSelected: PropTypes.func.isRequired,
-  eventContentUpdated: PropTypes.func.isRequired
+  eventContentUpdated: PropTypes.func.isRequired,
+  eventImageUploaded: PropTypes.func.isRequired,
+  eventImageUploadError: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(CreateEvent)

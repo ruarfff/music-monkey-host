@@ -58,10 +58,12 @@ const componentConfig = {
 
 class FileUpload extends Component {
   render() {
-    const { onUpload } = this.props
+    const { onUpload, onUploadError } = this.props
     const eventHandlers = {
       addedfile: file => {
-        upload(file).then(onUpload)
+        upload(file)
+          .then(onUpload)
+          .catch(onUploadError)
       }
     }
     return (
@@ -77,7 +79,8 @@ class FileUpload extends Component {
 }
 
 FileUpload.propTypes = {
-  onUpload: PropTypes.func.isRequired
+  onUpload: PropTypes.func.isRequired,
+  onUploadError: PropTypes.func.isRequired
 }
 
 export default FileUpload
