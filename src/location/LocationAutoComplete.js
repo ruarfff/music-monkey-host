@@ -5,9 +5,8 @@ import match from 'autosuggest-highlight/match'
 import parse from 'autosuggest-highlight/parse'
 import Paper from 'material-ui/Paper'
 import { MenuItem } from 'material-ui/Menu'
-import Input, { InputLabel } from 'material-ui/Input'
+import TextField from 'material-ui/TextField'
 import { withStyles } from 'material-ui/styles'
-import { FormGroup, FormControl } from 'material-ui/Form'
 
 const styles = theme => ({
   container: {
@@ -31,19 +30,16 @@ const styles = theme => ({
 
 function renderInput(inputProps) {
   return (
-    <FormGroup row>
-      <FormControl className={inputProps.formClass}>
-        <InputLabel htmlFor="ce-l">Location</InputLabel>
-        <Input
-          id="ce-l"
-          onChange={inputProps.onChange}
-          onBlur={inputProps.onBlur}
-          onKeyDown={inputProps.onKeyDown}
-          placeholder={inputProps.placeholder}
-          value={inputProps.value}
-        />
-      </FormControl>
-    </FormGroup>
+    <TextField
+      label="Location"
+      fullWidth
+      margin="normal"
+      onChange={inputProps.onChange}
+      onBlur={inputProps.onBlur}
+      onKeyDown={inputProps.onKeyDown}
+      placeholder={inputProps.placeholder}
+      value={inputProps.value}
+    />
   )
 }
 

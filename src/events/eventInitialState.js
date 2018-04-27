@@ -1,17 +1,17 @@
+import moment from 'moment'
+
 export default {
-  savingEvent: { location: { address: '', latLng: {} } },
-  selectedEvent: {
-    name: '',
-    organizer: '',
-    imageUrl: '',
-    description: '',
-    venue: '',
-    location: { address: '', latLng: {} },
-    startDateTime: '',
-    endDateTime: '',
-    eventCode: '',
-    playlist: ''
-  },
+  savingEvent: { name: '',
+  organizer: '',
+  imageUrl: '',
+  description: '',
+  venue: '',
+  location: { address: '', latLng: {} },
+  startDateTime: moment().add(2, 'hours').startOf('hour'),
+  endDateTime: moment().add(3, 'hours').startOf('hour'),
+  eventCode: '',
+  playlist: '' },
+  selectedEvent: {},
   events: [],
   showSavedDialogue: false,
   errors: { location: null, imageUpload: null, saving: null }

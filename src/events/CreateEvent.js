@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
-import { FormGroup, FormControl } from 'material-ui/Form'
-import Input, { InputLabel } from 'material-ui/Input'
 import Grid from 'material-ui/Grid'
 import { DateTimePicker } from 'material-ui-pickers'
 import FileUpload from '../upload/FileUpload'
@@ -11,6 +9,7 @@ import Button from 'material-ui/Button'
 import Delete from '@material-ui/icons/Delete'
 import Save from '@material-ui/icons/Save'
 import SweetAlert from 'sweetalert2-react'
+import TextField from 'material-ui/TextField'
 import './CreateEvent.css'
 
 const styles = theme => ({
@@ -50,32 +49,30 @@ const CreateEvent = ({
       direction="row"
     >
       <Grid item xs={12} sm={6}>
-        <FormGroup row>
-          <FormControl className={classes.formItem}>
-            <InputLabel htmlFor="ce-event-name">Event Name</InputLabel>
-            <Input
-              id="ce-event-name"
-              fullWidth={true}
-              onChange={event =>
-                eventContentUpdated({ name: event.target.value })
-              }
-            />
-          </FormControl>
-        </FormGroup>
+        <TextField
+          label="Event Name"
+          placeholder="Provide a name for your event"
+          required
+          autoFocus
+          fullWidth
+          margin="normal"
+          value={events.savingEvent.name}
+          onChange={event => eventContentUpdated({ name: event.target.value })}
+        />
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <FormGroup row>
-          <FormControl className={classes.formItem}>
-            <InputLabel htmlFor="ce-organizer">Organizer</InputLabel>
-            <Input
-              id="ce-organizer"
-              onChange={event =>
-                eventContentUpdated({ organizer: event.target.value })
-              }
-            />
-          </FormControl>
-        </FormGroup>
+        <TextField
+          label="Organizer"
+          placeholder="Who is organising this event?"
+          required
+          fullWidth
+          margin="normal"
+          value={events.savingEvent.organizer}
+          onChange={event =>
+            eventContentUpdated({ organizer: event.target.value })
+          }
+        />
       </Grid>
 
       <Grid item xs={12} sm={6}>
@@ -86,31 +83,27 @@ const CreateEvent = ({
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <FormGroup row>
-          <FormControl className={classes.formItem}>
-            <InputLabel htmlFor="ce-description">Description</InputLabel>
-            <Input
-              id="ce-description"
-              onChange={event =>
-                eventContentUpdated({ description: event.target.value })
-              }
-            />
-          </FormControl>
-        </FormGroup>
+        <TextField
+          label="Event description"
+          multiline
+          fullWidth
+          margin="normal"
+          rowsMax="4"
+          value={events.savingEvent.description}
+          onChange={event =>
+            eventContentUpdated({ description: event.target.value })
+          }
+        />
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <FormGroup row>
-          <FormControl className={classes.formItem}>
-            <InputLabel htmlFor="ce-venue">Venue</InputLabel>
-            <Input
-              id="ce-venue"
-              onChange={event =>
-                eventContentUpdated({ venue: event.target.value })
-              }
-            />
-          </FormControl>
-        </FormGroup>
+        <TextField
+          label="Venue"
+          fullWidth
+          margin="normal"
+          value={events.savingEvent.venue}
+          onChange={event => eventContentUpdated({ venue: event.target.value })}
+        />
       </Grid>
 
       <Grid item xs={12} sm={6}>
@@ -124,61 +117,55 @@ const CreateEvent = ({
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <FormGroup row>
-          <FormControl className={classes.formItem}>
-            <DateTimePicker
-              id="ce-start-datetime"
-              disablePast
-              autoOk
-              ampm={false}
-              onChange={value => eventContentUpdated({ startDateTime: value })}
-              label="Starting At"
-            />
-          </FormControl>
-        </FormGroup>
+        <DateTimePicker
+          id="ce-start-datetime"
+          disablePast
+          autoOk
+          fullWidth
+          ampm={false}
+          value={events.savingEvent.startDateTime}
+          onChange={value => eventContentUpdated({ startDateTime: value })}
+          label="Starting At"
+        />
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <FormGroup row>
-          <FormControl className={classes.formItem}>
-            <DateTimePicker
-              id="ce-end-datetime"
-              disablePast
-              autoOk
-              ampm={false}
-              onChange={value => eventContentUpdated({ endDateTime: value })}
-              label="Finishing At"
-            />
-          </FormControl>
-        </FormGroup>
+        <DateTimePicker
+          id="ce-end-datetime"
+          disablePast
+          autoOk
+          fullWidth
+          ampm={false}
+          value={events.savingEvent.endDateTime}
+          onChange={value => eventContentUpdated({ endDateTime: value })}
+          label="Finishing At"
+        />
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <FormGroup row>
-          <FormControl className={classes.formItem}>
-            <InputLabel htmlFor="ce-eventcode">Event Code</InputLabel>
-            <Input
-              id="ce-eventcode"
-              onChange={event =>
-                eventContentUpdated({ eventCode: event.target.value })
-              }
-            />
-          </FormControl>
-        </FormGroup>
+        <TextField
+          label="Event Code"
+          placeholder="Optionally password protect event"
+          fullWidth
+          margin="normal"
+          value={events.savingEvent.eventCode}
+          onChange={event =>
+            eventContentUpdated({ eventCode: event.target.value })
+          }
+        />
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <FormGroup row>
-          <FormControl className={classes.formItem}>
-            <InputLabel htmlFor="ce-playlist">Playlist</InputLabel>
-            <Input
-              id="ce-playlist"
-              onChange={event =>
-                eventContentUpdated({ playlist: event.target.value })
-              }
-            />
-          </FormControl>
-        </FormGroup>
+        <TextField
+          label="Spotify Playlist"
+          placeholder="Enter Spotify Playlist URL"
+          fullWidth
+          margin="normal"
+          value={events.savingEvent.playlist}
+          onChange={event =>
+            eventContentUpdated({ playlist: event.target.value })
+          }
+        />
       </Grid>
     </Grid>
     <div>
@@ -207,8 +194,8 @@ const CreateEvent = ({
 
       <SweetAlert
         show={events.showSavedDialogue}
-        title="Event Saved!" 
-        confirmButtonColor='#90a4ae'
+        title="Event Saved!"
+        confirmButtonColor="#90a4ae"
         onConfirm={() => {
           cancel()
         }}
