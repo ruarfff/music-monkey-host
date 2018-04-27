@@ -1,36 +1,93 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
+import Grid from 'material-ui/Grid'
+import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 import AddIcon from '@material-ui/icons/Add'
 import Tooltip from 'material-ui/Tooltip'
 import { Link } from 'react-router-dom'
+
+import NoEvents from './NoEvents'
+import Event from './Event'
+
 import './Events.css'
 
-class Events extends Component {
-  componentDidCatch(error, info) {}
+const renderEventCreateAction = () => (
+  <div className="Event-create-action-container">
+    <Typography
+      align="center"
+      variant="headline"
+      gutterBottom={true}
+      className="Event-create-text"
+    >
+      Create New Event
+    </Typography>
+    <Link to="/create-event" className="Event-create-button">
+      <Tooltip id="tooltip-fab" title="Create Event">
+        <Button variant="fab" color="primary" aria-label="Create Event">
+          <AddIcon />
+        </Button>
+      </Tooltip>
+    </Link>
+  </div>
+)
 
+class Events extends Component {
   render() {
     const { events } = this.props.events
     return (
       <div className="Events">
         {events.length < 1 ? (
-          <div>
-            <div className="Events-no-events-message">
-              <h3>
-                Looks like you have not created any events yet. Would you like
-                to <Link to="/create-event">Create One</Link>?
-              </h3>
-            </div>
-            <Link to="/create-event">
-              <Tooltip id="tooltip-fab" title="Create Event">
-                <Button variant="fab" color="primary" aria-label="Create Event">
-                  <AddIcon />
-                </Button>
-              </Tooltip>
-            </Link>
-          </div>
+          <NoEvents />
         ) : (
-          <h1>Has Events!!!</h1>
+          <Fragment>
+            {renderEventCreateAction()}
+            <Grid
+              container
+              spacing={24}
+              justify="center"
+              alignItems="center"
+              direction="row"
+            >
+              <Grid item xs={12} sm={6}>
+                <Typography
+                  className="Events-list-caption"
+                  align="center"
+                  variant="headline"
+                  gutterBottom
+                >
+                  Upcoming Events
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography
+                  className="Events-list-caption"
+                  align="center"
+                  variant="headline"
+                  gutterBottom
+                >
+                  Past Events
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={6} className="Events-upcoming">
+                <div className="Events-list">
+                  {events.map((event, i) => <Event key={i} event={event} />)}
+                </div>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <div className="Events-list">
+                  <Typography
+                    className="Events-list-caption"
+                    align="center"
+                    variant="body2"
+                    gutterBottom
+                  >
+                    No Past Events Yet
+                  </Typography>
+                </div>
+              </Grid>
+            </Grid>
+          </Fragment>
         )}
       </div>
     )

@@ -106,7 +106,7 @@ const CreateEvent = ({
             <Input
               id="ce-venue"
               onChange={event =>
-                eventContentUpdated({ vanue: event.target.value })
+                eventContentUpdated({ venue: event.target.value })
               }
             />
           </FormControl>

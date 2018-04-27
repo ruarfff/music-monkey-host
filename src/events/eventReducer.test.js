@@ -27,7 +27,7 @@ describe('eventReducer', () => {
       ...initialState,
       savingEvent: {
         ...initialState.savingEvent,
-        location: { address: 'test', latLng: '' }
+        location: { address: 'test', latLng: {} }
       }
     })
   })
@@ -45,7 +45,7 @@ describe('eventReducer', () => {
       ...initialState,
       savingEvent: {
         ...initialState.savingEvent,
-        location: { address: 'test', latLng: '' }
+        location: { address: 'test', latLng: {} }
       },
       errors: { location: null }
     })
@@ -55,13 +55,16 @@ describe('eventReducer', () => {
     expect(
       events(initialState, {
         type: EVENT_LOCATION_POPULATED,
-        payload: { address: 'test-address', latLng: 'test-latlng' }
+        payload: { address: 'test-address', latLng: { lat: '123', lng: '456' } }
       })
     ).toEqual({
       ...initialState,
       savingEvent: {
         ...initialState.savingEvent,
-        location: { address: 'test-address', latLng: 'test-latlng' }
+        location: {
+          address: 'test-address',
+          latLng: { lat: '123', lng: '456' }
+        }
       }
     })
   })
@@ -164,7 +167,7 @@ describe('eventReducer', () => {
       )
     ).toEqual({
       ...initialState,
-      events: [event],
+      events: [...initialState.events, event],
       savingEvent: event,
       showSavedDialogue: true
     })
