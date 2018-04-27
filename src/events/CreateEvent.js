@@ -18,7 +18,8 @@ const styles = theme => ({
   },
   formItem: {
     padding: theme.spacing.unit * 2,
-    textAlign: 'center'
+    textAlign: 'center',
+    width: '100%'
   },
   button: {
     margin: theme.spacing.unit
@@ -50,8 +51,9 @@ const CreateEvent = ({
         <FormGroup row>
           <FormControl className={classes.formItem}>
             <InputLabel htmlFor="ce-event-name">Event Name</InputLabel>
-            <Input
+            <Input            
               id="ce-event-name"
+              fullWidth={true}
               onChange={event =>
                 eventContentUpdated({ name: event.target.value })
               }
@@ -178,11 +180,11 @@ const CreateEvent = ({
       </Grid>
     </Grid>
     <div>
-      <Button className={classes.button} variant="raised" color="secondary" onClick={cancel}>
+      <Button className={classes.button} variant="raised" color="primary" onClick={cancel}>
         Cancel
         <Delete className={classes.rightIcon} />
       </Button>
-      <Button className={classes.button} variant="raised" color="primary">
+      <Button className={classes.button} variant="raised" color="secondary">
         Save
         <Save className={classes.rightIcon} />
       </Button>

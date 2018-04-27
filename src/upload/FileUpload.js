@@ -25,7 +25,8 @@ var s3 = new AWS.S3({
 const djsConfig = {
   autoProcessQueue: false,
   maxFiles: 1,
-  paramName: 'event-image'
+  paramName: 'event-image',
+  dictDefaultMessage: 'Event Image'
 }
 
 function upload(file) {
@@ -50,9 +51,7 @@ function upload(file) {
   })
 }
 
-const componentConfig = {
-  iconFiletypes: ['.jpg', '.png', '.gif'],
-  showFiletypeIcon: true,
+const componentConfig = {  
   postUrl: 'upload'
 }
 
