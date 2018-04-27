@@ -4,7 +4,8 @@ import {
   EVENT_CONTENT_UPDATED,
   EVENT_IMAGE_UPLOADED,
   EVENT_LOCATION_ERROR,
-  EVENT_IMAGE_UPLOAD_ERROR
+  EVENT_IMAGE_UPLOAD_ERROR,
+  EVENT_SAVING_RESET
 } from './eventActions'
 import initialState from './eventInitialState'
 
@@ -57,6 +58,13 @@ export default function events(state = initialState, { type, payload }) {
         errors: {
           ...state.errors,
           imageUpload: payload
+        }
+      }
+    case EVENT_SAVING_RESET:
+      return {
+        ...state,
+        savingEvent: {
+          ...initialState.savingEvent
         }
       }
     default:

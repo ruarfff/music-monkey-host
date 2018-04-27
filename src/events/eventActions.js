@@ -6,6 +6,8 @@ export const EVENT_CONTENT_UPDATED = 'EVENT_CONTENT_UPDATED'
 export const EVENT_IMAGE_UPLOADED = 'EVENT_IMAGE_UPLOADED'
 export const EVENT_IMAGE_UPLOAD_ERROR = 'EVENT_IMAGE_UPLOAD_ERROR'
 
+export const EVENT_SAVING_RESET = 'EVENT_SAVING_RESET'
+
 export const locationChanged = address => ({
   type: EVENT_LOCATION_CHANGED,
   payload: address
@@ -39,4 +41,8 @@ export const eventImageUploaded = imageUrl => ({
 export const eventImageUploadError = err => ({
   type: EVENT_IMAGE_UPLOAD_ERROR,
   payload: err
+})
+
+export const eventSavingReset = () => ({
+  type: EVENT_SAVING_RESET
 })

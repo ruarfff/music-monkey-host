@@ -35,7 +35,8 @@ const CreateEvent = ({
   locationSelected,
   eventContentUpdated,
   eventImageUploaded,
-  eventImageUploadError
+  eventImageUploadError,
+  cancel
 }) => (
   <form className={classes.root} noValidate autoComplete="off">
     <Grid
@@ -177,7 +178,7 @@ const CreateEvent = ({
       </Grid>
     </Grid>
     <div>
-      <Button className={classes.button} variant="raised" color="secondary">
+      <Button className={classes.button} variant="raised" color="secondary" onClick={cancel}>
         Cancel
         <Delete className={classes.rightIcon} />
       </Button>
@@ -196,7 +197,8 @@ CreateEvent.propTypes = {
   locationSelected: PropTypes.func.isRequired,
   eventContentUpdated: PropTypes.func.isRequired,
   eventImageUploaded: PropTypes.func.isRequired,
-  eventImageUploadError: PropTypes.func.isRequired
+  eventImageUploadError: PropTypes.func.isRequired,
+  cancel: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(CreateEvent)

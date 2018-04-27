@@ -4,7 +4,8 @@ import {
   EVENT_CONTENT_UPDATED,
   EVENT_LOCATION_ERROR,
   EVENT_IMAGE_UPLOAD_ERROR,
-  EVENT_IMAGE_UPLOADED
+  EVENT_IMAGE_UPLOADED,
+  EVENT_SAVING_RESET
 } from './eventActions'
 import initialState from './eventInitialState'
 import events from './eventReducer'
@@ -130,5 +131,19 @@ describe('eventReducer', () => {
       ...initialState,
       savingEvent: { ...initialState.savingEvent, organizer: 'other' }
     })
+  })
+
+  it('should handle EVENT_SAVING_RESET', () => {
+    expect(
+      events(
+        {
+          ...initialState,
+          savingEvent: { ...initialState.savingEvent, name: 'whataname' }
+        },
+        {
+          type: EVENT_SAVING_RESET
+        }
+      )
+    ).toEqual({ ...initialState })
   })
 })
