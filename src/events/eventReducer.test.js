@@ -7,7 +7,11 @@ import {
   EVENT_IMAGE_UPLOADED,
   EVENT_SAVING_RESET,
   EVENT_SAVED,
-  EVENT_SAVE_ERROR
+  EVENT_SAVE_ERROR,
+  SELECT_EXISTING_PLAYLIST_SELECTED,
+  SELECT_EXISTING_PLAYLIST_CLOSED,
+  CREATE_PLAYLIST_SELECTED,
+  CREATE_PLAYLIST_CLOSED
 } from './eventActions'
 import initialState from './eventInitialState'
 import events from './eventReducer'
@@ -184,6 +188,80 @@ describe('eventReducer', () => {
       errors: {
         ...initialState.errors,
         saving: new Error('oh the humanity')
+      }
+    })
+  })
+
+  it('should handle SELECT_EXISTING_PLAYLIST_SELECTED', () => {
+    expect(
+      events(initialState, {
+        type: SELECT_EXISTING_PLAYLIST_SELECTED
+      })
+    ).toEqual({
+      ...initialState,
+      playlistInput: {
+        ...initialState.playlistInput,
+        isSelectingExistingPlaylist: true
+      }
+    })
+  })
+
+  it('should handle SELECT_EXISTING_PLAYLIST_CLOSED', () => {
+    expect(
+      events(
+        {
+          ...initialState,
+          playlistInput: {
+            ...initialState.playlistInput,
+            isSelectingExistingPlaylist: true
+          }
+        },
+        {
+          type: SELECT_EXISTING_PLAYLIST_CLOSED
+        }
+      )
+    ).toEqual({
+      ...initialState,
+      playlistInput: {
+        ...initialState.playlistInput,
+        isSelectingExistingPlaylist: false
+      }
+    })
+  })
+
+  it('should handle CREATE_PLAYLIST_SELECTED', () => {
+    expect(
+      events(initialState, {
+        type: CREATE_PLAYLIST_SELECTED
+      })
+    ).toEqual({
+      ...initialState,
+      playlistInput: {
+        ...initialState.playlistInput,
+        isCreatingNewPlaylist: true
+      }
+    })
+  })
+
+  it('should handle CREATE_PLAYLIST_CLOSED', () => {
+    expect(
+      events(
+        {
+          ...initialState,
+          playlistInput: {
+            ...initialState.playlistInput,
+            isCreatingNewPlaylist: true
+          }
+        },
+        {
+          type: CREATE_PLAYLIST_CLOSED
+        }
+      )
+    ).toEqual({
+      ...initialState,
+      playlistInput: {
+        ...initialState.playlistInput,
+        isCreatingNewPlaylist: false
       }
     })
   })

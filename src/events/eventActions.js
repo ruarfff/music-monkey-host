@@ -7,8 +7,14 @@ export const EVENT_IMAGE_UPLOADED = 'EVENT_IMAGE_UPLOADED'
 export const EVENT_IMAGE_UPLOAD_ERROR = 'EVENT_IMAGE_UPLOAD_ERROR'
 export const EVENT_SAVED = 'EVENT_SAVED'
 export const EVENT_SAVE_ERROR = 'EVENT_SAVE_ERROR'
-
 export const EVENT_SAVING_RESET = 'EVENT_SAVING_RESET'
+
+export const SELECT_EXISTING_PLAYLIST_SELECTED =
+  'SELECT_EXISTING_PLAYLIST_SELECTED'
+export const SELECT_EXISTING_PLAYLIST_CLOSED = 'SELECT_EXISTING_PLAYLIST_CLOSED'
+
+export const CREATE_PLAYLIST_SELECTED = 'CREATE_PLAYLIST_SELECTED'
+export const CREATE_PLAYLIST_CLOSED = 'CREATE_PLAYLIST_CLOSED'
 
 export const locationChanged = address => ({
   type: EVENT_LOCATION_CHANGED,
@@ -57,4 +63,20 @@ export const eventSaved = event => ({
 export const eventSaveError = err => ({
   type: EVENT_SAVE_ERROR,
   payload: err
+})
+
+export const selectExistingPlaylistSelected = () => ({
+  type: SELECT_EXISTING_PLAYLIST_SELECTED
+})
+
+export const closeSelectExistingPlaylist = () => ({
+  type: SELECT_EXISTING_PLAYLIST_CLOSED
+})
+
+export const selectCreatePlaylist = () => ({
+  type: CREATE_PLAYLIST_SELECTED
+})
+
+export const closeCreatePlaylist = () => ({
+  type: CREATE_PLAYLIST_CLOSED
 })

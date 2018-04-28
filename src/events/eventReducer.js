@@ -7,7 +7,11 @@ import {
   EVENT_IMAGE_UPLOAD_ERROR,
   EVENT_SAVING_RESET,
   EVENT_SAVED,
-  EVENT_SAVE_ERROR
+  EVENT_SAVE_ERROR,
+  SELECT_EXISTING_PLAYLIST_SELECTED,
+  SELECT_EXISTING_PLAYLIST_CLOSED,
+  CREATE_PLAYLIST_SELECTED,
+  CREATE_PLAYLIST_CLOSED
 } from './eventActions'
 import initialState from './eventInitialState'
 
@@ -82,6 +86,38 @@ export default function events(state = initialState, { type, payload }) {
         errors: {
           ...state.errors,
           saving: payload
+        }
+      }
+    case SELECT_EXISTING_PLAYLIST_SELECTED:
+      return {
+        ...state,
+        playlistInput: {
+          ...state.playlistInput,
+          isSelectingExistingPlaylist: true
+        }
+      }
+    case SELECT_EXISTING_PLAYLIST_CLOSED:
+      return {
+        ...state,
+        playlistInput: {
+          ...state.playlistInput,
+          isSelectingExistingPlaylist: false
+        }
+      }
+    case CREATE_PLAYLIST_SELECTED:
+      return {
+        ...state,
+        playlistInput: {
+          ...state.playlistInput,
+          isCreatingNewPlaylist: true
+        }
+      }
+    case CREATE_PLAYLIST_CLOSED:
+      return {
+        ...state,
+        playlistInput: {
+          ...state.playlistInput,
+          isCreatingNewPlaylist: false
         }
       }
     default:

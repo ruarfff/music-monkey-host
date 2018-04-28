@@ -12,6 +12,10 @@ describe('<CreateEvent />', () => {
     const eventImageUploadedError = () => {}
     const eventSaved = () => {}
     const cancel = () => {}
+    const playlistInput = {}
+    const selectExistingPlaylistSelected = () => {}
+    const createNewPlaylistSelected = () => {}
+
     const wrapper = shallow(
       <CreateEvent
         events={events}
@@ -22,6 +26,9 @@ describe('<CreateEvent />', () => {
         eventImageUploadError={eventImageUploadedError}
         eventSaved={eventSaved}
         cancel={cancel}
+        playlistInput={playlistInput}
+        selectExistingPlaylistSelected={selectExistingPlaylistSelected}
+        createNewPlaylistSelected={createNewPlaylistSelected}
       />
     )
 

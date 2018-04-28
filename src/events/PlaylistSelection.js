@@ -10,12 +10,10 @@ import './Events.css'
 
 const ITEM_HEIGHT = 48
 
-const options = ['Enter URL', 'Select one of your playlists', 'Create Playlist']
-
 const styles = {
-    menuIcon: {
-        paddingTop: '1.5em'
-    }
+  menuIcon: {
+    paddingTop: '1.5em'
+  }
 }
 
 class PlaylistSelection extends Component {
@@ -31,9 +29,14 @@ class PlaylistSelection extends Component {
     this.setState({ anchorEl: null })
   }
 
+  selectExistingSelected = () => {
+    this.handleClose()
+    this.props.selectExistingPlaylistSelected()
+  }
+
   render() {
     const { anchorEl } = this.state
-    const { classes, value, onPlaylistAdded } = this.props
+    const { classes, value, onPlaylistAdded, playlistInput } = this.props
     return (
       <Grid container spacing={12}>
         <Grid item xs={10}>
@@ -42,7 +45,7 @@ class PlaylistSelection extends Component {
             placeholder="Enter Spotify Playlist URL"
             fullWidth
             margin="normal"
-            disabled={!value}
+            disabled={!value && !playlistInput.linkInputEnabled}
             value={value}
             onChange={event => onPlaylistAdded(event.target.value)}
           />
@@ -68,11 +71,10 @@ class PlaylistSelection extends Component {
               }
             }}
           >
-            {options.map(option => (
-              <MenuItem key={option} onClick={this.handleClose}>
-                {option}
-              </MenuItem>
-            ))}
+            <MenuItem onClick={this.selectExistingSelected}>
+              Select one of your Spotify playlists
+            </MenuItem>
+            <MenuItem onClick={this.handleClose}>Create New Playlist</MenuItem>
           </Menu>
         </Grid>
       </Grid>
@@ -83,7 +85,9 @@ class PlaylistSelection extends Component {
 PlaylistSelection.propTypes = {
   value: PropTypes.string.isRequired,
   onPlaylistAdded: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  playlistInput: PropTypes.object.isRequired,
+  selectExistingPlaylistSelected: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(PlaylistSelection)
