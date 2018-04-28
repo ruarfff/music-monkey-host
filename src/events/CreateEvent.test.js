@@ -5,6 +5,7 @@ import CreateEvent from './CreateEvent'
 describe('<CreateEvent />', () => {
   it('should render without crashing', () => {
     const events = {}
+    const playlistInput = {}
     const locationChanged = () => {}
     const locationSelected = () => {}
     const eventContentUpdated = () => {}
@@ -12,9 +13,10 @@ describe('<CreateEvent />', () => {
     const eventImageUploadedError = () => {}
     const eventSaved = () => {}
     const cancel = () => {}
-    const playlistInput = {}
-    const selectExistingPlaylistSelected = () => {}
-    const createNewPlaylistSelected = () => {}
+    const selectExistingPlaylist = () => {}
+    const closeExistingPlaylist = () => {}
+    const selectCreatePlaylist = () => {}
+    const closeCreatePlaylist = () => {}
 
     const wrapper = shallow(
       <CreateEvent
@@ -27,8 +29,10 @@ describe('<CreateEvent />', () => {
         eventSaved={eventSaved}
         cancel={cancel}
         playlistInput={playlistInput}
-        selectExistingPlaylistSelected={selectExistingPlaylistSelected}
-        createNewPlaylistSelected={createNewPlaylistSelected}
+        selectExistingPlaylist={selectExistingPlaylist}
+        closeExistingPlaylist={closeExistingPlaylist}
+        selectCreatePlaylist={selectCreatePlaylist}
+        closeCreatePlaylist={closeCreatePlaylist}
       />
     )
 

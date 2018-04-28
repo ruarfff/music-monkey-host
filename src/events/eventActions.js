@@ -65,11 +65,11 @@ export const eventSaveError = err => ({
   payload: err
 })
 
-export const selectExistingPlaylistSelected = () => ({
+export const selectExistingPlaylist = () => ({
   type: SELECT_EXISTING_PLAYLIST_SELECTED
 })
 
-export const closeSelectExistingPlaylist = () => ({
+export const closeExistingPlaylist = () => ({
   type: SELECT_EXISTING_PLAYLIST_CLOSED
 })
 

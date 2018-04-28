@@ -42,7 +42,10 @@ const CreateEvent = ({
   eventImageUploadError,
   eventSaved,
   cancel,
-  playlistInput
+  selectExistingPlaylist,
+  closeExistingPlaylist,
+  selectCreatePlaylist,
+  closeCreatePlaylist
 }) => (
   <form className={classes.root} noValidate autoComplete="off">
     <Grid
@@ -165,7 +168,11 @@ const CreateEvent = ({
           onPlaylistAdded={playlistUrl =>
             eventContentUpdated({ playlist: playlistUrl })
           }
-          playlistInput={playlistInput}
+          playlistInput={events.playlistInput}
+          selectExistingPlaylist={selectExistingPlaylist}
+          closeExistingPlaylist={closeExistingPlaylist}
+          selectCreatePlaylist={selectCreatePlaylist}
+          closeCreatePlaylist={closeCreatePlaylist}
         />
       </Grid>
     </Grid>
@@ -215,7 +222,10 @@ CreateEvent.propTypes = {
   eventImageUploadError: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
   eventSaved: PropTypes.func.isRequired,
-  playlistInput: PropTypes.object.isRequired
+  selectCreatePlaylist: PropTypes.func.isRequired,
+  closeCreatePlaylist: PropTypes.func.isRequired,
+  selectExistingPlaylist: PropTypes.func.isRequired,
+  closeExistingPlaylist: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(CreateEvent)

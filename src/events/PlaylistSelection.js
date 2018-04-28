@@ -6,6 +6,8 @@ import IconButton from 'material-ui/IconButton'
 import Menu, { MenuItem } from 'material-ui/Menu'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import Grid from 'material-ui/Grid'
+import ExistingPlaylistDialog from './ExistingPlaylistDialog'
+import CreatePlaylistDialog from './CreatePlaylistDialog'
 import './Events.css'
 
 const ITEM_HEIGHT = 48
@@ -31,28 +33,38 @@ class PlaylistSelection extends Component {
 
   selectExistingSelected = () => {
     this.handleClose()
-    this.props.selectExistingPlaylistSelected()
+    this.props.selectExistingPlaylist()
+  }
+
+  createPlaylistSelected = () => {
+    this.handleClose()
+    this.props.selectCreatePlaylist()
   }
 
   render() {
     const { anchorEl } = this.state
-    const { classes, value, onPlaylistAdded, playlistInput } = this.props
+    const {
+      classes,
+      value,
+      onPlaylistAdded,
+      playlistInput,
+      closeExistingPlaylist,
+      closeCreatePlaylist
+    } = this.props
     return (
-      <Grid container spacing={12}>
-        <Grid item xs={10}>
+      <Grid container spacing={16} direction="row">
+        <Grid item xs={14}>
           <TextField
             label="Spotify Playlist"
             placeholder="Enter Spotify Playlist URL"
             fullWidth
             margin="normal"
-            disabled={!value && !playlistInput.linkInputEnabled}
             value={value}
             onChange={event => onPlaylistAdded(event.target.value)}
           />
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={2} className={classes.menuIcon}>
           <IconButton
-            className={classes.menuIcon}
             aria-label="Action"
             aria-owns={anchorEl ? 'long-menu' : null}
             aria-haspopup="true"
@@ -67,15 +79,25 @@ class PlaylistSelection extends Component {
             PaperProps={{
               style: {
                 maxHeight: ITEM_HEIGHT * 4.5,
-                width: 250
+                width: 280
               }
             }}
           >
             <MenuItem onClick={this.selectExistingSelected}>
               Select one of your Spotify playlists
             </MenuItem>
-            <MenuItem onClick={this.handleClose}>Create New Playlist</MenuItem>
+            <MenuItem onClick={this.createPlaylistSelected}>
+              Create New Playlist
+            </MenuItem>
           </Menu>
+          <ExistingPlaylistDialog
+            open={playlistInput.isSelectingExistingPlaylist}
+            onClose={closeExistingPlaylist}
+          />
+          <CreatePlaylistDialog
+            open={playlistInput.isCreatingNewPlaylist}
+            onClose={closeCreatePlaylist}
+          />
         </Grid>
       </Grid>
     )
@@ -87,7 +109,10 @@ PlaylistSelection.propTypes = {
   onPlaylistAdded: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   playlistInput: PropTypes.object.isRequired,
-  selectExistingPlaylistSelected: PropTypes.func.isRequired
+  selectExistingPlaylist: PropTypes.func.isRequired,
+  closeExistingPlaylist: PropTypes.func.isRequired,
+  selectCreatePlaylist: PropTypes.func.isRequired,
+  closeCreatePlaylist: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(PlaylistSelection)
