@@ -69,6 +69,7 @@ class PlaylistSelection extends Component {
         <Grid item>
           <TextField
             label="Spotify Playlist"
+            required
             disabled
             fullWidth
             margin="normal"

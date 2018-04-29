@@ -193,6 +193,7 @@ const CreateEvent = ({
         <Delete className={classes.rightIcon} />
       </Button>
       <Button
+        disabled={!events.savingEvent.name || !events.savingEvent.organizer || !events.savingEvent.playlist}
         className={classes.button}
         variant="raised"
         color="primary"
