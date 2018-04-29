@@ -6,6 +6,7 @@ import IconButton from 'material-ui/IconButton'
 import Menu, { MenuItem } from 'material-ui/Menu'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import Grid from 'material-ui/Grid'
+import OpenInNew from '@material-ui/icons/OpenInNew'
 import ExistingPlaylistDialog from './ExistingPlaylistDialog'
 import CreatePlaylistDialog from './CreatePlaylistDialog'
 import './Events.css'
@@ -75,6 +76,11 @@ class PlaylistSelection extends Component {
           />
         </Grid>
         <Grid item className={classes.menuIcon}>
+          {value && (
+            <a href={value} target="_blank">
+              <OpenInNew />
+            </a>
+          )}
           <IconButton
             aria-label="Action"
             aria-owns={anchorEl ? 'long-menu' : null}
