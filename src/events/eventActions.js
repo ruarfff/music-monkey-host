@@ -8,6 +8,9 @@ export const EVENT_IMAGE_UPLOAD_ERROR = 'EVENT_IMAGE_UPLOAD_ERROR'
 export const EVENT_SAVED = 'EVENT_SAVED'
 export const EVENT_SAVE_ERROR = 'EVENT_SAVE_ERROR'
 export const EVENT_SAVING_RESET = 'EVENT_SAVING_RESET'
+export const EVENT_CREATE_PLAYLIST_INITIATED = 'EVENT_CREATE_PLAYLIST_INITIATED'
+export const EVENT_PLAYLIST_CREATED = 'EVENT_PLAYLIST_CREATED'
+export const EVENT_PLAYLIST_CREATION_ERROR = 'EVENT_PLAYLIST_CREATION_ERROR'
 
 export const SELECT_EXISTING_PLAYLIST_SELECTED =
   'SELECT_EXISTING_PLAYLIST_SELECTED'
@@ -79,4 +82,9 @@ export const selectCreatePlaylist = () => ({
 
 export const closeCreatePlaylist = () => ({
   type: CREATE_PLAYLIST_CLOSED
+})
+
+export const createEventPlaylist = playlistDetails => ({
+  type: EVENT_CREATE_PLAYLIST_INITIATED,
+  payload: playlistDetails
 })

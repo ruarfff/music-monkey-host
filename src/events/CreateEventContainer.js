@@ -12,11 +12,12 @@ import {
   selectExistingPlaylist,
   closeExistingPlaylist,
   selectCreatePlaylist,
-  closeCreatePlaylist
+  closeCreatePlaylist,
+  createEventPlaylist
 } from './eventActions'
 import CreateEvent from './CreateEvent'
 
-const mapStateToProps = state => ({ events: state.events })
+const mapStateToProps = state => ({ user: state.user, events: state.events })
 
 const mapDispatchToProps = dispatch => ({
   cancel: () => {
@@ -34,7 +35,8 @@ const mapDispatchToProps = dispatch => ({
       selectExistingPlaylist,
       closeExistingPlaylist,
       selectCreatePlaylist,
-      closeCreatePlaylist
+      closeCreatePlaylist,
+      createEventPlaylist
     },
     dispatch
   )

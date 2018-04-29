@@ -36,6 +36,14 @@ class PlaylistSelection extends Component {
     this.props.closeExistingPlaylist()
   }
 
+  handlePlaylistCreation = playlistDetals => {
+    this.props.createEventPlaylist({
+      ...playlistDetals,
+      userId: this.props.user.data.id
+    })
+    this.props.closeCreatePlaylist()
+  }
+
   selectExistingSelected = () => {
     this.handleClose()
     this.props.selectExistingPlaylist()
@@ -50,7 +58,7 @@ class PlaylistSelection extends Component {
     const { anchorEl } = this.state
     const {
       classes,
-      value,      
+      value,
       playlistInput,
       closeExistingPlaylist,
       closeCreatePlaylist
@@ -82,7 +90,7 @@ class PlaylistSelection extends Component {
             PaperProps={{
               style: {
                 maxHeight: ITEM_HEIGHT * 4.5,
-                width: 280
+                width: 300
               }
             }}
           >
@@ -101,6 +109,7 @@ class PlaylistSelection extends Component {
           <CreatePlaylistDialog
             open={playlistInput.isCreatingNewPlaylist}
             onClose={closeCreatePlaylist}
+            onPlaylistCreation={this.handlePlaylistCreation}
           />
         </Grid>
       </Grid>
@@ -109,14 +118,16 @@ class PlaylistSelection extends Component {
 }
 
 PlaylistSelection.propTypes = {
+  user: PropTypes.object.isRequired,
   value: PropTypes.string.isRequired,
-  onPlaylistAdded: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   playlistInput: PropTypes.object.isRequired,
+  onPlaylistAdded: PropTypes.func.isRequired,
   selectExistingPlaylist: PropTypes.func.isRequired,
   closeExistingPlaylist: PropTypes.func.isRequired,
   selectCreatePlaylist: PropTypes.func.isRequired,
-  closeCreatePlaylist: PropTypes.func.isRequired
+  closeCreatePlaylist: PropTypes.func.isRequired,
+  createEventPlaylist: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(PlaylistSelection)

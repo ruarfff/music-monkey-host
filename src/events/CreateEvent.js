@@ -33,6 +33,7 @@ const styles = theme => ({
 })
 
 const CreateEvent = ({
+  user,
   events,
   classes,
   locationChanged,
@@ -45,7 +46,8 @@ const CreateEvent = ({
   selectExistingPlaylist,
   closeExistingPlaylist,
   selectCreatePlaylist,
-  closeCreatePlaylist
+  closeCreatePlaylist,
+  createEventPlaylist
 }) => (
   <form className={classes.root} noValidate autoComplete="off">
     <Grid
@@ -164,6 +166,7 @@ const CreateEvent = ({
 
       <Grid item xs={12} sm={6}>
         <PlaylistSelection
+          user={user}
           value={events.savingEvent.playlist}
           onPlaylistAdded={playlistUrl =>
             eventContentUpdated({ playlist: playlistUrl })
@@ -173,6 +176,7 @@ const CreateEvent = ({
           closeExistingPlaylist={closeExistingPlaylist}
           selectCreatePlaylist={selectCreatePlaylist}
           closeCreatePlaylist={closeCreatePlaylist}
+          createEventPlaylist={createEventPlaylist}
         />
       </Grid>
     </Grid>
@@ -213,6 +217,7 @@ const CreateEvent = ({
 )
 
 CreateEvent.propTypes = {
+  user: PropTypes.object.isRequired,
   events: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   locationChanged: PropTypes.func.isRequired,
@@ -225,7 +230,8 @@ CreateEvent.propTypes = {
   selectCreatePlaylist: PropTypes.func.isRequired,
   closeCreatePlaylist: PropTypes.func.isRequired,
   selectExistingPlaylist: PropTypes.func.isRequired,
-  closeExistingPlaylist: PropTypes.func.isRequired
+  closeExistingPlaylist: PropTypes.func.isRequired,
+  createEventPlaylist: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(CreateEvent)

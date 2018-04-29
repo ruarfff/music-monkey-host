@@ -4,6 +4,7 @@ import CreateEvent from './CreateEvent'
 
 describe('<CreateEvent />', () => {
   it('should render without crashing', () => {
+    const user = {}
     const events = {}
     const playlistInput = {}
     const locationChanged = () => {}
@@ -17,9 +18,11 @@ describe('<CreateEvent />', () => {
     const closeExistingPlaylist = () => {}
     const selectCreatePlaylist = () => {}
     const closeCreatePlaylist = () => {}
+    const createEventPlaylist = () => {}
 
     const wrapper = shallow(
       <CreateEvent
+        user={user}
         events={events}
         locationChanged={locationChanged}
         locationSelected={locationSelected}
@@ -33,6 +36,7 @@ describe('<CreateEvent />', () => {
         closeExistingPlaylist={closeExistingPlaylist}
         selectCreatePlaylist={selectCreatePlaylist}
         closeCreatePlaylist={closeCreatePlaylist}
+        createEventPlaylist={createEventPlaylist}
       />
     )
 

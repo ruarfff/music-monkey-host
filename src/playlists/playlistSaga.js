@@ -1,6 +1,5 @@
 import { put, call, takeEvery } from 'redux-saga/effects'
 import SpotifyWebApi from 'spotify-web-api-js'
-
 import localStorage from '../storage/localStorage'
 import { accessTokenKey } from '../auth/authConstants'
 import {

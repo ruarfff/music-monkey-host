@@ -5,7 +5,9 @@ import { watchFetchPlaylists } from './playlists/playlistSaga'
 import {
   watchCreateEvent,
   watchUploadEventImage,
-  watchUpdateLocationAutoComplete
+  watchUpdateLocationAutoComplete,
+  watchCreateEventPlaylist,
+  watchEventPlaylistCreated
 } from './events/eventSaga'
 
 export default function* saga() {
@@ -16,6 +18,8 @@ export default function* saga() {
     watchFetchPlaylists(),
     watchCreateEvent(),
     watchUploadEventImage(),
-    watchUpdateLocationAutoComplete()
+    watchUpdateLocationAutoComplete(),
+    watchCreateEventPlaylist(),
+    watchEventPlaylistCreated()
   ])
 }
