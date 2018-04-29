@@ -8,27 +8,30 @@ import Dialog, {
 } from 'material-ui/Dialog'
 import PlaylistsSimpleList from '../playlists/PlaylistsSimpleListContainer'
 
-const ExistingPlaylistDialog = ({ open, onClose }) => (
+const ExistingPlaylistDialog = ({ open, onClose, onPlaylistSelected }) => (
   <Dialog
     open={open}
     onClose={onClose}
     aria-labelledby="select-playlist-form-dialog-title"
   >
-    <DialogTitle id="select-playlist-form-dialog-title">Select a Playist</DialogTitle>
+    <DialogTitle id="select-playlist-form-dialog-title">
+      Select a Playist
+    </DialogTitle>
     <DialogContent>
-      <PlaylistsSimpleList />
+      <PlaylistsSimpleList onPlaylistSelected={onPlaylistSelected} />
     </DialogContent>
     <DialogActions>
       <Button onClick={onClose} color="primary">
         Cancel
-      </Button>      
+      </Button>
     </DialogActions>
   </Dialog>
 )
 
 ExistingPlaylistDialog.propTypes = {
   open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  onPlaylistSelected: PropTypes.func.isRequired
 }
 
 export default ExistingPlaylistDialog

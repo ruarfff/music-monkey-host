@@ -31,6 +31,11 @@ class PlaylistSelection extends Component {
     this.setState({ anchorEl: null })
   }
 
+  handlePlaylistSelected = playlist => {
+    this.props.onPlaylistAdded(playlist.external_urls.spotify)
+    this.props.closeExistingPlaylist()
+  }
+
   selectExistingSelected = () => {
     this.handleClose()
     this.props.selectExistingPlaylist()
@@ -45,25 +50,23 @@ class PlaylistSelection extends Component {
     const { anchorEl } = this.state
     const {
       classes,
-      value,
-      onPlaylistAdded,
+      value,      
       playlistInput,
       closeExistingPlaylist,
       closeCreatePlaylist
     } = this.props
     return (
-      <Grid container spacing={16} direction="row">
-        <Grid item xs={14}>
+      <Grid container spacing={8} alignItems="flex-end">
+        <Grid item>
           <TextField
             label="Spotify Playlist"
-            placeholder="Enter Spotify Playlist URL"
+            disabled
             fullWidth
             margin="normal"
             value={value}
-            onChange={event => onPlaylistAdded(event.target.value)}
           />
         </Grid>
-        <Grid item xs={2} className={classes.menuIcon}>
+        <Grid item className={classes.menuIcon}>
           <IconButton
             aria-label="Action"
             aria-owns={anchorEl ? 'long-menu' : null}
@@ -93,6 +96,7 @@ class PlaylistSelection extends Component {
           <ExistingPlaylistDialog
             open={playlistInput.isSelectingExistingPlaylist}
             onClose={closeExistingPlaylist}
+            onPlaylistSelected={this.handlePlaylistSelected}
           />
           <CreatePlaylistDialog
             open={playlistInput.isCreatingNewPlaylist}

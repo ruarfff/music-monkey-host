@@ -18,7 +18,7 @@ class PlaylistsSimpleList extends Component {
       if (playlists.length > 0) {
         playlistView = playlists.map((playlist, i) => (
           <List key={i}>
-            <ListItem button onClick={onPlaylistSelected}>
+            <ListItem button onClick={() => onPlaylistSelected(playlist)}>
               <ListItemAvatar>
                 <Avatar
                   alt={playlist.name}
