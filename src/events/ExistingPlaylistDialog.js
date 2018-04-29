@@ -6,7 +6,7 @@ import Dialog, {
   DialogContent,
   DialogTitle
 } from 'material-ui/Dialog'
-import Playlists from '../playlists/PlaylistContainer'
+import PlaylistsSimpleList from '../playlists/PlaylistsSimpleListContainer'
 
 const ExistingPlaylistDialog = ({ open, onClose }) => (
   <Dialog
@@ -16,15 +16,12 @@ const ExistingPlaylistDialog = ({ open, onClose }) => (
   >
     <DialogTitle id="select-playlist-form-dialog-title">Select a Playist</DialogTitle>
     <DialogContent>
-      <Playlists />
+      <PlaylistsSimpleList />
     </DialogContent>
     <DialogActions>
       <Button onClick={onClose} color="primary">
         Cancel
-      </Button>
-      <Button onClick={onClose} color="primary">
-        OK
-      </Button>
+      </Button>      
     </DialogActions>
   </Dialog>
 )
