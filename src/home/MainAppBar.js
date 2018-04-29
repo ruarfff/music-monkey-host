@@ -113,7 +113,6 @@ class MainAppBar extends React.Component {
           open={open}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={this.handleClose}>My account</MenuItem>
           <MenuItem onClick={this.props.logout}>Logout</MenuItem>
         </Menu>
       </div>
@@ -146,7 +145,7 @@ MainAppBar.propTypes = {
   user: PropTypes.object.isRequired,
   home: PropTypes.object.isRequired,
   openSidebar: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired  
+  logout: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(MainAppBar)
