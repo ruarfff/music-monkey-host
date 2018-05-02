@@ -9,6 +9,7 @@ import {
   LOGGING_OUT,
   LOGGED_OUT
 } from './authActions'
+import { FETCH_USER_SUCCESS } from '../user/userActions'
 import localStorage from '../storage/localStorage'
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
@@ -24,8 +25,8 @@ function login() {
           refreshToken: refreshToken
         })
         .then(response => {
-          localStorage.set(accessTokenKey, response.data.access_token)
-          resolve()
+          localStorage.set(accessTokenKey, response.data.auth.accessToken)
+          resolve(response.data)
         })
         .catch(reject)
     }
@@ -34,8 +35,9 @@ function login() {
 
 export function* loginFlow() {
   try {
-    yield call(login)
+    const user = yield call(login)
     yield put({ type: LOGIN_SUCCESS })
+    yield put({ type: FETCH_USER_SUCCESS, payload: user })
   } catch (error) {
     yield put({ type: LOGIN_FAILURE, payload: error })
   }

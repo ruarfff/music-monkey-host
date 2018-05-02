@@ -64,7 +64,7 @@ class MainAppBar extends React.Component {
     const { sidebarIsOpen } = this.props.home
     const { anchorEl } = this.state
     const open = Boolean(anchorEl)
-    const userHasProfileImage = user.images && user.images.length > 0
+    const userHasProfileImage = !!user.image
 
     const menuButton = (
       <IconButton
@@ -94,7 +94,7 @@ class MainAppBar extends React.Component {
           color="inherit"
         >
           {userHasProfileImage ? (
-            <Avatar alt="user profile" src={user.images[0].url} />
+            <Avatar alt="user profile" src={user.image} />
           ) : (
             <AccountCircle />
           )}

@@ -15,7 +15,7 @@ const styles = theme => ({
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
-    display: 'flex',
+    display: 'flex'
   },
   content: {
     flexGrow: 1,
@@ -38,10 +38,6 @@ class Home extends Component {
     this.state = {
       avatarMenuOpen: false
     }
-  }
-
-  componentDidMount() {
-    this.props.fetchUser()
   }
 
   render() {
