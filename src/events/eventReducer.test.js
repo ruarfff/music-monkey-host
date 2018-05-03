@@ -11,7 +11,8 @@ import {
   SELECT_EXISTING_PLAYLIST_SELECTED,
   SELECT_EXISTING_PLAYLIST_CLOSED,
   CREATE_PLAYLIST_SELECTED,
-  CREATE_PLAYLIST_CLOSED
+  CREATE_PLAYLIST_CLOSED,
+  EVENT_CREATE_FORM_INITIALIZED
 } from './eventActions'
 import initialState from './eventInitialState'
 import events from './eventReducer'
@@ -158,21 +159,16 @@ describe('eventReducer', () => {
   })
 
   it('should handle EVENT_SAVED', () => {
-    const event = { ...initialState.savingEvent, name: 'save-me' }
+    const savingEvent = initialState.savingEvent
+    const event = { ...savingEvent, name: 'save-me' }
     expect(
-      events(
-        {
-          ...initialState,
-          savingEvent: event
-        },
-        {
-          type: EVENT_SAVED
-        }
-      )
+      events(initialState, {
+        type: EVENT_SAVED,
+        payload: event
+      })
     ).toEqual({
       ...initialState,
       events: [...initialState.events, event],
-      savingEvent: event,
       showSavedDialogue: true
     })
   })
@@ -263,6 +259,24 @@ describe('eventReducer', () => {
         ...initialState.playlistInput,
         isCreatingNewPlaylist: false
       }
+    })
+  })
+
+  it('should handle EVENT_CREATE_FORM_INITIALIZED', () => {
+    expect(
+      events(
+        { ...initialState },
+        {
+          type: EVENT_CREATE_FORM_INITIALIZED,
+          payload: {
+            event: initialState.savingEvent,
+            user: { userId: 'test-id' }
+          }
+        }
+      )
+    ).toEqual({
+      ...initialState,
+      savingEvent: { ...initialState.savingEvent, userId: 'test-id' }
     })
   })
 })

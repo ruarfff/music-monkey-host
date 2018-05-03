@@ -11,7 +11,8 @@ import {
   SELECT_EXISTING_PLAYLIST_SELECTED,
   SELECT_EXISTING_PLAYLIST_CLOSED,
   CREATE_PLAYLIST_SELECTED,
-  CREATE_PLAYLIST_CLOSED
+  CREATE_PLAYLIST_CLOSED,
+  EVENT_CREATE_FORM_INITIALIZED
 } from './eventActions'
 import initialState from './eventInitialState'
 
@@ -77,7 +78,7 @@ export default function events(state = initialState, { type, payload }) {
     case EVENT_SAVED:
       return {
         ...state,
-        events: [...state.events, state.savingEvent],
+        events: [...state.events, payload],
         showSavedDialogue: true
       }
     case EVENT_SAVE_ERROR:
@@ -118,6 +119,15 @@ export default function events(state = initialState, { type, payload }) {
         playlistInput: {
           ...state.playlistInput,
           isCreatingNewPlaylist: false
+        }
+      }
+    case EVENT_CREATE_FORM_INITIALIZED:
+      return {
+        ...state,
+        savingEvent: {
+          ...payload.event,
+          userId: payload.user.userId,
+          organizer: payload.user.displayName
         }
       }
     default:

@@ -8,12 +8,13 @@ import {
   eventImageUploaded,
   eventImageUploadError,
   eventSavingReset,
-  eventSaved,
+  saveEvent,
   selectExistingPlaylist,
   closeExistingPlaylist,
   selectCreatePlaylist,
   closeCreatePlaylist,
-  createEventPlaylist
+  createEventPlaylist,
+  initializeCreateForm
 } from './eventActions'
 import CreateEvent from './CreateEvent'
 
@@ -31,12 +32,13 @@ const mapDispatchToProps = dispatch => ({
       eventContentUpdated,
       eventImageUploaded,
       eventImageUploadError,
-      eventSaved,
+      saveEvent,
       selectExistingPlaylist,
       closeExistingPlaylist,
       selectCreatePlaylist,
       closeCreatePlaylist,
-      createEventPlaylist
+      createEventPlaylist,
+      initializeCreateForm
     },
     dispatch
   )

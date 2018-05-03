@@ -7,7 +7,7 @@ export default {
     imageUrl: '',
     description: '',
     venue: '',
-    location: { address: '', latLng: {} },
+    location: { address: '', latLng: {lat: 0, lng: 0} },
     startDateTime: moment()
       .add(2, 'hours')
       .startOf('hour'),

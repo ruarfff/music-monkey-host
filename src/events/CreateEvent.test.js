@@ -12,13 +12,14 @@ describe('<CreateEvent />', () => {
     const eventContentUpdated = () => {}
     const eventImageUploaded = () => {}
     const eventImageUploadedError = () => {}
-    const eventSaved = () => {}
+    const saveEvent = () => {}
     const cancel = () => {}
     const selectExistingPlaylist = () => {}
     const closeExistingPlaylist = () => {}
     const selectCreatePlaylist = () => {}
     const closeCreatePlaylist = () => {}
     const createEventPlaylist = () => {}
+    const initializeCreateForm = () => {}
 
     const wrapper = shallow(
       <CreateEvent
@@ -29,7 +30,7 @@ describe('<CreateEvent />', () => {
         eventContentUpdated={eventContentUpdated}
         eventImageUploaded={eventImageUploaded}
         eventImageUploadError={eventImageUploadedError}
-        eventSaved={eventSaved}
+        saveEvent={saveEvent}
         cancel={cancel}
         playlistInput={playlistInput}
         selectExistingPlaylist={selectExistingPlaylist}
@@ -37,6 +38,7 @@ describe('<CreateEvent />', () => {
         selectCreatePlaylist={selectCreatePlaylist}
         closeCreatePlaylist={closeCreatePlaylist}
         createEventPlaylist={createEventPlaylist}
+        initializeCreateForm={initializeCreateForm}
       />
     )
 

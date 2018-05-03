@@ -1,4 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
+import axios from 'axios'
+import moment from 'moment'
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import SpotifyWebApi from 'spotify-web-api-js'
 import localStorage from '../storage/localStorage'
@@ -10,8 +12,13 @@ import {
   EVENT_CREATE_PLAYLIST_INITIATED,
   EVENT_PLAYLIST_CREATED,
   EVENT_PLAYLIST_CREATION_ERROR,
-  EVENT_CONTENT_UPDATED
+  EVENT_CONTENT_UPDATED,
+  EVENT_SAVE_INITIATED,
+  EVENT_SAVED,
+  EVENT_SAVE_ERROR
 } from './eventActions'
+
+const serviceUrl = process.env.REACT_APP_MM_API_URL
 
 function createPlaylist(playlistDetails) {
   const token = localStorage.get(accessTokenKey)
@@ -61,6 +68,40 @@ function* fetchLatLngFlow({ payload }) {
   }
 }
 
+function saveEvent(event) {
+  return axios
+    .post(serviceUrl + '/events', {
+      ...event,
+      startDateTime: event.startDateTime.toISOString(),
+      endDateTime: event.endDateTime.toISOString(),
+      location: {
+        ...event.location,
+        address: event.location.address || 'Nowhere'
+      }
+    })
+    .then(response => {
+      const savedEvent = {
+        ...response.data,
+        startDateTime: moment(response.data.startDateTime),
+        endDateTime: moment(response.data.endDateTime)
+      }
+
+      return savedEvent
+    })
+}
+
+function* saveEventFlow({ payload }) {
+  try {
+    const event = yield call(saveEvent, payload)
+    yield put({
+      type: EVENT_SAVED,
+      payload: event
+    })
+  } catch (err) {
+    yield put({ type: EVENT_SAVE_ERROR, payload: err })
+  }
+}
+
 export function* watchUploadEventImage() {
   // TODO: Right now this is done in the component. Should move to saga.
 }
@@ -77,4 +118,6 @@ export function* watchUpdateLocationAutoComplete() {
   yield takeEvery(EVENT_LOCATION_SELECTED, fetchLatLngFlow)
 }
 
-export function* watchCreateEvent() {}
+export function* watchCreateEvent() {
+  yield takeEvery(EVENT_SAVE_INITIATED, saveEventFlow)
+}
