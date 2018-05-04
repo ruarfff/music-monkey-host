@@ -1,11 +1,11 @@
-export interface Auth {
+export interface IAuth {
   isAuthenticating: boolean
   isAuthenticated: boolean
   authError: Error
 }
 
-export interface RootState {
-  auth: Auth
+export interface IRootState {
+  auth: IAuth
   user: {}
   playlists: {}
   home: {}

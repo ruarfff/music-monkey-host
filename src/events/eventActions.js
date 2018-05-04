@@ -25,33 +25,33 @@ export const CREATE_PLAYLIST_SELECTED = 'CREATE_PLAYLIST_SELECTED'
 export const CREATE_PLAYLIST_CLOSED = 'CREATE_PLAYLIST_CLOSED'
 
 export const locationChanged = address => ({
-  type: EVENT_LOCATION_CHANGED,
-  payload: address
+  payload: address,
+  type: EVENT_LOCATION_CHANGED
 })
 
 export const locationSelected = address => ({
-  type: EVENT_LOCATION_SELECTED,
-  payload: address
+  payload: address,
+  type: EVENT_LOCATION_SELECTED
 })
 
 export const eventContentUpdated = event => ({
-  type: EVENT_CONTENT_UPDATED,
-  payload: event
+  payload: event,
+  type: EVENT_CONTENT_UPDATED
 })
 
 export const eventImageUploaded = imageUrl => ({
-  type: EVENT_IMAGE_UPLOADED,
-  payload: imageUrl
+  payload: imageUrl,
+  type: EVENT_IMAGE_UPLOADED
 })
 
 export const eventImageUploadError = err => ({
-  type: EVENT_IMAGE_UPLOAD_ERROR,
-  payload: err
+  payload: err,
+  type: EVENT_IMAGE_UPLOAD_ERROR
 })
 
 export const saveEvent = event => ({
-  type: EVENT_SAVE_INITIATED,
-  payload: event
+  payload: event,
+  type: EVENT_SAVE_INITIATED
 })
 
 export const eventSavingReset = () => ({
@@ -59,8 +59,8 @@ export const eventSavingReset = () => ({
 })
 
 export const eventSaved = event => ({
-  type: EVENT_SAVED,
-  payload: event
+  payload: event,
+  type: EVENT_SAVED
 })
 
 export const selectExistingPlaylist = () => ({
@@ -80,16 +80,16 @@ export const closeCreatePlaylist = () => ({
 })
 
 export const createEventPlaylist = playlistDetails => ({
-  type: EVENT_CREATE_PLAYLIST_INITIATED,
-  payload: playlistDetails
+  payload: playlistDetails,
+  type: EVENT_CREATE_PLAYLIST_INITIATED
 })
 
 export const initializeCreateForm = (event, user) => ({
-  type: EVENT_CREATE_FORM_INITIALIZED,
-  payload: { event, user }
+  payload: { event, user },
+  type: EVENT_CREATE_FORM_INITIALIZED
 })
 
-export const getEvents = (userId) => ({
-  type: EVENTS_FETCH_INITIATED,
-  payload: userId
+export const getEvents = userId => ({
+  payload: userId,
+  type: EVENTS_FETCH_INITIATED
 })

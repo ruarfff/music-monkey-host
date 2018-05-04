@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux'
 import auth from './auth/authReducer'
-import user from './user/userReducer'
-import playlists from './playlists/playlistReducer'
-import home from './home/homeReducer'
 import events from './events/eventReducer' 
+import home from './home/homeReducer'
+import playlists from './playlists/playlistReducer'
+import user from './user/userReducer'
 
 const reducers = combineReducers({
     auth,
-    user,
-    playlists,
+    events,
     home,
-    events
+    playlists,
+    user
 })
 
 export default reducers

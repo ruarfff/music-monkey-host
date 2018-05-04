@@ -22,11 +22,11 @@ export default function events(state = initialState, { type, payload }) {
     case EVENT_LOCATION_CHANGED:
       return {
         ...state,
+        errors: { ...state.errors, location: null },
         savingEvent: {
           ...state.savingEvent,
           location: { ...state.savingEvent.location, address: payload }
-        },
-        errors: { ...state.errors, location: null }
+        }
       }
     case EVENT_LOCATION_POPULATED:
       return {
@@ -127,14 +127,14 @@ export default function events(state = initialState, { type, payload }) {
         ...state,
         savingEvent: {
           ...payload.event,
-          userId: payload.user.userId,
-          organizer: payload.user.displayName
+          organizer: payload.user.displayName,
+          userId: payload.user.userId
         }
       }
     case EVENTS_FETCHED:
       return {
-        ...state,
-        events: payload
+        events: payload,
+        ...state
       }
     default:
       return state

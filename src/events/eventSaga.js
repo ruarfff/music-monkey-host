@@ -30,8 +30,8 @@ function createPlaylist(playlistDetails) {
 
   spotifyApi.setAccessToken(token)
   return spotifyApi.createPlaylist(userId, {
-    name,
     description,
+    name,
     public: isPublic
   })
 }
@@ -40,8 +40,8 @@ function* createPlaylistFlow({ payload }) {
   try {
     const playlist = yield call(createPlaylist, payload)
     yield put({
-      type: EVENT_PLAYLIST_CREATED,
-      payload: { playlist }
+      payload: { playlist },
+      type: EVENT_PLAYLIST_CREATED
     })
   } catch (error) {
     yield put({ type: EVENT_PLAYLIST_CREATION_ERROR, payload: error })
@@ -50,8 +50,8 @@ function* createPlaylistFlow({ payload }) {
 
 function* eventPlaylistCreatedFlow({ payload }) {
   yield put({
-    type: EVENT_CONTENT_UPDATED,
-    payload: { playlist: payload.playlist.external_urls.spotify }
+    payload: { playlist: payload.playlist.external_urls.spotify },
+    type: EVENT_CONTENT_UPDATED
   })
 }
 
@@ -63,8 +63,8 @@ function* fetchLatLngFlow({ payload }) {
   try {
     const latLng = yield call(fetchLatLng, payload)
     yield put({
-      type: EVENT_LOCATION_POPULATED,
-      payload: { address: payload, latLng: latLng }
+      payload: { address: payload, latLng: latLng },
+      type: EVENT_LOCATION_POPULATED
     })
   } catch (error) {
     yield put({ type: EVENT_LOCATION_ERROR, payload: error })
@@ -75,18 +75,18 @@ function saveEvent(event) {
   return axios
     .post(serviceUrl + '/events', {
       ...event,
-      startDateTime: event.startDateTime.toISOString(),
       endDateTime: event.endDateTime.toISOString(),
       location: {
         ...event.location,
         address: event.location.address || 'Nowhere'
-      }
+      },
+      startDateTime: event.startDateTime.toISOString()
     })
     .then(response => {
       const savedEvent = {
         ...response.data,
-        startDateTime: moment(response.data.startDateTime),
-        endDateTime: moment(response.data.endDateTime)
+        endDateTime: moment(response.data.endDateTime),
+        startDateTime: moment(response.data.startDateTime)
       }
 
       return savedEvent
@@ -97,8 +97,8 @@ function* saveEventFlow({ payload }) {
   try {
     const event = yield call(saveEvent, payload)
     yield put({
-      type: EVENT_SAVED,
-      payload: event
+      payload: event,
+      type: EVENT_SAVED
     })
   } catch (err) {
     yield put({ type: EVENT_SAVE_ERROR, payload: err })
@@ -109,8 +109,8 @@ function fetchEvents(userId) {
   return axios.get(serviceUrl + '/events?userId=' + userId).then(response =>
     response.data.map(event => ({
       ...event,
-      startDateTime: moment(response.data.startDateTime),
-      endDateTime: moment(response.data.endDateTime)
+      endDateTime: moment(response.data.endDateTime),
+      startDateTime: moment(response.data.startDateTime)
     }))
   )
 }

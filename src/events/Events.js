@@ -128,9 +128,9 @@ class Events extends Component {
 }
 
 Events.propTypes = {
-  user: PropTypes.object.isRequired,
   events: PropTypes.object.isRequired,
-  getEvents: PropTypes.func.isRequired
+  getEvents: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 }
 
 export default Events

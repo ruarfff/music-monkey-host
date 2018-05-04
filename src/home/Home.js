@@ -12,8 +12,8 @@ import './Home.css'
 const styles = theme => ({
   root: {
     content: {
-      flexGrow: 1,
       backgroundColor: theme.palette.background.default,
+      flexGrow: 1,
       padding: theme.spacing.unit * 3
     },
     display: 'flex',
@@ -23,8 +23,8 @@ const styles = theme => ({
     zIndex: 1
   },
   toolbar: {
-    display: 'flex',
     alignItems: 'center',
+    display: 'flex',
     justifyContent: 'flex-end',
     padding: '0 8px',
     ...theme.mixins.toolbar
@@ -66,8 +66,8 @@ class Home extends Component {
 Home.propTypes = {
   classes: PropTypes.object.isRequired,
   fetchUser: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-  routes: PropTypes.array.isRequired
+  routes: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired
 }
 
 export default withStyles(styles, { withTheme: true })(Home)

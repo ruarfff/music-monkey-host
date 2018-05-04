@@ -13,36 +13,36 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import { drawerWidth } from './homeConstants'
 
 const styles = theme => ({
-  title: {
-    flex: 1
-  },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       duration: theme.transitions.duration.leavingScreen,
       easing: theme.transitions.easing.sharp
-    })
+    }),
+    zIndex: theme.zIndex.drawer + 1
   },
   appBarShift: {
     marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       duration: theme.transitions.duration.enteringScreen,
       easing: theme.transitions.easing.sharp
-    })
+    }),
+    width: `calc(100% - ${drawerWidth}px)`
+  },
+  hide: {
+    display: 'none'
   },
   menuButton: {
     marginLeft: 12,
     marginRight: 36
-  },
-  hide: {
-    display: 'none'
   },
   profile: {
     marginRight: 12
   },
   profileSideOpen: {
     marginRight: -12
+  },
+  title: {
+    flex: 1
   }
 })
 
@@ -103,12 +103,12 @@ class MainAppBar extends React.Component {
           id="menu-appbar"
           anchorEl={anchorEl}
           anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right'
+            horizontal: 'right',
+            vertical: 'top'
           }}
           transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right'
+            horizontal: 'right',
+            vertical: 'top'
           }}
           open={open}
           onClose={this.handleClose}
@@ -142,10 +142,10 @@ class MainAppBar extends React.Component {
 
 MainAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
   home: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired,
   openSidebar: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired
+  user: PropTypes.object.isRequired
 }
 
 export default withStyles(styles)(MainAppBar)

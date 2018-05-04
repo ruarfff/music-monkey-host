@@ -27,18 +27,18 @@ const mapDispatchToProps = dispatch => ({
   },
   ...bindActionCreators(
     {
+      closeCreatePlaylist,
+      closeExistingPlaylist,
+      createEventPlaylist,
+      eventContentUpdated,
+      eventImageUploadError,
+      eventImageUploaded,
+      initializeCreateForm,
       locationChanged,
       locationSelected,
-      eventContentUpdated,
-      eventImageUploaded,
-      eventImageUploadError,
       saveEvent,
-      selectExistingPlaylist,
-      closeExistingPlaylist,
       selectCreatePlaylist,
-      closeCreatePlaylist,
-      createEventPlaylist,
-      initializeCreateForm
+      selectExistingPlaylist
     },
     dispatch
   )

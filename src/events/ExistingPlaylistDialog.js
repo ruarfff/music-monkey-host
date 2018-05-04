@@ -29,9 +29,9 @@ const ExistingPlaylistDialog = ({ open, onClose, onPlaylistSelected }) => (
 )
 
 ExistingPlaylistDialog.propTypes = {
-  open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onPlaylistSelected: PropTypes.func.isRequired
+  onPlaylistSelected: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired
 }
 
 export default ExistingPlaylistDialog

@@ -14,33 +14,33 @@ import EventView from './events/EventView'
 const locationHelper = locationHelperBuilder({})
 
 const userIsNotAuthenticated = connectedRouterRedirect({
-  redirectPath: (state, ownProps) =>
-    locationHelper.getRedirectQueryParam(ownProps) || '/',
   allowRedirectBack: false,
   authenticatedSelector: state => !state.auth.isAuthenticated,
+  redirectPath: (state, ownProps) =>
+    locationHelper.getRedirectQueryParam(ownProps) || '/',
   wrapperDisplayName: 'UserIsNotAuthenticated'
 })
 
 const userIsAuthenticated = connectedRouterRedirect({
-  redirectPath: '/login',
   authenticatedSelector: state => state.auth.isAuthenticated,
   redirectAction: routerActions.replace,
+  redirectPath: '/login',
   wrapperDisplayName: 'UserIsAuthenticated'
 })
 
 const routes = [
   {
-    path: '/',
     component: userIsAuthenticated(Home),
+    path: '/',
     routes: [
       {
-        path: '/create-event',
         component: CreateEvent,
-        exact: true
+        exact: true,
+        path: '/create-event'
       },
       {
-        path: '/event-view',
-        component: EventView
+        component: EventView,
+        path: '/event-view'
       }
     ]
   }

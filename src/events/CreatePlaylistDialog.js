@@ -87,9 +87,9 @@ class CreatePlaylistDialog extends Component {
 }
 
 CreatePlaylistDialog.propTypes = {
-  open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onPlaylistCreation: PropTypes.func.isRequired
+  onPlaylistCreation: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired
 }
 
 export default CreatePlaylistDialog
