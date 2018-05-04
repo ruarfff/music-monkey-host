@@ -32,7 +32,7 @@ describe('eventReducer', () => {
       ...initialState,
       savingEvent: {
         ...initialState.savingEvent,
-        location: { address: 'test', latLng: {} }
+        location: { address: 'test', latLng: { lat: 0, lng: 0 } }
       }
     })
   })
@@ -50,7 +50,7 @@ describe('eventReducer', () => {
       ...initialState,
       savingEvent: {
         ...initialState.savingEvent,
-        location: { address: 'test', latLng: {} }
+        location: { address: 'test', latLng: { lat: 0, lng: 0 } }
       },
       errors: { location: null }
     })
@@ -270,13 +270,17 @@ describe('eventReducer', () => {
           type: EVENT_CREATE_FORM_INITIALIZED,
           payload: {
             event: initialState.savingEvent,
-            user: { userId: 'test-id' }
+            user: { userId: 'test-id', displayName: 'test user' }
           }
         }
       )
     ).toEqual({
       ...initialState,
-      savingEvent: { ...initialState.savingEvent, userId: 'test-id' }
+      savingEvent: {
+        ...initialState.savingEvent,
+        userId: 'test-id',
+        organizer: 'test user'
+      }
     })
   })
 })

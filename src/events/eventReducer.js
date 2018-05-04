@@ -12,7 +12,8 @@ import {
   SELECT_EXISTING_PLAYLIST_CLOSED,
   CREATE_PLAYLIST_SELECTED,
   CREATE_PLAYLIST_CLOSED,
-  EVENT_CREATE_FORM_INITIALIZED
+  EVENT_CREATE_FORM_INITIALIZED,
+  EVENTS_FETCHED
 } from './eventActions'
 import initialState from './eventInitialState'
 
@@ -129,6 +130,11 @@ export default function events(state = initialState, { type, payload }) {
           userId: payload.user.userId,
           organizer: payload.user.displayName
         }
+      }
+    case EVENTS_FETCHED:
+      return {
+        ...state,
+        events: payload
       }
     default:
       return state

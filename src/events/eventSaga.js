@@ -15,7 +15,10 @@ import {
   EVENT_CONTENT_UPDATED,
   EVENT_SAVE_INITIATED,
   EVENT_SAVED,
-  EVENT_SAVE_ERROR
+  EVENT_SAVE_ERROR,
+  EVENTS_FETCH_INITIATED,
+  EVENTS_FETCHED,
+  EVENTS_FETCH_ERROR
 } from './eventActions'
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
@@ -102,6 +105,25 @@ function* saveEventFlow({ payload }) {
   }
 }
 
+function fetchEvents(userId) {
+  return axios.get(serviceUrl + '/events?userId=' + userId).then(response =>
+    response.data.map(event => ({
+      ...event,
+      startDateTime: moment(response.data.startDateTime),
+      endDateTime: moment(response.data.endDateTime)
+    }))
+  )
+}
+
+function* fetchEventsFlow({ payload }) {
+  try {
+    const events = yield call(fetchEvents, payload)
+    yield put({ type: EVENTS_FETCHED, payload: events })
+  } catch (err) {
+    yield put({ type: EVENTS_FETCH_ERROR, payload: err })
+  }
+}
+
 export function* watchUploadEventImage() {
   // TODO: Right now this is done in the component. Should move to saga.
 }
@@ -120,4 +142,8 @@ export function* watchUpdateLocationAutoComplete() {
 
 export function* watchCreateEvent() {
   yield takeEvery(EVENT_SAVE_INITIATED, saveEventFlow)
+}
+
+export function* watchFetchEvents() {
+  yield takeEvery(EVENTS_FETCH_INITIATED, fetchEventsFlow)
 }

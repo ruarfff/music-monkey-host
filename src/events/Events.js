@@ -34,6 +34,12 @@ const renderEventCreateAction = () => (
 )
 
 class Events extends Component {
+  componentDidMount() {
+    if (this.props.user.data) {
+      this.props.getEvents(this.props.user.data.userId)
+    }
+  }
+
   render() {
     const { events } = this.props.events
     return (
@@ -122,7 +128,9 @@ class Events extends Component {
 }
 
 Events.propTypes = {
-  events: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  events: PropTypes.object.isRequired,
+  getEvents: PropTypes.func.isRequired
 }
 
 export default Events

@@ -7,7 +7,8 @@ import {
   watchUploadEventImage,
   watchUpdateLocationAutoComplete,
   watchCreateEventPlaylist,
-  watchEventPlaylistCreated
+  watchEventPlaylistCreated,
+  watchFetchEvents
 } from './events/eventSaga'
 
 export default function* saga() {
@@ -20,6 +21,7 @@ export default function* saga() {
     watchUploadEventImage(),
     watchUpdateLocationAutoComplete(),
     watchCreateEventPlaylist(),
-    watchEventPlaylistCreated()
+    watchEventPlaylistCreated(),
+    watchFetchEvents()
   ])
 }
