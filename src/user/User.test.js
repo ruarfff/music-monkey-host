@@ -4,7 +4,7 @@ import User from './User'
 
 describe('User component', () => {
   it('renders without crashing', () => {
-    const fetchUser = () => {}
+    const fetchUser = () => {return {}}
     const user = {}
     const div = document.createElement('div')
     ReactDOM.render(<User fetchUser={fetchUser} user={user} />, div)

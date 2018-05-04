@@ -11,10 +11,10 @@ var bucketRegion = 'eu-west-1'
 var IdentityPoolId = 'eu-west-1:cf3e89d6-8cce-4eab-a432-fb3ba85798ba'
 
 AWS.config.update({
-  region: bucketRegion,
   credentials: new AWS.CognitoIdentityCredentials({
     IdentityPoolId: IdentityPoolId
-  })
+  }),
+  region: bucketRegion
 })
 
 var s3 = new AWS.S3({
@@ -24,9 +24,9 @@ var s3 = new AWS.S3({
 
 const djsConfig = {
   autoProcessQueue: false,
+  dictDefaultMessage: 'Event Image',
   maxFiles: 1,
   paramName: 'event-image',
-  dictDefaultMessage: 'Event Image'
 }
 
 function upload(file) {
@@ -36,9 +36,9 @@ function upload(file) {
   return new Promise((resolve, reject) => {
     s3.putObject(
       {
-        Key: key + fileName,
+        ACL: 'public-read',
         Body: file,
-        ACL: 'public-read'
+        Key: key + fileName
       },
       err => {
         if (err) {

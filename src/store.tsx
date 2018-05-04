@@ -1,14 +1,11 @@
+import createHistory from 'history/createBrowserHistory'
+import { routerMiddleware } from 'react-router-redux'
 import { applyMiddleware, compose, createStore } from 'redux'
+import reduxImmutableStateInvariant from 'redux-immutable-state-invariant'
 import { createLogger } from 'redux-logger'
 import createSagaMiddleware from 'redux-saga'
-import { routerMiddleware } from 'react-router-redux'
-import createHistory from 'history/createBrowserHistory'
-import reduxImmutableStateInvariant from 'redux-immutable-state-invariant'
-import LogRocket from 'logrocket'
 import reducers from './reducers'
 import saga from './saga'
-
-LogRocket.init('ftequc/music-monkey-host')
 
 const isDevBuild = process.env.NODE_ENV !== 'production'
 export const history = createHistory()
@@ -20,19 +17,14 @@ const logger = createLogger({
   duration: true
 })
 
-const rootMidlelwares = [
-  reactRouterMiddleware,
-  sagaMiddleware,
-  logger,
-  LogRocket.reduxMiddleware()
-]
+const rootMidlelwares = [reactRouterMiddleware, sagaMiddleware, logger]
 
 const middleware = isDevBuild
   ? [...rootMidlelwares, reduxImmutableStateInvariant()]
   : rootMidlelwares
-
+const windowIfDefined = typeof window === 'undefined' ? null : (window as any)
 const composeEnhancers = isDevBuild
-  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+  ? windowIfDefined.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
   : compose
 
 export const store = createStore(

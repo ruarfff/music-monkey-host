@@ -3,22 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV='development' REACT_APP_REDIRECT_URL='http://localhost:3000/callback' react-scripts start",
-    "start:local": "NODE_ENV='development' REACT_APP_MM_API_URL='http://localhost:8080' REACT_APP_REDIRECT_URL='http://localhost:3000/callback' react-scripts start",
-    "build": "NODE_ENV='production' react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
+    "start": "NODE_ENV='development' REACT_APP_REDIRECT_URL='http://localhost:3000/callback' react-scripts-ts start",
+    "start:local": "NODE_ENV='development' REACT_APP_MM_API_URL='http://localhost:8080' REACT_APP_REDIRECT_URL='http://localhost:3000/callback' react-scripts-ts start",
+    "build": "NODE_ENV='production' react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject",
     "deploy": "awsmobile publish",
-    "lint": "eslint src/**/*.js"
+    "lint": "tslint --fix src/**/*.tsx"
   },
   "dependencies": {
     "@material-ui/icons": "^1.0.0-beta.43",
+    "@types/dropzone": "^5.0.2",
     "autosuggest-highlight": "^3.1.1",
     "aws-amplify": "^0.3.0",
     "aws-amplify-react": "^0.1.41",
     "aws-sdk": "^2.229.1",
     "axios": "^0.18.0",
-    "logrocket": "^0.6.10",
     "material-ui": "^1.0.0-beta.43",
     "material-ui-pickers": "^1.0.0-rc.6",
     "moment": "^2.22.1",
@@ -30,7 +30,7 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
-    "react-scripts": "1.1.4",
+    "react-scripts-ts": "^2.15.1",
     "react-tap-event-plugin": "^3.0.2",
     "redux": "^4.0.0",
     "redux-auth-wrapper": "^2.0.2",
@@ -42,6 +42,17 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
+    "@types/history": "^4.6.2",
+    "@types/jest": "22.2.3",
+    "@types/node": "10.0.3",
+    "@types/prop-types": "^15.5.2",
+    "@types/react": "16.3.13",
+    "@types/react-dom": "16.0.5",
+    "@types/react-redux": "^5.0.19",
+    "@types/react-router-redux": "^5.0.13",
+    "@types/redux-auth-wrapper": "^2.0.7",
+    "@types/redux-immutable-state-invariant": "^2.0.4",
+    "@types/redux-logger": "^3.0.6",
     "awsmobile-cli": "^1.1.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
@@ -53,6 +64,7 @@
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-standard": "^3.0.1",
-    "redux-immutable-state-invariant": "^2.1.0"
+    "redux-immutable-state-invariant": "^2.1.0",
+    "typescript": "2.8.3"
   }
 }

@@ -13,33 +13,33 @@ import { drawerWidth } from './homeConstants'
 import Link from 'react-router-dom/Link'
 
 const styles = theme => ({
-  menuButton: {
-    marginLeft: 12,
-    marginRight: 36
-  },
   drawerPaper: {
     position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
     transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+      easing: theme.transitions.easing.sharp
+    }),
+    whiteSpace: 'nowrap',
+    width: drawerWidth
   },
   drawerPaperClose: {
     overflowX: 'hidden',
     transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
+      duration: theme.transitions.duration.leavingScreen,
+      easing: theme.transitions.easing.sharp
     }),
     width: theme.spacing.unit * 7,
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing.unit * 9
     }
   },
+  menuButton: {
+    marginLeft: 12,
+    marginRight: 36
+  },
   toolbar: {
-    display: 'flex',
     alignItems: 'center',
+    display: 'flex',
     justifyContent: 'flex-end',
     padding: '0 8px',
     ...theme.mixins.toolbar
@@ -89,9 +89,9 @@ class Sidebar extends Component {
 
 Sidebar.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
   closeSidebar: PropTypes.func.isRequired,
-  home: PropTypes.object.isRequired
+  home: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired
 }
 
 export default withStyles(styles, { withTheme: true })(Sidebar)

@@ -1,16 +1,21 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import CssBaseline from 'material-ui/CssBaseline'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import MomentUtils from 'material-ui-pickers/utils/moment-utils'
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider'
+import CssBaseline from 'material-ui/CssBaseline'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import * as React from 'react'
 import { Provider } from 'react-redux'
 import { Routes } from './routes'
 
+import { Store } from 'redux';
 import theme from './theme'
 
-class App extends Component {
-  render() {
+interface IAppProps {
+  store: Store,
+  history: {}
+} 
+
+class App extends React.Component<IAppProps, {}> {
+  public render() {
     return (
       <React.Fragment>
         <CssBaseline />
@@ -24,11 +29,6 @@ class App extends Component {
       </React.Fragment>
     )
   }
-}
-
-App.propTypes = {
-  store: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
 }
 
 export default App

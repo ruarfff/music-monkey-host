@@ -176,8 +176,8 @@ describe('eventReducer', () => {
   it('should handle EVENT_SAVE_ERROR', () => {
     expect(
       events(initialState, {
-        type: EVENT_SAVE_ERROR,
-        payload: new Error('oh the humanity')
+        payload: new Error('oh the humanity'),
+        type: EVENT_SAVE_ERROR
       })
     ).toEqual({
       ...initialState,
@@ -267,11 +267,11 @@ describe('eventReducer', () => {
       events(
         { ...initialState },
         {
-          type: EVENT_CREATE_FORM_INITIALIZED,
           payload: {
             event: initialState.savingEvent,
             user: { userId: 'test-id', displayName: 'test user' }
-          }
+          },
+          type: EVENT_CREATE_FORM_INITIALIZED
         }
       )
     ).toEqual({

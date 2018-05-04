@@ -9,8 +9,6 @@ class User extends Component {
   render() {
     if (this.props.user.data) {
       const { email } = this.props.user.data
-      console.log(JSON.stringify(this.props.user.data, null, 4))
-
       return <h1>{email}</h1>
     } else {
       return <div>No user yet</div>

@@ -7,11 +7,11 @@ export const fetchPlaylists = () => ({
 })
 
 export const fetchPlaylistsSuccess = data => ({
-  type: FETCH_PLAYLISTS_SUCCESS,
-  payload: data
+  payload: data,
+  type: FETCH_PLAYLISTS_SUCCESS
 })
 
 export const fetchPlaylistsError = error => ({
-  type: FETCH_PLAYLISTS_ERROR,
-  payload: error
+  payload: error,
+  type: FETCH_PLAYLISTS_ERROR
 })

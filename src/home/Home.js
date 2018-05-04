@@ -11,16 +11,16 @@ import './Home.css'
 
 const styles = theme => ({
   root: {
+    content: {
+      flexGrow: 1,
+      backgroundColor: theme.palette.background.default,
+      padding: theme.spacing.unit * 3
+    },
+    display: 'flex',
     flexGrow: 1,
-    zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
-    display: 'flex'
-  },
-  content: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3
+    zIndex: 1
   },
   toolbar: {
     display: 'flex',

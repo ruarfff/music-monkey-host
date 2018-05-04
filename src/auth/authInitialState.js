@@ -1,5 +1,5 @@
 export default {
-  isAuthenticating: false,
+  authError: null,
   isAuthenticated: false,
-  authError: null
+  isAuthenticating: false
 }

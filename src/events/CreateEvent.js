@@ -16,19 +16,19 @@ import PlaylistSelection from './PlaylistSelection'
 import './CreateEvent.css'
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1
+  button: {
+    margin: theme.spacing.unit
   },
   formItem: {
     padding: theme.spacing.unit * 2,
     textAlign: 'center',
     width: '100%'
   },
-  button: {
-    margin: theme.spacing.unit
-  },
   rightIcon: {
     marginLeft: theme.spacing.unit
+  },
+  root: {
+    flexGrow: 1
   }
 })
 
@@ -42,21 +42,21 @@ class CreateEvent extends Component {
 
   render() {
     const {
-      user,
-      events,
+      cancel,
       classes,
-      locationChanged,
-      locationSelected,
+      closeExistingPlaylist,
+      closeCreatePlaylist,
+      createEventPlaylist,
       eventContentUpdated,
       eventImageUploaded,
       eventImageUploadError,
+      events,
+      locationChanged,
+      locationSelected,
       saveEvent,
-      cancel,
-      selectExistingPlaylist,
-      closeExistingPlaylist,
       selectCreatePlaylist,
-      closeCreatePlaylist,
-      createEventPlaylist
+      selectExistingPlaylist,
+      user
     } = this.props
 
     return (

@@ -57,8 +57,8 @@ export const Routes = ({ history }) => (
   <ConnectedRouter history={history}>
     <div>
       <Route path="/callback" component={Callback} />
-      <Route path="/login" component={userIsNotAuthenticated(Login)} />      
-      {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}      
+      <Route path="/login" component={userIsNotAuthenticated(Login)} />
+      {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
     </div>
   </ConnectedRouter>
 )

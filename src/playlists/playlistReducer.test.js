@@ -22,10 +22,10 @@ it('should handle FETCH_PLAYLIST_SUCCESS', () => {
     playlist(
       { ...initialState, isLoading: true },
       {
-        type: FETCH_PLAYLISTS_SUCCESS,
         payload: {
           id: 'test-id'
-        }
+        },
+        type: FETCH_PLAYLISTS_SUCCESS
       }
     )
   ).toEqual({
@@ -38,8 +38,8 @@ it('should handle FETCH_PLAYLIST_SUCCESS', () => {
 it('should handle FETCH_PLAYLIST_ERROR', () => {
   expect(
     playlist(initialState, {
-      type: FETCH_PLAYLISTS_ERROR,
-      payload: new Error('Oh dear :(')
+      payload: new Error('Oh dear :('),
+      type: FETCH_PLAYLISTS_ERROR
     })
   ).toEqual({ ...initialState, error: new Error('Oh dear :(') })
 })

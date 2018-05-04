@@ -18,10 +18,10 @@ it('should handle FETCH_USER_SUCCESS', () => {
     user(
       { ...initialState, isLoading: true },
       {
-        type: FETCH_USER_SUCCESS,
         payload: {
           id: 'test-id'
-        }
+        },
+        type: FETCH_USER_SUCCESS
       }
     )
   ).toEqual({
@@ -34,8 +34,8 @@ it('should handle FETCH_USER_SUCCESS', () => {
 it('should handle FETCH_USER_ERROR', () => {
   expect(
     user(initialState, {
-      type: FETCH_USER_ERROR,
-      payload: new Error('Oh dear :(')
+      payload: new Error('Oh dear :('),
+      type: FETCH_USER_ERROR
     })
   ).toEqual({ ...initialState, error: new Error('Oh dear :(') })
 })
