@@ -22,11 +22,28 @@
   dependencies:
     recompose "^0.26.0"
 
+"@types/cheerio@*":
+  version "0.22.7"
+  resolved "https://registry.yarnpkg.com/@types/cheerio/-/cheerio-0.22.7.tgz#4a92eafedfb2b9f4437d3a4410006d81114c66ce"
+
 "@types/dropzone@^5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@types/dropzone/-/dropzone-5.0.2.tgz#41bb8364aa5e6f9ed0f8beb1780881c725193a18"
   dependencies:
     "@types/jquery" "*"
+
+"@types/enzyme-adapter-react-16@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@types/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.0.2.tgz#15ae37c64d6221a6f4b3a4aacc357cf773859de4"
+  dependencies:
+    "@types/enzyme" "*"
+
+"@types/enzyme@*", "@types/enzyme@^3.1.10":
+  version "3.1.10"
+  resolved "https://registry.yarnpkg.com/@types/enzyme/-/enzyme-3.1.10.tgz#28108a9864e65699751469551a803a35d2e26160"
+  dependencies:
+    "@types/cheerio" "*"
+    "@types/react" "*"
 
 "@types/history@*", "@types/history@^4.6.2":
   version "4.6.2"
@@ -59,7 +76,7 @@
   version "15.5.2"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.2.tgz#3c6b8dceb2906cc87fe4358e809f9d20c8d59be1"
 
-"@types/react-dom@16.0.5":
+"@types/react-dom@^16.0.5":
   version "16.0.5"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.0.5.tgz#a757457662e3819409229e8f86795ff37b371f96"
   dependencies:
@@ -101,7 +118,7 @@
   dependencies:
     csstype "^2.2.0"
 
-"@types/react@16.3.13":
+"@types/react@^16.3.13":
   version "16.3.13"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.3.13.tgz#47d466462b774556c1174ea0eda22c0578643362"
   dependencies:

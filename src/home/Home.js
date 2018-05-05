@@ -7,15 +7,14 @@ import LoadingSpinner from '../loading/LoadingSpinner'
 import Events from '../events/EventsContainer'
 import MainAppBar from './MainAppBarContainer'
 import Sidebar from './SidebarContainer'
-import './Home.css'
 
 const styles = theme => ({
-  root: {
-    content: {
-      backgroundColor: theme.palette.background.default,
-      flexGrow: 1,
-      padding: theme.spacing.unit * 3
-    },
+  content: {
+    backgroundColor: theme.palette.background.default,
+    flexGrow: 1,
+    padding: theme.spacing.unit * 3
+  },
+  root: {    
     display: 'flex',
     flexGrow: 1,
     overflow: 'hidden',

@@ -9,7 +9,6 @@ import Grid from 'material-ui/Grid'
 import OpenInNew from '@material-ui/icons/OpenInNew'
 import ExistingPlaylistDialog from './ExistingPlaylistDialog'
 import CreatePlaylistDialog from './CreatePlaylistDialog'
-import './Events.css'
 
 const ITEM_HEIGHT = 48
 
