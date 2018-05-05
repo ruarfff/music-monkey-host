@@ -1,18 +1,24 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import logo from './spotify-login.svg'
+import * as React from 'react'
+import Action from '../Action'
 import LoadingSpinner from '../loading/LoadingSpinner'
+import {IAuthState} from './AuthModel'
 import './Login.css'
+import logo from './spotify-login.svg'
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
 const redirectToUrl = process.env.REACT_APP_REDIRECT_URL
 
-class Login extends Component {
-  componentDidMount() {
+interface ILoginProps {
+  auth: IAuthState,
+  login(): Action
+}
+
+class Login extends React.Component<ILoginProps, {}> {
+  public componentDidMount() {
     this.props.login()
   }
 
-  render() {
+  public render() {
     if (this.props.auth.isAuthenticating) {
       return <LoadingSpinner />
     }
@@ -29,11 +35,6 @@ class Login extends Component {
       </div>
     )
   }
-}
-
-Login.propTypes = {
-  auth: PropTypes.object.isRequired,
-  login: PropTypes.func.isRequired
 }
 
 export default Login

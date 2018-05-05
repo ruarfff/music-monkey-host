@@ -1,12 +1,17 @@
+import Action from '../Action'
 import {
+  LOGGED_OUT,
   LOGGING_IN,
-  LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  LOGGED_OUT
+  LOGIN_SUCCESS
 } from './authActions'
 import initialState from './authInitialState'
+import { IAuthState } from './AuthModel'
 
-export default function auth(state = initialState, { type, payload }) {
+export default function auth(
+  state = initialState,
+  { type, payload }: Action
+): IAuthState {
   switch (type) {
     case LOGGING_IN:
       return { ...initialState, isAuthenticating: true }

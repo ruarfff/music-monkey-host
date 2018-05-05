@@ -1,16 +1,16 @@
-import { put, call, takeEvery } from 'redux-saga/effects'
 import axios from 'axios'
+import { call, put, takeEvery } from 'redux-saga/effects'
 
-import { refreshTokenKey, accessTokenKey } from './authConstants'
-import {
-  LOGGING_IN,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-  LOGGING_OUT,
-  LOGGED_OUT
-} from './authActions'
-import { FETCH_USER_SUCCESS } from '../user/userActions'
 import localStorage from '../storage/localStorage'
+import { FETCH_USER_SUCCESS } from '../user/userActions'
+import {
+  LOGGED_OUT,
+  LOGGING_IN,
+  LOGGING_OUT,
+  LOGIN_FAILURE,
+  LOGIN_SUCCESS
+} from './authActions'
+import { accessTokenKey, refreshTokenKey } from './authConstants'
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
 
@@ -22,7 +22,7 @@ function login() {
     } else {
       axios
         .post(serviceUrl + '/refresh', {
-          refreshToken: refreshToken
+          refreshToken
         })
         .then(response => {
           localStorage.set(accessTokenKey, response.data.auth.accessToken)

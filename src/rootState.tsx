@@ -1,11 +1,7 @@
-export interface IAuth {
-  isAuthenticating: boolean
-  isAuthenticated: boolean
-  authError: Error
-}
+import { IAuthState } from './auth/AuthModel'
 
 export interface IRootState {
-  auth: IAuth
+  auth: IAuthState
   user: {}
   playlists: {}
   home: {}

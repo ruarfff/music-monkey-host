@@ -1,15 +1,16 @@
+import Action from '../Action'
 import {
+  LOGGED_OUT,
   LOGGING_IN,
-  LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  LOGGED_OUT
+  LOGIN_SUCCESS
 } from './authActions'
 import initialState from './authInitialState'
 import auth from './authReducer'
 
 describe('authReducer', () => {
   it('should return the initial state when no action matches', () => {
-    expect(auth(undefined, {})).toEqual(initialState)
+    expect(auth(undefined, {} as Action)).toEqual(initialState)
   })
 
   it('should handle LOGGING_IN', () => {

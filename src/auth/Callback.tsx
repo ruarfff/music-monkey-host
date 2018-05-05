@@ -1,27 +1,26 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 import { Redirect } from 'react-router'
 import localStorage from '../storage/localStorage'
 import { refreshTokenKey } from './authConstants'
 
-const parseToken = searchString =>
+interface ICallbackProps {
+  location: Location
+}
+
+const parseToken = (searchString: string): string =>
   searchString ? searchString.split('=')[1] : ''
 
-class Callback extends Component {
-  componentWillMount() {
+class Callback extends React.Component<ICallbackProps, {}> {
+  public componentWillMount() {
     const token = parseToken(this.props.location.search)
     if (token) {
       localStorage.set(refreshTokenKey, token)
     }
   }
 
-  render() {
+  public render() {
     return <Redirect to="/login" />
   }
-}
-
-Callback.propTypes = {
-  location: PropTypes.object.isRequired
 }
 
 export default Callback
