@@ -1,8 +1,9 @@
 import { connect } from 'react-redux'
-import { fetchUser } from './userActions'
+import { IRootState } from '../rootState'
 import User from './User'
+import { fetchUser } from './userActions'
 
-const mapStateToProps = state => ({ user: state.user })
+const mapStateToProps = (state: IRootState) => ({ user: state.user })
 
 const mapDispatchToProps = {
   fetchUser
