@@ -53,7 +53,7 @@ describe('eventReducer', () => {
         ...initialState.savingEvent,
         location: { address: 'test', latLng: { lat: 0, lng: 0 } }
       },
-      errors: { location: null }
+      errors: { location: undefined }
     })
   })
 

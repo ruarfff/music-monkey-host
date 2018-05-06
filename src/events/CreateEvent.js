@@ -181,7 +181,7 @@ class CreateEvent extends Component {
 
           <Grid item xs={12} sm={6}>
             <PlaylistSelection
-              user={user}
+              user={user.data}
               value={events.savingEvent.playlist}
               onPlaylistAdded={playlistUrl =>
                 eventContentUpdated({ playlist: playlistUrl })

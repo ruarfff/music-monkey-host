@@ -54,7 +54,7 @@ const styles = theme => ({
   }
 })
 
-const renderEventCreateAction = () => (
+const renderEventCreateAction = (classes) => (
   <div className={classes.eventCreateActionContainer}>
     <Typography
       align="center"
@@ -91,7 +91,7 @@ class Events extends Component {
           <NoEvents />
         ) : (
           <Fragment>
-            {renderEventCreateAction()}
+            {renderEventCreateAction(classes)}
             <Grid
               container
               spacing={24}

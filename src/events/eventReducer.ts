@@ -27,7 +27,7 @@ export default function events(
     case EVENT_LOCATION_CHANGED:
       return {
         ...state,
-        errors: { ...state.errors, location: null },
+        errors: { ...state.errors, location: undefined },
         savingEvent: {
           ...state.savingEvent,
           location: { ...state.savingEvent.location, address: payload }
@@ -138,8 +138,8 @@ export default function events(
       }
     case EVENTS_FETCHED:
       return {
-        events: payload,
-        ...state
+        ...state,
+        events: payload
       }
     default:
       return state

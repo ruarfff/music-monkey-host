@@ -1,3 +1,4 @@
+import { Moment } from 'moment';
 import { ILocation } from '../location/Location'
 
 export interface IEventErrors {
@@ -13,14 +14,14 @@ export interface IPlaylistInput {
 
 export interface IEvent {
   description?: string
-  endDateTime?: any
+  endDateTime: Moment
   eventCode?: string
   imageUrl?: string
   location?: ILocation
   name: string
   organizer: string
   playlist: string
-  startDateTime?: any
+  startDateTime: any
   venue?: string
 }
 
