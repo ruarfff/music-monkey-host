@@ -1,7 +1,8 @@
-import moment from 'moment'
+import * as moment from 'moment'
+import { IEventState } from './EventModel'
 
 export default {
-  errors: { location: null, imageUpload: null, saving: null },
+  errors: { location: undefined, imageUpload: undefined, saving: undefined },
   events: [],
   playlistInput: {
     isCreatingNewPlaylist: false,
@@ -23,6 +24,6 @@ export default {
       .startOf('hour'),
     venue: ''
   },
-  selectedEvent: {},
+  selectedEvent: undefined,
   showSavedDialogue: false
-}
+} as IEventState

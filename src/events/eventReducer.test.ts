@@ -1,25 +1,26 @@
+import Action from '../Action'
 import {
-  EVENT_LOCATION_CHANGED,
-  EVENT_LOCATION_POPULATED,
+  CREATE_PLAYLIST_CLOSED,
+  CREATE_PLAYLIST_SELECTED,
   EVENT_CONTENT_UPDATED,
-  EVENT_LOCATION_ERROR,
+  EVENT_CREATE_FORM_INITIALIZED,
   EVENT_IMAGE_UPLOAD_ERROR,
   EVENT_IMAGE_UPLOADED,
-  EVENT_SAVING_RESET,
-  EVENT_SAVED,
+  EVENT_LOCATION_CHANGED,
+  EVENT_LOCATION_ERROR,
+  EVENT_LOCATION_POPULATED,
   EVENT_SAVE_ERROR,
-  SELECT_EXISTING_PLAYLIST_SELECTED,
+  EVENT_SAVED,
+  EVENT_SAVING_RESET,
   SELECT_EXISTING_PLAYLIST_CLOSED,
-  CREATE_PLAYLIST_SELECTED,
-  CREATE_PLAYLIST_CLOSED,
-  EVENT_CREATE_FORM_INITIALIZED
+  SELECT_EXISTING_PLAYLIST_SELECTED
 } from './eventActions'
 import initialState from './eventInitialState'
 import events from './eventReducer'
 
 describe('eventReducer', () => {
   it('should return the initial state when no action matches', () => {
-    expect(events(undefined, {})).toEqual(initialState)
+    expect(events(undefined, {} as Action)).toEqual(initialState)
   })
 
   it('should handle EVENT_LOCATION_CHANGED', () => {

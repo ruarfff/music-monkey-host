@@ -63,7 +63,7 @@ function* fetchLatLngFlow({ payload }) {
   try {
     const latLng = yield call(fetchLatLng, payload)
     yield put({
-      payload: { address: payload, latLng: latLng },
+      payload: { address: payload, latLng },
       type: EVENT_LOCATION_POPULATED
     })
   } catch (error) {

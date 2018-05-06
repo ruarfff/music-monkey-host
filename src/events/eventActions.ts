@@ -1,3 +1,7 @@
+import Action from '../Action'
+import { IUser } from '../user/UserModel'
+import { IEvent } from './EventModel'
+
 export const EVENT_LOCATION_CHANGED = 'EVENT_LOCATION_CHANGED'
 export const EVENT_LOCATION_SELECTED = 'EVENT_LOCATION_SELECTED'
 export const EVENT_LOCATION_POPULATED = 'EVENT_LOCATION_POPULATED'
@@ -24,72 +28,72 @@ export const SELECT_EXISTING_PLAYLIST_CLOSED = 'SELECT_EXISTING_PLAYLIST_CLOSED'
 export const CREATE_PLAYLIST_SELECTED = 'CREATE_PLAYLIST_SELECTED'
 export const CREATE_PLAYLIST_CLOSED = 'CREATE_PLAYLIST_CLOSED'
 
-export const locationChanged = address => ({
+export const locationChanged = (address: string): Action => ({
   payload: address,
   type: EVENT_LOCATION_CHANGED
 })
 
-export const locationSelected = address => ({
+export const locationSelected = (address: string): Action => ({
   payload: address,
   type: EVENT_LOCATION_SELECTED
 })
 
-export const eventContentUpdated = event => ({
+export const eventContentUpdated = (event: IEvent): Action => ({
   payload: event,
   type: EVENT_CONTENT_UPDATED
 })
 
-export const eventImageUploaded = imageUrl => ({
+export const eventImageUploaded = (imageUrl: string): Action => ({
   payload: imageUrl,
   type: EVENT_IMAGE_UPLOADED
 })
 
-export const eventImageUploadError = err => ({
+export const eventImageUploadError = (err: Error): Action => ({
   payload: err,
   type: EVENT_IMAGE_UPLOAD_ERROR
 })
 
-export const saveEvent = event => ({
+export const saveEvent = (event: IEvent): Action => ({
   payload: event,
   type: EVENT_SAVE_INITIATED
 })
 
-export const eventSavingReset = () => ({
+export const eventSavingReset = (): Action => ({
   type: EVENT_SAVING_RESET
 })
 
-export const eventSaved = event => ({
+export const eventSaved = (event: IEvent): Action => ({
   payload: event,
   type: EVENT_SAVED
 })
 
-export const selectExistingPlaylist = () => ({
+export const selectExistingPlaylist = (): Action => ({
   type: SELECT_EXISTING_PLAYLIST_SELECTED
 })
 
-export const closeExistingPlaylist = () => ({
+export const closeExistingPlaylist = (): Action => ({
   type: SELECT_EXISTING_PLAYLIST_CLOSED
 })
 
-export const selectCreatePlaylist = () => ({
+export const selectCreatePlaylist = (): Action => ({
   type: CREATE_PLAYLIST_SELECTED
 })
 
-export const closeCreatePlaylist = () => ({
+export const closeCreatePlaylist = (): Action => ({
   type: CREATE_PLAYLIST_CLOSED
 })
 
-export const createEventPlaylist = playlistDetails => ({
+export const createEventPlaylist = (playlistDetails: any): Action => ({
   payload: playlistDetails,
   type: EVENT_CREATE_PLAYLIST_INITIATED
 })
 
-export const initializeCreateForm = (event, user) => ({
+export const initializeCreateForm = (event: IEvent, user: IUser): Action => ({
   payload: { event, user },
   type: EVENT_CREATE_FORM_INITIALIZED
 })
 
-export const getEvents = userId => ({
+export const getEvents = (userId: string): Action => ({
   payload: userId,
   type: EVENTS_FETCH_INITIATED
 })
