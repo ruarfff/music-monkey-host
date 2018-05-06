@@ -39,7 +39,7 @@ class PlaylistSelection extends Component {
   handlePlaylistCreation = playlistDetals => {
     this.props.createEventPlaylist({
       ...playlistDetals,
-      userId: this.props.user.data.id
+      userId: this.props.user.spotifyId
     })
     this.props.closeCreatePlaylist()
   }

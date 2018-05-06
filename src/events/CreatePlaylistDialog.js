@@ -13,7 +13,11 @@ import Dialog, {
 class CreatePlaylistDialog extends Component {
   constructor(props) {
     super(props)
-    this.state = { isPublic: true, name: '', description: '' }
+    this.state = {
+      description: '',
+      isPublic: true,
+      name: ''
+    }
   }
 
   togglePublic = () => {

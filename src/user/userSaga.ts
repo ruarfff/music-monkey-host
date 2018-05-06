@@ -1,9 +1,9 @@
-import { put, call, takeEvery } from 'redux-saga/effects'
-import SpotifyWebApi from 'spotify-web-api-js'
-
-import localStorage from '../storage/localStorage'
+import { call, put, takeEvery } from 'redux-saga/effects'
 import { accessTokenKey } from '../auth/authConstants'
-import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_USER_ERROR } from './userActions'
+import localStorage from '../storage/localStorage'
+import { FETCH_USER, FETCH_USER_ERROR, FETCH_USER_SUCCESS } from './userActions'
+
+const SpotifyWebApi = require('spotify-web-api-js')
 
 function fetchUser() {
   const token = localStorage.get(accessTokenKey)

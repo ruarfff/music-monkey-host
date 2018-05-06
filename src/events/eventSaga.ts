@@ -1,29 +1,33 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
 import axios from 'axios'
-import moment from 'moment'
-import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
-import SpotifyWebApi from 'spotify-web-api-js'
-import localStorage from '../storage/localStorage'
+import * as moment from 'moment'
+import { call, put, takeEvery } from 'redux-saga/effects'
+import IAction from '../Action'
 import { accessTokenKey } from '../auth/authConstants'
+import { IPlaylist, IPlaylistDetails } from '../playlists/PlaylistModel'
+import localStorage from '../storage/localStorage'
 import {
-  EVENT_LOCATION_SELECTED,
-  EVENT_LOCATION_POPULATED,
-  EVENT_LOCATION_ERROR,
+  EVENT_CONTENT_UPDATED,
   EVENT_CREATE_PLAYLIST_INITIATED,
+  EVENT_LOCATION_ERROR,
+  EVENT_LOCATION_POPULATED,
+  EVENT_LOCATION_SELECTED,
   EVENT_PLAYLIST_CREATED,
   EVENT_PLAYLIST_CREATION_ERROR,
-  EVENT_CONTENT_UPDATED,
+  EVENT_SAVE_ERROR,
   EVENT_SAVE_INITIATED,
   EVENT_SAVED,
-  EVENT_SAVE_ERROR,
+  EVENTS_FETCH_ERROR,
   EVENTS_FETCH_INITIATED,
-  EVENTS_FETCHED,
-  EVENTS_FETCH_ERROR
+  EVENTS_FETCHED
 } from './eventActions'
+import { IEvent } from './EventModel'
+
+const SpotifyWebApi = require('spotify-web-api-js')
+const { geocodeByAddress, getLatLng } = require('react-places-autocomplete')
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
 
-function createPlaylist(playlistDetails) {
+function createPlaylist(playlistDetails: IPlaylistDetails) {
   const token = localStorage.get(accessTokenKey)
   const spotifyApi = new SpotifyWebApi()
   const { userId, name, isPublic, description } = playlistDetails
@@ -36,11 +40,12 @@ function createPlaylist(playlistDetails) {
   })
 }
 
-function* createPlaylistFlow({ payload }) {
+function* createPlaylistFlow(action: IAction) {
+  const playlistDetials: IPlaylistDetails = action.payload
   try {
-    const playlist = yield call(createPlaylist, payload)
+    const playlist = yield call(createPlaylist, playlistDetials)
     yield put({
-      payload: { playlist },
+      payload: playlist,
       type: EVENT_PLAYLIST_CREATED
     })
   } catch (error) {
@@ -48,22 +53,24 @@ function* createPlaylistFlow({ payload }) {
   }
 }
 
-function* eventPlaylistCreatedFlow({ payload }) {
+function* eventPlaylistCreatedFlow(action: IAction) {
+  const playlist: IPlaylist = action.payload
   yield put({
-    payload: { playlist: payload.playlist.external_urls.spotify },
+    payload: { playlist: playlist.external_urls.spotify },
     type: EVENT_CONTENT_UPDATED
   })
 }
 
-function fetchLatLng(address) {
-  return geocodeByAddress(address).then(results => getLatLng(results[0]))
+function fetchLatLng(address: string) {
+  return geocodeByAddress(address).then((results: any) => getLatLng(results[0]))
 }
 
-function* fetchLatLngFlow({ payload }) {
+function* fetchLatLngFlow(action: IAction) {
+  const address: string = action.payload
   try {
-    const latLng = yield call(fetchLatLng, payload)
+    const latLng = yield call(fetchLatLng, address)
     yield put({
-      payload: { address: payload, latLng },
+      payload: { address, latLng },
       type: EVENT_LOCATION_POPULATED
     })
   } catch (error) {
@@ -71,14 +78,18 @@ function* fetchLatLngFlow({ payload }) {
   }
 }
 
-function saveEvent(event) {
+function saveEvent(event: IEvent) {
+  const address =
+    event.location && event.location.address
+      ? event.location.address
+      : 'Nowhere'
   return axios
     .post(serviceUrl + '/events', {
       ...event,
       endDateTime: event.endDateTime.toISOString(),
       location: {
         ...event.location,
-        address: event.location.address || 'Nowhere'
+        address
       },
       startDateTime: event.startDateTime.toISOString()
     })
@@ -93,11 +104,12 @@ function saveEvent(event) {
     })
 }
 
-function* saveEventFlow({ payload }) {
+function* saveEventFlow(action: IAction) {
+  const event: IEvent = action.payload
   try {
-    const event = yield call(saveEvent, payload)
+    const savedEvent = yield call(saveEvent, event)
     yield put({
-      payload: event,
+      payload: savedEvent,
       type: EVENT_SAVED
     })
   } catch (err) {
@@ -105,9 +117,9 @@ function* saveEventFlow({ payload }) {
   }
 }
 
-function fetchEvents(userId) {
+function fetchEvents(userId: string) {
   return axios.get(serviceUrl + '/events?userId=' + userId).then(response =>
-    response.data.map(event => ({
+    response.data.map((event: IEvent) => ({
       ...event,
       endDateTime: moment(response.data.endDateTime),
       startDateTime: moment(response.data.startDateTime)
@@ -115,17 +127,14 @@ function fetchEvents(userId) {
   )
 }
 
-function* fetchEventsFlow({ payload }) {
+function* fetchEventsFlow(action: IAction) {
+  const userId: string = action.payload
   try {
-    const events = yield call(fetchEvents, payload)
+    const events = yield call(fetchEvents, userId)
     yield put({ type: EVENTS_FETCHED, payload: events })
   } catch (err) {
     yield put({ type: EVENTS_FETCH_ERROR, payload: err })
   }
-}
-
-export function* watchUploadEventImage() {
-  // TODO: Right now this is done in the component. Should move to saga.
 }
 
 export function* watchCreateEventPlaylist() {

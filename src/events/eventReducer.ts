@@ -138,8 +138,8 @@ export default function events(
       }
     case EVENTS_FETCHED:
       return {
-        events: payload,
-        ...state
+        ...state,
+        events: payload
       }
     default:
       return state

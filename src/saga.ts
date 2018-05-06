@@ -5,8 +5,7 @@ import {
   watchCreateEventPlaylist,
   watchEventPlaylistCreated,
   watchFetchEvents,
-  watchUpdateLocationAutoComplete,
-  watchUploadEventImage
+  watchUpdateLocationAutoComplete
 } from './events/eventSaga'
 import { watchFetchPlaylists } from './playlists/playlistSaga'
 import { watchFetchUser } from './user/userSaga'
@@ -18,7 +17,6 @@ export default function* saga() {
     watchFetchUser(),
     watchFetchPlaylists(),
     watchCreateEvent(),
-    watchUploadEventImage(),
     watchUpdateLocationAutoComplete(),
     watchCreateEventPlaylist(),
     watchEventPlaylistCreated(),
