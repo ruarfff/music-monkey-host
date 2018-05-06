@@ -10,6 +10,7 @@ import Card, {
 } from 'material-ui/Card'
 import Collapse from 'material-ui/transitions/Collapse'
 import IconButton from 'material-ui/IconButton'
+import { Link } from 'react-router-dom'
 import Typography from 'material-ui/Typography'
 import ShareIcon from '@material-ui/icons/Share'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -38,6 +39,7 @@ const styles = theme => ({
   }
 })
 
+
 class EventCard extends React.Component {
   state = { expanded: false }
 
@@ -51,16 +53,18 @@ class EventCard extends React.Component {
     return (
       <div>
         <Card className={classes.card}>
-          <CardHeader
-            subheader={
-              event.startDateTime ? event.startDateTime.format('LLL') : ''
-            }
-          />
-          <CardMedia
-            className={classes.media}
-            image={event.imageUrl || '/img/partycover-sm.png'}
-            title="Event Image"
-          />
+          <Link to={"/events/" + event.eventId}>
+            <CardHeader
+              subheader={
+                event.startDateTime ? event.startDateTime.format('LLL') : ''
+              }
+            />
+            <CardMedia
+              className={classes.media}
+              image={event.imageUrl || '/img/partycover-sm.png'}
+              title="Event Image"
+            />
+          </Link>
           <CardContent>
             <Typography component="p">{event.venue}</Typography>
           </CardContent>

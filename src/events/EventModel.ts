@@ -13,6 +13,7 @@ export interface IPlaylistInput {
 }
 
 export interface IEvent {
+  eventId?: string
   description?: string
   endDateTime: Moment
   eventCode?: string
