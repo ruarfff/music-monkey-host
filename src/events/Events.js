@@ -11,6 +11,7 @@ import Hidden from 'material-ui/Hidden'
 import Paper from 'material-ui/Paper'
 import NoEvents from './NoEvents'
 import Event from './Event'
+import * as moment from 'moment'
 
 const styles = theme => ({
   eventCreateActionContainer: {
@@ -54,7 +55,7 @@ const styles = theme => ({
   }
 })
 
-const renderEventCreateAction = (classes) => (
+const renderEventCreateAction = classes => (
   <div className={classes.eventCreateActionContainer}>
     <Typography
       align="center"
@@ -83,6 +84,12 @@ class Events extends Component {
 
   render() {
     const { events } = this.props.events
+    const now = moment()
+    const pastEvents = events.filter(event => event.startDateTime.isBefore(now))
+    const upcomingEvents = events.filter(event =>
+      event.startDateTime.isAfter(now)
+    )
+
     const classes = this.props.classes
 
     return (
@@ -133,8 +140,21 @@ class Events extends Component {
                   </Paper>
                 </Hidden>
 
+                {upcomingEvents.length < 1 && (
+                  <Typography
+                    className={classes.eventsListCaption}
+                    align="center"
+                    variant="body2"
+                    gutterBottom
+                  >
+                    No Upcoming Events
+                  </Typography>
+                )}
+
                 <div className={classes.eventsList}>
-                  {events.map((event, i) => <Event key={i} event={event} />)}
+                  {upcomingEvents.map((event, i) => (
+                    <Event key={i} event={event} />
+                  ))}
                 </div>
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -151,7 +171,7 @@ class Events extends Component {
                   </Paper>
                 </Hidden>
 
-                <div className={classes.eventsList}>
+                {pastEvents.length < 1 && (
                   <Typography
                     className={classes.eventsListCaption}
                     align="center"
@@ -160,6 +180,13 @@ class Events extends Component {
                   >
                     No Past Events Yet
                   </Typography>
+                )}
+                <div className={classes.eventsList}>
+                  <div className={classes.eventsList}>
+                    {pastEvents.map((event, i) => (
+                      <Event key={i} event={event} />
+                    ))}
+                  </div>
                 </div>
               </Grid>
             </Grid>

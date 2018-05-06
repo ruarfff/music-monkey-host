@@ -121,8 +121,8 @@ function fetchEvents(userId: string) {
   return axios.get(serviceUrl + '/events?userId=' + userId).then(response =>
     response.data.map((event: IEvent) => ({
       ...event,
-      endDateTime: moment(response.data.endDateTime),
-      startDateTime: moment(response.data.startDateTime)
+      endDateTime: moment(event.endDateTime),
+      startDateTime: moment(event.startDateTime)
     }))
   )
 }
