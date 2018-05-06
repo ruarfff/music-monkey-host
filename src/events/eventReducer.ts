@@ -4,14 +4,20 @@ import {
   CREATE_PLAYLIST_SELECTED,
   EVENT_CONTENT_UPDATED,
   EVENT_CREATE_FORM_INITIALIZED,
+  EVENT_FETCH_BY_ID_ERROR,
+  EVENT_FETCH_BY_ID_INITIATED,
+  EVENT_FETCHED_BY_ID,
   EVENT_IMAGE_UPLOAD_ERROR,
   EVENT_IMAGE_UPLOADED,
   EVENT_LOCATION_CHANGED,
   EVENT_LOCATION_ERROR,
   EVENT_LOCATION_POPULATED,
+  EVENT_PLAYLIST_CREATION_ERROR,
   EVENT_SAVE_ERROR,
   EVENT_SAVED,
   EVENT_SAVING_RESET,
+  EVENTS_FETCH_ERROR,
+  EVENTS_FETCH_INITIATED,
   EVENTS_FETCHED,
   SELECT_EXISTING_PLAYLIST_CLOSED,
   SELECT_EXISTING_PLAYLIST_SELECTED
@@ -127,6 +133,14 @@ export default function events(
           isCreatingNewPlaylist: false
         }
       }
+    case EVENT_PLAYLIST_CREATION_ERROR:
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          playlistCreation: payload
+        }
+      }
     case EVENT_CREATE_FORM_INITIALIZED:
       return {
         ...state,
@@ -136,10 +150,45 @@ export default function events(
           userId: payload.user.userId
         }
       }
+    case EVENTS_FETCH_INITIATED:
+      return {
+        ...state,
+        eventsLoading: true
+      }
     case EVENTS_FETCHED:
       return {
         ...state,
-        events: payload
+        events: payload,
+        eventsLoading: false
+      }
+    case EVENTS_FETCH_ERROR:
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          fetchEvents: payload
+        },
+        eventsLoading: false
+      }
+    case EVENT_FETCH_BY_ID_INITIATED:
+      return {
+        ...state,
+        eventLoading: true
+      }
+    case EVENT_FETCHED_BY_ID:
+      return {
+        ...state,
+        selectedEvent: payload,
+        eventLoading: false
+      }
+    case EVENT_FETCH_BY_ID_ERROR:
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          fetchEvent: payload
+        },
+        eventLoading: false
       }
     default:
       return state

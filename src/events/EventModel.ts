@@ -5,6 +5,9 @@ export interface IEventErrors {
   location?: Error
   imageUpload?: Error
   saving?: Error
+  fetchEvents?: Error
+  fetchEvent?: Error
+  playlistCreation?: Error
 }
 
 export interface IPlaylistInput {
@@ -32,5 +35,7 @@ export interface IEventState {
   playlistInput: IPlaylistInput
   savingEvent: IEvent
   selectedEvent?: IEvent
+  eventsLoading: boolean
+  eventLoading: boolean
   showSavedDialogue: boolean
 }

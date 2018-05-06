@@ -2,7 +2,14 @@ import * as moment from 'moment'
 import { IEventState } from './EventModel'
 
 export default {
-  errors: { location: undefined, imageUpload: undefined, saving: undefined },
+  errors: {
+    location: undefined,
+    imageUpload: undefined,
+    saving: undefined,
+    playlistCreation: undefined,
+    fetchEvent: undefined,
+    fetchEvents: undefined
+  },
   events: [],
   playlistInput: {
     isCreatingNewPlaylist: false,
@@ -25,5 +32,7 @@ export default {
     venue: ''
   },
   selectedEvent: undefined,
+  eventsLoading: false,
+  eventLoading: false,
   showSavedDialogue: false
 } as IEventState

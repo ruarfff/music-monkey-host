@@ -4,6 +4,7 @@ import {
   watchCreateEvent,
   watchCreateEventPlaylist,
   watchEventPlaylistCreated,
+  watchFetchEventById,
   watchFetchEvents,
   watchUpdateLocationAutoComplete
 } from './events/eventSaga'
@@ -19,6 +20,7 @@ export default function* saga() {
     watchCreateEvent(),
     watchUpdateLocationAutoComplete(),
     watchCreateEventPlaylist(),
+    watchFetchEventById(),
     watchEventPlaylistCreated(),
     watchFetchEvents()
   ])

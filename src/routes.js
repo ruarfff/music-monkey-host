@@ -9,7 +9,7 @@ import Callback from './auth/Callback'
 import Login from './auth/LoginContainer'
 import Home from './home/HomeContainer'
 import CreateEvent from './events/CreateEventContainer'
-import EventView from './events/EventView'
+import EventView from './events/EventViewContainer'
 
 const locationHelper = locationHelperBuilder({})
 
@@ -40,7 +40,7 @@ const routes = [
       },
       {
         component: EventView,
-        path: '/event-view'
+        path: '/events/:eventId'
       }
     ]
   }
