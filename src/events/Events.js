@@ -75,6 +75,25 @@ const renderEventCreateAction = classes => (
   </div>
 )
 
+const renderEventsList = (classes, events, noEventsMessage) => (
+  <Fragment>
+    {events.length < 1 && (
+      <Typography
+        className={classes.eventsListCaption}
+        align="center"
+        variant="body2"
+        gutterBottom
+      >
+        {noEventsMessage}
+      </Typography>
+    )}
+
+    <div className={classes.eventsList}>
+      {events.map((event, i) => <Event key={i} event={event} />)}
+    </div>
+  </Fragment>
+)
+
 class Events extends Component {
   componentDidMount() {
     if (this.props.user.data) {
@@ -139,23 +158,11 @@ class Events extends Component {
                     </Typography>
                   </Paper>
                 </Hidden>
-
-                {upcomingEvents.length < 1 && (
-                  <Typography
-                    className={classes.eventsListCaption}
-                    align="center"
-                    variant="body2"
-                    gutterBottom
-                  >
-                    No Upcoming Events
-                  </Typography>
+                {renderEventsList(
+                  classes,
+                  upcomingEvents,
+                  'No Upcoming Events'
                 )}
-
-                <div className={classes.eventsList}>
-                  {upcomingEvents.map((event, i) => (
-                    <Event key={i} event={event} />
-                  ))}
-                </div>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Hidden smUp>
@@ -170,24 +177,7 @@ class Events extends Component {
                     </Typography>
                   </Paper>
                 </Hidden>
-
-                {pastEvents.length < 1 && (
-                  <Typography
-                    className={classes.eventsListCaption}
-                    align="center"
-                    variant="body2"
-                    gutterBottom
-                  >
-                    No Past Events Yet
-                  </Typography>
-                )}
-                <div className={classes.eventsList}>
-                  <div className={classes.eventsList}>
-                    {pastEvents.map((event, i) => (
-                      <Event key={i} event={event} />
-                    ))}
-                  </div>
-                </div>
+                {renderEventsList(classes, pastEvents, 'No Past Events Yet')}
               </Grid>
             </Grid>
           </Fragment>
