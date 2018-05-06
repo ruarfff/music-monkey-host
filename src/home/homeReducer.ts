@@ -1,7 +1,8 @@
-import { OPEN_SIDEBAR, CLOSE_SIDEBAR } from './homeActions'
+import Action from '../Action'
+import { CLOSE_SIDEBAR, OPEN_SIDEBAR } from './homeActions'
 import initialState from './initialHomeState'
 
-export default function home(state = initialState, { type }) {
+export default function home(state = initialState, { type }: Action) {
   switch (type) {
     case OPEN_SIDEBAR:
       return { ...initialState, sidebarIsOpen: true }
