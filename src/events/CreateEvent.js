@@ -16,19 +16,19 @@ import PlaylistSelection from './PlaylistSelection'
 import './CreateEvent.css'
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1
+  button: {
+    margin: theme.spacing.unit
   },
   formItem: {
     padding: theme.spacing.unit * 2,
     textAlign: 'center',
     width: '100%'
   },
-  button: {
-    margin: theme.spacing.unit
-  },
   rightIcon: {
     marginLeft: theme.spacing.unit
+  },
+  root: {
+    flexGrow: 1
   }
 })
 
@@ -42,21 +42,21 @@ class CreateEvent extends Component {
 
   render() {
     const {
-      user,
-      events,
+      cancel,
       classes,
-      locationChanged,
-      locationSelected,
+      closeExistingPlaylist,
+      closeCreatePlaylist,
+      createEventPlaylist,
       eventContentUpdated,
       eventImageUploaded,
       eventImageUploadError,
+      events,
+      locationChanged,
+      locationSelected,
       saveEvent,
-      cancel,
-      selectExistingPlaylist,
-      closeExistingPlaylist,
       selectCreatePlaylist,
-      closeCreatePlaylist,
-      createEventPlaylist
+      selectExistingPlaylist,
+      user
     } = this.props
 
     return (
@@ -239,22 +239,22 @@ class CreateEvent extends Component {
 }
 
 CreateEvent.propTypes = {
-  user: PropTypes.object.isRequired,
-  events: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
-  locationChanged: PropTypes.func.isRequired,
-  locationSelected: PropTypes.func.isRequired,
-  eventContentUpdated: PropTypes.func.isRequired,
-  eventImageUploaded: PropTypes.func.isRequired,
-  eventImageUploadError: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
-  saveEvent: PropTypes.func.isRequired,
-  selectCreatePlaylist: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
   closeCreatePlaylist: PropTypes.func.isRequired,
-  selectExistingPlaylist: PropTypes.func.isRequired,
   closeExistingPlaylist: PropTypes.func.isRequired,
   createEventPlaylist: PropTypes.func.isRequired,
-  initializeCreateForm: PropTypes.func.isRequired
+  eventContentUpdated: PropTypes.func.isRequired,
+  eventImageUploadError: PropTypes.func.isRequired,
+  eventImageUploaded: PropTypes.func.isRequired,
+  events: PropTypes.object.isRequired,
+  initializeCreateForm: PropTypes.func.isRequired,
+  locationChanged: PropTypes.func.isRequired,
+  locationSelected: PropTypes.func.isRequired,
+  saveEvent: PropTypes.func.isRequired,
+  selectCreatePlaylist: PropTypes.func.isRequired,
+  selectExistingPlaylist: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 }
 
 export default withStyles(styles)(CreateEvent)

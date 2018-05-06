@@ -13,18 +13,18 @@ const styles = theme => ({
     flexGrow: 1,
     position: 'relative'
   },
-  suggestionsContainerOpen: {
-    position: 'absolute',
-    zIndex: 1,
-    marginTop: theme.spacing.unit,
-    left: 0,
-    right: 0,
-    margin: 0,
-    padding: 0,
-    listStyleType: 'none'
-  },
   suggestion: {
     display: 'block'
+  },
+  suggestionsContainerOpen: {
+    left: 0,
+    listStyleType: 'none',
+    margin: 0,
+    marginTop: theme.spacing.unit,
+    padding: 0,
+    position: 'absolute',
+    right: 0,
+    zIndex: 1
   }
 })
 
@@ -97,17 +97,17 @@ const LocationAutoComplete = ({
         <div>
           {renderInput({
             ...getInputProps({
-              placeholder,
-              formClass
+              formClass,
+              placeholder
             })
           })}
 
           {renderSuggestionsContainer({
             children: suggestions.map(suggestion =>
               renderSuggestion(suggestion, {
-                query: value,
                 className: classes.suggestion,
-                getSuggestionItemProps
+                getSuggestionItemProps,
+                query: value
               })
             ),
             className: classes.suggestionsContainerOpen
@@ -119,10 +119,10 @@ const LocationAutoComplete = ({
 )
 
 LocationAutoComplete.propTypes = {
-  formClass: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
-  onSelect: PropTypes.func.isRequired,
+  formClass: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired
 }

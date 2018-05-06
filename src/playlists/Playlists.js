@@ -5,11 +5,11 @@ import Paper from 'material-ui/Paper'
 import './Playlist.css'
 
 const style = {
+  display: 'inline-block',
   height: 200,
-  width: 200,
   margin: 20,
   textAlign: 'center',
-  display: 'inline-block'
+  width: 200
 }
 
 class Playlists extends Component {
@@ -52,8 +52,8 @@ class Playlists extends Component {
 }
 
 Playlists.propTypes = {
-  playlists: PropTypes.object.isRequired,
-  fetchPlaylists: PropTypes.func.isRequired
+  fetchPlaylists: PropTypes.func.isRequired,
+  playlists: PropTypes.object.isRequired
 }
 
 export default Playlists

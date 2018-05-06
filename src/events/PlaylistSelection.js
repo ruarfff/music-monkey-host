@@ -9,7 +9,6 @@ import Grid from 'material-ui/Grid'
 import OpenInNew from '@material-ui/icons/OpenInNew'
 import ExistingPlaylistDialog from './ExistingPlaylistDialog'
 import CreatePlaylistDialog from './CreatePlaylistDialog'
-import './Events.css'
 
 const ITEM_HEIGHT = 48
 
@@ -125,16 +124,16 @@ class PlaylistSelection extends Component {
 }
 
 PlaylistSelection.propTypes = {
-  user: PropTypes.object.isRequired,
-  value: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
-  playlistInput: PropTypes.object.isRequired,
-  onPlaylistAdded: PropTypes.func.isRequired,
-  selectExistingPlaylist: PropTypes.func.isRequired,
-  closeExistingPlaylist: PropTypes.func.isRequired,
-  selectCreatePlaylist: PropTypes.func.isRequired,
   closeCreatePlaylist: PropTypes.func.isRequired,
-  createEventPlaylist: PropTypes.func.isRequired
+  closeExistingPlaylist: PropTypes.func.isRequired,
+  createEventPlaylist: PropTypes.func.isRequired,
+  onPlaylistAdded: PropTypes.func.isRequired,
+  playlistInput: PropTypes.object.isRequired,
+  selectCreatePlaylist: PropTypes.func.isRequired,
+  selectExistingPlaylist: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  value: PropTypes.string.isRequired
 }
 
 export default withStyles(styles)(PlaylistSelection)

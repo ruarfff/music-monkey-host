@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { withStyles } from 'material-ui/styles'
 import PropTypes from 'prop-types'
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
@@ -11,19 +12,59 @@ import Paper from 'material-ui/Paper'
 import NoEvents from './NoEvents'
 import Event from './Event'
 
-import './Events.css'
+const styles = theme => ({
+  eventCreateActionContainer: {
+    alignItems: 'center',
+    display: 'flex',
+    flexFlow: 'row wrap',
+    justifyContent: 'space-evenly',
+    paddingBottom: '2em'
+  },
+  eventCreateButton: {
+    float: 'right',
+    margin: '1em',
+    textAlign: 'center'
+  },
+  eventCreateText: {
+    float: 'left',
+    margin: '1em',
+    textAlign: 'center'
+  },
+  events: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginTop: '1.5em',
+    width: '100%'
+  },
+  eventsList: {
+    display: 'flex',
+    flexFlow: 'row wrap',
+    justifyContent: 'space-evenly',
+    marginTop: '4em'
+  },
+  eventsListCaption: {
+    textAlign: 'center',
+    width: '100%'
+  },
+  eventsUpcoming: {
+    borderRight: '1px solid'
+  }
+})
 
 const renderEventCreateAction = () => (
-  <div className="Event-create-action-container">
+  <div className={classes.eventCreateActionContainer}>
     <Typography
       align="center"
       variant="headline"
       gutterBottom={true}
-      className="Event-create-text"
+      className={classes.eventCreateText}
     >
       Create New Event
     </Typography>
-    <Link to="/create-event" className="Event-create-button">
+    <Link to="/create-event" className={classes.eventCreateButton}>
       <Tooltip id="tooltip-fab" title="Create Event">
         <Button variant="fab" color="primary" aria-label="Create Event">
           <AddIcon />
@@ -42,8 +83,10 @@ class Events extends Component {
 
   render() {
     const { events } = this.props.events
+    const classes = this.props.classes
+
     return (
-      <div className="Events">
+      <div className={classes.events}>
         {events.length < 1 ? (
           <NoEvents />
         ) : (
@@ -58,7 +101,7 @@ class Events extends Component {
             >
               <Grid item sm={6} hidden={{ xsDown: true }}>
                 <Typography
-                  className="Events-list-caption"
+                  className={classes.eventsListCaption}
                   align="center"
                   variant="headline"
                   gutterBottom
@@ -68,7 +111,7 @@ class Events extends Component {
               </Grid>
               <Grid item sm={6} hidden={{ xsDown: true }}>
                 <Typography
-                  className="Events-list-caption"
+                  className={classes.eventsListCaption}
                   align="center"
                   variant="headline"
                   gutterBottom
@@ -76,11 +119,11 @@ class Events extends Component {
                   Past Events
                 </Typography>
               </Grid>
-              <Grid item xs={12} sm={6} className="Events-upcoming">
+              <Grid item xs={12} sm={6} className={classes.eventsUpcoming}>
                 <Hidden smUp>
                   <Paper>
                     <Typography
-                      className="Events-list-caption"
+                      className={classes.eventsListCaption}
                       align="center"
                       variant="subheading"
                       gutterBottom
@@ -90,7 +133,7 @@ class Events extends Component {
                   </Paper>
                 </Hidden>
 
-                <div className="Events-list">
+                <div className={classes.eventsList}>
                   {events.map((event, i) => <Event key={i} event={event} />)}
                 </div>
               </Grid>
@@ -98,7 +141,7 @@ class Events extends Component {
                 <Hidden smUp>
                   <Paper>
                     <Typography
-                      className="Events-list-caption"
+                      className={classes.eventsListCaption}
                       align="center"
                       variant="subheading"
                       gutterBottom
@@ -108,9 +151,9 @@ class Events extends Component {
                   </Paper>
                 </Hidden>
 
-                <div className="Events-list">
+                <div className={classes.eventsList}>
                   <Typography
-                    className="Events-list-caption"
+                    className={classes.eventsListCaption}
                     align="center"
                     variant="body2"
                     gutterBottom
@@ -128,9 +171,10 @@ class Events extends Component {
 }
 
 Events.propTypes = {
-  user: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
   events: PropTypes.object.isRequired,
-  getEvents: PropTypes.func.isRequired
+  getEvents: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 }
 
-export default Events
+export default withStyles(styles)(Events)

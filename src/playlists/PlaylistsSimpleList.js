@@ -44,9 +44,9 @@ class PlaylistsSimpleList extends Component {
 }
 
 PlaylistsSimpleList.propTypes = {
-  playlists: PropTypes.object.isRequired,
   fetchPlaylists: PropTypes.func.isRequired,
-  onPlaylistSelected: PropTypes.func.isRequired
+  onPlaylistSelected: PropTypes.func.isRequired,
+  playlists: PropTypes.object.isRequired
 }
 
 export default PlaylistsSimpleList

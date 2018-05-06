@@ -7,24 +7,23 @@ import LoadingSpinner from '../loading/LoadingSpinner'
 import Events from '../events/EventsContainer'
 import MainAppBar from './MainAppBarContainer'
 import Sidebar from './SidebarContainer'
-import './Home.css'
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    zIndex: 1,
-    overflow: 'hidden',
-    position: 'relative',
-    display: 'flex'
-  },
   content: {
-    flexGrow: 1,
     backgroundColor: theme.palette.background.default,
+    flexGrow: 1,
     padding: theme.spacing.unit * 3
   },
-  toolbar: {
+  root: {    
     display: 'flex',
+    flexGrow: 1,
+    overflow: 'hidden',
+    position: 'relative',
+    zIndex: 1
+  },
+  toolbar: {
     alignItems: 'center',
+    display: 'flex',
     justifyContent: 'flex-end',
     padding: '0 8px',
     ...theme.mixins.toolbar
@@ -66,8 +65,8 @@ class Home extends Component {
 Home.propTypes = {
   classes: PropTypes.object.isRequired,
   fetchUser: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-  routes: PropTypes.array.isRequired
+  routes: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired
 }
 
 export default withStyles(styles, { withTheme: true })(Home)

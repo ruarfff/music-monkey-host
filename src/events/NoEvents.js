@@ -1,12 +1,19 @@
 import React from 'react'
+import { withStyles } from 'material-ui/styles'
+import PropTypes from 'prop-types'
 import Button from 'material-ui/Button'
 import AddIcon from '@material-ui/icons/Add'
 import Tooltip from 'material-ui/Tooltip'
 import { Link } from 'react-router-dom'
-import './Events.css'
 
-const NoEvents = () => (
-  <div className="Events-no-events-message">
+const styles = theme => ({
+  eventsNoEventsMessage: {
+    textAlign: 'center'
+  }
+})
+
+const NoEvents = ({ classes }) => (
+  <div className={classes.eventsNoEventsMessage}>
     <div>
       <h3>
         Looks like you have not created any events yet. Would you like to{' '}
@@ -23,4 +30,8 @@ const NoEvents = () => (
   </div>
 )
 
-export default NoEvents
+NoEvents.propTypes = {
+  classes: PropTypes.object.isRequired
+}
+
+export default withStyles(styles)(NoEvents)
