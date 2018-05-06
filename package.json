@@ -58,6 +58,7 @@
     "@types/redux-auth-wrapper": "^2.0.7",
     "@types/redux-immutable-state-invariant": "^2.0.4",
     "@types/redux-logger": "^3.0.6",
+    "@types/uuid": "^3.4.3",
     "awsmobile-cli": "^1.1.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
