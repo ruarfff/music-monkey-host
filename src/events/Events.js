@@ -12,6 +12,7 @@ import Paper from 'material-ui/Paper'
 import NoEvents from './NoEvents'
 import EventCard from './EventCard'
 import * as moment from 'moment'
+import LoadingSpinner from '../loading/LoadingSpinner'
 
 const styles = theme => ({
   eventCreateActionContainer: {
@@ -102,7 +103,7 @@ class Events extends Component {
   }
 
   render() {
-    const { events } = this.props.events
+    const { events, eventsLoading } = this.props.events
     const now = moment()
     const pastEvents = events.filter(event => event.startDateTime.isBefore(now))
     const upcomingEvents = events.filter(event =>
@@ -113,75 +114,77 @@ class Events extends Component {
 
     return (
       <div className={classes.events}>
-        {events.length < 1 ? (
-          <NoEvents />
-        ) : (
-          <Fragment>
-            {renderEventCreateAction(classes)}
-            <Grid
-              container
-              spacing={24}
-              justify="center"
-              alignItems="center"
-              direction="row"
-            >
-              <Grid item sm={6} hidden={{ xsDown: true }}>
-                <Typography
-                  className={classes.eventsListCaption}
-                  align="center"
-                  variant="headline"
-                  gutterBottom
-                >
-                  Upcoming Events
-                </Typography>
+        {eventsLoading && <LoadingSpinner />}
+        {!eventsLoading && events.length < 1 && <NoEvents />}
+
+        {!eventsLoading &&
+          events.length > 0 && (
+            <Fragment>
+              {renderEventCreateAction(classes)}
+              <Grid
+                container
+                spacing={24}
+                justify="center"
+                alignItems="center"
+                direction="row"
+              >
+                <Grid item sm={6} hidden={{ xsDown: true }}>
+                  <Typography
+                    className={classes.eventsListCaption}
+                    align="center"
+                    variant="headline"
+                    gutterBottom
+                  >
+                    Upcoming Events
+                  </Typography>
+                </Grid>
+                <Grid item sm={6} hidden={{ xsDown: true }}>
+                  <Typography
+                    className={classes.eventsListCaption}
+                    align="center"
+                    variant="headline"
+                    gutterBottom
+                  >
+                    Past Events
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={6} className={classes.eventsUpcoming}>
+                  <Hidden smUp>
+                    <Paper>
+                      <Typography
+                        className={classes.eventsListCaption}
+                        align="center"
+                        variant="subheading"
+                        gutterBottom
+                      >
+                        Upcoming Events
+                      </Typography>
+                    </Paper>
+                  </Hidden>
+                  {renderEventsList(
+                    classes,
+                    upcomingEvents,
+                    'No Upcoming Events'
+                  )}
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Hidden smUp>
+                    <Paper>
+                      <Typography
+                        className={classes.eventsListCaption}
+                        align="center"
+                        variant="subheading"
+                        gutterBottom
+                      >
+                        Past Events
+                      </Typography>
+                    </Paper>
+                  </Hidden>
+                  {renderEventsList(classes, pastEvents, 'No Past Events Yet')}
+                </Grid>
               </Grid>
-              <Grid item sm={6} hidden={{ xsDown: true }}>
-                <Typography
-                  className={classes.eventsListCaption}
-                  align="center"
-                  variant="headline"
-                  gutterBottom
-                >
-                  Past Events
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6} className={classes.eventsUpcoming}>
-                <Hidden smUp>
-                  <Paper>
-                    <Typography
-                      className={classes.eventsListCaption}
-                      align="center"
-                      variant="subheading"
-                      gutterBottom
-                    >
-                      Upcoming Events
-                    </Typography>
-                  </Paper>
-                </Hidden>
-                {renderEventsList(
-                  classes,
-                  upcomingEvents,
-                  'No Upcoming Events'
-                )}
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Hidden smUp>
-                  <Paper>
-                    <Typography
-                      className={classes.eventsListCaption}
-                      align="center"
-                      variant="subheading"
-                      gutterBottom
-                    >
-                      Past Events
-                    </Typography>
-                  </Paper>
-                </Hidden>
-                {renderEventsList(classes, pastEvents, 'No Past Events Yet')}
-              </Grid>
-            </Grid>
-          </Fragment>
-        )}
+            </Fragment>
+          )}
       </div>
     )
   }

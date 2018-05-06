@@ -39,8 +39,8 @@ const EventView = decorate(
       return (
         <div>
           {loading && <LoadingSpinner />}
-          {error && renderError(error)}
-          {event && renderEvent(event)}
+          {(!loading && error) && renderError(error)}
+          {(!loading && event) && renderEvent(event)}
         </div>
       )
     }
