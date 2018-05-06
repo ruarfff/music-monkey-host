@@ -5,9 +5,16 @@ import EventView from './EventView'
 describe('<EventView />', () => {
   it('should render without crashing', () => {
     const match = { params: {} }
+    const error = {}
+    const loading = false
     const getEventById = () => {}
     const wrapper = shallow(
-      <EventView match={match} getEventById={getEventById} />
+      <EventView
+        match={match}
+        getEventById={getEventById}
+        error={error}
+        loading={loading}
+      />
     )
 
     expect(wrapper).toBeTruthy()

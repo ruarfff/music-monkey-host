@@ -3,7 +3,11 @@ import { withRouter } from 'react-router'
 import { getEventById } from './eventActions'
 import EventView from './EventView'
 
-const mapStateToProps = state => ({ event: state.events.selectedEvent })
+const mapStateToProps = state => ({
+  error: state.events.errors.fetchEvent,
+  event: state.events.selectedEvent,
+  loading: state.events.eventLoading
+})
 
 const mapDispatchToProps = { getEventById }
 
