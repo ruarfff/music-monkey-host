@@ -1,13 +1,14 @@
+import Action from '../Action'
 import {
   FETCH_PLAYLISTS,
-  FETCH_PLAYLISTS_SUCCESS,
-  FETCH_PLAYLISTS_ERROR
+  FETCH_PLAYLISTS_ERROR,
+  FETCH_PLAYLISTS_SUCCESS
 } from './playlistActions'
 import initialState from './playlistInitialState'
 import playlist from './playlistReducer'
 
 it('should return the initial state when no action matches', () => {
-  expect(playlist(undefined, {})).toEqual(initialState)
+  expect(playlist(undefined, {} as Action)).toEqual(initialState)
 })
 
 it('should handle FETCH_PLAYLIST', () => {

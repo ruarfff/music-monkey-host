@@ -1,11 +1,15 @@
+import Action from '../Action'
 import {
   FETCH_PLAYLISTS,
-  FETCH_PLAYLISTS_SUCCESS,
-  FETCH_PLAYLISTS_ERROR
+  FETCH_PLAYLISTS_ERROR,
+  FETCH_PLAYLISTS_SUCCESS
 } from './playlistActions'
 import initialState from './playlistInitialState'
 
-export default function playlist(state = initialState, { type, payload }) {
+export default function playlist(
+  state = initialState,
+  { type, payload }: Action
+) {
   switch (type) {
     case FETCH_PLAYLISTS:
       return { ...initialState, isLoading: true }
