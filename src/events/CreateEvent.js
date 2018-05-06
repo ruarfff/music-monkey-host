@@ -11,9 +11,12 @@ import TextField from 'material-ui/TextField'
 
 import FileUpload from '../upload/FileUpload'
 import LocationAutoComplete from '../location/LocationAutoComplete'
-import PlaylistSelection from './PlaylistSelection'
-
-import './CreateEvent.css'
+import EventNameInput from './create/EventNameInput'
+import EventOrganizerInput from './create/EventOrganizerInput'
+import EventDescriptionInput from './create/EventDescriptionInput'
+import EventVenueInput from './create/EventVenueInput'
+import EventCodeInput from './create/EventCodeInput'
+import PlaylistSelection from './create/PlaylistSelection'
 
 const styles = theme => ({
   button: {
@@ -69,31 +72,16 @@ class CreateEvent extends Component {
           direction="row"
         >
           <Grid item xs={12} sm={6}>
-            <TextField
-              label="Event Name"
-              placeholder="Provide a name for your event"
-              required
-              autoFocus
-              fullWidth
-              margin="normal"
+            <EventNameInput
               value={events.savingEvent.name}
-              onChange={event =>
-                eventContentUpdated({ name: event.target.value })
-              }
+              onChange={name => eventContentUpdated({ name })}
             />
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <TextField
-              label="Organizer"
-              placeholder="Who is organising this event?"
-              required
-              fullWidth
-              margin="normal"
+            <EventOrganizerInput
               value={events.savingEvent.organizer}
-              onChange={event =>
-                eventContentUpdated({ organizer: event.target.value })
-              }
+              onChange={organizer => eventContentUpdated({ organizer })}
             />
           </Grid>
 
@@ -105,28 +93,16 @@ class CreateEvent extends Component {
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <TextField
-              label="Event description"
-              multiline
-              fullWidth
-              margin="normal"
-              rowsMax="4"
+            <EventDescriptionInput
               value={events.savingEvent.description}
-              onChange={event =>
-                eventContentUpdated({ description: event.target.value })
-              }
+              onChange={description => eventContentUpdated({ description })}
             />
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <TextField
-              label="Venue"
-              fullWidth
-              margin="normal"
+            <EventVenueInput
               value={events.savingEvent.venue}
-              onChange={event =>
-                eventContentUpdated({ venue: event.target.value })
-              }
+              onChange={venue => eventContentUpdated({ venue })}
             />
           </Grid>
 
@@ -142,7 +118,6 @@ class CreateEvent extends Component {
 
           <Grid item xs={12} sm={6}>
             <DateTimePicker
-              id="ce-start-datetime"
               disablePast
               autoOk
               fullWidth
@@ -155,7 +130,6 @@ class CreateEvent extends Component {
 
           <Grid item xs={12} sm={6}>
             <DateTimePicker
-              id="ce-end-datetime"
               disablePast
               autoOk
               fullWidth
@@ -167,15 +141,9 @@ class CreateEvent extends Component {
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <TextField
-              label="Event Code"
-              placeholder="Optionally password protect event"
-              fullWidth
-              margin="normal"
+            <EventCodeInput
               value={events.savingEvent.eventCode}
-              onChange={event =>
-                eventContentUpdated({ eventCode: event.target.value })
-              }
+              onnChange={eventCode => eventContentUpdated({ eventCode })}
             />
           </Grid>
 

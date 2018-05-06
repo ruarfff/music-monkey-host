@@ -1,12 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import Button from 'material-ui/Button'
 import Dialog, {
   DialogActions,
   DialogContent,
   DialogTitle
 } from 'material-ui/Dialog'
-import PlaylistsSimpleList from '../playlists/PlaylistsSimpleListContainer'
+import * as React from 'react'
+import PlaylistsSimpleList from '../../playlists/PlaylistsSimpleListContainer'
+import PropTypes from 'prop-types'
 
 const ExistingPlaylistDialog = ({ open, onClose, onPlaylistSelected }) => (
   <Dialog
@@ -29,9 +29,9 @@ const ExistingPlaylistDialog = ({ open, onClose, onPlaylistSelected }) => (
 )
 
 ExistingPlaylistDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onPlaylistSelected: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired
+  onPlaylistSelected: PropTypes.func.isRequired
 }
 
 export default ExistingPlaylistDialog

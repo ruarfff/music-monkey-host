@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import CreateEvent from './CreateEvent'
 
-describe('<CreateEvent />', () => {
+xdescribe('<CreateEvent />', () => {
   it('should render without crashing', () => {
     const user = {}
     const events = {}

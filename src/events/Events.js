@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 import Hidden from 'material-ui/Hidden'
 import Paper from 'material-ui/Paper'
 import NoEvents from './NoEvents'
-import Event from './Event'
+import EventCard from './EventCard'
 import * as moment from 'moment'
 
 const styles = theme => ({
@@ -89,7 +89,7 @@ const renderEventsList = (classes, events, noEventsMessage) => (
     )}
 
     <div className={classes.eventsList}>
-      {events.map((event, i) => <Event key={i} event={event} />)}
+      {events.map((event, i) => <EventCard key={i} event={event} />)}
     </div>
   </Fragment>
 )

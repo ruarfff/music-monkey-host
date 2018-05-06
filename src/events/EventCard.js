@@ -38,7 +38,7 @@ const styles = theme => ({
   }
 })
 
-class Event extends React.Component {
+class EventCard extends React.Component {
   state = { expanded: false }
 
   handleExpandClick = () => {
@@ -94,9 +94,9 @@ class Event extends React.Component {
   }
 }
 
-Event.propTypes = {
+EventCard.propTypes = {
   classes: PropTypes.object.isRequired,
   event: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(Event)
+export default withStyles(styles)(EventCard)
