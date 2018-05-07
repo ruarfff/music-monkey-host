@@ -1,3 +1,4 @@
 export interface IHomeState {
-    sidebarIsOpen: boolean
+    sidebarIsOpen: boolean,
+    avatarMenuIsOpen: boolean
 }
