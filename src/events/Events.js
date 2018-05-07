@@ -44,7 +44,7 @@ const styles = theme => ({
   eventsList: {
     display: 'flex',
     flexFlow: 'row wrap',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     marginTop: '4em'
   },
   eventsListCaption: {

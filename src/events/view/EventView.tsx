@@ -58,21 +58,21 @@ const handleTabChange = (props: IEventViewProps) => (
 }
 
 const renderEvent = (props: PropsWithStyles) => (
-  <Grid container={true} spacing={16}>
-    <Grid item={true} xs={8}>
+  <Grid container={true} spacing={8}>
+    <Grid item={true} xs={12} sm={8}>
       <Typography>{props.event && props.event.name}</Typography>
     </Grid>
-    <Grid item={true} xs={2}>
+    <Grid item={true} xs={6} sm={2}>
       <Button variant="raised" color="primary">
         Primary
       </Button>
     </Grid>
-    <Grid item={true} xs={2}>
+    <Grid item={true} xs={6} sm={2}>
       <Button variant="raised" color="primary">
         Primary
       </Button>
     </Grid>
-    <Grid item={true}>
+    <Grid item={true} xs={12}>
       <AppBar position="static" color="default">
         <Tabs
           value={props.eventTabIndex}
@@ -80,10 +80,11 @@ const renderEvent = (props: PropsWithStyles) => (
           indicatorColor="primary"
           textColor="primary"
           fullWidth={true}
+          centered={true}
         >
-          <Tab label={props.event ? props.event.name : 'Event'} />
-          <Tab label="Item Two" />
-          <Tab label="Item Three" />
+          <Tab label="Event" />
+          <Tab label="Pre-Game" />
+          <Tab label="In-Game" />
         </Tabs>
       </AppBar>
       <SwipeableViews

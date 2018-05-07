@@ -21,7 +21,8 @@ const styles = theme => ({
   },
   card: {
     maxWidth: '16em',
-    width: '16em'
+    width: '16em',
+    marginTop: '2em'
   },
   expand: {
     marginLeft: 'auto',
