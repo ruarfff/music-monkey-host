@@ -4,9 +4,6 @@ import {
   CREATE_PLAYLIST_SELECTED,
   EVENT_CONTENT_UPDATED,
   EVENT_CREATE_FORM_INITIALIZED,
-  EVENT_FETCH_BY_ID_ERROR,
-  EVENT_FETCH_BY_ID_INITIATED,
-  EVENT_FETCHED_BY_ID,
   EVENT_IMAGE_UPLOAD_ERROR,
   EVENT_IMAGE_UPLOADED,
   EVENT_LOCATION_CHANGED,
@@ -23,7 +20,7 @@ import {
   SELECT_EXISTING_PLAYLIST_SELECTED
 } from './eventActions'
 import initialState from './eventInitialState'
-import { IEventState } from './EventModel'
+import IEventState from './IEventState'
 
 export default function events(
   state: IEventState = initialState,
@@ -169,26 +166,6 @@ export default function events(
           fetchEvents: payload
         },
         eventsLoading: false
-      }
-    case EVENT_FETCH_BY_ID_INITIATED:
-      return {
-        ...state,
-        eventLoading: true
-      }
-    case EVENT_FETCHED_BY_ID:
-      return {
-        ...state,
-        selectedEvent: payload,
-        eventLoading: false
-      }
-    case EVENT_FETCH_BY_ID_ERROR:
-      return {
-        ...state,
-        errors: {
-          ...state.errors,
-          fetchEvent: payload
-        },
-        eventLoading: false
       }
     default:
       return state

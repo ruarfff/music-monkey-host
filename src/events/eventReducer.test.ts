@@ -4,9 +4,6 @@ import {
   CREATE_PLAYLIST_SELECTED,
   EVENT_CONTENT_UPDATED,
   EVENT_CREATE_FORM_INITIALIZED,
-  EVENT_FETCH_BY_ID_ERROR,
-  EVENT_FETCH_BY_ID_INITIATED,
-  EVENT_FETCHED_BY_ID,
   EVENT_IMAGE_UPLOAD_ERROR,
   EVENT_IMAGE_UPLOADED,
   EVENT_LOCATION_CHANGED,
@@ -23,8 +20,8 @@ import {
   SELECT_EXISTING_PLAYLIST_SELECTED
 } from './eventActions'
 import initialState from './eventInitialState'
-import { IEvent } from './EventModel'
 import events from './eventReducer'
+import IEvent from './IEvent'
 
 describe('eventReducer', () => {
   it('should return the initial state when no action matches', () => {
@@ -355,48 +352,6 @@ describe('eventReducer', () => {
         errors: {
           ...initialState.errors,
           fetchEvents: new Error('events err')
-        }
-      })
-    })
-
-    it('should handle EVENT_FETCH_BY_ID_INITIATED', () => {
-      expect(
-        events(initialState, {
-          type: EVENT_FETCH_BY_ID_INITIATED
-        })
-      ).toEqual({
-        ...initialState,
-        eventLoading: true
-      })
-    })
-
-    it('should handle EVENT_FETCHED_BY_ID', () => {
-      expect(
-        events(
-          { ...initialState, eventLoading: true },
-          {
-            type: EVENT_FETCHED_BY_ID,
-            payload: {} as IEvent
-          }
-        )
-      ).toEqual({
-        ...initialState,
-        eventLoading: false,
-        selectedEvent: {} as IEvent
-      })
-    })
-
-    it('should handle EVENT_FETCH_BY_ID_ERROR', () => {
-      expect(
-        events(initialState, {
-          type: EVENT_FETCH_BY_ID_ERROR,
-          payload: new Error('event err')
-        })
-      ).toEqual({
-        ...initialState,
-        errors: {
-          ...initialState.errors,
-          fetchEvent: new Error('event err')
         }
       })
     })

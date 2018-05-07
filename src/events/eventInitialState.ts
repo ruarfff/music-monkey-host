@@ -1,5 +1,5 @@
 import * as moment from 'moment'
-import { IEventState } from './EventModel'
+import IEventState from './IEventState'
 
 export default {
   errors: {
@@ -7,7 +7,6 @@ export default {
     imageUpload: undefined,
     saving: undefined,
     playlistCreation: undefined,
-    fetchEvent: undefined,
     fetchEvents: undefined
   },
   events: [],
@@ -31,8 +30,6 @@ export default {
       .startOf('hour'),
     venue: ''
   },
-  selectedEvent: undefined,
   eventsLoading: false,
-  eventLoading: false,
   showSavedDialogue: false
 } as IEventState

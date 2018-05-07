@@ -1,9 +1,9 @@
-export interface ILatLng {
+interface ILatLng {
   lat?: number;
   lng?: number;
 }
 
-export interface ILocation {
+export default interface ILocation {
   address?: string;
   latLng?: ILatLng;
 }

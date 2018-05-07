@@ -8,9 +8,6 @@ import localStorage from '../storage/localStorage'
 import {
   EVENT_CONTENT_UPDATED,
   EVENT_CREATE_PLAYLIST_INITIATED,
-  EVENT_FETCH_BY_ID_ERROR,
-  EVENT_FETCH_BY_ID_INITIATED,
-  EVENT_FETCHED_BY_ID,
   EVENT_LOCATION_ERROR,
   EVENT_LOCATION_POPULATED,
   EVENT_LOCATION_SELECTED,
@@ -23,7 +20,7 @@ import {
   EVENTS_FETCH_INITIATED,
   EVENTS_FETCHED
 } from './eventActions'
-import { IEvent } from './EventModel'
+import IEvent from './IEvent'
 
 const SpotifyWebApi = require('spotify-web-api-js')
 const { geocodeByAddress, getLatLng } = require('react-places-autocomplete')
@@ -140,24 +137,6 @@ function* fetchEventsFlow(action: IAction) {
   }
 }
 
-function fetchEvent(eventId: string) {
-  return axios.get(serviceUrl + '/events/' + eventId).then(response => ({
-    ...response.data,
-    endDateTime: moment(response.data.endDateTime),
-    startDateTime: moment(response.data.startDateTime)
-  }))
-}
-
-function* fetchEventByIdFlow(action: IAction) {
-  const eventId: string = action.payload
-  try {
-    const event = yield call(fetchEvent, eventId)
-    yield put({ type: EVENT_FETCHED_BY_ID, payload: event })
-  } catch (err) {
-    yield put({ type: EVENT_FETCH_BY_ID_ERROR, payload: err })
-  }
-}
-
 export function* watchCreateEventPlaylist() {
   yield takeEvery(EVENT_CREATE_PLAYLIST_INITIATED, createPlaylistFlow)
 }
@@ -176,8 +155,4 @@ export function* watchCreateEvent() {
 
 export function* watchFetchEvents() {
   yield takeEvery(EVENTS_FETCH_INITIATED, fetchEventsFlow)
-}
-
-export function* watchFetchEventById() {
-  yield takeEvery(EVENT_FETCH_BY_ID_INITIATED, fetchEventByIdFlow)
 }

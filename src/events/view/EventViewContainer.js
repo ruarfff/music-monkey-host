@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import { getEventById } from './eventActions'
+import { getEventById } from './eventViewActions'
 import EventView from './EventView'
 
 const mapStateToProps = state => ({

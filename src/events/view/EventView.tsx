@@ -1,10 +1,8 @@
 import { withStyles, WithStyles } from 'material-ui/styles'
 import * as React from 'react'
-import Action from '../Action'
-import LoadingSpinner from '../loading/LoadingSpinner'
-import { IEvent } from './EventModel'
-
-import './EventView.css'
+import Action from '../../Action'
+import LoadingSpinner from '../../loading/LoadingSpinner'
+import IEvent from '../IEvent'
 
 const decorate = withStyles(({ palette, spacing }) => ({
   root: {
@@ -39,8 +37,8 @@ const EventView = decorate(
       return (
         <div>
           {loading && <LoadingSpinner />}
-          {(!loading && error) && renderError(error)}
-          {(!loading && event) && renderEvent(event)}
+          {!loading && error && renderError(error)}
+          {!loading && event && renderEvent(event)}
         </div>
       )
     }

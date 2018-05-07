@@ -9,7 +9,7 @@ import Callback from './auth/Callback'
 import Login from './auth/LoginContainer'
 import Home from './home/HomeContainer'
 import CreateEvent from './events/CreateEventContainer'
-import EventView from './events/EventViewContainer'
+import EventView from './events/view/EventViewContainer'
 
 const locationHelper = locationHelperBuilder({})
 

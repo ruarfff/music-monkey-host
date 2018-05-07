@@ -4,10 +4,10 @@ import {
   watchCreateEvent,
   watchCreateEventPlaylist,
   watchEventPlaylistCreated,
-  watchFetchEventById,
   watchFetchEvents,
   watchUpdateLocationAutoComplete
 } from './events/eventSaga'
+import { watchFetchEventById } from './events/view/eventViewSaga'
 import { watchFetchPlaylists } from './playlists/playlistSaga'
 import { watchFetchUser } from './user/userSaga'
 

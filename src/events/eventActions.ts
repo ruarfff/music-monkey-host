@@ -1,6 +1,6 @@
 import Action from '../Action'
 import { IUser } from '../user/UserModel'
-import { IEvent } from './EventModel'
+import IEvent from './IEvent'
 
 export const EVENT_LOCATION_CHANGED = 'EVENT_LOCATION_CHANGED'
 export const EVENT_LOCATION_SELECTED = 'EVENT_LOCATION_SELECTED'
@@ -20,9 +20,6 @@ export const EVENT_CREATE_FORM_INITIALIZED = 'EVENT_CREATE_FORM_INITIALIZED'
 export const EVENTS_FETCH_INITIATED = 'EVENTS_FETCH_INITIATED'
 export const EVENTS_FETCHED = 'EVENTS_FETCHED'
 export const EVENTS_FETCH_ERROR = 'EVENTS_FETCH_ERROR'
-export const EVENT_FETCH_BY_ID_INITIATED = 'EVENT_FETCH_BY_ID_INITIATED'
-export const EVENT_FETCHED_BY_ID = 'EVENT_FETCHED_BY_ID'
-export const EVENT_FETCH_BY_ID_ERROR = 'EVENT_FETCH_BY_ID_ERROR'
 
 export const SELECT_EXISTING_PLAYLIST_SELECTED =
   'SELECT_EXISTING_PLAYLIST_SELECTED'
@@ -99,9 +96,4 @@ export const initializeCreateForm = (event: IEvent, user: IUser): Action => ({
 export const getEvents = (userId: string): Action => ({
   payload: userId,
   type: EVENTS_FETCH_INITIATED
-})
-
-export const getEventById = (eventId: string): Action => ({
-  payload: eventId,
-  type: EVENT_FETCH_BY_ID_INITIATED
 })

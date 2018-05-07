@@ -41,6 +41,7 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
+    "@types/autosuggest-highlight": "^3.1.0",
     "@types/axios": "^0.14.0",
     "@types/dropzone": "^5.0.2",
     "@types/enzyme": "^3.1.10",
@@ -51,6 +52,7 @@
     "@types/prop-types": "^15.5.2",
     "@types/react": "^16.3.13",
     "@types/react-dom": "^16.0.5",
+    "@types/react-places-autocomplete": "^6.1.1",
     "@types/react-redux": "^5.0.19",
     "@types/react-router": "^4.0.24",
     "@types/react-router-redux": "^5.0.13",
