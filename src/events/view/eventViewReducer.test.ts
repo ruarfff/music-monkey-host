@@ -3,7 +3,8 @@ import IEvent from '../IEvent'
 import {
   EVENT_FETCH_BY_ID_ERROR,
   EVENT_FETCH_BY_ID_INITIATED,
-  EVENT_FETCHED_BY_ID
+  EVENT_FETCHED_BY_ID,
+  EVENT_TAB_INDEX_CHANGED
 } from './eventViewActions'
 import initialState from './eventViewInitialState'
 import eventView from './eventViewReducer'
@@ -49,6 +50,18 @@ describe('eventViewReducer', () => {
     ).toEqual({
       ...initialState,
       fetchError: new Error('event err')
+    })
+  })
+
+  it('should handle EVENT_TAB_INDEX_CHANGED', () => {
+    expect(
+      eventView(initialState, {
+        type: EVENT_TAB_INDEX_CHANGED,
+        payload: 2
+      })
+    ).toEqual({
+      ...initialState,
+      eventTabIndex: 2
     })
   })
 })

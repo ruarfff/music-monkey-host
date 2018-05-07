@@ -2,7 +2,8 @@ import IAction from '../../Action'
 import {
   EVENT_FETCH_BY_ID_ERROR,
   EVENT_FETCH_BY_ID_INITIATED,
-  EVENT_FETCHED_BY_ID
+  EVENT_FETCHED_BY_ID,
+  EVENT_TAB_INDEX_CHANGED
 } from './eventViewActions'
 import initialState from './eventViewInitialState'
 import IEventViewState from './IEventViewState'
@@ -29,6 +30,11 @@ export default function eventView(
         fetchError: payload,
         loading: false
       }
+    case EVENT_TAB_INDEX_CHANGED:
+    return {
+      ...state,
+      eventTabIndex: payload
+    }
     default:
       return state
   }

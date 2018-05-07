@@ -225,4 +225,4 @@ CreateEvent.propTypes = {
   user: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(CreateEvent)
+export default withStyles(styles, { withTheme: true })(CreateEvent)
