@@ -1,5 +1,6 @@
-import React from 'react'
 import { shallow } from 'enzyme'
+import * as React from 'react'
+import IAction from '../../Action'
 import EventView from './EventView'
 
 describe('<EventView />', () => {
@@ -7,7 +8,7 @@ describe('<EventView />', () => {
     const match = { params: {} }
     const error = {}
     const loading = false
-    const getEventById = () => {}
+    const getEventById = (): IAction => ({} as IAction)
     const wrapper = shallow(
       <EventView
         match={match}
