@@ -1,5 +1,5 @@
 import { all } from 'redux-saga/effects'
-import { watchLogin, watchLogout } from './auth/authSaga'
+import { watchLogin, watchLogout, watchRefresh, watchStoreRefreshToken } from './auth/authSaga'
 import {
   watchCreateEvent,
   watchCreateEventPlaylist,
@@ -9,19 +9,19 @@ import {
 } from './events/eventSaga'
 import { watchFetchEventById } from './events/view/eventViewSaga'
 import { watchFetchPlaylists } from './playlists/playlistSaga'
-import { watchFetchUser } from './user/userSaga'
 
 export default function* saga() {
   yield all([
     watchLogin(),
     watchLogout(),
-    watchFetchUser(),
     watchFetchPlaylists(),
     watchCreateEvent(),
     watchUpdateLocationAutoComplete(),
     watchCreateEventPlaylist(),
     watchFetchEventById(),
     watchEventPlaylistCreated(),
-    watchFetchEvents()
+    watchFetchEvents(),
+    watchStoreRefreshToken(),
+    watchRefresh()
   ])
 }
