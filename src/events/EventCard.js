@@ -20,9 +20,9 @@ const styles = theme => ({
     display: 'flex'
   },
   card: {
+    marginTop: '2em',
     maxWidth: '16em',
-    width: '16em',
-    marginTop: '2em'
+    width: '16em'
   },
   expand: {
     marginLeft: 'auto',
@@ -40,7 +40,6 @@ const styles = theme => ({
   }
 })
 
-
 class EventCard extends React.Component {
   state = { expanded: false }
 
@@ -54,7 +53,7 @@ class EventCard extends React.Component {
     return (
       <div>
         <Card className={classes.card}>
-          <Link to={"/events/" + event.eventId}>
+          <Link to={'/events/' + event.eventId}>
             <CardHeader
               subheader={
                 event.startDateTime ? event.startDateTime.format('LLL') : ''

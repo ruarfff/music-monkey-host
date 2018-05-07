@@ -1,6 +1,10 @@
+import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/ModeEdit'
+import * as classNames from 'classnames'
 import { Typography } from 'material-ui'
 import AppBar from 'material-ui/AppBar'
 import Button from 'material-ui/Button'
+import red from 'material-ui/colors/red'
 import Grid from 'material-ui/Grid'
 import { Theme, withStyles, WithStyles } from 'material-ui/styles'
 import Tabs, { Tab } from 'material-ui/Tabs'
@@ -9,11 +13,11 @@ import * as React from 'react'
 import lifecycle from 'react-pure-lifecycle'
 import { RouteComponentProps } from 'react-router'
 import SwipeableViews from 'react-swipeable-views'
-
 import IAction from '../../Action'
 import LoadingSpinner from '../../loading/LoadingSpinner'
+import LinkButton from '../../util/LinkButton'
+import EventFetchError from '../EventFetchError'
 import IEvent from '../IEvent'
-import EventFetchError from './EventFetchError'
 
 interface IEventViewProps extends RouteComponentProps<any> {
   error?: Error
@@ -24,13 +28,27 @@ interface IEventViewProps extends RouteComponentProps<any> {
   getEventById(eventId: string): IAction
   onEventTabIndexChange(index: number): IAction
 }
-type PropsWithStyles = IEventViewProps & WithStyles<'root'>
+type PropsWithStyles = IEventViewProps &
+  WithStyles<'root' | 'button' | 'rightIcon' | 'deleteButton'>
 
 const style = (theme: Theme) => ({
   root: {
     padding: theme.spacing.unit,
     backgroundColor: theme.palette.background.default,
     color: theme.palette.primary.main
+  },
+  button: {
+    margin: theme.spacing.unit
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit
+  },
+  deleteButton: {
+    color: theme.palette.getContrastText(red[500]),
+    backgroundColor: red[500],
+    '&:hover': {
+      backgroundColor: red[700]
+    }
   }
 })
 
@@ -59,17 +77,30 @@ const handleTabChange = (props: IEventViewProps) => (
 
 const renderEvent = (props: PropsWithStyles) => (
   <Grid container={true} spacing={8}>
-    <Grid item={true} xs={12} sm={8}>
-      <Typography>{props.event && props.event.name}</Typography>
+    <Grid item={true} xs={12} sm={10}>
+      <Typography variant="display3">
+        {props.event && props.event.name}
+      </Typography>
     </Grid>
-    <Grid item={true} xs={6} sm={2}>
-      <Button variant="raised" color="primary">
-        Primary
-      </Button>
+    <Grid item={true} xs={6} sm={1}>
+      <LinkButton
+        className={props.classes.button}
+        variant="raised"
+        color="secondary"
+        to={props.location.pathname + '/edit'}
+      >
+        Edit
+        <EditIcon className={props.classes.rightIcon} />
+      </LinkButton>
     </Grid>
-    <Grid item={true} xs={6} sm={2}>
-      <Button variant="raised" color="primary">
-        Primary
+    <Grid item={true} xs={6} sm={1}>
+      <Button
+        className={classNames(props.classes.button, props.classes.deleteButton)}
+        variant="raised"
+        color="secondary"
+      >
+        Delete
+        <DeleteIcon className={props.classes.rightIcon} />
       </Button>
     </Grid>
     <Grid item={true} xs={12}>

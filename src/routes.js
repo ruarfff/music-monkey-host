@@ -10,6 +10,7 @@ import Login from './auth/LoginContainer'
 import Home from './home/HomeContainer'
 import CreateEvent from './events/CreateEventContainer'
 import EventView from './events/view/EventViewContainer'
+import EditEventContainer from './events/edit/EditEventContainer';
 
 const locationHelper = locationHelperBuilder({})
 
@@ -40,7 +41,12 @@ const routes = [
       },
       {
         component: EventView,
+        exact: true,        
         path: '/events/:eventId'
+      },
+      {
+        component: EditEventContainer,
+        path: '/events/:eventId/edit'
       }
     ]
   }
@@ -49,6 +55,7 @@ const routes = [
 export const RouteWithSubRoutes = route => (
   <Route
     path={route.path}
+    exact={route.exact}
     render={props => <route.component {...props} routes={route.routes} />}
   />
 )
