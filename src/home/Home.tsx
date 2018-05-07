@@ -1,6 +1,6 @@
 import { withStyles } from 'material-ui/styles'
 import * as React from 'react'
-import { Route } from 'react-router'
+import { Route, RouteComponentProps } from 'react-router'
 import IAction from '../Action'
 import Events from '../events/EventsContainer'
 import LoadingSpinner from '../loading/LoadingSpinner'
@@ -33,13 +33,11 @@ const decorate = withStyles(({ palette, spacing, mixins }) => ({
   }
 }))
 
-interface IHomeProps {
+interface IHomeProps extends RouteComponentProps<any> {
   routes: Route[]
   user: IUser
   fetchUser(): IAction
 }
-
-// type PropsWithStyles = IHomeProps & WithStyles<'content' | 'root' | 'toolbar'>
 
 const Home = decorate<IHomeProps>(
   ({ classes, user, routes }) => (

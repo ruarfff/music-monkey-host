@@ -1,15 +1,15 @@
 import { connect } from 'react-redux'
-import { IRootState } from '../rootState';
+import IRootState from '../rootState'
 import { login } from './authActions'
 import Login from './Login'
 
 const mapStateToProps = (state: IRootState) => ({
-    auth: state.auth
+  auth: state.auth
 })
 
-const mapDispatchToProps = ({
-    login
-})
+const mapDispatchToProps = {
+  login
+}
 
 const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(Login)
 

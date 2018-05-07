@@ -4,7 +4,7 @@ import { IHomeState } from './home/HomeModel'
 import { IPlaylistState } from './playlists/PlaylistModel'
 import { IUserState } from './user/UserModel'
 
-export interface IRootState {
+export default interface IRootState {
   auth: IAuthState
   user: IUserState
   playlists: IPlaylistState

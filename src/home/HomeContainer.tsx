@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
+import IRootState from '../rootState'
 import { fetchUser } from '../user/userActions'
 import Home from './Home'
 
-const mapStateToProps = state => ({
-  auth: state.auth,
+const mapStateToProps = (state: IRootState) => ({
   user: state.user.data
 })
 
