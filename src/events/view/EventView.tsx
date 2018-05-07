@@ -13,7 +13,8 @@ import * as React from 'react'
 import lifecycle from 'react-pure-lifecycle'
 import { RouteComponentProps } from 'react-router'
 import SwipeableViews from 'react-swipeable-views'
-import SweetAlert from 'sweetalert2-react'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 import IAction from '../../Action'
 import LoadingSpinner from '../../loading/LoadingSpinner'
@@ -80,11 +81,25 @@ const handleTabChange = (props: IEventViewProps) => (
   props.onEventTabIndexChange(index)
 }
 
-const handleDeleteDialogClose = (props: IEventViewProps) => (result: any) => {
-  console.log(result)
-  if (!result) {
-    props.onEventDeleteClosed()
-  }
+const handleDeleteSelected = () => {
+  const MySwal = withReactContent(Swal) as any
+
+  MySwal.fire({
+    title: 'Are you sure?',
+    text: 'This will completely remove this event!',
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result: any) => {
+    if (result.value) {
+      MySwal.fire({
+        title: 'Deleted',
+        type: 'success'
+      })
+    }
+  })
 }
 
 const renderEvent = (props: PropsWithStyles) => (
@@ -110,7 +125,7 @@ const renderEvent = (props: PropsWithStyles) => (
         className={classNames(props.classes.button, props.classes.deleteButton)}
         variant="raised"
         color="secondary"
-        onClick={props.onEventDeleteSelected}
+        onClick={handleDeleteSelected}
       >
         Delete
         <DeleteIcon className={props.classes.rightIcon} />
@@ -141,16 +156,6 @@ const renderEvent = (props: PropsWithStyles) => (
         <TabContainer dir={props.theme.direction}>Item Three</TabContainer>
       </SwipeableViews>
     </Grid>
-    <SweetAlert
-      show={props.deleteSelected}
-      title="Event Saved!"
-      text="Noooooooooo"
-      confirmButtonColor="#00838F"
-      showCancelButton={true}
-      confirmButtonText="Yes, delete it!"
-      cancelButtonText="No, keep it"
-      onConfirm={handleDeleteDialogClose(props)}
-    />
   </Grid>
 )
 

@@ -6,7 +6,8 @@ import { DateTimePicker } from 'material-ui-pickers'
 import Button from 'material-ui/Button'
 import Delete from '@material-ui/icons/Delete'
 import Save from '@material-ui/icons/Save'
-import SweetAlert from 'sweetalert2-react'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 import TextField from 'material-ui/TextField'
 
 import FileUpload from '../upload/FileUpload'
@@ -35,6 +36,16 @@ const styles = theme => ({
   }
 })
 
+const showSavedDialogue = onCancel => {
+  const MySwal = withReactContent(Swal)
+
+  MySwal.fire({
+    type: 'success',
+    title: 'Event Saved!',
+    confirmButtonColor: '#00838F'
+  }).then(onCancel)
+}
+
 class CreateEvent extends Component {
   componentDidMount() {
     this.props.initializeCreateForm(
@@ -61,6 +72,10 @@ class CreateEvent extends Component {
       selectExistingPlaylist,
       user
     } = this.props
+
+    if (events.showSavedDialogue) {
+      showSavedDialogue(cancel)
+    }
 
     return (
       <form className={classes.root} noValidate autoComplete="off">
@@ -191,15 +206,6 @@ class CreateEvent extends Component {
             Save
             <Save className={classes.rightIcon} />
           </Button>
-
-          <SweetAlert
-            show={events.showSavedDialogue}
-            title="Event Saved!"
-            confirmButtonColor="#00838F"
-            onConfirm={() => {
-              cancel()
-            }}
-          />
         </div>
       </form>
     )
