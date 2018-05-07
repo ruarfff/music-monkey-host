@@ -1,9 +1,9 @@
 import IAction from '../Action'
 import {
+  AVATAR_MENU_CLOSED,
   AVATAR_MENU_OPENED,
   SIDEBAR_CLOSED,
-  SIDEBAR_OPENED,
-  AVATAR_MENU_CLOSED
+  SIDEBAR_OPENED
 } from './homeActions'
 import initialState from './homeInitialState'
 import home from './homeReducer'

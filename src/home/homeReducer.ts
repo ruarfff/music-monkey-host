@@ -13,7 +13,7 @@ export default function home(state = initialState, { type }: Action) {
       return { ...initialState, sidebarIsOpen: true }
     case SIDEBAR_CLOSED:
       return { ...initialState, sidebarIsOpen: false }
-    case AVATAR_MENU_OPENED:
+    case AVATAR_MENU_OPENED: // TODO: This is not being used yet in MainAppBar. Got half way there but didn't finish.
       return { ...initialState, avatarMenuIsOpen: true }
     case AVATAR_MENU_CLOSED:
       return { ...initialState, avatarMenuIsOpen: false }
