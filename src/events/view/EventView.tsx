@@ -1,5 +1,7 @@
-import { withStyles, WithStyles } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import * as React from 'react'
+import lifecycle from'react-pure-lifecycle'
+import { RouteComponentProps } from 'react-router'
 import Action from '../../Action'
 import LoadingSpinner from '../../loading/LoadingSpinner'
 import IEvent from '../IEvent'
@@ -12,12 +14,19 @@ const decorate = withStyles(({ palette, spacing }) => ({
   }
 }))
 
-interface IEventViewProps {
+interface IEventViewProps extends RouteComponentProps<any> {
   error: Error
   event: IEvent
   loading: boolean
-  match: any
   getEventById(eventId: string): Action
+}
+
+const componentDidMount = (props: IEventViewProps) => {
+  props.getEventById(props.match.params.eventId)
+}
+
+const methods = {
+  componentDidMount
 }
 
 const renderError = (error: Error) => (
@@ -26,23 +35,12 @@ const renderError = (error: Error) => (
 
 const renderEvent = (event: IEvent) => <div>{event.eventId}</div>
 
-const EventView = decorate(
-  class extends React.Component<IEventViewProps & WithStyles<'root'>, {}> {
-    public componentDidMount() {
-      this.props.getEventById(this.props.match.params.eventId)
-    }
+const EventView = decorate<IEventViewProps>(({ loading, error, event }) => (
+  <div>
+    {loading && <LoadingSpinner />}
+    {!loading && error && renderError(error)}
+    {!loading && event && renderEvent(event)}
+  </div>
+))
 
-    public render() {
-      const { loading, error, event } = this.props
-      return (
-        <div>
-          {loading && <LoadingSpinner />}
-          {!loading && error && renderError(error)}
-          {!loading && event && renderEvent(event)}
-        </div>
-      )
-    }
-  }
-)
-
-export default EventView
+export default lifecycle(methods)(EventView)

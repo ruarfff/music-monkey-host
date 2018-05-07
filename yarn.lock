@@ -7039,6 +7039,12 @@ react-popper@^0.10.0:
     popper.js "^1.14.1"
     prop-types "^15.6.1"
 
+react-pure-lifecycle@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-pure-lifecycle/-/react-pure-lifecycle-2.2.0.tgz#bb42ccb1e018fa8a421858d9337c0f09e9140a15"
+  dependencies:
+    lodash "^4.17.5"
+
 react-reconciler@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.7.0.tgz#9614894103e5f138deeeb5eabaf3ee80eb1d026d"
