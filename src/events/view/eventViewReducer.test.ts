@@ -1,6 +1,8 @@
 import IAction from '../../Action'
 import IEvent from '../IEvent'
 import {
+  EVENT_DELETE_CLOSED,
+  EVENT_DELETE_SELECTED,
   EVENT_FETCH_BY_ID_ERROR,
   EVENT_FETCH_BY_ID_INITIATED,
   EVENT_FETCHED_BY_ID,
@@ -63,5 +65,27 @@ describe('eventViewReducer', () => {
       ...initialState,
       eventTabIndex: 2
     })
+  })
+
+  it('should handle EVENT_DELETE_SELECTED', () => {
+    expect(
+      eventView(initialState, {
+        type: EVENT_DELETE_SELECTED
+      })
+    ).toEqual({
+      ...initialState,
+      deleteSelected: true
+    })
+  })
+
+  it('should handle EVENT_DELETE_CLOSED', () => {
+    expect(
+      eventView(
+        { ...initialState, deleteSelected: true },
+        {
+          type: EVENT_DELETE_CLOSED
+        }
+      )
+    ).toEqual({ ...initialState, deleteSelected: false })
   })
 })

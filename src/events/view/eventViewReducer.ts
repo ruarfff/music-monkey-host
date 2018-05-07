@@ -1,5 +1,7 @@
 import IAction from '../../Action'
 import {
+  EVENT_DELETE_CLOSED,
+  EVENT_DELETE_SELECTED,
   EVENT_FETCH_BY_ID_ERROR,
   EVENT_FETCH_BY_ID_INITIATED,
   EVENT_FETCHED_BY_ID,
@@ -31,10 +33,20 @@ export default function eventView(
         loading: false
       }
     case EVENT_TAB_INDEX_CHANGED:
-    return {
-      ...state,
-      eventTabIndex: payload
-    }
+      return {
+        ...state,
+        eventTabIndex: payload
+      }
+    case EVENT_DELETE_SELECTED:
+      return {
+        ...state,
+        deleteSelected: true
+      }
+    case EVENT_DELETE_CLOSED:
+      return {
+        ...state,
+        deleteSelected: false
+      }
     default:
       return state
   }

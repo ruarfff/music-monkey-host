@@ -13,6 +13,8 @@ import * as React from 'react'
 import lifecycle from 'react-pure-lifecycle'
 import { RouteComponentProps } from 'react-router'
 import SwipeableViews from 'react-swipeable-views'
+import SweetAlert from 'sweetalert2-react'
+
 import IAction from '../../Action'
 import LoadingSpinner from '../../loading/LoadingSpinner'
 import LinkButton from '../../util/LinkButton'
@@ -25,8 +27,11 @@ interface IEventViewProps extends RouteComponentProps<any> {
   loading?: boolean
   eventTabIndex: number
   theme: any
+  deleteSelected: boolean
   getEventById(eventId: string): IAction
   onEventTabIndexChange(index: number): IAction
+  onEventDeleteSelected(): IAction
+  onEventDeleteClosed(): IAction
 }
 type PropsWithStyles = IEventViewProps &
   WithStyles<'root' | 'button' | 'rightIcon' | 'deleteButton'>
@@ -75,6 +80,13 @@ const handleTabChange = (props: IEventViewProps) => (
   props.onEventTabIndexChange(index)
 }
 
+const handleDeleteDialogClose = (props: IEventViewProps) => (result: any) => {
+  console.log(result)
+  if (!result) {
+    props.onEventDeleteClosed()
+  }
+}
+
 const renderEvent = (props: PropsWithStyles) => (
   <Grid container={true} spacing={8}>
     <Grid item={true} xs={12} sm={10}>
@@ -98,6 +110,7 @@ const renderEvent = (props: PropsWithStyles) => (
         className={classNames(props.classes.button, props.classes.deleteButton)}
         variant="raised"
         color="secondary"
+        onClick={props.onEventDeleteSelected}
       >
         Delete
         <DeleteIcon className={props.classes.rightIcon} />
@@ -128,6 +141,16 @@ const renderEvent = (props: PropsWithStyles) => (
         <TabContainer dir={props.theme.direction}>Item Three</TabContainer>
       </SwipeableViews>
     </Grid>
+    <SweetAlert
+      show={props.deleteSelected}
+      title="Event Saved!"
+      text="Noooooooooo"
+      confirmButtonColor="#00838F"
+      showCancelButton={true}
+      confirmButtonText="Yes, delete it!"
+      cancelButtonText="No, keep it"
+      onConfirm={handleDeleteDialogClose(props)}
+    />
   </Grid>
 )
 
