@@ -1,7 +1,5 @@
-interface IPlaylistQuery {
-  playlistId: string
-  userName: string
-}
+import IPlaylistQuery from './IPlaylistQuery'
+
 export default function parsePlayistUrl(
   playlistUrl: string
 ): IPlaylistQuery | undefined {

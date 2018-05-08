@@ -1,8 +1,11 @@
 import axios from 'axios'
 import * as moment from 'moment'
 import { call, put, takeEvery } from 'redux-saga/effects'
+import * as SpotifyWebApi from 'spotify-web-api-js'
 import IAction from '../Action'
 import { accessTokenKey } from '../auth/authConstants'
+import IPlaylistQuery from '../playlists/IPlaylistQuery'
+import parsePlayistUrl from '../playlists/parsePlaylistUrl'
 import { IPlaylist, IPlaylistDetails } from '../playlists/PlaylistModel'
 import localStorage from '../storage/localStorage'
 import {
@@ -22,10 +25,26 @@ import {
 } from './eventActions'
 import IEvent from './IEvent'
 
-const SpotifyWebApi = require('spotify-web-api-js')
 const { geocodeByAddress, getLatLng } = require('react-places-autocomplete')
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
+
+function getEventPlaylist(event: IEvent) {
+  const token = localStorage.get(accessTokenKey)
+  const playlistQuery: IPlaylistQuery | undefined = parsePlayistUrl(
+    event.playlistUrl
+  )
+  const spotifyApi = new SpotifyWebApi()
+  spotifyApi.setAccessToken(token)
+  if (playlistQuery) {
+    return spotifyApi.getPlaylist(
+      playlistQuery.userName,
+      playlistQuery.playlistId
+    )
+  } else {
+    return Promise.reject(new Error('Invalid Playlist Url'))
+  }
+}
 
 function createPlaylist(playlistDetails: IPlaylistDetails) {
   const token = localStorage.get(accessTokenKey)
@@ -129,7 +148,13 @@ function fetchEvents(userId: string) {
 
 function decorateEvent(event: IEvent) {
   return new Promise((resolve, reject) => {
-    resolve(event)
+    getEventPlaylist(event)
+      .then(playlist => {
+        resolve({ ...event, playlist: playlist as IPlaylist })
+      })
+      .catch(err => {
+        resolve(event)
+      })
   })
 }
 
