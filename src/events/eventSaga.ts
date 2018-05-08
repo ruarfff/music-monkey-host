@@ -56,7 +56,7 @@ function* createPlaylistFlow(action: IAction) {
 function* eventPlaylistCreatedFlow(action: IAction) {
   const playlist: IPlaylist = action.payload
   yield put({
-    payload: { playlist: playlist.external_urls.spotify },
+    payload: { playlistUrl: playlist.external_urls.spotify },
     type: EVENT_CONTENT_UPDATED
   })
 }
@@ -127,11 +127,22 @@ function fetchEvents(userId: string) {
   )
 }
 
+function decorateEvent(event: IEvent) {
+  return new Promise((resolve, reject) => {
+    resolve(event)
+  })
+}
+
+function decorateEvents(events: IEvent[]) {
+  return Promise.all(events.map(decorateEvent))
+}
+
 function* fetchEventsFlow(action: IAction) {
   const userId: string = action.payload
   try {
     const events = yield call(fetchEvents, userId)
-    yield put({ type: EVENTS_FETCHED, payload: events })
+    const decoratedEvents = yield call(decorateEvents, events)
+    yield put({ type: EVENTS_FETCHED, payload: decoratedEvents })
   } catch (err) {
     yield put({ type: EVENTS_FETCH_ERROR, payload: err })
   }

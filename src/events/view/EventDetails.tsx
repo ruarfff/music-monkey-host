@@ -27,7 +27,7 @@ const EventDetails: React.SFC<PropsWithStyles> = ({
     <p>{event.location && event.location.address}</p>
     <p>{event.name}</p>
     <p>{event.organizer}</p>
-    <p>{event.playlist}</p>
+    <p>{event.playlistUrl}</p>
     <p>{event.venue}</p>
   </div>
 )

@@ -24,7 +24,7 @@ export default {
     location: { address: '', latLng: { lat: 0, lng: 0 } },
     name: '',
     organizer: '',
-    playlist: '',
+    playlistUrl: '',
     startDateTime: moment()
       .add(2, 'hours')
       .startOf('hour'),

@@ -83,12 +83,22 @@ describe('eventViewReducer', () => {
   it('should handle EVENT_DELETE_CLOSED', () => {
     expect(
       eventView(
-        { ...initialState, deleteSelected: true },
+        {
+          ...initialState,
+          deleteSelected: true,
+          deleteFailed: true,
+          deleteSucceeded: true
+        },
         {
           type: EVENT_DELETE_CLOSED
         }
       )
-    ).toEqual({ ...initialState, deleteSelected: false })
+    ).toEqual({
+      ...initialState,
+      deleteSelected: false,
+      deleteFailed: false,
+      deleteSucceeded: false
+    })
   })
 
   it('should handle EVENT_DELETE_SUCCESSFUL', () => {

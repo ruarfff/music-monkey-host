@@ -165,9 +165,9 @@ class CreateEvent extends Component {
           <Grid item xs={12} sm={6}>
             <PlaylistSelection
               user={user.data}
-              value={events.savingEvent.playlist}
+              value={events.savingEvent.playlistUrl}
               onPlaylistAdded={playlistUrl =>
-                eventContentUpdated({ playlist: playlistUrl })
+                eventContentUpdated({ playlistUrl })
               }
               playlistInput={events.playlistInput}
               selectExistingPlaylist={selectExistingPlaylist}
@@ -194,7 +194,7 @@ class CreateEvent extends Component {
             disabled={
               !events.savingEvent.name ||
               !events.savingEvent.organizer ||
-              !events.savingEvent.playlist
+              !events.savingEvent.playlistUrl
             }
             className={classes.button}
             variant="raised"

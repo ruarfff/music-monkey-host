@@ -62,7 +62,7 @@ const style = (theme: Theme) => ({
   }
 })
 
-const MySwal = withReactContent(Swal) as any
+const SweetAlert = withReactContent(Swal) as any
 
 const callGetEventById = (props: PropsWithStyles) => {
   return () => props.getEventById(props.match.params.eventId)
@@ -88,7 +88,7 @@ const handleTabChange = (props: IEventViewProps) => (
 }
 
 const showDeleteSuccess = (props: PropsWithStyles) => {
-  MySwal.fire({
+  SweetAlert.fire({
     title: 'Event Deleted',
     type: 'success'
   }).then(() => {
@@ -98,7 +98,7 @@ const showDeleteSuccess = (props: PropsWithStyles) => {
 }
 
 const showDeleteFailed = (props: PropsWithStyles) => {
-  MySwal.fire({
+  SweetAlert.fire({
     title: "Clouldn't delete Event",
     text: 'Sorry. An error occurred when trying to delete this Event.',
     type: 'error'
@@ -108,7 +108,7 @@ const showDeleteFailed = (props: PropsWithStyles) => {
 }
 
 const handleDeleteSelected = (props: IEventViewProps) => () => {
-  MySwal.fire({
+  SweetAlert.fire({
     title: 'Are you sure?',
     text: 'This will completely remove this event',
     type: 'warning',

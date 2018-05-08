@@ -10,7 +10,7 @@ export default interface IEvent {
   location?: ILocation
   name: string
   organizer: string
-  playlist: string
+  playlistUrl: string
   startDateTime: any
   venue?: string
 }
