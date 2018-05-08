@@ -20,6 +20,7 @@ import LoadingSpinner from '../../loading/LoadingSpinner'
 import LinkButton from '../../util/LinkButton'
 import EventFetchError from '../EventFetchError'
 import IEvent from '../IEvent'
+import EventDetails from './EventDetails'
 
 interface IEventViewProps extends RouteComponentProps<any> {
   error?: Error
@@ -123,7 +124,7 @@ const handleDeleteSelected = (props: IEventViewProps) => () => {
   })
 }
 
-const renderEvent = (props: PropsWithStyles) => (
+const renderEventView = (props: PropsWithStyles) => (
   <Grid container={true} spacing={16}>
     <Grid item={true} xs={12} sm={10}>
       <Typography variant="display3">
@@ -172,7 +173,9 @@ const renderEvent = (props: PropsWithStyles) => (
         index={props.eventTabIndex}
         onChangeIndex={props.onEventTabIndexChange}
       >
-        <TabContainer dir={props.theme.direction}>Item One</TabContainer>
+        <TabContainer dir={props.theme.direction}>
+          <EventDetails event={props.event} />
+        </TabContainer>
         <TabContainer dir={props.theme.direction}>Item Two</TabContainer>
         <TabContainer dir={props.theme.direction}>Item Three</TabContainer>
       </SwipeableViews>
@@ -185,8 +188,8 @@ const EventView: React.SFC<PropsWithStyles> = (props: PropsWithStyles) => (
     {props.loading && <LoadingSpinner />}
     {!props.loading &&
       props.error && <EventFetchError onTryAgain={callGetEventById(props)} />}
-    {!!event && (
-      <Zoom in={!props.loading && !!event}>{renderEvent(props)}</Zoom>
+    {!!props.event && (
+      <Zoom in={!props.loading && !!props.event}>{renderEventView(props)}</Zoom>
     )}
     {props.deleteFailed && showDeleteFailed(props)}
     {props.deleteSuccess && showDeleteSuccess(props)}

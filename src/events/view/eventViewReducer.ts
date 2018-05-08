@@ -20,12 +20,13 @@ export default function eventView(
     case EVENT_FETCH_BY_ID_INITIATED:
       return {
         ...state,
+        fetchError: undefined,
         loading: true
       }
     case EVENT_FETCHED_BY_ID:
       return {
         ...state,
-        event: payload,
+        event: payload,        
         loading: false
       }
     case EVENT_FETCH_BY_ID_ERROR:
