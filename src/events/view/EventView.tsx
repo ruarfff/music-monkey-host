@@ -6,7 +6,7 @@ import AppBar from 'material-ui/AppBar'
 import Button from 'material-ui/Button'
 import red from 'material-ui/colors/red'
 import Grid from 'material-ui/Grid'
-import { Theme, withStyles, WithStyles } from 'material-ui/styles'
+import { Theme, WithStyles, withStyles } from 'material-ui/styles'
 import Tabs, { Tab } from 'material-ui/Tabs'
 import Zoom from 'material-ui/transitions/Zoom'
 import * as React from 'react'
@@ -15,7 +15,6 @@ import { RouteComponentProps } from 'react-router'
 import SwipeableViews from 'react-swipeable-views'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-
 import IAction from '../../Action'
 import LoadingSpinner from '../../loading/LoadingSpinner'
 import LinkButton from '../../util/LinkButton'
@@ -24,15 +23,19 @@ import IEvent from '../IEvent'
 
 interface IEventViewProps extends RouteComponentProps<any> {
   error?: Error
-  event?: IEvent
+  event: IEvent
   loading?: boolean
   eventTabIndex: number
   theme: any
   deleteSelected: boolean
+  deleteSuccess: boolean
+  deleteFailed: boolean
   getEventById(eventId: string): IAction
   onEventTabIndexChange(index: number): IAction
   onEventDeleteSelected(): IAction
   onEventDeleteClosed(): IAction
+  deleteEvent(event: IEvent): IAction
+  onDeleteAknowledged(): IAction
 }
 type PropsWithStyles = IEventViewProps &
   WithStyles<'root' | 'button' | 'rightIcon' | 'deleteButton'>
@@ -58,6 +61,8 @@ const style = (theme: Theme) => ({
   }
 })
 
+const MySwal = withReactContent(Swal) as any
+
 const callGetEventById = (props: PropsWithStyles) => {
   return () => props.getEventById(props.match.params.eventId)
 }
@@ -81,12 +86,30 @@ const handleTabChange = (props: IEventViewProps) => (
   props.onEventTabIndexChange(index)
 }
 
-const handleDeleteSelected = () => {
-  const MySwal = withReactContent(Swal) as any
+const showDeleteSuccess = (props: PropsWithStyles) => {
+  MySwal.fire({
+    title: 'Event Deleted',
+    type: 'success'
+  }).then(() => {
+    props.onDeleteAknowledged()
+    props.onEventDeleteClosed()
+  })
+}
 
+const showDeleteFailed = (props: PropsWithStyles) => {
+  MySwal.fire({
+    title: "Clouldn't delete Event",
+    text: 'Sorry. An error occurred when trying to delete this Event.',
+    type: 'error'
+  }).then(() => {
+    props.onEventDeleteClosed()
+  })
+}
+
+const handleDeleteSelected = (props: IEventViewProps) => () => {
   MySwal.fire({
     title: 'Are you sure?',
-    text: 'This will completely remove this event!',
+    text: 'This will completely remove this event',
     type: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
@@ -94,16 +117,14 @@ const handleDeleteSelected = () => {
     confirmButtonText: 'Yes, delete it!'
   }).then((result: any) => {
     if (result.value) {
-      MySwal.fire({
-        title: 'Deleted',
-        type: 'success'
-      })
+      props.deleteEvent(props.event)
     }
+    props.onEventDeleteClosed()
   })
 }
 
 const renderEvent = (props: PropsWithStyles) => (
-  <Grid container={true} spacing={8}>
+  <Grid container={true} spacing={16}>
     <Grid item={true} xs={12} sm={10}>
       <Typography variant="display3">
         {props.event && props.event.name}
@@ -125,7 +146,7 @@ const renderEvent = (props: PropsWithStyles) => (
         className={classNames(props.classes.button, props.classes.deleteButton)}
         variant="raised"
         color="secondary"
-        onClick={handleDeleteSelected}
+        onClick={handleDeleteSelected(props)}
       >
         Delete
         <DeleteIcon className={props.classes.rightIcon} />
@@ -167,6 +188,8 @@ const EventView: React.SFC<PropsWithStyles> = (props: PropsWithStyles) => (
     {!!event && (
       <Zoom in={!props.loading && !!event}>{renderEvent(props)}</Zoom>
     )}
+    {props.deleteFailed && showDeleteFailed(props)}
+    {props.deleteSuccess && showDeleteSuccess(props)}
   </div>
 )
 

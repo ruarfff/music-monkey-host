@@ -40,9 +40,9 @@ const showSavedDialogue = onCancel => {
   const MySwal = withReactContent(Swal)
 
   MySwal.fire({
-    type: 'success',
+    confirmButtonColor: '#00838F',
     title: 'Event Saved!',
-    confirmButtonColor: '#00838F'
+    type: 'success'
   }).then(onCancel)
 }
 
@@ -158,7 +158,7 @@ class CreateEvent extends Component {
           <Grid item xs={12} sm={6}>
             <EventCodeInput
               value={events.savingEvent.eventCode}
-              onnChange={eventCode => eventContentUpdated({ eventCode })}
+              onChange={eventCode => eventContentUpdated({ eventCode })}
             />
           </Grid>
 

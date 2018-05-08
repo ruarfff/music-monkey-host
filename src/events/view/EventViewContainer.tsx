@@ -1,8 +1,11 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
+import { push } from 'react-router-redux'
+import { bindActionCreators, Dispatch } from 'redux'
 import IRootState from '../../rootState'
 import EventView from './EventView'
 import {
+  deleteEvent,
   getEventById,
   onEventDeleteClosed,
   onEventDeleteSelected,
@@ -14,15 +17,26 @@ const mapStateToProps = (state: IRootState) => ({
   event: state.eventView.event,
   loading: state.eventView.loading,
   eventTabIndex: state.eventView.eventTabIndex,
-  deleteSelected: state.eventView.deleteSelected
+  deleteSelected: state.eventView.deleteSelected,
+  deleteSuccess: state.eventView.deleteSucceeded,
+  deleteFailed: state.eventView.deleteFailed
 })
 
-const mapDispatchToProps = {
-  getEventById,
-  onEventTabIndexChange,
-  onEventDeleteSelected,
-  onEventDeleteClosed
-}
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  onDeleteAknowledged: () => {    
+    dispatch(push('/'))
+  },
+  ...bindActionCreators(
+    {
+      deleteEvent,
+      getEventById,
+      onEventTabIndexChange,
+      onEventDeleteSelected,
+      onEventDeleteClosed
+    },
+    dispatch
+  )
+})
 
 const EventViewContainer = withRouter(connect(
   mapStateToProps,

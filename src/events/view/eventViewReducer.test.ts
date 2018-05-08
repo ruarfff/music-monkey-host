@@ -2,7 +2,9 @@ import IAction from '../../Action'
 import IEvent from '../IEvent'
 import {
   EVENT_DELETE_CLOSED,
+  EVENT_DELETE_FAILED,
   EVENT_DELETE_SELECTED,
+  EVENT_DELETE_SUCCESSFUL,
   EVENT_FETCH_BY_ID_ERROR,
   EVENT_FETCH_BY_ID_INITIATED,
   EVENT_FETCHED_BY_ID,
@@ -87,5 +89,27 @@ describe('eventViewReducer', () => {
         }
       )
     ).toEqual({ ...initialState, deleteSelected: false })
+  })
+
+  it('should handle EVENT_DELETE_SUCCESSFUL', () => {
+    expect(
+      eventView(
+        { ...initialState, deleteSucceeded: false },
+        {
+          type: EVENT_DELETE_SUCCESSFUL
+        }
+      )
+    ).toEqual({ ...initialState, deleteSucceeded: true })
+  })
+
+  it('should handle EVENT_DELETE_FAILED', () => {
+    expect(
+      eventView(
+        { ...initialState, deleteFailed: false },
+        {
+          type: EVENT_DELETE_FAILED
+        }
+      )
+    ).toEqual({ ...initialState, deleteFailed: true })
   })
 })

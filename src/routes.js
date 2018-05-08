@@ -5,12 +5,12 @@ import { ConnectedRouter, routerActions } from 'react-router-redux'
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect'
 import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper'
 
-import Callback from './auth/Callback'
+import Callback from './auth/CallbackContainer'
 import Login from './auth/LoginContainer'
 import Home from './home/HomeContainer'
 import CreateEvent from './events/CreateEventContainer'
 import EventView from './events/view/EventViewContainer'
-import EditEventContainer from './events/edit/EditEventContainer';
+import EditEventContainer from './events/edit/EditEventContainer'
 
 const locationHelper = locationHelperBuilder({})
 
@@ -41,7 +41,7 @@ const routes = [
       },
       {
         component: EventView,
-        exact: true,        
+        exact: true,
         path: '/events/:eventId'
       },
       {

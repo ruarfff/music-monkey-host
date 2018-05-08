@@ -6,4 +6,6 @@ export default interface IEventViewState {
   fetchError?: Error
   eventTabIndex: number
   deleteSelected: boolean
+  deleteSucceeded: boolean
+  deleteFailed: boolean
 }

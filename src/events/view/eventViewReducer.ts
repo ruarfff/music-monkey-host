@@ -1,7 +1,9 @@
 import IAction from '../../Action'
 import {
   EVENT_DELETE_CLOSED,
+  EVENT_DELETE_FAILED,
   EVENT_DELETE_SELECTED,
+  EVENT_DELETE_SUCCESSFUL,
   EVENT_FETCH_BY_ID_ERROR,
   EVENT_FETCH_BY_ID_INITIATED,
   EVENT_FETCHED_BY_ID,
@@ -45,7 +47,19 @@ export default function eventView(
     case EVENT_DELETE_CLOSED:
       return {
         ...state,
-        deleteSelected: false
+        deleteSelected: false,
+        deleteFailed: false,
+        deleteSucceeded: false
+      }
+    case EVENT_DELETE_SUCCESSFUL:
+      return {
+        ...state,
+        deleteSucceeded: true
+      }
+    case EVENT_DELETE_FAILED:
+      return {
+        ...state,
+        deleteFailed: true
       }
     default:
       return state
