@@ -1,4 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
+import * as SpotifyWebApi from 'spotify-web-api-js'
 import { accessTokenKey } from '../auth/authConstants'
 import localStorage from '../storage/localStorage'
 import {
@@ -7,7 +8,6 @@ import {
   FETCH_PLAYLISTS_SUCCESS
 } from './playlistActions'
 
-const SpotifyWebApi = require('spotify-web-api-js')
 
 function fetchPlaylists() {
   const token = localStorage.get(accessTokenKey)
