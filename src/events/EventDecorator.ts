@@ -13,6 +13,7 @@ export default class EventDecorator {
       event.playlistUrl
     )
     const spotifyApi = new SpotifyWebApi()
+
     spotifyApi.setAccessToken(token)
     if (playlistQuery) {
       return spotifyApi.getPlaylist(
