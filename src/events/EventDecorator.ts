@@ -6,6 +6,8 @@ import parsePlayistUrl from '../playlists/parsePlaylistUrl'
 import localStorage from '../storage/localStorage'
 import IEvent from './IEvent'
 
+const defaultEventImage = '/img/partycover-sm.png'
+
 export default class EventDecorator {
   public getEventPlaylist = (event: IEvent) => {
     const token = localStorage.get(accessTokenKey)
@@ -29,10 +31,21 @@ export default class EventDecorator {
     return new Promise((resolve, reject) => {
       this.getEventPlaylist(event)
         .then(playlist => {
-          resolve({ ...event, playlist: playlist as IPlaylist })
+          let imageUrl = event.imageUrl
+          if (!imageUrl) {
+            imageUrl =
+              playlist.images && playlist.images.length > 0
+                ? playlist.images[0].url
+                : defaultEventImage
+          }
+
+          resolve({ ...event, imageUrl, playlist: playlist as IPlaylist })
         })
         .catch(err => {
-          resolve(event)
+          resolve({
+            ...event,
+            imageUrl: event.imageUrl ? event.imageUrl : defaultEventImage
+          })
         })
     })
   }

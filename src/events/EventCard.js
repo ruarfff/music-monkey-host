@@ -61,7 +61,7 @@ class EventCard extends React.Component {
             />
             <CardMedia
               className={classes.media}
-              image={event.imageUrl || '/img/partycover-sm.png'}
+              image={event.imageUrl}
               title="Event Image"
             />
           </Link>
