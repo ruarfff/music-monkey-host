@@ -20,6 +20,7 @@ import LoadingSpinner from '../../loading/LoadingSpinner'
 import LinkButton from '../../util/LinkButton'
 import EventFetchError from '../EventFetchError'
 import IEvent from '../IEvent'
+import PreGameView from '../preGame/PreGameViewContainer'
 import EventDetails from './EventDetails'
 
 interface IEventViewProps extends RouteComponentProps<any> {
@@ -176,8 +177,10 @@ const renderEventView = (props: PropsWithStyles) => (
         <TabContainer dir={props.theme.direction}>
           <EventDetails event={props.event} />
         </TabContainer>
-        <TabContainer dir={props.theme.direction}>Item Two</TabContainer>
-        <TabContainer dir={props.theme.direction}>Item Three</TabContainer>
+        <TabContainer dir={props.theme.direction}>
+          <PreGameView />
+        </TabContainer>
+        <TabContainer dir={props.theme.direction}>Nothing Here Yet</TabContainer>
       </SwipeableViews>
     </Grid>
   </Grid>
