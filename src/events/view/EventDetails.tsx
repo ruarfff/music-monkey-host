@@ -43,7 +43,7 @@ const EventDetails: React.SFC<PropsWithStyles> = ({
     <p>{event.playlistUrl}</p>
     <p>{event.venue}</p>
 
-    <p>{renderPlaylist(event.playlist)}</p>
+    {renderPlaylist(event.playlist)}
   </div>
 )
 
