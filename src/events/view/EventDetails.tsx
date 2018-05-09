@@ -1,6 +1,6 @@
 import { Theme, WithStyles, withStyles } from 'material-ui/styles'
+import Typography from 'material-ui/Typography/Typography'
 import * as React from 'react'
-import IPlaylist from '../../playlists/IPlaylist'
 import IEvent from '../IEvent'
 
 interface IEventDetailsProps {
@@ -15,36 +15,55 @@ const style = (theme: Theme) => ({
   }
 })
 
-const renderPlaylist = (playlist?: IPlaylist) => {
-  if (!playlist) {
-    return <div />
-  }
-
-  return (
-    <div>
-      <h3>{playlist.name}</h3>
-    </div>
-  )
-}
-
 const EventDetails: React.SFC<PropsWithStyles> = ({
   event
 }: PropsWithStyles) => (
-  <div>
-    {event.name}
+  <Typography component="div" align="center">
+    <Typography variant="display3" gutterBottom={true}>
+      {event.name}
+    </Typography>
 
-    <p>{event.description}</p>
-    <p>{event.startDateTime.format('dddd, MMMM Do YYYY, h:mm:ss a')}</p>
-    <p>{event.endDateTime.format('dddd, MMMM Do YYYY, h:mm:ss a')}</p>
-    <p>{event.eventCode}</p>
-    <p>{event.location && event.location.address}</p>
-    <p>{event.name}</p>
-    <p>{event.organizer}</p>
-    <p>{event.playlistUrl}</p>
-    <p>{event.venue}</p>
+    <Typography variant="headline" gutterBottom={true}>
+      Organizer: {event.organizer}
+    </Typography>
 
-    {renderPlaylist(event.playlist)}
-  </div>
+    <Typography variant="headline" gutterBottom={true}>
+      Description: {event.description}
+    </Typography>
+
+    <Typography variant="caption" gutterBottom={true}>
+      Starting at: {event.startDateTime.format('dddd, MMMM Do YYYY, h:mm:ss a')}
+    </Typography>
+
+    <Typography variant="caption" gutterBottom={true}>
+      Ending at: {event.endDateTime.format('dddd, MMMM Do YYYY, h:mm:ss a')}
+    </Typography>
+
+    {event.eventCode && (
+      <Typography variant="body1" gutterBottom={true}>
+        Event Code: {event.eventCode}
+      </Typography>
+    )}
+
+    {event.location && (
+      <Typography variant="body1" gutterBottom={true}>
+        Location: {event.location.address}
+      </Typography>
+    )}
+
+    {event.venue && (
+      <Typography variant="body1" gutterBottom={true}>
+        Venue: {event.venue}
+      </Typography>
+    )}
+
+    <Typography variant="body1" gutterBottom={true}>
+      Playlist:{' '}
+      <a href={event.playlistUrl} target="_blank">
+        Open in Spotify
+      </a>
+    </Typography>
+  </Typography>
 )
 
 export default withStyles(style, { withTheme: true })<IEventDetailsProps>(
