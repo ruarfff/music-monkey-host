@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { withStyles } from 'material-ui/styles'
 import PropTypes from 'prop-types'
 import Grid from 'material-ui/Grid'
+import Divider from 'material-ui/Divider'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 import AddIcon from '@material-ui/icons/Add'
@@ -150,16 +151,13 @@ class Events extends Component {
                 </Grid>
                 <Grid item xs={12} sm={6} className={classes.eventsUpcoming}>
                   <Hidden smUp>
-                    <Paper>
-                      <Typography
-                        className={classes.eventsListCaption}
-                        align="center"
-                        variant="subheading"
-                        gutterBottom
-                      >
-                        Upcoming Events
-                      </Typography>
-                    </Paper>
+                    <Typography
+                      className={classes.eventsListCaption}
+                      variant="display1"
+                      gutterBottom
+                    >
+                      Upcoming Events
+                    </Typography>
                   </Hidden>
                   {renderEventsList(
                     classes,
@@ -169,16 +167,14 @@ class Events extends Component {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Hidden smUp>
-                    <Paper>
-                      <Typography
-                        className={classes.eventsListCaption}
-                        align="center"
-                        variant="subheading"
-                        gutterBottom
-                      >
-                        Past Events
-                      </Typography>
-                    </Paper>
+                    <Divider />
+                    <Typography
+                      className={classes.eventsListCaption}
+                      variant="display1"
+                      gutterBottom
+                    >
+                      Past Events
+                    </Typography>
                   </Hidden>
                   {renderEventsList(classes, pastEvents, 'No Past Events Yet')}
                 </Grid>

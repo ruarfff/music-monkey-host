@@ -132,7 +132,7 @@ const renderEventView = (props: PropsWithStyles) => (
         {props.event && props.event.name}
       </Typography>
     </Grid>
-    <Grid item={true} xs={6} sm={1}>
+    <Grid item={true} xs={12} sm={2}>
       <LinkButton
         className={props.classes.button}
         variant="raised"
@@ -142,8 +142,6 @@ const renderEventView = (props: PropsWithStyles) => (
         Edit
         <EditIcon className={props.classes.rightIcon} />
       </LinkButton>
-    </Grid>
-    <Grid item={true} xs={6} sm={1}>
       <Button
         className={classNames(props.classes.button, props.classes.deleteButton)}
         variant="raised"
@@ -154,6 +152,7 @@ const renderEventView = (props: PropsWithStyles) => (
         <DeleteIcon className={props.classes.rightIcon} />
       </Button>
     </Grid>
+
     <Grid item={true} xs={12}>
       <AppBar position="static" color="default">
         <Tabs
@@ -161,8 +160,8 @@ const renderEventView = (props: PropsWithStyles) => (
           onChange={handleTabChange(props)}
           indicatorColor="primary"
           textColor="primary"
-          fullWidth={true}
-          centered={true}
+          scrollable={true}
+          scrollButtons="auto"
         >
           <Tab label="Event" />
           <Tab label="Pre-Game" />
@@ -180,7 +179,9 @@ const renderEventView = (props: PropsWithStyles) => (
         <TabContainer dir={props.theme.direction}>
           <PreGameView />
         </TabContainer>
-        <TabContainer dir={props.theme.direction}>Nothing Here Yet</TabContainer>
+        <TabContainer dir={props.theme.direction}>
+          Nothing Here Yet
+        </TabContainer>
       </SwipeableViews>
     </Grid>
   </Grid>

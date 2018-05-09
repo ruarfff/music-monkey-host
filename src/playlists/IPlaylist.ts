@@ -1,4 +1,5 @@
 import IExternalUrls from './IExternalUrls'
+import IFollowers from './IFollowers'
 import IPlaylistImage from './IPlaylistImage'
 import IPlayistOwner from './IPlaylistOwner'
 import IPlaylistTracks from './IPlaylistTracks'
@@ -17,4 +18,5 @@ export default interface IPlaylist {
   tracks: IPlaylistTracks
   type: string
   uri: string
+  followers: IFollowers
 }
