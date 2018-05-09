@@ -1,6 +1,6 @@
 import { Moment } from 'moment'
 import ILocation from '../location/ILocation'
-import { IPlaylist } from '../playlists/PlaylistModel'
+import IPlaylist from '../playlists/IPlaylist'
 
 export default interface IEvent {
   eventId?: string

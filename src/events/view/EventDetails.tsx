@@ -1,5 +1,6 @@
 import { Theme, WithStyles, withStyles } from 'material-ui/styles'
 import * as React from 'react'
+import IPlaylist from '../../playlists/IPlaylist'
 import IEvent from '../IEvent'
 
 interface IEventDetailsProps {
@@ -13,6 +14,18 @@ const style = (theme: Theme) => ({
     padding: theme.spacing.unit
   }
 })
+
+const renderPlaylist = (playlist?: IPlaylist) => {
+  if (!playlist) {
+    return <div />
+  }
+
+  return (
+    <div>
+      <h3>{playlist.name}</h3>
+    </div>
+  )
+}
 
 const EventDetails: React.SFC<PropsWithStyles> = ({
   event
@@ -29,6 +42,8 @@ const EventDetails: React.SFC<PropsWithStyles> = ({
     <p>{event.organizer}</p>
     <p>{event.playlistUrl}</p>
     <p>{event.venue}</p>
+
+    <p>{renderPlaylist(event.playlist)}</p>
   </div>
 )
 

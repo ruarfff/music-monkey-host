@@ -2,6 +2,7 @@ import axios from 'axios'
 import * as moment from 'moment'
 import { call, put, takeEvery } from 'redux-saga/effects'
 import IAction from '../../Action'
+import EventDecorator from '../EventDecorator'
 import {
   EVENT_DELETE_FAILED,
   EVENT_DELETE_INITIATED,
@@ -12,7 +13,7 @@ import {
 } from './eventViewActions'
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
-
+const eventDecorator = new EventDecorator()
 interface IDeleteParams {
   eventId: string
   userId: string
@@ -30,7 +31,8 @@ function* fetchEventByIdFlow(action: IAction) {
   const eventId: string = action.payload
   try {
     const event = yield call(fetchEvent, eventId)
-    yield put({ type: EVENT_FETCHED_BY_ID, payload: event })
+    const decoratedEvent = yield call(eventDecorator.decorateEvent, event)
+    yield put({ type: EVENT_FETCHED_BY_ID, payload: decoratedEvent })
   } catch (err) {
     yield put({ type: EVENT_FETCH_BY_ID_ERROR, payload: err })
   }

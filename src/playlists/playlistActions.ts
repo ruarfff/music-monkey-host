@@ -1,5 +1,5 @@
 import Action from '../Action'
-import { IPlaylist } from './PlaylistModel'
+import IPlaylist from './IPlaylist'
 
 export const FETCH_PLAYLISTS = 'FETCH_PLAYLISTS'
 export const FETCH_PLAYLISTS_SUCCESS = 'FETCH_PLAYLISTS_SUCCESS'

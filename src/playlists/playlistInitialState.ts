@@ -1,4 +1,4 @@
-import { IPlaylistState } from './PlaylistModel'
+import IPlaylistState from './IPlaylistState'
 
 export default {
   data: undefined,

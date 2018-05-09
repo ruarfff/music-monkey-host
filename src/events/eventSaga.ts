@@ -4,9 +4,8 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import * as SpotifyWebApi from 'spotify-web-api-js'
 import IAction from '../Action'
 import { accessTokenKey } from '../auth/authConstants'
-import IPlaylistQuery from '../playlists/IPlaylistQuery'
-import parsePlayistUrl from '../playlists/parsePlaylistUrl'
-import { IPlaylist, IPlaylistDetails } from '../playlists/PlaylistModel'
+import IPlaylist from '../playlists/IPlaylist'
+import IPlaylistDetails from '../playlists/IPlaylistDetails'
 import localStorage from '../storage/localStorage'
 import {
   EVENT_CONTENT_UPDATED,
@@ -23,28 +22,13 @@ import {
   EVENTS_FETCH_INITIATED,
   EVENTS_FETCHED
 } from './eventActions'
+import EventDecorator from './EventDecorator'
 import IEvent from './IEvent'
 
 const { geocodeByAddress, getLatLng } = require('react-places-autocomplete')
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
-
-function getEventPlaylist(event: IEvent) {
-  const token = localStorage.get(accessTokenKey)
-  const playlistQuery: IPlaylistQuery | undefined = parsePlayistUrl(
-    event.playlistUrl
-  )
-  const spotifyApi = new SpotifyWebApi()
-  spotifyApi.setAccessToken(token)
-  if (playlistQuery) {
-    return spotifyApi.getPlaylist(
-      playlistQuery.userName,
-      playlistQuery.playlistId
-    )
-  } else {
-    return Promise.reject(new Error('Invalid Playlist Url'))
-  }
-}
+const eventDecorator = new EventDecorator()
 
 function createPlaylist(playlistDetails: IPlaylistDetails) {
   const token = localStorage.get(accessTokenKey)
@@ -146,27 +130,11 @@ function fetchEvents(userId: string) {
   )
 }
 
-function decorateEvent(event: IEvent) {
-  return new Promise((resolve, reject) => {
-    getEventPlaylist(event)
-      .then(playlist => {
-        resolve({ ...event, playlist: playlist as IPlaylist })
-      })
-      .catch(err => {
-        resolve(event)
-      })
-  })
-}
-
-function decorateEvents(events: IEvent[]) {
-  return Promise.all(events.map(decorateEvent))
-}
-
 function* fetchEventsFlow(action: IAction) {
   const userId: string = action.payload
   try {
     const events = yield call(fetchEvents, userId)
-    const decoratedEvents = yield call(decorateEvents, events)
+    const decoratedEvents = yield call(eventDecorator.decorateEvents, events)
     yield put({ type: EVENTS_FETCHED, payload: decoratedEvents })
   } catch (err) {
     yield put({ type: EVENTS_FETCH_ERROR, payload: err })
