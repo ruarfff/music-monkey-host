@@ -9,33 +9,39 @@ class PlaylistsSimpleList extends Component {
   }
 
   render() {
-    const { onPlaylistSelected } = this.props
-    let playlists = []
+    const { onPlaylistSelected, user, playlists } = this.props
     let playlistView = <p>You do not have any playlists yet</p>
 
-    if (this.props.playlists.data) {
-      playlists = this.props.playlists.data.items
-      if (playlists.length > 0) {
-        playlistView = playlists.map((playlist, i) => (
-          <List key={i}>
-            <ListItem button onClick={() => onPlaylistSelected(playlist)}>
-              <ListItemAvatar>
-                <Avatar
-                  alt={playlist.name}
-                  src={
-                    playlist.images.length > 0
-                      ? playlist.images[0].url
-                      : '/img/partycover-sm.png'
-                  }
-                />
-              </ListItemAvatar>
-              <ListItemText
-                primary={playlist.name}
-                secondary={`${playlist.tracks.total} tracks`}
-              />
-            </ListItem>
+    if (playlists.data) {
+      if (playlists.data.items.length > 0) {
+        playlistView = (
+          <List>
+            {playlists.data.items
+              .filter(playlist => playlist.owner.id === user.spotifyId)
+              .map((playlist, i) => (
+                <ListItem
+                  key={i}
+                  button
+                  onClick={() => onPlaylistSelected(playlist)}
+                >
+                  <ListItemAvatar>
+                    <Avatar
+                      alt={playlist.name}
+                      src={
+                        playlist.images.length > 0
+                          ? playlist.images[0].url
+                          : '/img/partycover-sm.png'
+                      }
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={playlist.name}
+                    secondary={`${playlist.tracks.total} tracks`}
+                  />
+                </ListItem>
+              ))}
           </List>
-        ))
+        )
       }
     }
 
