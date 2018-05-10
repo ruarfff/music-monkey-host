@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Action from '../Action'
-import { IUserState } from './UserModel'
+import IUserState from './IUserState'
 
 interface IUserProps {
   user: IUserState

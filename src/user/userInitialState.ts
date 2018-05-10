@@ -1,4 +1,4 @@
-import { IUserState } from './UserModel'
+import IUserState from './IUserState'
 
 export const emptyUser = {
   data: undefined,

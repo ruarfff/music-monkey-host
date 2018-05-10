@@ -1,8 +1,8 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import Action from '../Action'
+import IUserState from './IUserState'
 import User from './User'
-import {IUserState} from './UserModel'
 
 describe('User component', () => {
   it('renders without crashing', () => {

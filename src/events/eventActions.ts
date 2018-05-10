@@ -1,5 +1,5 @@
 import Action from '../Action'
-import { IUser } from '../user/UserModel'
+import IUser from '../user/IUser'
 import IEvent from './IEvent'
 
 export const EVENT_LOCATION_CHANGED = 'EVENT_LOCATION_CHANGED'

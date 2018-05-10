@@ -4,6 +4,7 @@ import { Theme, withStyles } from 'material-ui/styles'
 import Tabs, { Tab } from 'material-ui/Tabs'
 import Typography from 'material-ui/Typography'
 import * as React from 'react'
+import lifecycle from 'react-pure-lifecycle'
 import SwipeableViews from 'react-swipeable-views'
 import IAction from '../../Action'
 import IEvent from '../IEvent'
@@ -22,6 +23,10 @@ const decorate = withStyles((theme: Theme) => ({
     color: theme.palette.primary.main
   }
 }))
+
+const componentDidMount = (props: IPreGameViewProps) => {
+  
+}
 
 function TabContainer({ children, dir }: any) {
   return (
@@ -71,4 +76,6 @@ const PreGameView = decorate<IPreGameViewProps>(
   }
 )
 
-export default PreGameView
+export default lifecycle({
+  componentDidMount
+})(PreGameView)

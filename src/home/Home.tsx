@@ -5,7 +5,7 @@ import IAction from '../Action'
 import Events from '../events/EventsContainer'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import { RouteWithSubRoutes } from '../routes'
-import { IUser } from '../user/UserModel'
+import IUser from '../user/IUser'
 import MainAppBar from './MainAppBarContainer'
 import Sidebar from './SidebarContainer'
 
@@ -39,26 +39,22 @@ interface IHomeProps extends RouteComponentProps<any> {
   fetchUser(): IAction
 }
 
-const Home = decorate<IHomeProps>(
-  ({ classes, user, routes }) => (
-    <React.Fragment>
-      {user && (
-        <div className={classes.root}>
-          <MainAppBar />
-          <Sidebar />
-          <main className={classes.content}>
-            <div className={classes.toolbar} />
-            <Route exact={true} path="/" component={Events} />
-            {routes.map((route, i) => (
-              <RouteWithSubRoutes key={i} {...route} />
-            ))}
-          </main>
-        </div>
-      )}
+const Home = decorate<IHomeProps>(({ classes, user, routes }) => (
+  <React.Fragment>
+    {user && (
+      <div className={classes.root}>
+        <MainAppBar />
+        <Sidebar />
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <Route exact={true} path="/" component={Events} />
+          {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
+        </main>
+      </div>
+    )}
 
-      {!user && <LoadingSpinner />}
-    </React.Fragment>
-  )
-)
+    {!user && <LoadingSpinner />}
+  </React.Fragment>
+))
 
 export default Home
