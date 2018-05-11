@@ -1707,6 +1707,4 @@ const suggestions: IPregameSuggestion[] = [
   }
 ]
 
-export default {
-  suggestions
-}
+export default suggestions

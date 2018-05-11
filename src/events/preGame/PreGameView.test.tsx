@@ -9,11 +9,13 @@ describe('<PreGameView />', () => {
     const event = {} as IEvent
     const preGameTabIndex = 0
     const onPreGameTabIndexChange = () => ({} as IAction)
+    const fetchPreGameSuggestion = () => ({} as IAction)
     const wrapper = shallow(
       <PreGameView
         event={event}
         preGameTabIndex={preGameTabIndex}
         onPreGameTabIndexChange={onPreGameTabIndexChange}
+        fetchPreGameSuggestion={fetchPreGameSuggestion}
       />
     )
 
