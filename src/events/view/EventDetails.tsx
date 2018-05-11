@@ -18,7 +18,7 @@ const style = (theme: Theme) => ({
 const EventDetails: React.SFC<PropsWithStyles> = ({
   event
 }: PropsWithStyles) => (
-  <Typography component="div" align="center">
+  <Typography component="div">
     <Typography variant="display3" gutterBottom={true}>
       {event.name}
     </Typography>

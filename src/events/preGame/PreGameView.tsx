@@ -11,6 +11,7 @@ import IAction from '../../Action'
 import IEvent from '../IEvent'
 import IPregameSuggestion from './IPregameSuggestion'
 import PreGamePlaylist from './PreGamePlaylist'
+import UserSuggestionsView from './UserSuggestionsViewContainer'
 
 interface IPreGameViewProps {
   event: IEvent
@@ -94,7 +95,7 @@ const PreGameView = decorate<IPreGameViewProps>(
 
                 {suggestions.map((suggestion, i) => (
                   <TabContainer key={i} dir={safeTheme.direction}>
-                    <p>{suggestion.tracks.length}</p>
+                    <UserSuggestionsView />
                   </TabContainer>
                 ))}
               </SwipeableViews>

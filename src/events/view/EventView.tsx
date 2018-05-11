@@ -127,12 +127,12 @@ const handleDeleteSelected = (props: IEventViewProps) => () => {
 
 const renderEventView = (props: PropsWithStyles) => (
   <Grid container={true} spacing={16}>
-    <Grid item={true} xs={12} sm={10}>
+    <Grid item={true} xs={12} sm={8}>
       <Typography variant="display3">
         {props.event && props.event.name}
       </Typography>
     </Grid>
-    <Grid item={true} xs={12} sm={2}>
+    <Grid item={true} xs={12} sm={4}>
       <LinkButton
         className={props.classes.button}
         variant="raised"
@@ -163,9 +163,9 @@ const renderEventView = (props: PropsWithStyles) => (
           scrollable={true}
           scrollButtons="auto"
         >
-          <Tab label="Event" />
           <Tab label="Pre-Game" />
           <Tab label="In-Game" />
+          <Tab label="Event" />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -174,13 +174,13 @@ const renderEventView = (props: PropsWithStyles) => (
         onChangeIndex={props.onEventTabIndexChange}
       >
         <TabContainer dir={props.theme.direction}>
-          <EventDetails event={props.event} />
-        </TabContainer>
-        <TabContainer dir={props.theme.direction}>
           <PreGameView />
         </TabContainer>
         <TabContainer dir={props.theme.direction}>
           Nothing Here Yet
+        </TabContainer>
+        <TabContainer dir={props.theme.direction}>
+          <EventDetails event={props.event} />
         </TabContainer>
       </SwipeableViews>
     </Grid>

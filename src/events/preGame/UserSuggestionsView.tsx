@@ -1,17 +1,22 @@
+import CommentIcon from '@material-ui/icons/CheckCircle'
 import DoneAll from '@material-ui/icons/DoneAll'
-import Undo from '@material-ui/icons/Undo'
 import * as classNames from 'classnames'
-import { Button, Hidden, Typography } from 'material-ui'
-import Card, { CardContent, CardMedia } from 'material-ui/Card'
+import Button from 'material-ui/Button'
 import Grid from 'material-ui/Grid/Grid'
-import List, { ListItem, ListItemText } from 'material-ui/List'
+import IconButton from 'material-ui/IconButton'
+import List, {
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText
+} from 'material-ui/List'
 import { Theme, withStyles } from 'material-ui/styles'
 import * as React from 'react'
-import IPlaylist from '../../playlists/IPlaylist'
 import ITrack from '../../playlists/ITrack'
+import IPregameSuggestion from './IPregameSuggestion'
 
 interface IUserSuggestionsViewProps {
-  playlist: IPlaylist
+  suggestions: IPregameSuggestion[]
+  preGameTabIndex: number
 }
 
 const decorate = withStyles((theme: Theme) => ({
@@ -44,6 +49,23 @@ const decorate = withStyles((theme: Theme) => ({
   }
 }))
 
+const renderTrackList = (
+  suggestions: IPregameSuggestion[],
+  tabIndex: number,
+  classes: any
+) => {
+  if (
+    tabIndex < 1 ||
+    suggestions.length < tabIndex ||
+    !suggestions[tabIndex - 1].tracks ||
+    suggestions[tabIndex - 1].tracks.length < 1
+  ) {
+    return <p>No tracks yet</p>
+  }
+  const tracks = suggestions[tabIndex - 1].tracks
+  return <List>{tracks.map((track, i) => renderTrack(track, classes))}</List>
+}
+
 const renderTrack = (track: ITrack, classes: any) => {
   let trackImage = <span />
   if (track.album && track.album.images && track.album.images.length > 0) {
@@ -59,6 +81,11 @@ const renderTrack = (track: ITrack, classes: any) => {
   return (
     <ListItem key={track.uri} dense={true} button={true}>
       {trackImage}
+      <ListItemSecondaryAction>
+        <IconButton aria-label="Comments">
+          <CommentIcon />
+        </IconButton>
+      </ListItemSecondaryAction>
       <ListItemText primary={track.name} />
     </ListItem>
   )
@@ -67,73 +94,24 @@ const renderTrack = (track: ITrack, classes: any) => {
 const renderSaveButtons = (classes: any) => {
   return (
     <div>
-      <Button
-        className={classes.button}
-        variant="raised"
-        color="primary"
-        disabled={true}
-      >
+      <Button className={classes.button} variant="raised" color="primary">
         <DoneAll className={classNames(classes.leftIcon, classes.iconSmall)} />
-        Save Changes{' '}
-      </Button>
-      <Button
-        className={classes.button}
-        variant="raised"
-        color="secondary"
-        disabled={true}
-      >
-        <Undo className={classNames(classes.leftIcon, classes.iconSmall)} />
-        Reset{' '}
+        Accept All{' '}
       </Button>
     </div>
   )
 }
 
 const UserSuggestionsView = decorate<IUserSuggestionsViewProps>(
-  ({ classes, playlist }) => {
+  ({ classes, suggestions, preGameTabIndex }) => {
     return (
       <div className={classes.root}>
         <Grid container={true} spacing={24}>
-          <Grid item={true} sm={8}>
-            <Hidden smUp={true}>{renderSaveButtons(classes)}</Hidden>
-            {playlist.tracks.total > 0 && (
-              <List>
-                {playlist.tracks.items.map((item, i) =>
-                  renderTrack(item.track, classes)
-                )}
-              </List>
-            )}
-            {playlist.tracks.total < 1 && <p>No tracks yet</p>}
+          <Grid item={true} sm={12}>
+            {renderSaveButtons(classes)}
           </Grid>
-          <Grid item={true} sm={4}>
-            <Hidden smDown={true}>{renderSaveButtons(classes)}</Hidden>
-            <Card className={classes.card}>
-              {playlist.images &&
-                playlist.images.length > 0 && (
-                  <CardMedia
-                    className={classes.media}
-                    image={playlist.images[0].url}
-                    title={playlist.name}
-                  />
-                )}
-              <CardContent>
-                <Typography
-                  gutterBottom={true}
-                  variant="headline"
-                  component="h2"
-                >
-                  {playlist.name}
-                </Typography>
-                <Typography variant="subheading">
-                  {playlist.followers.total} Followers
-                </Typography>
-                <Typography component="p">
-                  <a href={playlist.external_urls.spotify} target="_blank">
-                    Open in Spotify
-                  </a>
-                </Typography>
-              </CardContent>
-            </Card>
+          <Grid item={true} sm={12}>
+            {renderTrackList(suggestions, preGameTabIndex, classes)}
           </Grid>
         </Grid>
       </div>
