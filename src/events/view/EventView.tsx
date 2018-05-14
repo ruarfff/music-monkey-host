@@ -10,6 +10,7 @@ import { Theme, WithStyles, withStyles } from 'material-ui/styles'
 import Tabs, { Tab } from 'material-ui/Tabs'
 import Zoom from 'material-ui/transitions/Zoom'
 import * as React from 'react'
+import * as CopyToClipboard from 'react-copy-to-clipboard'
 import lifecycle from 'react-pure-lifecycle'
 import { RouteComponentProps } from 'react-router'
 import SwipeableViews from 'react-swipeable-views'
@@ -125,11 +126,28 @@ const handleDeleteSelected = (props: IEventViewProps) => () => {
   })
 }
 
+const handleCopyToClipboard = (props: PropsWithStyles) => {
+  return () => true
+}
+
 const renderEventView = (props: PropsWithStyles) => (
   <Grid container={true} spacing={16}>
-    <Grid item={true} xs={12} sm={8}>
-      <Typography variant="display3">
+    <Grid item={true} xs={12} sm={6}>
+      <Typography variant="display3" noWrap={true}>
         {props.event && props.event.name}
+      </Typography>
+    </Grid>
+    <Grid item={true} xs={12} sm={2}>
+      <Typography variant="display4" noWrap={true}>
+        {props.event &&
+          props.event.inviteLink && (
+            <CopyToClipboard
+              text={props.event.inviteLink}
+              onCopy={handleCopyToClipboard(props)}
+            >
+              <button>Copy to clipboard with button</button>
+            </CopyToClipboard>
+          )}
       </Typography>
     </Grid>
     <Grid item={true} xs={12} sm={4}>

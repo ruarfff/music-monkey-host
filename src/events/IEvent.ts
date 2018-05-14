@@ -15,4 +15,5 @@ export default interface IEvent {
   playlist?: IPlaylist
   startDateTime: any
   venue?: string
+  inviteLink?: string
 }
