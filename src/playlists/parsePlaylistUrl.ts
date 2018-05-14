@@ -6,7 +6,7 @@ export default function parsePlayistUrl(
   try {
     const splitUrl = playlistUrl.split('/')
     const playlistId = splitUrl[splitUrl.length - 1]
-    const userName = splitUrl[splitUrl.length - 3]
+    const userName = decodeURIComponent(splitUrl[splitUrl.length - 3])
 
     if (!playlistId || !userName) {
       throw new Error()
