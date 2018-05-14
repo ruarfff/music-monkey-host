@@ -25,25 +25,23 @@ interface IEventCardProps {
 }
 
 const EventCard = decorate<IEventCardProps>(({ classes, event }) => (
-  <div>
-    <Card className={classes.card}>
-      <Link to={'/events/' + event.eventId}>
-        <CardHeader
-          subheader={
-            event.startDateTime ? event.startDateTime.format('LLL') : ''
-          }
-        />
-        <CardMedia
-          className={classes.media}
-          image={event.imageUrl}
-          title="Event Image"
-        />
-      </Link>
-      <CardContent>
-        <Typography component="p" noWrap={true}>{event.location && event.location.address}</Typography>
-      </CardContent>
-    </Card>
-  </div>
+  <Card className={classes.card}>
+    <Link to={'/events/' + event.eventId}>
+      <CardHeader
+        subheader={event.startDateTime ? event.startDateTime.format('LLL') : ''}
+      />
+      <CardMedia
+        className={classes.media}
+        image={event.imageUrl}
+        title="Event Image"
+      />
+    </Link>
+    <CardContent>
+      <Typography component="p" noWrap={true}>
+        {event.location && event.location.address}
+      </Typography>
+    </CardContent>
+  </Card>
 ))
 
 export default EventCard
