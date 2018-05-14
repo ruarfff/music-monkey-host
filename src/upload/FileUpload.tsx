@@ -44,7 +44,7 @@ function upload(file: any) {
         if (err) {
           reject(err)
         } else {
-          resolve(`http://${bucket}.s3.amazonaws.com/${key}${fileName}`)
+          resolve(`https://${bucket}.s3.amazonaws.com/${key}${fileName}`)
         }
       }
     )
