@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Avatar from 'material-ui/Avatar'
+import Avatar from '@material-ui/core/Avatar/Avatar'
 import List, { ListItem, ListItemAvatar, ListItemText } from 'material-ui/List'
 
 class PlaylistsSimpleList extends Component {

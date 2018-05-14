@@ -1,16 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles'
 import classNames from 'classnames'
-import MenuIcon from '@material-ui/icons/Menu'
-import AppBar from 'material-ui/AppBar'
-import Toolbar from 'material-ui/Toolbar'
-import Typography from 'material-ui/Typography'
-import IconButton from 'material-ui/IconButton'
-import Menu, { MenuItem } from 'material-ui/Menu'
-import Avatar from 'material-ui/Avatar'
-import AccountCircle from '@material-ui/icons/AccountCircle'
 import { drawerWidth } from './homeConstants'
+import IconButton from '@material-ui/core/IconButton/IconButton'
+import Avatar from '@material-ui/core/Avatar/Avatar'
+import Menu from '@material-ui/core/Menu/Menu'
+import MenuItem from '@material-ui/core/MenuItem/MenuItem'
+import AppBar from '@material-ui/core/AppBar/AppBar'
+import Toolbar from '@material-ui/core/Toolbar/Toolbar'
+import Typography from '@material-ui/core/Typography/Typography'
 
 const styles = theme => ({
   appBar: {

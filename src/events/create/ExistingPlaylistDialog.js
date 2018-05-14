@@ -1,9 +1,9 @@
-import Button from 'material-ui/Button'
+import Button from '@material-ui/core/Button/Button'
 import Dialog, {
   DialogActions,
   DialogContent,
   DialogTitle
-} from 'material-ui/Dialog'
+} from '@material-ui/core/Dialog/Dialog'
 import * as React from 'react'
 import PlaylistsSimpleList from '../../playlists/PlaylistsSimpleListContainer'
 import PropTypes from 'prop-types'

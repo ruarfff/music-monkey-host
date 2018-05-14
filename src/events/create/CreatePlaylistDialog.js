@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Button from 'material-ui/Button'
-import TextField from 'material-ui/TextField'
+import Button from '@material-ui/core/Button/Button'
+import TextField from '@material-ui/core/TextField/TextField'
 import { FormGroup, FormControlLabel } from 'material-ui/Form'
 import Switch from 'material-ui/Switch'
 import Dialog, {

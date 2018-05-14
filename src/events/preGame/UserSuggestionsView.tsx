@@ -1,15 +1,15 @@
+import Button from '@material-ui/core/Button/Button'
+import Grid from '@material-ui/core/Grid/Grid'
+import IconButton from '@material-ui/core/IconButton/IconButton'
+import List from '@material-ui/core/List/List'
+import ListItem from '@material-ui/core/ListItem/ListItem'
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction/ListItemSecondaryAction'
+import ListItemText from '@material-ui/core/ListItemText/ListItemText'
+import { Theme } from '@material-ui/core/styles'
+import withStyles from '@material-ui/core/styles/withStyles'
 import CommentIcon from '@material-ui/icons/CheckCircle'
 import DoneAll from '@material-ui/icons/DoneAll'
 import * as classNames from 'classnames'
-import Button from 'material-ui/Button'
-import Grid from 'material-ui/Grid/Grid'
-import IconButton from 'material-ui/IconButton'
-import List, {
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText
-} from 'material-ui/List'
-import { Theme, withStyles } from 'material-ui/styles'
 import * as React from 'react'
 import ITrack from '../../playlists/ITrack'
 import IPregameSuggestion from './IPregameSuggestion'
