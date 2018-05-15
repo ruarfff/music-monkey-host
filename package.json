@@ -8,8 +8,8 @@
     "build": "NODE_ENV='production' react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
-    "deploy": "awsmobile publish",
-    "lint": "tslint --fix src/**/*.tsx"
+    "deploy": "awsmobile publish",    
+    "lint": "tslint --fix src/**/*.ts{,x}"
   },
   "dependencies": {
     "@material-ui/icons": "^1.0.0-beta.43",
