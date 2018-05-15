@@ -28,7 +28,8 @@ export default {
     startDateTime: moment()
       .add(2, 'hours')
       .startOf('hour'),
-    venue: ''
+    venue: '',
+    invites: []
   },
   eventsLoading: false,
   showSavedDialogue: false

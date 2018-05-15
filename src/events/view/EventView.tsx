@@ -1,6 +1,7 @@
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/ModeEdit'
 import * as classNames from 'classnames'
+import { isEmpty } from 'lodash'
 import { Typography } from 'material-ui'
 import AppBar from 'material-ui/AppBar'
 import Button from 'material-ui/Button'
@@ -126,6 +127,22 @@ const handleDeleteSelected = (props: IEventViewProps) => () => {
   })
 }
 
+const renderInviteLink = (props: PropsWithStyles) => {
+  if (!props.event || isEmpty(props.event.invites)) {
+    return <span />
+  }
+  const invites = props.event.invites || []
+  const inviteLink = invites[0]
+
+  return (
+    <CopyToClipboard text={inviteLink} onCopy={handleCopyToClipboard(props)}>
+      <Typography variant="display4" noWrap={true}>
+        inviteLink
+      </Typography>
+    </CopyToClipboard>
+  )
+}
+
 const handleCopyToClipboard = (props: PropsWithStyles) => {
   return () => true
 }
@@ -138,17 +155,7 @@ const renderEventView = (props: PropsWithStyles) => (
       </Typography>
     </Grid>
     <Grid item={true} xs={12} sm={2}>
-      <Typography variant="display4" noWrap={true}>
-        {props.event &&
-          props.event.inviteLink && (
-            <CopyToClipboard
-              text={props.event.inviteLink}
-              onCopy={handleCopyToClipboard(props)}
-            >
-              <button>Copy to clipboard with button</button>
-            </CopyToClipboard>
-          )}
-      </Typography>
+      {renderInviteLink(props)}
     </Grid>
     <Grid item={true} xs={12} sm={4}>
       <LinkButton
