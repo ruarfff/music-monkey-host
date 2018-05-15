@@ -1,5 +1,5 @@
-import { Theme, WithStyles, withStyles } from 'material-ui/styles'
-import Typography from 'material-ui/Typography/Typography'
+import { Theme, WithStyles, withStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography/Typography'
 import * as React from 'react'
 import IEvent from '../IEvent'
 

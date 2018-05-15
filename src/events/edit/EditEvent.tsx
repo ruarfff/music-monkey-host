@@ -1,4 +1,4 @@
-import { Theme, withStyles, WithStyles } from 'material-ui/styles'
+import { Theme, withStyles, WithStyles } from '@material-ui/core/styles'
 import * as React from 'react'
 import lifecycle from 'react-pure-lifecycle'
 import { RouteComponentProps } from 'react-router'

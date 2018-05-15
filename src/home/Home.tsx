@@ -1,4 +1,4 @@
-import { withStyles } from 'material-ui/styles'
+import { withStyles } from '@material-ui/core/styles'
 import * as React from 'react'
 import { Route, RouteComponentProps } from 'react-router'
 import IAction from '../Action'

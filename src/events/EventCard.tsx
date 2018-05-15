@@ -1,6 +1,10 @@
-import Card, { CardContent, CardHeader, CardMedia } from 'material-ui/Card'
-import { Theme, withStyles } from 'material-ui/styles'
-import Typography from 'material-ui/Typography'
+import Card from '@material-ui/core/Card/Card';
+import CardContent from '@material-ui/core/CardContent/CardContent';
+import CardHeader from '@material-ui/core/CardHeader/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia/CardMedia';
+import { Theme } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Typography from '@material-ui/core/Typography/Typography';
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import IEvent from './IEvent'

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import PlacesAutocomplete from 'react-places-autocomplete'
 import match from 'autosuggest-highlight/match'
 import parse from 'autosuggest-highlight/parse'
-import Paper from 'material-ui/Paper'
-import { MenuItem } from 'material-ui/Menu'
-import TextField from 'material-ui/TextField'
-import { withStyles } from 'material-ui/styles'
+import Paper from '@material-ui/core/Paper/Paper'
+import { MenuItem } from '@material-ui/core/Menu/Menu'
+import TextField from '@material-ui/core/TextField/TextField'
+import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
   container: {
