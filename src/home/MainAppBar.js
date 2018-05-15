@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import MenuIcon from '@material-ui/icons/Menu'
+import { withStyles } from '@material-ui/core/styles'
 import { drawerWidth } from './homeConstants'
 import IconButton from '@material-ui/core/IconButton/IconButton'
 import Avatar from '@material-ui/core/Avatar/Avatar'

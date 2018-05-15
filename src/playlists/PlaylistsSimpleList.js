@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Avatar from '@material-ui/core/Avatar/Avatar'
-import List, { ListItem, ListItemAvatar, ListItemText } from 'material-ui/List'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemAvatar from '@material-ui/core/ListItemAvatar'
+import ListItemText from '@material-ui/core/ListItemText'
 
 class PlaylistsSimpleList extends Component {
   componentDidMount() {
