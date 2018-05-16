@@ -5,5 +5,6 @@ export default {
   loading: false,
   fetchError: undefined,
   eventTabIndex: 0,
-  deleteSelected: false
+  deleteSelected: false,
+  copiedToClipboard: false
 } as IEventViewState

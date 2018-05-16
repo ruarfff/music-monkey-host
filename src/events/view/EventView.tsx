@@ -1,28 +1,25 @@
 import AppBar from '@material-ui/core/AppBar/AppBar'
 import Button from '@material-ui/core/Button/Button'
 import red from '@material-ui/core/colors/red'
+import FormControl from '@material-ui/core/FormControl/FormControl'
 import Grid from '@material-ui/core/Grid/Grid'
+import IconButton from '@material-ui/core/IconButton/IconButton'
+import Input from '@material-ui/core/Input/Input'
+import InputAdornment from '@material-ui/core/InputAdornment/InputAdornment'
+import InputLabel from '@material-ui/core/InputLabel/InputLabel'
+import Snackbar from '@material-ui/core/Snackbar/Snackbar'
 import { Theme } from '@material-ui/core/styles'
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
 import Zoom from '@material-ui/core/Zoom/Zoom'
+import CloseIcon from '@material-ui/icons/Close'
+import ContentCopy from '@material-ui/icons/ContentCopy'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/ModeEdit'
 import * as classNames from 'classnames'
-<<<<<<< HEAD
 import { isEmpty } from 'lodash'
-import { Typography } from 'material-ui'
-import AppBar from 'material-ui/AppBar'
-import Button from 'material-ui/Button'
-import red from 'material-ui/colors/red'
-import Grid from 'material-ui/Grid'
-import { Theme, WithStyles, withStyles } from 'material-ui/styles'
-import Tabs, { Tab } from 'material-ui/Tabs'
-import Zoom from 'material-ui/transitions/Zoom'
-=======
->>>>>>> upgrade-material-iu
 import * as React from 'react'
 import * as CopyToClipboard from 'react-copy-to-clipboard'
 import lifecycle from 'react-pure-lifecycle'
@@ -47,12 +44,15 @@ interface IEventViewProps extends RouteComponentProps<any> {
   deleteSelected: boolean
   deleteSuccess: boolean
   deleteFailed: boolean
+  copiedToClipboard: boolean
   getEventById(eventId: string): IAction
   onEventTabIndexChange(index: number): IAction
   onEventDeleteSelected(): IAction
   onEventDeleteClosed(): IAction
   deleteEvent(event: IEvent): IAction
   onDeleteAknowledged(): IAction
+  copyEventInvite(): IAction
+  ackowledgeEventInviteCopied(): IAction
 }
 type PropsWithStyles = IEventViewProps &
   WithStyles<'root' | 'button' | 'rightIcon' | 'deleteButton'>
@@ -145,29 +145,67 @@ const renderInviteLink = (props: PropsWithStyles) => {
     return <span />
   }
   const invites = props.event.invites || []
-  const inviteLink = invites[0]
+  const inviteLink = 'https://guests.musicmonkey.io/invite/' + invites[0]
 
   return (
     <CopyToClipboard text={inviteLink} onCopy={handleCopyToClipboard(props)}>
-      <Typography variant="display4" noWrap={true}>
-        inviteLink
-      </Typography>
+      <FormControl>
+        <InputLabel htmlFor="invite-link">invite Link</InputLabel>
+        <Input
+          disabled={true}
+          id="invite-link"
+          type="text"
+          value={inviteLink}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton aria-label="Copy to clipboard">
+                <ContentCopy />
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+      </FormControl>
     </CopyToClipboard>
   )
 }
 
 const handleCopyToClipboard = (props: PropsWithStyles) => {
-  return () => true
+  return () => props.copyEventInvite()
 }
+
+const handleCopytToClipboardAcknowledged = (props: PropsWithStyles) => {
+  return () => props.ackowledgeEventInviteCopied()
+}
+
+const renderCopiedSnackBar = (props: PropsWithStyles) => (
+  <Snackbar
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'center'
+    }}
+    open={true}
+    onClose={handleCopytToClipboardAcknowledged(props)}
+    autoHideDuration={1000}
+    ContentProps={{
+      'aria-describedby': 'message-id'
+    }}
+    message={<span id="message-id">Copied to clipboard</span>}
+    action={[
+      <IconButton key="close" aria-label="Close" color="inherit" onClick={handleCopytToClipboardAcknowledged(props)}>
+        <CloseIcon />
+      </IconButton>
+    ]}
+  />
+)
 
 const renderEventView = (props: PropsWithStyles) => (
   <Grid container={true} spacing={16}>
-    <Grid item={true} xs={12} sm={6}>
+    <Grid item={true} xs={12} sm={4}>
       <Typography variant="display3" noWrap={true}>
         {props.event && props.event.name}
       </Typography>
     </Grid>
-    <Grid item={true} xs={12} sm={2}>
+    <Grid item={true} xs={12} sm={4}>
       {renderInviteLink(props)}
     </Grid>
     <Grid item={true} xs={12} sm={4}>
@@ -233,6 +271,7 @@ const EventView: React.SFC<PropsWithStyles> = (props: PropsWithStyles) => (
     {!!props.event && (
       <Zoom in={!props.loading && !!props.event}>{renderEventView(props)}</Zoom>
     )}
+    {props.copiedToClipboard && renderCopiedSnackBar(props)}
     {props.deleteFailed && showDeleteFailed(props)}
     {props.deleteSuccess && showDeleteSuccess(props)}
   </div>

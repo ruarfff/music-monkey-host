@@ -8,4 +8,5 @@ export default interface IEventViewState {
   deleteSelected: boolean
   deleteSucceeded: boolean
   deleteFailed: boolean
+  copiedToClipboard: boolean
 }

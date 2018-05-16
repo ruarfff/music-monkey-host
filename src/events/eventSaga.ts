@@ -89,6 +89,7 @@ function saveEvent(event: IEvent) {
   return axios
     .post(serviceUrl + '/events', {
       ...event,
+      invites: undefined,
       endDateTime: event.endDateTime.toISOString(),
       location: {
         ...event.location,

@@ -7,6 +7,8 @@ import {
   EVENT_FETCH_BY_ID_ERROR,
   EVENT_FETCH_BY_ID_INITIATED,
   EVENT_FETCHED_BY_ID,
+  EVENT_INVITE_COPIED,
+  EVENT_INVITE_COPY_ACKNOWLEDGED,
   EVENT_TAB_INDEX_CHANGED
 } from './eventViewActions'
 import initialState from './eventViewInitialState'
@@ -26,7 +28,7 @@ export default function eventView(
     case EVENT_FETCHED_BY_ID:
       return {
         ...state,
-        event: payload,        
+        event: payload,
         loading: false
       }
     case EVENT_FETCH_BY_ID_ERROR:
@@ -61,6 +63,16 @@ export default function eventView(
       return {
         ...state,
         deleteFailed: true
+      }
+    case EVENT_INVITE_COPIED:
+      return {
+        ...state,
+        copiedToClipboard: true
+      }
+    case EVENT_INVITE_COPY_ACKNOWLEDGED:
+      return {
+        ...state,
+        copiedToClipboard: false
       }
     default:
       return state
