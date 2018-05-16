@@ -14,11 +14,12 @@ const decorate = withStyles((theme: Theme) => ({
     display: 'flex'
   },
   card: {
-    marginTop: '2em',
+    height: '16em',
+    marginTop: '1em',
     marginLeft: '1em',
     marginRight: '1em',
-    maxWidth: '16em',
-    width: '16em'
+    maxWidth: '14em',
+    width: '14em'
   },
   media: {
     height: 0,

@@ -14,7 +14,7 @@ import NoEvents from './NoEvents'
 import EventCard from './EventCard'
 import * as moment from 'moment'
 import LoadingSpinner from '../loading/LoadingSpinner'
-import sortBy from 'lodash/sortBy'
+import sortBy from 'lodash/sortBy' 
 
 const styles = theme => ({
   eventCreateActionContainer: {
@@ -22,7 +22,7 @@ const styles = theme => ({
     display: 'flex',
     flexFlow: 'row wrap',
     justifyContent: 'space-evenly',
-    paddingBottom: '2em'
+    paddingBottom: '1.5em'
   },
   eventCreateButton: {
     float: 'right',
@@ -39,14 +39,16 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
-    marginTop: '1.5em',
+    marginTop: '1em',
     width: '100%'
   },
   eventsList: {
     display: 'flex',
     flexFlow: 'row wrap',
+    height: '100%',
     justifyContent: 'flex-start',
-    marginTop: '2em'
+    marginTop: '2em',
+    width: '100%'    
   },
   eventsListCaption: {
     textAlign: 'center',
@@ -91,9 +93,7 @@ const renderEventsList = (classes, events, noEventsMessage) => (
     )}
 
     <div className={classes.eventsList}>
-      {sortBy(events, event => event.startDateTime)
-        .reverse()
-        .map((event, i) => <EventCard key={i} event={event} />)}
+      {sortBy(events, (event) => event.startDateTime).reverse().map((event, i) => <EventCard key={i} event={event} />)}
     </div>
   </Fragment>
 )
@@ -126,9 +126,7 @@ class Events extends Component {
               {renderEventCreateAction(classes)}
               <Grid
                 container
-                spacing={24}
-                justify="center"
-                alignItems="center"
+                spacing={24}                
                 direction="row"
               >
                 <Hidden xsDown>
