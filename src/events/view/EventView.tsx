@@ -28,6 +28,7 @@ import withReactContent from 'sweetalert2-react-content'
 import IAction from '../../Action'
 import LoadingSpinner from '../../loading/LoadingSpinner'
 import LinkButton from '../../util/LinkButton'
+import PulsingButton from '../../util/PulsingButton'
 import EventFetchError from '../EventFetchError'
 import IEvent from '../IEvent'
 import PreGameView from '../preGame/PreGameViewContainer'
@@ -249,7 +250,7 @@ const renderEventView = (props: PropsWithStyles) => (
           <PreGameView />
         </TabContainer>
         <TabContainer dir={props.theme.direction}>
-          Nothing Here Yet
+          <PulsingButton />
         </TabContainer>
         <TabContainer dir={props.theme.direction}>
           <EventDetails event={props.event} />
