@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import MenuIcon from '@material-ui/icons/Menu'
 import { withStyles } from '@material-ui/core/styles'
 import { drawerWidth } from './homeConstants'
+import AccountCircle from '@material-ui/icons/AccountCircle'
 import IconButton from '@material-ui/core/IconButton/IconButton'
 import Avatar from '@material-ui/core/Avatar/Avatar'
 import Menu from '@material-ui/core/Menu/Menu'
@@ -133,7 +134,7 @@ class MainAppBar extends React.Component {
             MusicMonkey
           </Typography>
 
-          {profilePic}
+          {user.image && profilePic}
         </Toolbar>
       </AppBar>
     )
