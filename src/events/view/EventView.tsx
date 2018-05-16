@@ -1,6 +1,5 @@
 import AppBar from '@material-ui/core/AppBar/AppBar'
 import Button from '@material-ui/core/Button/Button'
-import red from '@material-ui/core/colors/red'
 import FormControl from '@material-ui/core/FormControl/FormControl'
 import Grid from '@material-ui/core/Grid/Grid'
 import IconButton from '@material-ui/core/IconButton/IconButton'
@@ -18,7 +17,6 @@ import CloseIcon from '@material-ui/icons/Close'
 import ContentCopy from '@material-ui/icons/ContentCopy'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/ModeEdit'
-import * as classNames from 'classnames'
 import { isEmpty } from 'lodash'
 import * as React from 'react'
 import * as CopyToClipboard from 'react-copy-to-clipboard'
@@ -68,13 +66,6 @@ const style = (theme: Theme) => ({
   },
   rightIcon: {
     marginLeft: theme.spacing.unit
-  },
-  deleteButton: {
-    color: theme.palette.getContrastText(red[500]),
-    backgroundColor: red[500],
-    '&:hover': {
-      backgroundColor: red[700]
-    }
   }
 })
 
@@ -185,13 +176,18 @@ const renderCopiedSnackBar = (props: PropsWithStyles) => (
     }}
     open={true}
     onClose={handleCopytToClipboardAcknowledged(props)}
-    autoHideDuration={1000}
+    autoHideDuration={1200}
     ContentProps={{
       'aria-describedby': 'message-id'
     }}
     message={<span id="message-id">Copied to clipboard</span>}
     action={[
-      <IconButton key="close" aria-label="Close" color="inherit" onClick={handleCopytToClipboardAcknowledged(props)}>
+      <IconButton
+        key="close"
+        aria-label="Close"
+        color="inherit"
+        onClick={handleCopytToClipboardAcknowledged(props)}
+      >
         <CloseIcon />
       </IconButton>
     ]}
@@ -212,14 +208,14 @@ const renderEventView = (props: PropsWithStyles) => (
       <LinkButton
         className={props.classes.button}
         variant="raised"
-        color="secondary"
+        color="primary"
         to={props.location.pathname + '/edit'}
       >
         Edit
         <EditIcon className={props.classes.rightIcon} />
       </LinkButton>
       <Button
-        className={classNames(props.classes.button, props.classes.deleteButton)}
+        className={props.classes.button}
         variant="raised"
         color="secondary"
         onClick={handleDeleteSelected(props)}
