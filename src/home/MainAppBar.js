@@ -134,7 +134,7 @@ class MainAppBar extends React.Component {
             MusicMonkey
           </Typography>
 
-          {user.image && profilePic}
+          {profilePic}
         </Toolbar>
       </AppBar>
     )
