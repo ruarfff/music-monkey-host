@@ -15,6 +15,8 @@ const decorate = withStyles((theme: Theme) => ({
   },
   card: {
     marginTop: '2em',
+    marginLeft: '1em',
+    marginRight: '1em',
     maxWidth: '16em',
     width: '16em'
   },

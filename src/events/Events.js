@@ -14,6 +14,7 @@ import NoEvents from './NoEvents'
 import EventCard from './EventCard'
 import * as moment from 'moment'
 import LoadingSpinner from '../loading/LoadingSpinner'
+import sortBy from 'lodash/sortBy'
 
 const styles = theme => ({
   eventCreateActionContainer: {
@@ -38,15 +39,14 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
-    justifyContent: 'center',
     marginTop: '1.5em',
     width: '100%'
   },
   eventsList: {
     display: 'flex',
     flexFlow: 'row wrap',
-    justifyContent: 'space-between',
-    marginTop: '4em'
+    justifyContent: 'flex-start',
+    marginTop: '2em'
   },
   eventsListCaption: {
     textAlign: 'center',
@@ -91,7 +91,9 @@ const renderEventsList = (classes, events, noEventsMessage) => (
     )}
 
     <div className={classes.eventsList}>
-      {events.map((event, i) => <EventCard key={i} event={event} />)}
+      {sortBy(events, event => event.startDateTime)
+        .reverse()
+        .map((event, i) => <EventCard key={i} event={event} />)}
     </div>
   </Fragment>
 )
@@ -129,26 +131,30 @@ class Events extends Component {
                 alignItems="center"
                 direction="row"
               >
-                <Grid item sm={6} hidden={{ xsDown: true }}>
-                  <Typography
-                    className={classes.eventsListCaption}
-                    align="center"
-                    variant="headline"
-                    gutterBottom
-                  >
-                    Upcoming Events
-                  </Typography>
-                </Grid>
-                <Grid item sm={6} hidden={{ xsDown: true }}>
-                  <Typography
-                    className={classes.eventsListCaption}
-                    align="center"
-                    variant="headline"
-                    gutterBottom
-                  >
-                    Past Events
-                  </Typography>
-                </Grid>
+                <Hidden xsDown>
+                  <Grid item sm={6}>
+                    <Typography
+                      className={classes.eventsListCaption}
+                      align="center"
+                      variant="headline"
+                      gutterBottom
+                    >
+                      Upcoming Events
+                    </Typography>
+                  </Grid>
+                </Hidden>
+                <Hidden xsDown>
+                  <Grid item sm={6}>
+                    <Typography
+                      className={classes.eventsListCaption}
+                      align="center"
+                      variant="headline"
+                      gutterBottom
+                    >
+                      Past Events
+                    </Typography>
+                  </Grid>
+                </Hidden>
                 <Grid item xs={12} sm={6} className={classes.eventsUpcoming}>
                   <Hidden smUp>
                     <Typography

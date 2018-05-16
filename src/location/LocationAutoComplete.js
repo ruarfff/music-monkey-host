@@ -4,7 +4,7 @@ import PlacesAutocomplete from 'react-places-autocomplete'
 import match from 'autosuggest-highlight/match'
 import parse from 'autosuggest-highlight/parse'
 import Paper from '@material-ui/core/Paper/Paper'
-import { MenuItem } from '@material-ui/core/Menu/Menu'
+import MenuItem from '@material-ui/core/MenuItem/MenuItem'
 import TextField from '@material-ui/core/TextField/TextField'
 import { withStyles } from '@material-ui/core/styles'
 
