@@ -8,7 +8,6 @@ import {
   FETCH_PLAYLISTS_SUCCESS
 } from './playlistActions'
 
-
 function fetchPlaylists() {
   const token = localStorage.get(accessTokenKey)
 

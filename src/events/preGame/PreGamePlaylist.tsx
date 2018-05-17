@@ -15,13 +15,16 @@ import Undo from '@material-ui/icons/Undo'
 import * as classNames from 'classnames'
 import * as React from 'react'
 import IAction from '../../Action'
+import LoadingSpinner from '../../loading/LoadingSpinner'
 import ITrack from '../../playlists/ITrack'
 import IEvent from '../IEvent'
 
 interface IPreGamePlaylistProps {
   event: IEvent
   acceptedTracks: ITrack[]
+  saving: boolean
   acceptAllSuggestedTracks(): IAction
+  savePreGamePlaylist(): IAction
 }
 
 const decorate = withStyles((theme: Theme) => ({
@@ -77,7 +80,21 @@ const renderTrack = (track: ITrack, classes: any) => {
   )
 }
 
-const renderSaveButtons = (classes: any, hasAcceptedTrack: boolean) => {
+const handleSaveClicked = (
+  savePreGamePlaylist: any,
+  event: IEvent,
+  acceptedTracks: ITrack[]
+) => () => {
+  savePreGamePlaylist(event, acceptedTracks)
+}
+
+const renderSaveButtons = (
+  classes: any,
+  hasAcceptedTrack: boolean,
+  savePreGamePlaylist: any,
+  event: IEvent,
+  acceptedTracks: ITrack[]
+) => {
   return (
     <div>
       <Button
@@ -85,6 +102,7 @@ const renderSaveButtons = (classes: any, hasAcceptedTrack: boolean) => {
         variant="raised"
         color="primary"
         disabled={!hasAcceptedTrack}
+        onClick={handleSaveClicked(savePreGamePlaylist, event, acceptedTracks)}
       >
         <DoneAll className={classNames(classes.leftIcon, classes.iconSmall)} />
         Save Changes{' '}
@@ -103,74 +121,89 @@ const renderSaveButtons = (classes: any, hasAcceptedTrack: boolean) => {
 }
 
 const PreGamePlaylist = decorate<IPreGamePlaylistProps>(
-  ({ classes, event, acceptedTracks }) => {
+  ({ classes, event, acceptedTracks, savePreGamePlaylist, saving }) => {
     return (
       <div className={classes.root}>
-        <Grid container={true} spacing={24}>
-          <Grid item={true} sm={8}>
-            <Hidden smUp={true}>
-              {renderSaveButtons(classes, acceptedTracks.length > 0)}
-            </Hidden>
-
-            {acceptedTracks &&
-              acceptedTracks.length > 0 && (
-                <List className={classes.acceptedTracks}>
-                  {acceptedTracks.map((track, i) =>
-                    renderTrack(track, classes)
-                  )}
-                </List>
-              )}
-
-            {event.playlist &&
-              event.playlist.tracks.total > 0 && (
-                <List>
-                  {event.playlist.tracks.items.map((item, i) =>
-                    renderTrack(item.track, classes)
-                  )}
-                </List>
-              )}
-            {event.playlist &&
-              event.playlist.tracks.total < 1 && <p>No tracks yet</p>}
-          </Grid>
-          <Grid item={true} sm={4}>
-            <Hidden smDown={true}>
-              {renderSaveButtons(classes, acceptedTracks.length > 0)}
-            </Hidden>
-            <Card className={classes.card}>
-              {event.playlist &&
-                event.playlist.images &&
-                event.playlist.images.length > 0 && (
-                  <CardMedia
-                    className={classes.media}
-                    image={event.playlist.images[0].url}
-                    title={event.playlist.name}
-                  />
+        {saving && <LoadingSpinner />}
+        {!saving && (
+          <Grid container={true} spacing={24}>
+            <Grid item={true} sm={8}>
+              <Hidden smUp={true}>
+                {renderSaveButtons(
+                  classes,
+                  acceptedTracks.length > 0,
+                  savePreGamePlaylist,
+                  event,
+                  acceptedTracks
                 )}
-              <CardContent>
-                <Typography
-                  gutterBottom={true}
-                  variant="headline"
-                  component="h2"
-                >
-                  {event.playlist && event.playlist.name}
-                </Typography>
-                <Typography variant="subheading">
-                  {event.playlist && event.playlist.followers.total} Followers
-                </Typography>
-                <Typography component="p">
-                  {event.playlist && (
-                    <a
-                      href={event.playlist.external_urls.spotify}
-                      target="_blank"
-                    >
-                      Open in Spotify
-                    </a>
+              </Hidden>
+
+              {acceptedTracks &&
+                acceptedTracks.length > 0 && (
+                  <List className={classes.acceptedTracks}>
+                    {acceptedTracks.map((track, i) =>
+                      renderTrack(track, classes)
+                    )}
+                  </List>
+                )}
+
+              {event.playlist &&
+                event.playlist.tracks.total > 0 && (
+                  <List>
+                    {event.playlist.tracks.items.map((item, i) =>
+                      renderTrack(item.track, classes)
+                    )}
+                  </List>
+                )}
+              {event.playlist &&
+                event.playlist.tracks.total < 1 && <p>No tracks yet</p>}
+            </Grid>
+            <Grid item={true} sm={4}>
+              <Hidden smDown={true}>
+                {renderSaveButtons(
+                  classes,
+                  acceptedTracks.length > 0,
+                  savePreGamePlaylist,
+                  event,
+                  acceptedTracks
+                )}
+              </Hidden>
+              <Card className={classes.card}>
+                {event.playlist &&
+                  event.playlist.images &&
+                  event.playlist.images.length > 0 && (
+                    <CardMedia
+                      className={classes.media}
+                      image={event.playlist.images[0].url}
+                      title={event.playlist.name}
+                    />
                   )}
-                </Typography>
-              </CardContent>
-            </Card>
+                <CardContent>
+                  <Typography
+                    gutterBottom={true}
+                    variant="headline"
+                    component="h2"
+                  >
+                    {event.playlist && event.playlist.name}
+                  </Typography>
+                  <Typography variant="subheading">
+                    {event.playlist && event.playlist.followers.total} Followers
+                  </Typography>
+                  <Typography component="p">
+                    {event.playlist && (
+                      <a
+                        href={event.playlist.external_urls.spotify}
+                        target="_blank"
+                      >
+                        Open in Spotify
+                      </a>
+                    )}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </div>
     )
   }

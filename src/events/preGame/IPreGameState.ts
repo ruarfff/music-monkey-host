@@ -6,4 +6,5 @@ export default interface IPreGameState {
   suggestions?: IPregameSuggestion[]
   suggestionFetchError?: Error
   acceptedTracks: ITrack[]
+  saving: boolean
 }

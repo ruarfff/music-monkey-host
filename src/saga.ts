@@ -12,7 +12,10 @@ import {
   watchFetchEvents,
   watchUpdateLocationAutoComplete
 } from './events/eventSaga'
-import { watchFetchPreGameSuggestion } from './events/preGame/preGameSaga'
+import {
+  watchFetchPreGameSuggestion,
+  watchSavePreGamePlaylist
+} from './events/preGame/preGameSaga'
 import {
   watchDeleteEvent,
   watchFetchEventById
@@ -33,6 +36,7 @@ export default function* saga() {
     watchStoreRefreshToken(),
     watchRefresh(),
     watchDeleteEvent(),
-    watchFetchPreGameSuggestion()
+    watchFetchPreGameSuggestion(),
+    watchSavePreGamePlaylist()
   ])
 }
