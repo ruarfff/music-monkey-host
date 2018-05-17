@@ -1,6 +1,9 @@
 import IAction from '../../Action'
 import IPreGameState from './IPreGameState'
 import {
+  PRE_GAME_ACCEPT_ALL_SUGGESTED_TRACKS,
+  PRE_GAME_ACCEPT_ONE_SUGGESTED_TRACK,
+  PRE_GAME_DELETE_ONE_SUGGESTED_TRACK,
   PRE_GAME_SUGGESTIONS_FETCH_ERROR,
   PRE_GAME_SUGGESTIONS_FETCHED,
   PRE_GAME_TAB_INDEX_CHANGED
@@ -27,6 +30,26 @@ export default function preGameView(
         ...state,
         suggestionFetchError: payload
       }
+    case PRE_GAME_ACCEPT_ALL_SUGGESTED_TRACKS:
+      return {
+        ...state,
+        acceptedTracks: [...state.acceptedTracks, ...payload.tracks],
+        suggestions: state.suggestions
+          ? state.suggestions.map(suggestion => {
+              if (suggestion.user.userId === payload.user.userId) {
+                return {
+                  ...suggestion,
+                  tracks: []
+                }
+              }
+              return suggestion
+            })
+          : state.suggestions
+      }
+    case PRE_GAME_ACCEPT_ONE_SUGGESTED_TRACK:
+      return { ...state }
+    case PRE_GAME_DELETE_ONE_SUGGESTED_TRACK:
+      return { ...state }
     default:
       return state
   }

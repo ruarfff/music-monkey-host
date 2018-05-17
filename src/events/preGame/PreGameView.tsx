@@ -12,7 +12,7 @@ import SwipeableViews from 'react-swipeable-views'
 import IAction from '../../Action'
 import IEvent from '../IEvent'
 import IPregameSuggestion from './IPregameSuggestion'
-import PreGamePlaylist from './PreGamePlaylist'
+import PreGamePlaylist from './PreGamePlaylistContainer'
 import UserSuggestionsView from './UserSuggestionsViewContainer'
 
 interface IPreGameViewProps {
@@ -95,7 +95,7 @@ const PreGameView = decorate<IPreGameViewProps>(
                 onChangeIndex={onPreGameTabIndexChange}
               >
                 <TabContainer dir={safeTheme.direction}>
-                  <PreGamePlaylist playlist={event.playlist} />
+                  <PreGamePlaylist />
                 </TabContainer>
 
                 {suggestions.map((suggestion, i) => (

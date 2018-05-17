@@ -14,11 +14,13 @@ import DoneAll from '@material-ui/icons/DoneAll'
 import Undo from '@material-ui/icons/Undo'
 import * as classNames from 'classnames'
 import * as React from 'react'
-import IPlaylist from '../../playlists/IPlaylist'
+import IAction from '../../Action'
 import ITrack from '../../playlists/ITrack'
+import IEvent from '../IEvent'
 
 interface IPreGamePlaylistProps {
-  playlist: IPlaylist
+  event: IEvent
+  acceptAllSuggestedTracks(): IAction
 }
 
 const decorate = withStyles((theme: Theme) => ({
@@ -97,30 +99,33 @@ const renderSaveButtons = (classes: any) => {
 }
 
 const PreGamePlaylist = decorate<IPreGamePlaylistProps>(
-  ({ classes, playlist }) => {
+  ({ classes, event }) => {
     return (
       <div className={classes.root}>
         <Grid container={true} spacing={24}>
           <Grid item={true} sm={8}>
             <Hidden smUp={true}>{renderSaveButtons(classes)}</Hidden>
-            {playlist.tracks.total > 0 && (
-              <List>
-                {playlist.tracks.items.map((item, i) =>
-                  renderTrack(item.track, classes)
-                )}
-              </List>
-            )}
-            {playlist.tracks.total < 1 && <p>No tracks yet</p>}
+            {event.playlist &&
+              event.playlist.tracks.total > 0 && (
+                <List>
+                  {event.playlist.tracks.items.map((item, i) =>
+                    renderTrack(item.track, classes)
+                  )}
+                </List>
+              )}
+            {event.playlist &&
+              event.playlist.tracks.total < 1 && <p>No tracks yet</p>}
           </Grid>
           <Grid item={true} sm={4}>
             <Hidden smDown={true}>{renderSaveButtons(classes)}</Hidden>
             <Card className={classes.card}>
-              {playlist.images &&
-                playlist.images.length > 0 && (
+              {event.playlist &&
+                event.playlist.images &&
+                event.playlist.images.length > 0 && (
                   <CardMedia
                     className={classes.media}
-                    image={playlist.images[0].url}
-                    title={playlist.name}
+                    image={event.playlist.images[0].url}
+                    title={event.playlist.name}
                   />
                 )}
               <CardContent>
@@ -129,15 +134,20 @@ const PreGamePlaylist = decorate<IPreGamePlaylistProps>(
                   variant="headline"
                   component="h2"
                 >
-                  {playlist.name}
+                  {event.playlist && event.playlist.name}
                 </Typography>
                 <Typography variant="subheading">
-                  {playlist.followers.total} Followers
+                  {event.playlist && event.playlist.followers.total} Followers
                 </Typography>
                 <Typography component="p">
-                  <a href={playlist.external_urls.spotify} target="_blank">
-                    Open in Spotify
-                  </a>
+                  {event.playlist && (
+                    <a
+                      href={event.playlist.external_urls.spotify}
+                      target="_blank"
+                    >
+                      Open in Spotify
+                    </a>
+                  )}
                 </Typography>
               </CardContent>
             </Card>

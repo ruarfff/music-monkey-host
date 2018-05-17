@@ -1,6 +1,11 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import IRootState from '../../rootState'
+import {
+  acceptAllSuggestedTracks,
+  acceptOneSuggestedTrack,
+  deleteOneSuggestedTrack
+} from './pregameActions'
 import UserSuggestionsView from './UserSuggestionsView'
 
 const mapStateToProps = (state: IRootState) => ({
@@ -8,7 +13,11 @@ const mapStateToProps = (state: IRootState) => ({
   suggestions: state.preGame.suggestions
 })
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {
+  acceptAllSuggestedTracks,
+  acceptOneSuggestedTrack,
+  deleteOneSuggestedTrack
+}
 
 const UserSuggestionsViewContainer = withRouter(connect(
   mapStateToProps,

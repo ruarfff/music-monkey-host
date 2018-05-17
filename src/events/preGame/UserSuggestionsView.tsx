@@ -1,3 +1,4 @@
+import { Typography } from '@material-ui/core'
 import Button from '@material-ui/core/Button/Button'
 import Grid from '@material-ui/core/Grid/Grid'
 import IconButton from '@material-ui/core/IconButton/IconButton'
@@ -11,12 +12,22 @@ import CommentIcon from '@material-ui/icons/CheckCircle'
 import DoneAll from '@material-ui/icons/DoneAll'
 import * as classNames from 'classnames'
 import * as React from 'react'
+import IAction from '../../Action'
 import ITrack from '../../playlists/ITrack'
 import IPregameSuggestion from './IPregameSuggestion'
 
 interface IUserSuggestionsViewProps {
   suggestions: IPregameSuggestion[]
   preGameTabIndex: number
+  acceptAllSuggestedTracks(suggestion: IPregameSuggestion): IAction
+  acceptOneSuggestedTrack(
+    suggestion: IPregameSuggestion,
+    track: ITrack
+  ): IAction
+  deleteOneSuggestedTrack(
+    suggestion: IPregameSuggestion,
+    track: ITrack
+  ): IAction
 }
 
 const decorate = withStyles((theme: Theme) => ({
@@ -60,7 +71,11 @@ const renderTrackList = (
     !suggestions[tabIndex - 1].tracks ||
     suggestions[tabIndex - 1].tracks.length < 1
   ) {
-    return <p>No tracks yet</p>
+    return (
+      <Typography align="center" variant="subheading">
+        No tracks to accept
+      </Typography>
+    )
   }
   const tracks = suggestions[tabIndex - 1].tracks
   return <List>{tracks.map((track, i) => renderTrack(track, classes))}</List>
@@ -91,10 +106,19 @@ const renderTrack = (track: ITrack, classes: any) => {
   )
 }
 
-const renderSaveButtons = (classes: any) => {
+const handleAcceptAllClicked = (props: IUserSuggestionsViewProps) => () => {
+  props.acceptAllSuggestedTracks(props.suggestions[props.preGameTabIndex - 1])
+}
+
+const renderSaveButtons = (classes: any, props: IUserSuggestionsViewProps) => {
   return (
     <div>
-      <Button className={classes.button} variant="raised" color="primary">
+      <Button
+        className={classes.button}
+        variant="raised"
+        color="primary"
+        onClick={handleAcceptAllClicked(props)}
+      >
         <DoneAll className={classNames(classes.leftIcon, classes.iconSmall)} />
         Accept All{' '}
       </Button>
@@ -103,13 +127,28 @@ const renderSaveButtons = (classes: any) => {
 }
 
 const UserSuggestionsView = decorate<IUserSuggestionsViewProps>(
-  ({ classes, suggestions, preGameTabIndex }) => {
+  ({
+    classes,
+    suggestions,
+    preGameTabIndex,
+    acceptAllSuggestedTracks,
+    acceptOneSuggestedTrack,
+    deleteOneSuggestedTrack
+  }) => {
     return (
       <div className={classes.root}>
         <Grid container={true} spacing={24}>
-          <Grid item={true} sm={12}>
-            {renderSaveButtons(classes)}
-          </Grid>
+          {suggestions &&
+            suggestions[preGameTabIndex - 1] &&
+            suggestions[preGameTabIndex - 1].tracks.length > 0 && (
+              <Grid item={true} sm={12}>
+                {renderSaveButtons(classes, {
+                  acceptAllSuggestedTracks,
+                  preGameTabIndex,
+                  suggestions
+                } as IUserSuggestionsViewProps)}
+              </Grid>
+            )}
           <Grid item={true} sm={12}>
             {renderTrackList(suggestions, preGameTabIndex, classes)}
           </Grid>
