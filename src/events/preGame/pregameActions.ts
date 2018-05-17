@@ -16,6 +16,8 @@ export const PRE_GAME_ACCEPT_ONE_SUGGESTED_TRACK =
 export const PRE_GAME_DELETE_ONE_SUGGESTED_TRACK =
   'PRE_GAME_DELETE_ONE_SUGGESTED_TRACK'
 
+export const PRE_GAME_RESET_UNSAVED_PLAYLIST = 'PRE_GAME_RESET_UNSAVED_PLAYLIST'
+
 export const onPreGameTabIndexChange = (index: number): IAction => ({
   type: PRE_GAME_TAB_INDEX_CHANGED,
   payload: index
@@ -47,4 +49,8 @@ export const deleteOneSuggestedTrack = (
 ): IAction => ({
   type: PRE_GAME_DELETE_ONE_SUGGESTED_TRACK,
   payload: { suggestion, track }
+})
+
+export const resetUnsavedPlaylist = (): IAction => ({
+  type: PRE_GAME_RESET_UNSAVED_PLAYLIST
 })
