@@ -47,7 +47,23 @@ export default function preGameView(
           : state.suggestions
       }
     case PRE_GAME_ACCEPT_ONE_SUGGESTED_TRACK:
-      return { ...state }
+      return {
+        ...state,
+        acceptedTracks: [...state.acceptedTracks, payload.track],
+        suggestions: state.suggestions
+          ? state.suggestions.map(suggestion => {
+              if (suggestion.user.userId === payload.suggestion.user.userId) {
+                return {
+                  ...suggestion,
+                  tracks: suggestion.tracks.filter(
+                    track => track.uri !== payload.track.uri
+                  )
+                }
+              }
+              return suggestion
+            })
+          : state.suggestions
+      }
     case PRE_GAME_DELETE_ONE_SUGGESTED_TRACK:
       return { ...state }
     default:

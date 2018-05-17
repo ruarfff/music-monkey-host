@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core'
+import { Typography, WithStyles } from '@material-ui/core'
 import Button from '@material-ui/core/Button/Button'
 import Grid from '@material-ui/core/Grid/Grid'
 import IconButton from '@material-ui/core/IconButton/IconButton'
@@ -8,7 +8,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction/L
 import ListItemText from '@material-ui/core/ListItemText/ListItemText'
 import { Theme } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
-import CommentIcon from '@material-ui/icons/CheckCircle'
+import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import DoneAll from '@material-ui/icons/DoneAll'
 import * as classNames from 'classnames'
 import * as React from 'react'
@@ -60,102 +60,116 @@ const decorate = withStyles((theme: Theme) => ({
   }
 }))
 
-const renderTrackList = (
-  suggestions: IPregameSuggestion[],
-  tabIndex: number,
-  classes: any
-) => {
-  if (
-    tabIndex < 1 ||
-    suggestions.length < tabIndex ||
-    !suggestions[tabIndex - 1].tracks ||
-    suggestions[tabIndex - 1].tracks.length < 1
-  ) {
-    return (
-      <Typography align="center" variant="subheading">
-        No tracks to accept
-      </Typography>
-    )
-  }
-  const tracks = suggestions[tabIndex - 1].tracks
-  return <List>{tracks.map((track, i) => renderTrack(track, classes))}</List>
-}
+type PropsWithStyles = IUserSuggestionsViewProps & WithStyles<'root'>
 
-const renderTrack = (track: ITrack, classes: any) => {
-  let trackImage = <span />
-  if (track.album && track.album.images && track.album.images.length > 0) {
-    trackImage = (
-      <img
-        className={classes.trackImage}
-        src={track.album.images[track.album.images.length - 1].url}
-        alt={track.name}
-      />
-    )
-  }
+class UserSuggestionsView extends React.Component<PropsWithStyles, {}> {
+  public render() {
+    const { classes, suggestions, preGameTabIndex } = this.props
 
-  return (
-    <ListItem key={track.uri} dense={true} button={true}>
-      {trackImage}
-      <ListItemSecondaryAction>
-        <IconButton aria-label="Comments">
-          <CommentIcon />
-        </IconButton>
-      </ListItemSecondaryAction>
-      <ListItemText primary={track.name} />
-    </ListItem>
-  )
-}
+    if (!suggestions || !suggestions[preGameTabIndex - 1]) {
+      return (
+        <Typography align="center" variant="subheading">
+          Currently no Suggestions
+        </Typography>
+      )
+    }
 
-const handleAcceptAllClicked = (props: IUserSuggestionsViewProps) => () => {
-  props.acceptAllSuggestedTracks(props.suggestions[props.preGameTabIndex - 1])
-}
+    const currentUserSuggestion = suggestions[preGameTabIndex - 1]
 
-const renderSaveButtons = (classes: any, props: IUserSuggestionsViewProps) => {
-  return (
-    <div>
-      <Button
-        className={classes.button}
-        variant="raised"
-        color="primary"
-        onClick={handleAcceptAllClicked(props)}
-      >
-        <DoneAll className={classNames(classes.leftIcon, classes.iconSmall)} />
-        Accept All{' '}
-      </Button>
-    </div>
-  )
-}
-
-const UserSuggestionsView = decorate<IUserSuggestionsViewProps>(
-  ({
-    classes,
-    suggestions,
-    preGameTabIndex,
-    acceptAllSuggestedTracks,
-    acceptOneSuggestedTrack,
-    deleteOneSuggestedTrack
-  }) => {
     return (
       <div className={classes.root}>
         <Grid container={true} spacing={24}>
-          {suggestions &&
-            suggestions[preGameTabIndex - 1] &&
-            suggestions[preGameTabIndex - 1].tracks.length > 0 && (
-              <Grid item={true} sm={12}>
-                {renderSaveButtons(classes, {
-                  acceptAllSuggestedTracks,
-                  preGameTabIndex,
-                  suggestions
-                } as IUserSuggestionsViewProps)}
-              </Grid>
-            )}
+          {currentUserSuggestion.tracks.length > 0 && (
+            <Grid item={true} sm={12}>
+              {this.renderSaveButtons()}
+            </Grid>
+          )}
           <Grid item={true} sm={12}>
-            {renderTrackList(suggestions, preGameTabIndex, classes)}
+            {this.renderTrackList()}
           </Grid>
         </Grid>
       </div>
     )
   }
-)
 
-export default UserSuggestionsView
+  private renderTrackList = () => {
+    const { suggestions, preGameTabIndex } = this.props
+    const currentUserSuggestion = suggestions[preGameTabIndex - 1]
+    if (
+      preGameTabIndex < 1 ||
+      suggestions.length < preGameTabIndex ||
+      !currentUserSuggestion.tracks ||
+      currentUserSuggestion.tracks.length < 1
+    ) {
+      return (
+        <Typography align="center" variant="subheading">
+          No tracks to accept
+        </Typography>
+      )
+    }
+    const tracks = currentUserSuggestion.tracks
+    return <List>{tracks.map((track, i) => this.renderTrack(track))}</List>
+  }
+
+  private handleTrackAccepted = (track: ITrack) => () =>
+    this.props.acceptOneSuggestedTrack(
+      this.props.suggestions[this.props.preGameTabIndex - 1],
+      track
+    )
+
+  private renderTrack = (track: ITrack) => {
+    const classes: any = this.props.classes
+    let trackImage = <span />
+    if (track.album && track.album.images && track.album.images.length > 0) {
+      trackImage = (
+        <img
+          className={classes.trackImage}
+          src={track.album.images[track.album.images.length - 1].url}
+          alt={track.name}
+        />
+      )
+    }
+
+    return (
+      <ListItem key={track.uri} dense={true} button={true}>
+        {trackImage}
+        <ListItemSecondaryAction>
+          <IconButton
+            aria-label="Accept"
+            onClick={this.handleTrackAccepted(track)}
+          >
+            <CheckCircleIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+        <ListItemText primary={track.name} />
+      </ListItem>
+    )
+  }
+  private handleAcceptAllClicked = () => () => {
+    this.props.acceptAllSuggestedTracks(
+      this.props.suggestions[this.props.preGameTabIndex - 1]
+    )
+  }
+
+  private renderSaveButtons = () => {
+    const classes: any = this.props.classes
+
+    return (
+      <div>
+        <Button
+          className={classes.button}
+          variant="raised"
+          color="primary"
+          onClick={this.handleAcceptAllClicked()}
+        >
+          <DoneAll
+            className={classNames(classes.leftIcon, classes.iconSmall)}
+          />
+          Accept All{' '}
+        </Button>
+      </div>
+    )
+  }
+}
+
+export default decorate(UserSuggestionsView as any)
