@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { flatten, forOwn, groupBy } from 'lodash'
 import * as SpotifyWebApi from 'spotify-web-api-js'
 import { accessTokenKey } from '../../auth/authConstants'
 import IPlaylistQuery from '../../playlists/IPlaylistQuery'
@@ -10,7 +11,24 @@ const serviceUrl = process.env.REACT_APP_MM_API_URL
 
 export default class EventDecorator {
   public decorateSuggestions = (suggestions: ISuggestion[]) => {
-    return Promise.all(suggestions.map(this.decorateSuggestion))
+    const decorateSuggestions: any[] = []
+    forOwn(groupBy(suggestions, 'userId'), (value, key) => {
+      const userPromise = this.getUser(key)
+      const tracksPromise = Promise.all(value.map(this.suggestionToTracks))
+      decorateSuggestions.push(
+        new Promise((resolve, reject) => {
+          userPromise.then(user => {
+            tracksPromise
+              .then(results => {
+                const tracks = flatten(results)
+                resolve({ user, tracks })
+              })
+              .catch(reject)
+          })
+        })
+      )
+    })
+    return Promise.all(decorateSuggestions)
   }
   private getUser = (userId: string) => {
     return axios
@@ -34,18 +52,8 @@ export default class EventDecorator {
     }
   }
 
-  private decorateSuggestion = (suggestion: ISuggestion) => {
-    const { userId, item } = suggestion
-
-    return new Promise((resolve, reject) => {
-      this.getUser(userId).then(user => {
-        this.getSuggestedItems(item).then(playlist => {
-          resolve({
-            user,
-            tracks: playlist.tracks.items.map(t => t.track)
-          })
-        })
-      })
-    })
-  }
+  private suggestionToTracks = ({ item }: ISuggestion) =>
+    this.getSuggestedItems(item).then(playlist =>
+      playlist.tracks.items.map(t => t.track)
+    )
 }
