@@ -12,6 +12,7 @@ export const onPreGameTabIndexChange = (index: number): IAction => ({
   payload: index
 })
 
-export const fetchPreGameSuggestion = (): IAction => ({
-  type: PRE_GAME_SUGGESTIONS_FETCH_INITIATED
+export const fetchPreGameSuggestion = (eventId: string): IAction => ({
+  type: PRE_GAME_SUGGESTIONS_FETCH_INITIATED,
+  payload: eventId
 })

@@ -1,0 +1,7 @@
+export default interface ISuggestion {
+  suggestionId?: string
+  eventId: string
+  userId: string
+  type: string
+  item: string
+}

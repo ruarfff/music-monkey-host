@@ -20,7 +20,7 @@ interface IPreGameViewProps {
   preGameTabIndex: number
   suggestions: IPregameSuggestion[]
   onPreGameTabIndexChange(index: number): IAction
-  fetchPreGameSuggestion(): IAction
+  fetchPreGameSuggestion(eventId: string): IAction
 }
 
 const decorate = withStyles((theme: Theme) => ({
@@ -32,7 +32,10 @@ const decorate = withStyles((theme: Theme) => ({
 }))
 
 const componentDidMount = (props: IPreGameViewProps) => {
-  props.fetchPreGameSuggestion()
+  if (props.event) {
+    const eventId = props.event.eventId || ''
+    props.fetchPreGameSuggestion(eventId)
+  }
 }
 
 function TabContainer({ children, dir }: any) {
