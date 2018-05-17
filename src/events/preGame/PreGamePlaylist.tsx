@@ -20,6 +20,7 @@ import IEvent from '../IEvent'
 
 interface IPreGamePlaylistProps {
   event: IEvent
+  acceptedTracks: ITrack[]
   acceptAllSuggestedTracks(): IAction
 }
 
@@ -50,6 +51,10 @@ const decorate = withStyles((theme: Theme) => ({
   },
   iconSmall: {
     fontSize: 20
+  },
+  acceptedTracks: {
+    border: '2px solid #dadada',
+    borderRadius: 'border-radius: 7px'
   }
 }))
 
@@ -64,7 +69,6 @@ const renderTrack = (track: ITrack, classes: any) => {
       />
     )
   }
-
   return (
     <ListItem key={track.uri} dense={true} button={true}>
       {trackImage}
@@ -73,14 +77,14 @@ const renderTrack = (track: ITrack, classes: any) => {
   )
 }
 
-const renderSaveButtons = (classes: any) => {
+const renderSaveButtons = (classes: any, hasAcceptedTrack: boolean) => {
   return (
     <div>
       <Button
         className={classes.button}
         variant="raised"
         color="primary"
-        disabled={true}
+        disabled={!hasAcceptedTrack}
       >
         <DoneAll className={classNames(classes.leftIcon, classes.iconSmall)} />
         Save Changes{' '}
@@ -89,7 +93,7 @@ const renderSaveButtons = (classes: any) => {
         className={classes.button}
         variant="raised"
         color="secondary"
-        disabled={true}
+        disabled={!hasAcceptedTrack}
       >
         <Undo className={classNames(classes.leftIcon, classes.iconSmall)} />
         Reset{' '}
@@ -99,12 +103,24 @@ const renderSaveButtons = (classes: any) => {
 }
 
 const PreGamePlaylist = decorate<IPreGamePlaylistProps>(
-  ({ classes, event }) => {
+  ({ classes, event, acceptedTracks }) => {
     return (
       <div className={classes.root}>
         <Grid container={true} spacing={24}>
           <Grid item={true} sm={8}>
-            <Hidden smUp={true}>{renderSaveButtons(classes)}</Hidden>
+            <Hidden smUp={true}>
+              {renderSaveButtons(classes, acceptedTracks.length > 0)}
+            </Hidden>
+
+            {acceptedTracks &&
+              acceptedTracks.length > 0 && (
+                <List className={classes.acceptedTracks}>
+                  {acceptedTracks.map((track, i) =>
+                    renderTrack(track, classes)
+                  )}
+                </List>
+              )}
+
             {event.playlist &&
               event.playlist.tracks.total > 0 && (
                 <List>
@@ -117,7 +133,9 @@ const PreGamePlaylist = decorate<IPreGamePlaylistProps>(
               event.playlist.tracks.total < 1 && <p>No tracks yet</p>}
           </Grid>
           <Grid item={true} sm={4}>
-            <Hidden smDown={true}>{renderSaveButtons(classes)}</Hidden>
+            <Hidden smDown={true}>
+              {renderSaveButtons(classes, acceptedTracks.length > 0)}
+            </Hidden>
             <Card className={classes.card}>
               {event.playlist &&
                 event.playlist.images &&
