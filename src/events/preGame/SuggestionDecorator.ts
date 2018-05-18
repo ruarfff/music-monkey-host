@@ -9,7 +9,7 @@ import ISuggestion from './ISuggestion'
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
 
-export default class EventDecorator {
+export default class SuggestionDecorator {
   public decorateSuggestions = (suggestions: ISuggestion[]) => {
     const decorateSuggestions: any[] = []
     forOwn(groupBy(suggestions, 'userId'), (value, key) => {
