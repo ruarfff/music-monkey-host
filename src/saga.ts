@@ -18,7 +18,8 @@ import {
 } from './events/preGame/preGameSaga'
 import {
   watchDeleteEvent,
-  watchFetchEventById
+  watchFetchEventById,
+  watchRefreshEventPlaylist
 } from './events/view/eventViewSaga'
 import { watchFetchPlaylists } from './playlists/playlistSaga'
 
@@ -37,6 +38,7 @@ export default function* saga() {
     watchRefresh(),
     watchDeleteEvent(),
     watchFetchPreGameSuggestion(),
-    watchSavePreGamePlaylist()
+    watchSavePreGamePlaylist(),
+    watchRefreshEventPlaylist()
   ])
 }

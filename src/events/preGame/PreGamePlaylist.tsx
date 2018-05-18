@@ -61,7 +61,7 @@ const decorate = withStyles((theme: Theme) => ({
   }
 }))
 
-const renderTrack = (track: ITrack, classes: any) => {
+const renderTrack = (track: ITrack, classes: any, index: number) => {
   let trackImage = <span />
   if (track.album && track.album.images && track.album.images.length > 0) {
     trackImage = (
@@ -73,7 +73,7 @@ const renderTrack = (track: ITrack, classes: any) => {
     )
   }
   return (
-    <ListItem key={track.uri} dense={true} button={true}>
+    <ListItem key={index} dense={true} button={true}>
       {trackImage}
       <ListItemText primary={track.name} />
     </ListItem>
@@ -142,7 +142,7 @@ const PreGamePlaylist = decorate<IPreGamePlaylistProps>(
                 acceptedTracks.length > 0 && (
                   <List className={classes.acceptedTracks}>
                     {acceptedTracks.map((track, i) =>
-                      renderTrack(track, classes)
+                      renderTrack(track, classes, i)
                     )}
                   </List>
                 )}
@@ -151,7 +151,7 @@ const PreGamePlaylist = decorate<IPreGamePlaylistProps>(
                 event.playlist.tracks.total > 0 && (
                   <List>
                     {event.playlist.tracks.items.map((item, i) =>
-                      renderTrack(item.track, classes)
+                      renderTrack(item.track, classes, i)
                     )}
                   </List>
                 )}

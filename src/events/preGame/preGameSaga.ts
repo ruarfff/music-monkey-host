@@ -6,6 +6,7 @@ import { accessTokenKey } from '../../auth/authConstants'
 import ITrack from '../../playlists/ITrack'
 import parsePlayistUrl from '../../playlists/parsePlaylistUrl'
 import localStorage from '../../storage/localStorage'
+import { REFRESH_EVENT_PLAYLIST } from '../view/eventViewActions';
 import {
   PRE_GAME_SUGGESTIONS_FETCH_ERROR,
   PRE_GAME_SUGGESTIONS_FETCH_INITIATED,
@@ -51,13 +52,14 @@ function savePreGamePlaylist({ playlist, playlistTracks }: ISavePlaylistArgs) {
     userName,
     playlistId,
     playlistTracks.map(pl => pl.uri)
-  )
+  ).then(() => playlist)
 }
 
 function* savePreGamePlaylistFlow(action: IAction) {
   try {
-    const playlist = yield call(savePreGamePlaylist, action.payload)
-    yield put({ type: SAVE_PRE_GAME_PLAYLIST_SUCCESS, payload: playlist })
+    const event = yield call(savePreGamePlaylist, action.payload)
+    yield put({ type: SAVE_PRE_GAME_PLAYLIST_SUCCESS, payload: event })
+    yield put({type: REFRESH_EVENT_PLAYLIST, payload: event.eventId})
   } catch (err) {
     yield put({ type: SAVE_PRE_GAME_PLAYLIST_ERROR, payload: err })
   }

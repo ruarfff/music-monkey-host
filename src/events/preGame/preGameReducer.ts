@@ -1,10 +1,12 @@
 import IAction from '../../Action'
+import { EVENT_FETCH_BY_ID_INITIATED } from '../view/eventViewActions';
 import IPreGameState from './IPreGameState'
 import {
   PRE_GAME_ACCEPT_ALL_SUGGESTED_TRACKS,
   PRE_GAME_ACCEPT_ONE_SUGGESTED_TRACK,
   PRE_GAME_DELETE_ONE_SUGGESTED_TRACK,
   PRE_GAME_SUGGESTIONS_FETCH_ERROR,
+  PRE_GAME_SUGGESTIONS_FETCH_INITIATED,
   PRE_GAME_SUGGESTIONS_FETCHED,
   PRE_GAME_TAB_INDEX_CHANGED,
   SAVE_PRE_GAME_PLAYLIST,
@@ -18,11 +20,23 @@ export default function preGameView(
   { type, payload }: IAction
 ) {
   switch (type) {
+    case EVENT_FETCH_BY_ID_INITIATED:
+      return {
+        ...state,
+        acceptedTracks: [],
+        suggestions: []
+      }
     case PRE_GAME_TAB_INDEX_CHANGED:
       return {
         ...state,
         preGameTabIndex: payload
       }
+    case PRE_GAME_SUGGESTIONS_FETCH_INITIATED: {
+      return {
+        ...state,
+        suggestions: []
+      }
+    }
     case PRE_GAME_SUGGESTIONS_FETCHED:
       return {
         ...state,

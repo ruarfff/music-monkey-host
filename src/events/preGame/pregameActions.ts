@@ -65,6 +65,7 @@ export const savePreGamePlaylist = (
 ): IAction => ({
   type: SAVE_PRE_GAME_PLAYLIST,
   payload: {
+    event,
     playlist,
     playlistTracks
   }

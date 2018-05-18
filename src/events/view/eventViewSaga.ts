@@ -9,7 +9,8 @@ import {
   EVENT_DELETE_SUCCESSFUL,
   EVENT_FETCH_BY_ID_ERROR,
   EVENT_FETCH_BY_ID_INITIATED,
-  EVENT_FETCHED_BY_ID
+  EVENT_FETCHED_BY_ID,
+  REFRESH_EVENT_PLAYLIST
 } from './eventViewActions'
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
@@ -57,4 +58,19 @@ function* deleteEventFlow(action: IAction) {
 
 export function* watchDeleteEvent() {
   yield takeEvery(EVENT_DELETE_INITIATED, deleteEventFlow)
+}
+
+// function refreshPlaylist() {}
+
+// function* refreshEventPlaylistFlow(action: IAction) {
+//   try {
+//     const event = yield call(refreshPlaylist, action.payload)
+//     yield put({ type: REFRESH_EVENT_PLAYLIST_SUCCESS, payload: event })
+//   } catch (err) {
+//     yield put({ type: REFRESH_EVENT_PLAYLIST_FAILED, payload: err })
+//   }
+// }
+
+export function* watchRefreshEventPlaylist() {
+  yield takeEvery(REFRESH_EVENT_PLAYLIST, fetchEventByIdFlow)
 }

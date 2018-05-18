@@ -31,6 +31,16 @@ const decorate = withStyles((theme: Theme) => ({
   }
 }))
 
+const componentDidUpdate = (
+  props: IPreGameViewProps,
+  prev: IPreGameViewProps
+) => {
+  if (props.event && !prev.event) {
+    const eventId = props.event.eventId || ''
+    props.fetchPreGameSuggestion(eventId)
+  }
+}
+
 const componentDidMount = (props: IPreGameViewProps) => {
   if (props.event) {
     const eventId = props.event.eventId || ''
@@ -121,5 +131,6 @@ const PreGameView = decorate<IPreGameViewProps>(
 )
 
 export default lifecycle({
+  componentDidUpdate,
   componentDidMount
 })(PreGameView)
