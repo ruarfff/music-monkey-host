@@ -1,29 +1,33 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Route } from 'react-router'
-import { ConnectedRouter, routerActions } from 'react-router-redux'
-import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect'
+import * as React from 'react'
+import { Route } from 'react-router-dom'
+import {
+  ConnectedRouter,
+  ConnectedRouterProps,
+  routerActions
+} from 'react-router-redux'
 import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper'
+import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect'
 
 import Callback from './auth/CallbackContainer'
 import Login from './auth/LoginContainer'
-import Home from './home/HomeContainer'
 import CreateEvent from './events/CreateEventContainer'
-import EventView from './events/view/EventViewContainer'
 import EditEventContainer from './events/edit/EditEventContainer'
+import EventView from './events/view/EventViewContainer'
+import Home from './home/HomeContainer'
+import IRootState from './rootState'
 
 const locationHelper = locationHelperBuilder({})
 
 const userIsNotAuthenticated = connectedRouterRedirect({
   allowRedirectBack: false,
-  authenticatedSelector: state => !state.auth.isAuthenticated,
+  authenticatedSelector: (state: IRootState) => !state.auth.isAuthenticated,
   redirectPath: (state, ownProps) =>
     locationHelper.getRedirectQueryParam(ownProps) || '/',
   wrapperDisplayName: 'UserIsNotAuthenticated'
 })
 
 const userIsAuthenticated = connectedRouterRedirect({
-  authenticatedSelector: state => state.auth.isAuthenticated,
+  authenticatedSelector: (state: IRootState) => state.auth.isAuthenticated,
   redirectAction: routerActions.replace,
   redirectPath: '/login',
   wrapperDisplayName: 'UserIsAuthenticated'
@@ -31,7 +35,7 @@ const userIsAuthenticated = connectedRouterRedirect({
 
 const routes = [
   {
-    component: userIsAuthenticated(Home),
+    component: userIsAuthenticated(Home as any),
     path: '/',
     routes: [
       {
@@ -52,24 +56,24 @@ const routes = [
   }
 ]
 
-export const RouteWithSubRoutes = route => (
+const renderSubRoutes = (route: any) => (props: any) => (
+  <route.component {...props} routes={route.routes} />
+)
+
+export const RouteWithSubRoutes = (route: any) => (
   <Route
     path={route.path}
     exact={route.exact}
-    render={props => <route.component {...props} routes={route.routes} />}
+    render={renderSubRoutes(route)}
   />
 )
 
-export const Routes = ({ history }) => (
+export const Routes: React.SFC<ConnectedRouterProps<{}>> = ({ history }) => (
   <ConnectedRouter history={history}>
     <div>
       <Route path="/callback" component={Callback} />
-      <Route path="/login" component={userIsNotAuthenticated(Login)} />
+      <Route path="/login" component={userIsNotAuthenticated(Login as any)} />
       {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
     </div>
   </ConnectedRouter>
 )
-
-Routes.propTypes = {
-  history: PropTypes.object.isRequired
-}

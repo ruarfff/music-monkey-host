@@ -1,5 +1,6 @@
 import CssBaseline from '@material-ui/core/CssBaseline'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
+import{History} from 'history'
 import MomentUtils from 'material-ui-pickers/utils/moment-utils'
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider'
 import * as React from 'react'
@@ -11,7 +12,7 @@ import theme from './theme'
 
 interface IAppProps {
   store: Store,
-  history: {}
+  history: History
 } 
 
 class App extends React.Component<IAppProps, {}> {
