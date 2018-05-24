@@ -34,6 +34,7 @@ export default function preGameView(
     case PRE_GAME_SUGGESTIONS_FETCH_INITIATED: {
       return {
         ...state,
+        acceptedTracks: [],
         suggestions: []
       }
     }
