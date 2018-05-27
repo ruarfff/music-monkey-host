@@ -172,7 +172,7 @@ const handleCopytToClipboardAcknowledged = (props: PropsWithStyles) => {
 const renderCopiedSnackBar = (props: PropsWithStyles) => (
   <Snackbar
     anchorOrigin={{
-      vertical: 'bottom',
+      vertical: 'top',
       horizontal: 'center'
     }}
     open={true}

@@ -23,7 +23,7 @@ export default class SuggestionDecorator {
             tracksPromise
               .then(results => {
                 const tracks = flatten(results)
-                resolve({ user, tracks })
+                resolve({ user, tracks, suggestion: value })
               })
               .catch(reject)
           })

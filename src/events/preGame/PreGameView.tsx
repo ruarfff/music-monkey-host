@@ -35,7 +35,7 @@ const componentDidUpdate = (
   props: IPreGameViewProps,
   prev: IPreGameViewProps
 ) => {
-  if (props.event && !prev.event) {
+  if (props.event.eventId !== prev.event.eventId) {
     const eventId = props.event.eventId || ''
     props.fetchPreGameSuggestion(eventId)
   }
