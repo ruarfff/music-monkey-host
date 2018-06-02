@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Action from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
-import {IAuthState} from './AuthModel'
+import IAuthState from './IAuthState'
 import './Login.css'
 import logo from './spotify-login.svg'
 
@@ -9,7 +9,7 @@ const serviceUrl = process.env.REACT_APP_MM_API_URL
 const redirectToUrl = process.env.REACT_APP_REDIRECT_URL
 
 interface ILoginProps {
-  auth: IAuthState,
+  auth: IAuthState
   login(): Action
 }
 

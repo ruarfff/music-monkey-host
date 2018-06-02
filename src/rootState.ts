@@ -1,4 +1,4 @@
-import { IAuthState } from './auth/AuthModel'
+import IAuthState from './auth/IAuthState'
 import IEventState from './events/IEventState'
 import IPreGameState from './events/preGame/IPreGameState'
 import IEventViewState from './events/view/IEventViewState'

@@ -6,7 +6,7 @@ import {
   LOGIN_SUCCESS
 } from './authActions'
 import initialState from './authInitialState'
-import { IAuthState } from './AuthModel'
+import IAuthState from './IAuthState'
 
 export default function auth(
   state = initialState,

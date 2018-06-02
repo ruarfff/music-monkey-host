@@ -1,3 +1,4 @@
+import * as queryString from 'query-string'
 import * as React from 'react'
 import { Redirect } from 'react-router'
 import IAction from '../IAction'
@@ -7,14 +8,21 @@ interface ICallbackProps {
   storeRefreshToken(token: string): IAction
 }
 
-const parseToken = (searchString: string): string =>
-  searchString ? searchString.split('=')[1] : ''
+interface ICallbackParams {
+  rt: string
+}
+
+const parseParams = (searchString: string): ICallbackParams => {
+  const parsed = queryString.parse(searchString)
+
+  return { rt: parsed.rt || '' }
+}
 
 class Callback extends React.Component<ICallbackProps, {}> {
   public componentWillMount() {
-    const token = parseToken(this.props.location.search)
-    if (token) {
-      this.props.storeRefreshToken(token)
+    const params = parseParams(this.props.location.search)
+    if (params.rt) {
+      this.props.storeRefreshToken(params.rt)
     }
   }
 

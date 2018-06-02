@@ -1,4 +1,4 @@
-import { IAuthState } from './AuthModel'
+import IAuthState from './IAuthState'
 
 export default {
   authError: undefined,
