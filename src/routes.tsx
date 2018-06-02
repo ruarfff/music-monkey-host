@@ -6,7 +6,7 @@ import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect'
 
 import Callback from './auth/CallbackContainer'
 import Login from './auth/LoginContainer'
-import CreateEvent from './events/CreateEventContainer'
+import CreateEvent from './eventCreation/CreateEventContainer'
 import EditEventContainer from './events/edit/EditEventContainer'
 import EventView from './events/view/EventViewContainer'
 import Home from './home/HomeContainer'

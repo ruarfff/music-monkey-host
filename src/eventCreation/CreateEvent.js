@@ -12,12 +12,12 @@ import TextField from '@material-ui/core/TextField/TextField'
 
 import FileUpload from '../upload/FileUpload'
 import LocationAutoComplete from '../location/LocationAutoComplete'
-import EventNameInput from './create/EventNameInput'
-import EventOrganizerInput from './create/EventOrganizerInput'
-import EventDescriptionInput from './create/EventDescriptionInput'
-import EventVenueInput from './create/EventVenueInput'
-import EventCodeInput from './create/EventCodeInput'
-import PlaylistSelection from './create/PlaylistSelection'
+import EventNameInput from './EventNameInput'
+import EventOrganizerInput from './EventOrganizerInput'
+import EventDescriptionInput from './EventDescriptionInput'
+import EventVenueInput from './EventVenueInput'
+import EventCodeInput from './EventCodeInput'
+import PlaylistSelection from './PlaylistSelection'
 
 const styles = theme => ({
   button: {
