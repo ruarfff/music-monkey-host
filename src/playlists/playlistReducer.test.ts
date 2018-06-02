@@ -1,8 +1,11 @@
-import Action from '../Action'
+import Action from '../IAction'
+import IPlaylist from './IPlaylist'
 import {
   FETCH_PLAYLISTS,
   FETCH_PLAYLISTS_ERROR,
-  FETCH_PLAYLISTS_SUCCESS
+  FETCH_PLAYLISTS_SUCCESS,
+  PLAYLIST_DESELECTED,
+  PLAYLIST_SELECTED
 } from './playlistActions'
 import initialState from './playlistInitialState'
 import playlist from './playlistReducer'
@@ -43,4 +46,24 @@ it('should handle FETCH_PLAYLIST_ERROR', () => {
       type: FETCH_PLAYLISTS_ERROR
     })
   ).toEqual({ ...initialState, error: new Error('Oh dear :(') })
+})
+
+it('should handle PLAYLIST_SELECTED', () => {
+  expect(
+    playlist(initialState, {
+      payload: {} as IPlaylist,
+      type: PLAYLIST_SELECTED
+    })
+  ).toEqual({ ...initialState, selectedPlaylist: {} as IPlaylist })
+})
+
+it('should handle PLAYLIST_DESELECTED', () => {
+  expect(
+    playlist(
+      { ...initialState, selectedPlaylist: {} as IPlaylist },
+      {
+        type: PLAYLIST_DESELECTED
+      }
+    )
+  ).toEqual(initialState)
 })

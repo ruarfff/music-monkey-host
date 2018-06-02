@@ -1,4 +1,4 @@
-import Action from '../Action'
+import Action from '../IAction'
 import {
   AVATAR_MENU_CLOSED,
   AVATAR_MENU_OPENED,

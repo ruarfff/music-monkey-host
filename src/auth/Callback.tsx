@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Redirect } from 'react-router'
-import IAction from '../Action'
+import IAction from '../IAction'
 
 interface ICallbackProps {
   location: Location

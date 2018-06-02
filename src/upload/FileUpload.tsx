@@ -4,7 +4,7 @@ import { DropzoneComponent } from 'react-dropzone-component'
 import * as uuidv1 from 'uuid/v1'
 import '../../node_modules/dropzone/dist/min/dropzone.min.css'
 import '../../node_modules/react-dropzone-component/styles/filepicker.css'
-import Action from '../Action'
+import Action from '../IAction'
 
 const bucket = 'musicmonkey-uploads'
 const bucketRegion = 'eu-west-1'

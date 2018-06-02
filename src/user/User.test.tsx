@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import Action from '../Action'
+import Action from '../IAction'
 import IUserState from './IUserState'
 import User from './User'
 

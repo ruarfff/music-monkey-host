@@ -1,8 +1,9 @@
 import { connect } from 'react-redux'
+import IRootState from '../rootState';
 import { fetchPlaylists } from './playlistActions'
 import Playlists from './Playlists'
 
-const mapStateToProps = state => ({ playlists: state.playlists })
+const mapStateToProps = (state: IRootState) => ({ playlists: state.playlists })
 
 const mapDispatchToProps = {
   fetchPlaylists

@@ -1,4 +1,4 @@
-import Action from '../Action'
+import Action from '../IAction'
 import IUser from './IUser'
 export const FETCH_USER = 'FETCH_USER'
 export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS'

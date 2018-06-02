@@ -1,4 +1,4 @@
-import IAction from '../../Action'
+import IAction from '../../IAction'
 import IEvent from '../IEvent'
 
 export const EVENT_FETCH_BY_ID_INITIATED = 'EVENT_FETCH_BY_ID_INITIATED'

@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import * as React from 'react'
-import Action from '../Action'
+import Action from '../IAction'
 import { IAuthState } from './AuthModel'
 import Login from './Login'
 

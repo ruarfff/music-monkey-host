@@ -1,11 +1,11 @@
 import axios from 'axios'
 import { call, put, takeEvery } from 'redux-saga/effects'
 import * as SpotifyWebApi from 'spotify-web-api-js'
-import IAction from '../../Action'
 import { accessTokenKey } from '../../auth/authConstants'
-import ITrack from '../../playlists/ITrack'
+import IAction from '../../IAction'
 import parsePlayistUrl from '../../playlists/parsePlaylistUrl'
 import localStorage from '../../storage/localStorage'
+import ITrack from '../../tracks/ITrack'
 import { REFRESH_EVENT_PLAYLIST } from '../view/eventViewActions';
 import {
   PRE_GAME_SUGGESTIONS_FETCH_ERROR,

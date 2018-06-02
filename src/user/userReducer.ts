@@ -1,4 +1,4 @@
-import Action from '../Action'
+import Action from '../IAction'
 import { FETCH_USER, FETCH_USER_ERROR, FETCH_USER_SUCCESS } from './userActions'
 import { emptyUser } from './userInitialState'
 

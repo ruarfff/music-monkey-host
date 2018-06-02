@@ -1,10 +1,6 @@
 import * as React from 'react'
 import { Route } from 'react-router-dom'
-import {
-  ConnectedRouter,
-  ConnectedRouterProps,
-  routerActions
-} from 'react-router-redux'
+import { ConnectedRouter, routerActions } from 'react-router-redux'
 import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper'
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect'
 
@@ -53,6 +49,14 @@ const routes = [
         path: '/events/:eventId/edit'
       }
     ]
+  },
+  {
+    component: userIsNotAuthenticated(Login as any),
+    path: '/login'
+  },
+  {
+    component: Callback,
+    path: '/callback'
   }
 ]
 
@@ -68,11 +72,13 @@ export const RouteWithSubRoutes = (route: any) => (
   />
 )
 
-export const Routes: React.SFC<ConnectedRouterProps<{}>> = ({ history }) => (
+interface IRoutesProps {
+  history: any
+}
+
+export const Routes: React.SFC<IRoutesProps> = ({ history }) => (
   <ConnectedRouter history={history}>
     <div>
-      <Route path="/callback" component={Callback} />
-      <Route path="/login" component={userIsNotAuthenticated(Login as any)} />
       {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
     </div>
   </ConnectedRouter>

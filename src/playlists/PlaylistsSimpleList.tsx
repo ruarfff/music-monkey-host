@@ -1,18 +1,34 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import Avatar from '@material-ui/core/Avatar/Avatar'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import ListItemText from '@material-ui/core/ListItemText'
+import * as React from 'react'
+import IAction from '../IAction'
+import IUser from '../user/IUser'
+import IPlaylist from './IPlaylist'
+import IPlaylistState from './IPlaylistState'
 
-class PlaylistsSimpleList extends Component {
-  componentDidMount() {
+interface IPlaylistsSimpleListProps {
+  playlists: IPlaylistState
+  user: IUser
+  fetchPlaylists(): IAction
+  onPlaylistSelected(playlist: IPlaylist): IAction
+}
+
+class PlaylistsSimpleList extends React.Component<
+  IPlaylistsSimpleListProps,
+  {}
+> {
+  public componentDidMount() {
     this.props.fetchPlaylists()
   }
 
-  render() {
+  public render() {
     const { onPlaylistSelected, user, playlists } = this.props
+    const handlePlaylistSelected = (playlist: IPlaylist) => () =>
+      onPlaylistSelected(playlist)
+
     let playlistView = <p>You do not have any playlists yet</p>
 
     if (playlists.data) {
@@ -20,12 +36,15 @@ class PlaylistsSimpleList extends Component {
         playlistView = (
           <List>
             {playlists.data.items
-              .filter(playlist => playlist.owner.id === user.spotifyId)
-              .map((playlist, i) => (
+              .filter(
+                (playlist: IPlaylist) => playlist.owner.id === user.spotifyId
+              )
+              .map((playlist: IPlaylist, i: number) => (
                 <ListItem
+                  disabled={playlist.tracks.total < 1}
                   key={i}
-                  button
-                  onClick={() => onPlaylistSelected(playlist)}
+                  button={true}
+                  onClick={handlePlaylistSelected(playlist)}
                 >
                   <ListItemAvatar>
                     <Avatar
@@ -50,12 +69,6 @@ class PlaylistsSimpleList extends Component {
 
     return <div className="Playlist-list">{playlistView}</div>
   }
-}
-
-PlaylistsSimpleList.propTypes = {
-  fetchPlaylists: PropTypes.func.isRequired,
-  onPlaylistSelected: PropTypes.func.isRequired,
-  playlists: PropTypes.object.isRequired
 }
 
 export default PlaylistsSimpleList

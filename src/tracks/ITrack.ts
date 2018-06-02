@@ -1,4 +1,4 @@
-import IAlbum from './IAlbum'
+import IAlbum from '../playlists/IAlbum'
 
 export default interface ITrack {
   disc_number: number
@@ -11,4 +11,5 @@ export default interface ITrack {
   type: string
   uri: string
   album: IAlbum
+  href: string
 }

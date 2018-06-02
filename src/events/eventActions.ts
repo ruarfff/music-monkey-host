@@ -1,4 +1,4 @@
-import Action from '../Action'
+import Action from '../IAction'
 import IUser from '../user/IUser'
 import IEvent from './IEvent'
 

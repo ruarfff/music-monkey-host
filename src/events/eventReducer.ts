@@ -1,4 +1,4 @@
-import Action from '../Action'
+import Action from '../IAction'
 import {
   CREATE_PLAYLIST_CLOSED,
   CREATE_PLAYLIST_SELECTED,

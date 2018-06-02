@@ -2,7 +2,7 @@ import axios from 'axios'
 import { delay } from 'redux-saga'
 import { call, put, takeEvery } from 'redux-saga/effects'
 
-import IAction from '../Action'
+import IAction from '../IAction'
 import localStorage from '../storage/localStorage'
 import { FETCH_USER_SUCCESS } from '../user/userActions'
 import {

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Action from '../Action'
+import Action from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import {IAuthState} from './AuthModel'
 import './Login.css'

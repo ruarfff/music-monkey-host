@@ -1,4 +1,4 @@
-import IAction from '../../Action'
+import IAction from '../../IAction'
 import { EVENT_FETCH_BY_ID_INITIATED } from '../view/eventViewActions';
 import IPreGameState from './IPreGameState'
 import {

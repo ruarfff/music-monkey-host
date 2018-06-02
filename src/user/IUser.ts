@@ -4,7 +4,8 @@ export default interface IUser {
     createdAt: any
     displayName: string
     email: string
-    image?: string
+    image: string
     userId: string
+    spotifyId: string
   }
   

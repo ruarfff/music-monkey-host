@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import * as React from 'react'
-import IAction from '../../Action'
+import IAction from '../../IAction'
 import IEvent from '../IEvent'
 import PreGameView from './PreGameView'
 

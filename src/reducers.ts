@@ -5,6 +5,7 @@ import preGame from './events/preGame/preGameReducer'
 import eventView from './events/view/eventViewReducer'
 import home from './home/homeReducer'
 import playlists from './playlists/playlistReducer'
+import track from './tracks/trackReducer'
 import user from './user/userReducer'
 
 const reducers = combineReducers({
@@ -14,6 +15,7 @@ const reducers = combineReducers({
   home,
   playlists,
   preGame,
+  track,
   user
 })
 

@@ -1,4 +1,4 @@
-import IAction from '../../Action'
+import IAction from '../../IAction'
 import {
   EVENT_DELETE_CLOSED,
   EVENT_DELETE_FAILED,

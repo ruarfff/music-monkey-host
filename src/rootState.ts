@@ -4,6 +4,7 @@ import IPreGameState from './events/preGame/IPreGameState'
 import IEventViewState from './events/view/IEventViewState'
 import { IHomeState } from './home/HomeModel'
 import IPlaylistState from './playlists/IPlaylistState'
+import ITrackState from './tracks/ITrackState'
 import IUserState from './user/IUserState'
 
 export default interface IRootState {
@@ -14,4 +15,5 @@ export default interface IRootState {
   events: IEventState
   eventView: IEventViewState
   preGame: IPreGameState
+  track: ITrackState
 }

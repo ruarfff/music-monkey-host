@@ -1,4 +1,4 @@
-import ITrack from '../../playlists/ITrack'
+import ITrack from '../../tracks/ITrack'
 import IUser from '../../user/IUser'
 import ISuggestion from './ISuggestion'
 
