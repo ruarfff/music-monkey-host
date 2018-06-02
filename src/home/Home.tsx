@@ -2,12 +2,11 @@ import { withStyles } from '@material-ui/core/styles'
 import * as React from 'react'
 import { Route, RouteComponentProps } from 'react-router'
 import Events from '../events/EventsContainer'
-import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import { RouteWithSubRoutes } from '../routes'
 import IUser from '../user/IUser'
+import LoginError from './LoginError'
 import MainAppBar from './MainAppBarContainer'
-import Sidebar from './SidebarContainer'
 
 const decorate = withStyles(({ palette, spacing, mixins }) => ({
   root: {
@@ -36,25 +35,26 @@ const decorate = withStyles(({ palette, spacing, mixins }) => ({
 interface IHomeProps extends RouteComponentProps<any> {
   routes: Route[]
   user: IUser
-  fetchUser(): IAction
+  userLoading: boolean
+  userError: Error
 }
 
-const Home = decorate<IHomeProps>(({ classes, user, routes }) => (
-  <React.Fragment>
-    {user && (
-      <div className={classes.root}>
-        <MainAppBar />
-        <Sidebar />
+const Home = decorate<IHomeProps>(
+  ({ classes, user, userLoading, userError, routes }) => (
+    <div className={classes.root}>
+      <MainAppBar />
+      {user && (
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Route exact={true} path="/" component={Events} />
           {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
         </main>
-      </div>
-    )}
+      )}
 
-    {!user && <LoadingSpinner />}
-  </React.Fragment>
-))
+      {userLoading && <LoadingSpinner />}
+      {userError && <LoginError />}
+    </div>
+  )
+)
 
 export default Home

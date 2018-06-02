@@ -1,21 +1,20 @@
-import React from 'react'
 import { shallow } from 'enzyme'
+import * as React from 'react'
+import IAction from '../IAction'
+import IUser from '../user/IUser'
 import MainAppBar from './MainAppBar'
 
 describe('<MainAppBar />', () => {
   it('should render without crashing', () => {
-    const user = {}
-    const classes = {}
-    const home = {}
-    const openSidebar = () => {}
-    const logout = () => {}
+    const user = {} as IUser
+    const logout = () => ({} as IAction)
+    const handleTitleClicked = () => ({})
+
     const wrapper = shallow(
       <MainAppBar
         user={user}
-        classes={classes}
-        home={home}
-        openSidebar={openSidebar}
         logout={logout}
+        handleTitleClicked={handleTitleClicked}
       />
     )
 
