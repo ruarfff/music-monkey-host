@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import IRootState from '../../rootState'
-import { getEventById } from '../view/eventViewActions'
+import { getEventById } from '../eventView/eventViewActions'
+import IRootState from '../rootState'
 import EditEvent from './EditEvent'
 
 const mapStateToProps = (state: IRootState) => ({})

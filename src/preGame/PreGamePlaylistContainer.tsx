@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import IRootState from '../../rootState'
+import IRootState from '../rootState'
 import { savePreGamePlaylist } from './pregameActions'
 import PreGamePlaylist from './PreGamePlaylist'
 

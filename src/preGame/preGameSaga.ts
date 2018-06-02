@@ -1,12 +1,12 @@
 import axios from 'axios'
 import { call, put, takeEvery } from 'redux-saga/effects'
 import * as SpotifyWebApi from 'spotify-web-api-js'
-import { accessTokenKey } from '../../auth/authConstants'
-import IAction from '../../IAction'
-import parsePlayistUrl from '../../playlists/parsePlaylistUrl'
-import localStorage from '../../storage/localStorage'
-import ITrack from '../../tracks/ITrack'
-import { REFRESH_EVENT_PLAYLIST } from '../view/eventViewActions';
+import { accessTokenKey } from '../auth/authConstants'
+import { REFRESH_EVENT_PLAYLIST } from '../eventView/eventViewActions'
+import IAction from '../IAction'
+import parsePlayistUrl from '../playlists/parsePlaylistUrl'
+import localStorage from '../storage/localStorage'
+import ITrack from '../tracks/ITrack'
 import {
   PRE_GAME_SUGGESTIONS_FETCH_ERROR,
   PRE_GAME_SUGGESTIONS_FETCH_INITIATED,
@@ -48,18 +48,16 @@ function savePreGamePlaylist({ playlist, playlistTracks }: ISavePlaylistArgs) {
   spotifyApi.setAccessToken(token)
   const { playlistId, userName }: any = parsePlayistUrl(playlist.playlistUrl)
 
-  return spotifyApi.addTracksToPlaylist(
-    userName,
-    playlistId,
-    playlistTracks.map(pl => pl.uri)
-  ).then(() => playlist)
+  return spotifyApi
+    .addTracksToPlaylist(userName, playlistId, playlistTracks.map(pl => pl.uri))
+    .then(() => playlist)
 }
 
 function* savePreGamePlaylistFlow(action: IAction) {
   try {
     const event = yield call(savePreGamePlaylist, action.payload)
     yield put({ type: SAVE_PRE_GAME_PLAYLIST_SUCCESS, payload: event })
-    yield put({type: REFRESH_EVENT_PLAYLIST, payload: event.eventId})
+    yield put({ type: REFRESH_EVENT_PLAYLIST, payload: event.eventId })
   } catch (err) {
     yield put({ type: SAVE_PRE_GAME_PLAYLIST_ERROR, payload: err })
   }

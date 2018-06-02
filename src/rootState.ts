@@ -1,9 +1,9 @@
 import IAuthState from './auth/IAuthState'
 import IEventState from './events/IEventState'
-import IPreGameState from './events/preGame/IPreGameState'
-import IEventViewState from './events/view/IEventViewState'
+import IEventViewState from './eventView/IEventViewState'
 import { IHomeState } from './home/HomeModel'
 import IPlaylistState from './playlists/IPlaylistState'
+import IPreGameState from './preGame/IPreGameState'
 import ITrackState from './tracks/ITrackState'
 import IUserState from './user/IUserState'
 

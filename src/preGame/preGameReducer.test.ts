@@ -1,4 +1,4 @@
-import IAction from '../../IAction'
+import IAction from '../IAction'
 import IPregameSuggestion from './IPregameSuggestion'
 import {
   PRE_GAME_SUGGESTIONS_FETCH_ERROR,

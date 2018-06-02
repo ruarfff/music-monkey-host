@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import * as React from 'react'
-import IAction from '../../IAction'
-import IEvent from '../IEvent'
+import IEvent from '../events/IEvent'
+import IAction from '../IAction'
 import PreGameView from './PreGameView'
 
 describe('<PreGameView />', () => {

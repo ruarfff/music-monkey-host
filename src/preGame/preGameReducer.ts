@@ -1,5 +1,5 @@
-import IAction from '../../IAction'
-import { EVENT_FETCH_BY_ID_INITIATED } from '../view/eventViewActions';
+import { EVENT_FETCH_BY_ID_INITIATED } from '../eventView/eventViewActions';
+import IAction from '../IAction'
 import IPreGameState from './IPreGameState'
 import {
   PRE_GAME_ACCEPT_ALL_SUGGESTED_TRACKS,

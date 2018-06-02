@@ -1,5 +1,5 @@
-import IAction from '../../IAction'
-import IEvent from '../IEvent'
+import IEvent from '../events/IEvent'
+import IAction from '../IAction'
 import {
   EVENT_DELETE_CLOSED,
   EVENT_DELETE_FAILED,

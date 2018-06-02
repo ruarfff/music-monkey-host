@@ -14,10 +14,10 @@ import DoneAll from '@material-ui/icons/DoneAll'
 import Undo from '@material-ui/icons/Undo'
 import * as classNames from 'classnames'
 import * as React from 'react'
-import IAction from '../../IAction'
-import LoadingSpinner from '../../loading/LoadingSpinner'
-import ITrack from '../../tracks/ITrack'
-import IEvent from '../IEvent'
+import IEvent from '../events/IEvent'
+import IAction from '../IAction'
+import LoadingSpinner from '../loading/LoadingSpinner'
+import ITrack from '../tracks/ITrack'
 
 interface IPreGamePlaylistProps {
   event: IEvent

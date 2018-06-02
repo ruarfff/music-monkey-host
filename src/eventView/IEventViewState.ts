@@ -1,4 +1,4 @@
-import IEvent from '../IEvent'
+import IEvent from '../events/IEvent'
 
 export default interface IEventViewState {
   event?: IEvent

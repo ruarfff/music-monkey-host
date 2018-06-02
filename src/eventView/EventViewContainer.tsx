@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { push } from 'react-router-redux'
 import { bindActionCreators, Dispatch } from 'redux'
-import IRootState from '../../rootState'
+import IRootState from '../rootState'
 import EventView from './EventView'
 import {
   ackowledgeEventInviteCopied,

@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { flatten, forOwn, groupBy } from 'lodash'
 import * as SpotifyWebApi from 'spotify-web-api-js'
-import { accessTokenKey } from '../../auth/authConstants'
-import localStorage from '../../storage/localStorage'
+import { accessTokenKey } from '../auth/authConstants'
+import localStorage from '../storage/localStorage'
 import ISuggestion from './ISuggestion'
 import ISuggestionItem from './ISuggestionItem'
 

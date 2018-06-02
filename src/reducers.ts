@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import auth from './auth/authReducer'
 import events from './events/eventReducer'
-import preGame from './events/preGame/preGameReducer'
-import eventView from './events/view/eventViewReducer'
+import eventView from './eventView/eventViewReducer'
 import home from './home/homeReducer'
 import playlists from './playlists/playlistReducer'
+import preGame from './preGame/preGameReducer'
 import track from './tracks/trackReducer'
 import user from './user/userReducer'
 

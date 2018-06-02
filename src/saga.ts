@@ -13,15 +13,15 @@ import {
   watchUpdateLocationAutoComplete
 } from './events/eventSaga'
 import {
-  watchFetchPreGameSuggestion,
-  watchSavePreGamePlaylist
-} from './events/preGame/preGameSaga'
-import {
   watchDeleteEvent,
   watchFetchEventById,
   watchRefreshEventPlaylist
-} from './events/view/eventViewSaga'
+} from './eventView/eventViewSaga'
 import { watchFetchPlaylists } from './playlists/playlistSaga'
+import {
+  watchFetchPreGameSuggestion,
+  watchSavePreGamePlaylist
+} from './preGame/preGameSaga'
 
 export default function* saga() {
   yield all([
