@@ -1,5 +1,5 @@
 import IAction from '../IAction'
-import IPlaylist from '../playlists/IPlaylist'
+import IPlaylist from '../playlist/IPlaylist'
 import ITrack from '../tracks/ITrack'
 import IPregameSuggestion from './IPregameSuggestion'
 

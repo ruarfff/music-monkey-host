@@ -4,7 +4,7 @@ import * as SpotifyWebApi from 'spotify-web-api-js'
 import { accessTokenKey } from '../auth/authConstants'
 import { REFRESH_EVENT_PLAYLIST } from '../eventView/eventViewActions'
 import IAction from '../IAction'
-import parsePlayistUrl from '../playlists/parsePlaylistUrl'
+import parsePlayistUrl from '../playlist/parsePlaylistUrl'
 import localStorage from '../storage/localStorage'
 import ITrack from '../tracks/ITrack'
 import {

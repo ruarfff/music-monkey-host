@@ -1,4 +1,4 @@
-import IAlbum from '../playlists/IAlbum'
+import IAlbum from '../playlist/IAlbum'
 
 export default interface ITrack {
   disc_number: number

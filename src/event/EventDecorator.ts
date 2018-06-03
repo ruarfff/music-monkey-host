@@ -1,8 +1,8 @@
 import * as SpotifyWebApi from 'spotify-web-api-js'
 import { accessTokenKey } from '../auth/authConstants'
-import IPlaylist from '../playlists/IPlaylist'
-import IPlaylistQuery from '../playlists/IPlaylistQuery'
-import parsePlayistUrl from '../playlists/parsePlaylistUrl'
+import IPlaylist from '../playlist/IPlaylist'
+import IPlaylistQuery from '../playlist/IPlaylistQuery'
+import parsePlayistUrl from '../playlist/parsePlaylistUrl'
 import localStorage from '../storage/localStorage'
 import IEvent from './IEvent'
 

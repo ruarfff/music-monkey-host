@@ -4,8 +4,8 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import * as SpotifyWebApi from 'spotify-web-api-js'
 import { accessTokenKey } from '../auth/authConstants'
 import IAction from '../IAction'
-import IPlaylist from '../playlists/IPlaylist'
-import IPlaylistDetails from '../playlists/IPlaylistDetails'
+import IPlaylist from '../playlist/IPlaylist'
+import IPlaylistDetails from '../playlist/IPlaylistDetails'
 import localStorage from '../storage/localStorage'
 import {
   EVENT_CONTENT_UPDATED,

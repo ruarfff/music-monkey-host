@@ -17,7 +17,7 @@ import {
   watchFetchEventById,
   watchRefreshEventPlaylist
 } from './eventView/eventViewSaga'
-import { watchFetchPlaylists } from './playlists/playlistSaga'
+import { watchFetchPlaylists } from './playlist/playlistSaga'
 import {
   watchFetchPreGameSuggestion,
   watchSavePreGamePlaylist
