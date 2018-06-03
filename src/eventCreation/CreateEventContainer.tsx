@@ -2,25 +2,33 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import {
-  locationChanged,
-  locationSelected,
+  closeCreatePlaylist,
+  closeExistingPlaylist,
+  createEventPlaylist,
   eventContentUpdated,
   eventImageUploaded,
   eventImageUploadError,
   eventSavingReset,
+  initializeCreateForm,
+  locationChanged,
+  locationSelected,
   saveEvent,
-  selectExistingPlaylist,
-  closeExistingPlaylist,
   selectCreatePlaylist,
-  closeCreatePlaylist,
-  createEventPlaylist,
-  initializeCreateForm
+  selectExistingPlaylist
 } from '../event/eventActions'
+import { fetchPlaylists } from '../playlist/playlistActions'
+import IRootState from '../rootState'
 import CreateEvent from './CreateEvent'
 
-const mapStateToProps = state => ({ user: state.user, events: state.events })
+const mapStateToProps = (state: IRootState) => ({
+  user: state.user.data,
+  event: state.events.savingEvent,
+  shouldShowSavedDialogue: state.events.showSavedDialogue,
+  playlistInput: state.events.playlistInput,
+  playlists: state.playlists.data
+})
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: any) => ({
   cancel: () => {
     dispatch(eventSavingReset())
     dispatch(push('/'))
@@ -38,7 +46,8 @@ const mapDispatchToProps = dispatch => ({
       locationSelected,
       saveEvent,
       selectCreatePlaylist,
-      selectExistingPlaylist
+      selectExistingPlaylist,
+      fetchPlaylists
     },
     dispatch
   )

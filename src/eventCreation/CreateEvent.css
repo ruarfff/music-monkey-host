@@ -1,0 +1,8 @@
+.CreateEvent-formItem {
+  text-align: center;
+  width: 100%;
+}
+
+.CreateEvent-root {
+  flex-grow: 1;
+}

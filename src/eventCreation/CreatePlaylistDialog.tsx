@@ -1,17 +1,32 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button/Button'
-import TextField from '@material-ui/core/TextField/TextField'
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormGroup from '@material-ui/core/FormGroup'
 import Switch from '@material-ui/core/Switch'
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField/TextField'
+import * as React from 'react'
+import IPlaylistDetails from '../playlist/IPlaylistDetails'
 
-class CreatePlaylistDialog extends Component {
-  constructor(props) {
+interface ICreatePlaylistDialogProps {
+  open: boolean
+  onClose(): void
+  onPlaylistCreation(details: IPlaylistDetails): void
+}
+
+interface ICreatPlaylistDialogState {
+  description: string
+  name: string
+  isPublic: boolean
+}
+
+export default class CreatePlaylistDialog extends React.Component<
+  ICreatePlaylistDialogProps,
+  ICreatPlaylistDialogState
+> {
+  constructor(props: ICreatePlaylistDialogProps) {
     super(props)
     this.state = {
       description: '',
@@ -20,19 +35,25 @@ class CreatePlaylistDialog extends Component {
     }
   }
 
-  togglePublic = () => {
+  public togglePublic = () => {
     this.setState({ ...this.state, isPublic: !this.state.isPublic })
   }
 
-  handleChange = name => event => {
+  public handleChange = (name: string) => (event: any) => {
     this.setState({
       ...this.state,
       [name]: event.target.value
     })
   }
 
-  render() {
-    const { open, onClose, onPlaylistCreation } = this.props
+  public handlePlaylistSave = (playlistDetails: IPlaylistDetails) => (
+    event: any
+  ) => {
+    this.props.onPlaylistCreation(playlistDetails)
+  }
+
+  public render() {
+    const { open, onClose } = this.props
     return (
       <Dialog
         open={open}
@@ -44,23 +65,23 @@ class CreatePlaylistDialog extends Component {
             Create Playlist
           </DialogTitle>
           <TextField
-            autoFocus
-            required
+            autoFocus={true}
+            required={true}
             margin="normal"
             label="Playlist Name"
-            fullWidth
+            fullWidth={true}
             value={this.state.name}
             onChange={this.handleChange('name')}
           />
           <TextField
             margin="normal"
             label="Playlist Description"
-            fullWidth
-            multiline
+            fullWidth={true}
+            multiline={true}
             value={this.state.description}
             onChange={this.handleChange('description')}
           />
-          <FormGroup row>
+          <FormGroup row={true}>
             <FormControlLabel
               control={
                 <Switch
@@ -79,7 +100,7 @@ class CreatePlaylistDialog extends Component {
           </Button>
           <Button
             disabled={!this.state.name}
-            onClick={() => onPlaylistCreation(this.state)}
+            onClick={this.handlePlaylistSave(this.state as IPlaylistDetails)}
             color="primary"
           >
             Create
@@ -89,11 +110,3 @@ class CreatePlaylistDialog extends Component {
     )
   }
 }
-
-CreatePlaylistDialog.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  onPlaylistCreation: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired
-}
-
-export default CreatePlaylistDialog

@@ -13,7 +13,7 @@ function fetchPlaylists() {
 
   const spotifyApi = new SpotifyWebApi()
   spotifyApi.setAccessToken(token)
-  return spotifyApi.getUserPlaylists()
+  return spotifyApi.getUserPlaylists().then(response => response.items)
 }
 
 function* fetchPlaylistsFlow() {

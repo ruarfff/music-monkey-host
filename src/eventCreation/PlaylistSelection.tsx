@@ -7,7 +7,9 @@ import TextField from '@material-ui/core/TextField/TextField'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import OpenInNew from '@material-ui/icons/OpenInNew'
 import * as React from 'react'
+import IAction from '../IAction'
 import IPlaylist from '../playlist/IPlaylist'
+import IPlaylistDetails from '../playlist/IPlaylistDetails'
 import IUser from '../user/IUser'
 import CreatePlaylistDialog from './CreatePlaylistDialog'
 import ExistingPlaylistDialog from './ExistingPlaylistDialog'
@@ -25,12 +27,14 @@ interface IPlaylistSelectionProps {
   user: IUser
   value: string
   playlistInput: any
+  playlists: IPlaylist[]
   closeCreatePlaylist(): any
   closeExistingPlaylist(): any
   createEventPlaylist(playlistDetails: any): any
   onPlaylistAdded(playlistUrl: string): any
   selectCreatePlaylist(): any
   selectExistingPlaylist(): any
+  fetchPlaylists(): IAction
 }
 
 export default decorate(
@@ -54,7 +58,7 @@ export default decorate(
       this.props.closeExistingPlaylist()
     }
 
-    public handlePlaylistCreation = (playlistDetals: any) => {
+    public handlePlaylistCreation = (playlistDetals: IPlaylistDetails) => {
       this.props.createEventPlaylist({
         ...playlistDetals,
         userId: this.props.user.spotifyId
@@ -75,11 +79,14 @@ export default decorate(
     public render() {
       const { anchorEl } = this.state
       const {
+        user,
         classes,
         value,
+        playlists,
         playlistInput,
         closeExistingPlaylist,
-        closeCreatePlaylist
+        closeCreatePlaylist,
+        fetchPlaylists
       } = this.props
       return (
         <Grid container={true} spacing={8} alignItems="flex-end">
@@ -126,9 +133,12 @@ export default decorate(
               </MenuItem>
             </Menu>
             <ExistingPlaylistDialog
+              user={user}
+              playlists={playlists}
               open={playlistInput.isSelectingExistingPlaylist}
               onClose={closeExistingPlaylist}
               onPlaylistSelected={this.handlePlaylistSelected}
+              fetchPlaylists={fetchPlaylists}
             />
             <CreatePlaylistDialog
               open={playlistInput.isCreatingNewPlaylist}

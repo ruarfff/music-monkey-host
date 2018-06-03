@@ -1,7 +1,7 @@
 import IPlaylist from './IPlaylist'
 
 export default interface IPlaylistState {
-  data?: IPlaylist
+  data?: IPlaylist[]
   selectedPlaylist?: IPlaylist
   error?: Error
   isLoading: boolean
