@@ -15,7 +15,7 @@ import {
   closeCreatePlaylist,
   createEventPlaylist,
   initializeCreateForm
-} from '../events/eventActions'
+} from '../event/eventActions'
 import CreateEvent from './CreateEvent'
 
 const mapStateToProps = state => ({ user: state.user, events: state.events })

@@ -1,5 +1,5 @@
 import IAuthState from './auth/IAuthState'
-import IEventState from './events/IEventState'
+import IEventState from './event/IEventState'
 import IEventViewState from './eventView/IEventViewState'
 import { IHomeState } from './home/HomeModel'
 import IPlaylistState from './playlists/IPlaylistState'

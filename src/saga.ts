@@ -11,7 +11,7 @@ import {
   watchEventPlaylistCreated,
   watchFetchEvents,
   watchUpdateLocationAutoComplete
-} from './events/eventSaga'
+} from './event/eventSaga'
 import {
   watchDeleteEvent,
   watchFetchEventById,

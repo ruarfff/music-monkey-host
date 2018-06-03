@@ -1,4 +1,4 @@
-import IEvent from '../events/IEvent'
+import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import {
   EVENT_DELETE_CLOSED,

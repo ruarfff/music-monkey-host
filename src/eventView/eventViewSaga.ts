@@ -1,7 +1,7 @@
 import axios from 'axios'
 import * as moment from 'moment'
 import { call, put, takeEvery } from 'redux-saga/effects'
-import EventDecorator from '../events/EventDecorator'
+import EventDecorator from '../event/EventDecorator'
 import IAction from '../IAction'
 import {
   EVENT_DELETE_FAILED,

@@ -1,7 +1,7 @@
 import { withStyles } from '@material-ui/core/styles'
 import * as React from 'react'
 import { Route, RouteComponentProps } from 'react-router'
-import Events from '../events/EventsContainer'
+import Events from '../event/EventsContainer'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import { RouteWithSubRoutes } from '../routes'
 import IUser from '../user/IUser'

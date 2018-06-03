@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import auth from './auth/authReducer'
-import events from './events/eventReducer'
+import events from './event/eventReducer'
 import eventView from './eventView/eventViewReducer'
 import home from './home/homeReducer'
 import playlists from './playlists/playlistReducer'

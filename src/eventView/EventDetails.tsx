@@ -1,7 +1,7 @@
 import { Theme, WithStyles, withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography/Typography'
 import * as React from 'react'
-import IEvent from '../events/IEvent'
+import IEvent from '../event/IEvent'
 
 interface IEventDetailsProps {
   event: IEvent
