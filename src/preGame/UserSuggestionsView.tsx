@@ -13,7 +13,7 @@ import DoneAll from '@material-ui/icons/DoneAll'
 import * as classNames from 'classnames'
 import * as React from 'react'
 import IAction from '../IAction'
-import ITrack from '../tracks/ITrack'
+import ITrack from '../track/ITrack'
 import IPregameSuggestion from './IPregameSuggestion'
 
 interface IUserSuggestionsViewProps {

@@ -1,6 +1,6 @@
 import IAction from '../IAction'
 import IPlaylist from '../playlist/IPlaylist'
-import ITrack from '../tracks/ITrack'
+import ITrack from '../track/ITrack'
 import IPregameSuggestion from './IPregameSuggestion'
 
 export const PRE_GAME_TAB_INDEX_CHANGED = 'PRE_GAME_TAB_INDEX_CHANGED'

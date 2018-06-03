@@ -1,4 +1,4 @@
-import ITrack from '../tracks/ITrack';
+import ITrack from '../track/ITrack';
 import IPregameSuggestion from './IPregameSuggestion'
 
 export default interface IPreGameState {

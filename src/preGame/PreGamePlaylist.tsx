@@ -17,7 +17,7 @@ import * as React from 'react'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
-import ITrack from '../tracks/ITrack'
+import ITrack from '../track/ITrack'
 
 interface IPreGamePlaylistProps {
   event: IEvent

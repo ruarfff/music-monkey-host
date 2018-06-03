@@ -5,7 +5,7 @@ import eventView from './eventView/eventViewReducer'
 import home from './home/homeReducer'
 import playlists from './playlist/playlistReducer'
 import preGame from './preGame/preGameReducer'
-import track from './tracks/trackReducer'
+import track from './track/trackReducer'
 import user from './user/userReducer'
 
 const reducers = combineReducers({

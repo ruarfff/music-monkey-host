@@ -6,7 +6,7 @@ import { REFRESH_EVENT_PLAYLIST } from '../eventView/eventViewActions'
 import IAction from '../IAction'
 import parsePlayistUrl from '../playlist/parsePlaylistUrl'
 import localStorage from '../storage/localStorage'
-import ITrack from '../tracks/ITrack'
+import ITrack from '../track/ITrack'
 import {
   PRE_GAME_SUGGESTIONS_FETCH_ERROR,
   PRE_GAME_SUGGESTIONS_FETCH_INITIATED,
