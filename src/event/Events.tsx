@@ -76,17 +76,21 @@ class Events extends React.Component<IEventsProps> {
   public render() {
     const { events, eventsLoading } = this.props.events
     const now = moment()
-    const pastEvents = events.filter(event => event.startDateTime.isBefore(now))
-    const upcomingEvents = events.filter(event =>
-      event.startDateTime.isAfter(now)
-    )
+    let pastEvents: IEvent[] = [] 
+    let upcomingEvents: IEvent[] = []
+    if (!!events) {
+      pastEvents = events.filter(event => event.startDateTime.isBefore(now))
+      upcomingEvents = events.filter(event => event.startDateTime.isAfter(now))
+    }
 
     return (
       <div className="events">
         {eventsLoading && <LoadingSpinner />}
-        {!eventsLoading && events.length < 1 && <NoEvents />}
+
+        {!eventsLoading && (!events || events.length < 1) && <NoEvents />}
 
         {!eventsLoading &&
+          !!events &&
           events.length > 0 && (
             <React.Fragment>
               {renderEventCreateAction()}
