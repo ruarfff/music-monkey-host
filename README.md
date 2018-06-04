@@ -1,6 +1,8 @@
 Music Monkey Host Web Application
 =================================
 
+[ ![Codeship Status for ruairitobrien/music-monkey-host](https://app.codeship.com/projects/8ac61ef0-4a6f-0136-2620-4a52da5c14e7/status?branch=master)](https://app.codeship.com/projects/292696)
+
 This is built with [React](https://reactjs.org/).
 
 Setup: `yarn`
