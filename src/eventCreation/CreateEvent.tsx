@@ -131,7 +131,7 @@ export default class CreateEvent extends React.PureComponent<
 
           <Grid item={true} xs={12} sm={6}>
             <LocationAutoComplete
-              value={event.location ? event.location.address : ''}
+              value={event.location ? event.location.address || '' : ''}
               onSelect={locationSelected}
               onChange={locationChanged}
               placeholder="Search for place"
