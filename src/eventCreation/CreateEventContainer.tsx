@@ -22,10 +22,10 @@ import CreateEvent from './CreateEvent'
 
 const mapStateToProps = (state: IRootState) => ({
   user: state.user.data,
-  event: state.events.savingEvent,
-  shouldShowSavedDialogue: state.events.showSavedDialogue,
-  playlistInput: state.events.playlistInput,
-  playlists: state.playlists.data
+  event: state.event.savingEvent,
+  shouldShowSavedDialogue: state.event.showSavedDialogue,
+  playlistInput: state.event.playlistInput,
+  playlists: state.playlist.data
 })
 
 const mapDispatchToProps = (dispatch: any) => ({

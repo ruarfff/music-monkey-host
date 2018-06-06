@@ -10,7 +10,7 @@ import UserSuggestionsView from './UserSuggestionsView'
 
 const mapStateToProps = (state: IRootState) => ({
   preGameTabIndex: state.preGame.preGameTabIndex,
-  suggestions: state.preGame.suggestions
+  suggestions: state.suggestion.suggestions
 })
 
 const mapDispatchToProps = {

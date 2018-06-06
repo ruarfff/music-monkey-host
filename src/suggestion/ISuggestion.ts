@@ -6,4 +6,5 @@ export default interface ISuggestion {
   userId: string
   type: string
   item: ISuggestionItem
+  accepted: boolean
 }

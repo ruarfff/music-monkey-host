@@ -22,7 +22,7 @@ import {
 import initialState from './eventInitialState'
 import IEventState from './IEventState'
 
-export default function events(
+export default function event(
   state: IEventState = initialState,
   { type, payload }: Action
 ) {

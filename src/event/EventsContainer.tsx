@@ -4,7 +4,7 @@ import IRootState from '../rootState';
 import { getEvents } from './eventActions'
 import Events from './Events'
 
-const mapStateToProps = (state: IRootState) => ({ events: state.events, user: state.user })
+const mapStateToProps = (state: IRootState) => ({ events: state.event, user: state.user })
 
 const mapDispatchToProps = { getEvents }
 

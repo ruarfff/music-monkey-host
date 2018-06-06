@@ -11,7 +11,7 @@ import lifecycle from 'react-pure-lifecycle'
 import SwipeableViews from 'react-swipeable-views'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
-import IPregameSuggestion from './IPregameSuggestion'
+import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import PreGamePlaylist from './PreGamePlaylistContainer'
 import UserSuggestionsView from './UserSuggestionsViewContainer'
 
@@ -20,9 +20,9 @@ import * as Pusher from 'pusher-js'
 interface IPreGameViewProps {
   event: IEvent
   preGameTabIndex: number
-  suggestions: IPregameSuggestion[]
+  suggestions: IDecoratedSuggestion[]
   onPreGameTabIndexChange(index: number): IAction
-  fetchPreGameSuggestion(eventId: string): IAction
+  getEventSuggestions(eventId: string): IAction
 }
 
 const decorate = withStyles((theme: Theme) => ({
@@ -39,14 +39,14 @@ const componentDidUpdate = (
 ) => {
   if (props.event.eventId !== prev.event.eventId) {
     const eventId = props.event.eventId || ''
-    props.fetchPreGameSuggestion(eventId)
+    props.getEventSuggestions(eventId)
   }
 }
 
 const componentDidMount = (props: IPreGameViewProps) => {
   if (props.event) {
     const eventId = props.event.eventId || ''
-    props.fetchPreGameSuggestion(eventId)
+    props.getEventSuggestions(eventId)
     const pusher = new Pusher('d7c284d8f17d26f74047', {
       cluster: 'eu',
       encrypted: true
@@ -54,7 +54,7 @@ const componentDidMount = (props: IPreGameViewProps) => {
 
     const channel = pusher.subscribe('mm-suggestions-' + eventId)
     channel.bind('suggestion-saved', data => {
-      props.fetchPreGameSuggestion(eventId)
+      props.getEventSuggestions(eventId)
     })
   }
 }

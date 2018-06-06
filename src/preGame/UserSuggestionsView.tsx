@@ -13,19 +13,19 @@ import DoneAll from '@material-ui/icons/DoneAll'
 import * as classNames from 'classnames'
 import * as React from 'react'
 import IAction from '../IAction'
+import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion';
 import ITrack from '../track/ITrack'
-import IPregameSuggestion from './IPregameSuggestion'
 
 interface IUserSuggestionsViewProps {
-  suggestions: IPregameSuggestion[]
+  suggestions: IDecoratedSuggestion[]
   preGameTabIndex: number
-  acceptAllSuggestedTracks(suggestion: IPregameSuggestion): IAction
+  acceptAllSuggestedTracks(suggestion: IDecoratedSuggestion): IAction
   acceptOneSuggestedTrack(
-    suggestion: IPregameSuggestion,
+    suggestion: IDecoratedSuggestion,
     track: ITrack
   ): IAction
   deleteOneSuggestedTrack(
-    suggestion: IPregameSuggestion,
+    suggestion: IDecoratedSuggestion,
     track: ITrack
   ): IAction
 }

@@ -11,10 +11,12 @@ const serviceUrl = process.env.REACT_APP_MM_API_URL
 export default class SuggestionDecorator {
   public decorateSuggestions = (suggestions: ISuggestion[]) => {
     const decorateSuggestions: any[] = []
-    forOwn(groupBy(suggestions, 'userId'), (value, key) => {
-      const userPromise = this.getUser(key)
+    forOwn(groupBy(suggestions, 'userId'), (suggestion, userId) => {
+      const userPromise = this.getUser(userId)
       const tracksPromise = Promise.all(
-        value.map(this.suggestionToTracks).map(p => p.catch(error => error))
+        suggestion
+          .map(this.suggestionToTracks)
+          .map(p => p.catch(error => error))
       ).then(values => values.filter(v => !(v instanceof Error)))
 
       decorateSuggestions.push(
@@ -23,7 +25,7 @@ export default class SuggestionDecorator {
             tracksPromise
               .then(results => {
                 const tracks = flatten(results)
-                resolve({ user, tracks, suggestion: value })
+                resolve({ user, tracks, suggestion })
               })
               .catch(reject)
           })

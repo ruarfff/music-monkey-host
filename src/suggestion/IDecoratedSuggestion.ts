@@ -1,8 +1,8 @@
+import ISuggestion from '../suggestion/ISuggestion'
 import ITrack from '../track/ITrack'
 import IUser from '../user/IUser'
-import ISuggestion from './ISuggestion'
 
-export default interface IPregameSuggestion {
+export default interface IDecoratedSuggestion {
   user: IUser
   suggestion: ISuggestion
   tracks: ITrack[]

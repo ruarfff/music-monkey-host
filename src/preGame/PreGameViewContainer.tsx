@@ -1,21 +1,19 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import IRootState from '../rootState'
-import {
-  fetchPreGameSuggestion,
-  onPreGameTabIndexChange
-} from './pregameActions'
+import { getEventSuggestions } from '../suggestion/suggestionActions'
+import { onPreGameTabIndexChange } from './pregameActions'
 import PreGameView from './PreGameView'
 
 const mapStateToProps = (state: IRootState) => ({
   event: state.eventView.event,
   preGameTabIndex: state.preGame.preGameTabIndex,
-  suggestions: state.preGame.suggestions
+  suggestions: state.suggestion.suggestions
 })
 
 const mapDispatchToProps = {
   onPreGameTabIndexChange,
-  fetchPreGameSuggestion
+  getEventSuggestions
 }
 
 const PreGameViewContainer = withRouter(connect(

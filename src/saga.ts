@@ -18,10 +18,8 @@ import {
   watchRefreshEventPlaylist
 } from './eventView/eventViewSaga'
 import { watchFetchPlaylists } from './playlist/playlistSaga'
-import {
-  watchFetchPreGameSuggestion,
-  watchSavePreGamePlaylist
-} from './preGame/preGameSaga'
+import { watchSavePreGamePlaylist } from './preGame/preGameSaga'
+import { watchFetchSuggestions } from './suggestion/suggestionSaga'
 
 export default function* saga() {
   yield all([
@@ -37,8 +35,8 @@ export default function* saga() {
     watchStoreRefreshToken(),
     watchRefresh(),
     watchDeleteEvent(),
-    watchFetchPreGameSuggestion(),
     watchSavePreGamePlaylist(),
-    watchRefreshEventPlaylist()
+    watchRefreshEventPlaylist(),
+    watchFetchSuggestions()
   ])
 }
