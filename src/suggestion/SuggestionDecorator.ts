@@ -40,17 +40,6 @@ export default class SuggestionDecorator {
       .then(response => response.data)
   }
 
-  private getSuggestedPlaylistItems = ({ id, refId }: ISuggestionItem) => {
-    const token = localStorage.get(accessTokenKey)
-    const spotifyApi = new SpotifyWebApi()
-    if (id && refId) {
-      spotifyApi.setAccessToken(token)
-      return spotifyApi.getPlaylist(refId, id)
-    } else {
-      return Promise.reject(new Error('Invalid Playlist Url'))
-    }
-  }
-
   private getSuggestedTrackItem = ({ id }: ISuggestionItem) => {
     const token = localStorage.get(accessTokenKey)
     const spotifyApi = new SpotifyWebApi()
@@ -63,11 +52,7 @@ export default class SuggestionDecorator {
   }
 
   private suggestionToTracks = (suggestion: ISuggestion) => {
-    if (suggestion.type === 'playlist') {
-      return this.getSuggestedPlaylistItems(suggestion.item).then(playlist =>
-        playlist.tracks.items.map(t => t.track)
-      )
-    } else if (suggestion.type === 'track') {
+    if (suggestion.type === 'track') {
       return this.getSuggestedTrackItem(suggestion.item)
     } else {
       return Promise.reject(
