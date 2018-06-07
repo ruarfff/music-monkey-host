@@ -13,12 +13,14 @@ import DoneAll from '@material-ui/icons/DoneAll'
 import * as classNames from 'classnames'
 import * as React from 'react'
 import IAction from '../IAction'
-import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion';
+import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import ITrack from '../track/ITrack'
+import IAcceptedSuggestionTrack from './IAcceptedSuggestionTrack'
 
 interface IUserSuggestionsViewProps {
   suggestions: IDecoratedSuggestion[]
   preGameTabIndex: number
+  acceptedTracks: IAcceptedSuggestionTrack[]
   acceptAllSuggestedTracks(suggestion: IDecoratedSuggestion): IAction
   acceptOneSuggestedTrack(
     suggestion: IDecoratedSuggestion,
@@ -66,7 +68,11 @@ class UserSuggestionsView extends React.Component<PropsWithStyles, {}> {
   public render() {
     const { classes, suggestions, preGameTabIndex } = this.props
 
-    if (!suggestions || !suggestions[preGameTabIndex - 1]) {
+    if (
+      preGameTabIndex === 0 ||
+      suggestions.length < 1 ||
+      suggestions.length < preGameTabIndex - 1
+    ) {
       return (
         <Typography align="center" variant="subheading">
           Currently no Suggestions
@@ -93,11 +99,10 @@ class UserSuggestionsView extends React.Component<PropsWithStyles, {}> {
   }
 
   private renderTrackList = () => {
-    const { suggestions, preGameTabIndex } = this.props
+    const { suggestions, preGameTabIndex, acceptedTracks } = this.props
     const currentUserSuggestion = suggestions[preGameTabIndex - 1]
     if (
       preGameTabIndex < 1 ||
-      suggestions.length < preGameTabIndex ||
       !currentUserSuggestion.tracks ||
       currentUserSuggestion.tracks.length < 1
     ) {
@@ -107,7 +112,13 @@ class UserSuggestionsView extends React.Component<PropsWithStyles, {}> {
         </Typography>
       )
     }
-    const tracks = currentUserSuggestion.tracks
+    const tracks = currentUserSuggestion.tracks.filter(
+      (track: ITrack) =>
+        !acceptedTracks.find(
+          (acceptedTrack: IAcceptedSuggestionTrack) =>
+            acceptedTrack.track.uri === track.uri
+        )
+    )
     return <List>{tracks.map((track, i) => this.renderTrack(track))}</List>
   }
 

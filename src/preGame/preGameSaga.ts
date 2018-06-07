@@ -3,7 +3,7 @@ import * as SpotifyWebApi from 'spotify-web-api-js'
 import { accessTokenKey } from '../auth/authConstants'
 import { REFRESH_EVENT_PLAYLIST } from '../eventView/eventViewActions'
 import IAction from '../IAction'
-import parsePlayistUrl from '../playlist/parsePlaylistUrl'
+import parsePlaylistUrl from '../playlist/parsePlaylistUrl'
 import localStorage from '../storage/localStorage'
 import ITrack from '../track/ITrack'
 import {
@@ -21,7 +21,7 @@ function savePreGamePlaylist({ playlist, playlistTracks }: ISavePlaylistArgs) {
   const token = localStorage.get(accessTokenKey)
   const spotifyApi = new SpotifyWebApi()
   spotifyApi.setAccessToken(token)
-  const { playlistId, userName }: any = parsePlayistUrl(playlist.playlistUrl)
+  const { playlistId, userName }: any = parsePlaylistUrl(playlist.playlistUrl)
 
   return spotifyApi
     .addTracksToPlaylist(userName, playlistId, playlistTracks.map(pl => pl.uri))

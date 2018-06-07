@@ -1,8 +1,8 @@
-import ITrack from '../track/ITrack'
+import IAcceptedSuggestionTrack from './IAcceptedSuggestionTrack';
 
 export default interface IPreGameState {
   preGameTabIndex: number
   suggestionFetchError?: Error
-  acceptedTracks: ITrack[]
+  acceptedTracks: IAcceptedSuggestionTrack[]
   saving: boolean
 }

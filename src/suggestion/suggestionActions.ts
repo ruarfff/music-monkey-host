@@ -11,6 +11,10 @@ export const DELETE_SUGGESTION_SUCCESS = 'DELETE_SUGGESTION_SUCCESS'
 export const DELETE_SUGGESTION_FAILED = 'DELETE_SUGGESTION_FAILED'
 export const CLEAR_SAVED_SUGGESTION = 'CLEAR_SAVED_SUGGESTION'
 
+export const SET_SUGGESTION_TO_ACCEPTED = 'SET_SUGGESTION_TO_ACCEPTED'
+export const SET_SUGGESTIONS_TO_ACCEPTED = 'SET_SUGGESTIONS_TO_ACCEPTED'
+export const SET_ALL_SUGGESTIONS_TO_ACCEPTED = 'SET_ALL_SUGGESTIONS_TO_ACCEPTED'
+
 export const saveSuggestion = (suggestion: ISuggestion) => ({
   type: SAVE_SUGGESTION_INITIATED,
   payload: suggestion
@@ -28,4 +32,18 @@ export const clearSavedSuggestion = () => ({
 export const deleteSuggestion = (suggestion: ISuggestion) => ({
   type: DELETE_SUGGESTION_INITIATED,
   payload: suggestion
+})
+
+export const setSuggestionToAccepted = (suggestion: ISuggestion) => ({
+  type: SET_SUGGESTION_TO_ACCEPTED,
+  payload: suggestion
+})
+
+export const setSuggestionsToAccepted = (suggestions: ISuggestion[]) => ({
+  type: SET_SUGGESTIONS_TO_ACCEPTED,
+  payload: suggestions
+})
+
+export const setAllSuggestionsToAccepted = () => ({
+  type: SET_ALL_SUGGESTIONS_TO_ACCEPTED
 })
