@@ -5,7 +5,7 @@ import PreGamePlaylist from './PreGamePlaylist'
 
 const mapStateToProps = (state: IRootState) => ({
   event: state.eventView.event,
-  acceptedTracks: state.preGame.acceptedTracks,
+  acceptedSuggestionTracks: state.preGame.acceptedTracks,
   saving: state.preGame.saving
 })
 

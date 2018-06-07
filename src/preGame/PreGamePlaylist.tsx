@@ -5,8 +5,6 @@ import CardMedia from '@material-ui/core/CardMedia/CardMedia'
 import Grid from '@material-ui/core/Grid/Grid'
 import Hidden from '@material-ui/core/Hidden/Hidden'
 import List from '@material-ui/core/List/List'
-import ListItem from '@material-ui/core/ListItem/ListItem'
-import ListItemText from '@material-ui/core/ListItemText/ListItemText'
 import { Theme } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
@@ -17,11 +15,12 @@ import * as React from 'react'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
-import ITrack from '../track/ITrack'
+import TrackList from '../track/TrackList'
+import IAcceptedSuggestionTrack from './IAcceptedSuggestionTrack'
 
 interface IPreGamePlaylistProps {
   event: IEvent
-  acceptedTracks: ITrack[]
+  acceptedSuggestionTracks: IAcceptedSuggestionTrack[]
   saving: boolean
   acceptAllSuggestedTracks(): IAction
   savePreGamePlaylist(): IAction
@@ -61,31 +60,12 @@ const decorate = withStyles((theme: Theme) => ({
   }
 }))
 
-const renderTrack = (track: ITrack, classes: any, index: number) => {
-  let trackImage = <span />
-  if (track.album && track.album.images && track.album.images.length > 0) {
-    trackImage = (
-      <img
-        className={classes.trackImage}
-        src={track.album.images[track.album.images.length - 1].url}
-        alt={track.name}
-      />
-    )
-  }
-  return (
-    <ListItem key={index} dense={true} button={true}>
-      {trackImage}
-      <ListItemText primary={track.name} />
-    </ListItem>
-  )
-}
-
 const handleSaveClicked = (
   savePreGamePlaylist: any,
   event: IEvent,
-  acceptedTracks: ITrack[]
+  acceptedSuggestionTracks: IAcceptedSuggestionTrack[]
 ) => () => {
-  savePreGamePlaylist(event, acceptedTracks)
+  savePreGamePlaylist(event, acceptedSuggestionTracks.map(acc => acc.track))
 }
 
 const renderSaveButtons = (
@@ -93,7 +73,7 @@ const renderSaveButtons = (
   hasAcceptedTrack: boolean,
   savePreGamePlaylist: any,
   event: IEvent,
-  acceptedTracks: ITrack[]
+  acceptedSuggestionTrack: IAcceptedSuggestionTrack[]
 ) => {
   return (
     <div>
@@ -102,7 +82,11 @@ const renderSaveButtons = (
         variant="raised"
         color="primary"
         disabled={!hasAcceptedTrack}
-        onClick={handleSaveClicked(savePreGamePlaylist, event, acceptedTracks)}
+        onClick={handleSaveClicked(
+          savePreGamePlaylist,
+          event,
+          acceptedSuggestionTrack
+        )}
       >
         <DoneAll className={classNames(classes.leftIcon, classes.iconSmall)} />
         Save Changes{' '}
@@ -121,7 +105,13 @@ const renderSaveButtons = (
 }
 
 const PreGamePlaylist = decorate<IPreGamePlaylistProps>(
-  ({ classes, event, acceptedTracks, savePreGamePlaylist, saving }) => {
+  ({
+    classes,
+    event,
+    acceptedSuggestionTracks,
+    savePreGamePlaylist,
+    saving
+  }) => {
     return (
       <div className={classes.root}>
         {saving && <LoadingSpinner />}
@@ -131,28 +121,27 @@ const PreGamePlaylist = decorate<IPreGamePlaylistProps>(
               <Hidden smUp={true}>
                 {renderSaveButtons(
                   classes,
-                  acceptedTracks.length > 0,
+                  acceptedSuggestionTracks.length > 0,
                   savePreGamePlaylist,
                   event,
-                  acceptedTracks
+                  acceptedSuggestionTracks
                 )}
               </Hidden>
 
-              {acceptedTracks &&
-                acceptedTracks.length > 0 && (
-                  <List className={classes.acceptedTracks}>
-                    {acceptedTracks.map((track, i) =>
-                      renderTrack(track, classes, i)
-                    )}
-                  </List>
-                )}
+              <List>
+                <TrackList
+                  tracks={acceptedSuggestionTracks.map(acc => acc.track)}
+                />
+              </List>
 
               {event.playlist &&
                 event.playlist.tracks.total > 0 && (
                   <List>
-                    {event.playlist.tracks.items.map((item, i) =>
-                      renderTrack(item.track, classes, i)
-                    )}
+                    <TrackList
+                      tracks={event.playlist.tracks.items.map(
+                        item => item.track
+                      )}
+                    />
                   </List>
                 )}
               {event.playlist &&
@@ -162,10 +151,10 @@ const PreGamePlaylist = decorate<IPreGamePlaylistProps>(
               <Hidden smDown={true}>
                 {renderSaveButtons(
                   classes,
-                  acceptedTracks.length > 0,
+                  acceptedSuggestionTracks.length > 0,
                   savePreGamePlaylist,
                   event,
-                  acceptedTracks
+                  acceptedSuggestionTracks
                 )}
               </Hidden>
               <Card className={classes.card}>
