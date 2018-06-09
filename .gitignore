@@ -16,11 +16,6 @@
 .env.test.local
 .env.production.local
 
-aws-exports.js
-awsmobilejs/.awsmobile/backend-build
-awsmobilejs/\#current-backend-info
-~awsmobilejs-*/
-
 .vscode
 
 .env.local

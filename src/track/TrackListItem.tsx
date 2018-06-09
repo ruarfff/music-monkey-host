@@ -43,6 +43,7 @@ const TrackListItem = decorate<ITrackListItemProps>(
             src={track.preview_url}
             controls={true}
             className={classes.audio}
+            preload="none"
           />
         )}
       </ListItem>

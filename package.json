@@ -49,6 +49,7 @@
   "devDependencies": {
     "@material-ui/codemod": "^1.0.0-rc.0",
     "@types/autosuggest-highlight": "^3.1.0",
+    "@types/axios": "^0.14.0",
     "@types/classnames": "^2.2.3",
     "@types/dropzone": "^5.0.2",
     "@types/enzyme": "^3.1.10",
@@ -60,6 +61,7 @@
     "@types/prop-types": "^15.5.2",
     "@types/query-string": "^5.1.0",
     "@types/react": "^16.3.13",
+
     "@types/react-copy-to-clipboard": "^4.2.5",
     "@types/react-dom": "^16.0.5",
     "@types/react-places-autocomplete": "^6.1.1",
@@ -72,11 +74,13 @@
     "@types/redux-auth-wrapper": "^2.0.7",
     "@types/redux-immutable-state-invariant": "^2.0.4",
     "@types/redux-logger": "^3.0.6",
+    "@types/sinon": "^5.0.0",
     "@types/uuid": "^3.4.3",
     "awsmobile-cli": "^1.1.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "redux-immutable-state-invariant": "^2.1.0",
+    "sinon": "^5.0.10",
     "typescript": "^2.9.1"
   }
 }
