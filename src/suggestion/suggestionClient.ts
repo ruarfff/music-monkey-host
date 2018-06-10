@@ -8,6 +8,12 @@ export const getEventSuggestions = (eventId: string) => {
     .then(response => response.data)
 }
 
-export const saveSuggestion = (suggestion: ISuggestion) => {
-  return axios.post(serviceUrl + '/suggestions', suggestion)
+export const acceptSuggestions = (
+  eventId: string,
+  suggestions: ISuggestion[]
+) => {
+  return axios.post(
+    serviceUrl + '/suggestions/' + eventId + '/accept',
+    suggestions
+  )
 }
