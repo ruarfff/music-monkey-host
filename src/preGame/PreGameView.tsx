@@ -1,4 +1,6 @@
 import AppBar from '@material-ui/core/AppBar/AppBar'
+import Avatar from '@material-ui/core/Avatar'
+import Badge from '@material-ui/core/Badge'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
@@ -12,6 +14,7 @@ import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import IUser from '../user/IUser'
+import './PreGame.css'
 import PreGamePlaylist from './PreGamePlaylist'
 import UserSuggestionsView from './UserSuggestionsView'
 
@@ -89,8 +92,12 @@ export default class PreGameView extends React.PureComponent<
                 textColor="primary"
                 scrollable={true}
                 scrollButtons="auto"
+                className="PreGame-tab-bar"
               >
-                <Tab label="Event Playlist" icon={<PlaylistPlayIcon />} />
+                <Tab
+                  label="Event Playlist"
+                  icon={this.renderEventPlaylistIcon()}
+                />
                 {suggestionsGroupedByUserId &&
                   this.renderSuggestionTabs(suggestionsGroupedByUserId)}
               </Tabs>
@@ -125,13 +132,18 @@ export default class PreGameView extends React.PureComponent<
   private renderSuggestionTabs = (suggestionsGroupedByUserId: any) => {
     return Object.values(suggestionsGroupedByUserId)
       .map(userSuggestions => userSuggestions[0].user)
-      .map(user => (
-        <Tab
-          key={user.userId}
-          label={user.displayName}
-          icon={<PersonPinIcon />}
-        />
-      ))
+      .map((user: IUser) => {
+        return (
+          <Tab
+            key={user.userId}
+            label={user.displayName}
+            icon={this.renderUserSuggestionIcon(
+              user,
+              suggestionsGroupedByUserId[user.userId]
+            )}
+          />
+        )
+      })
   }
 
   private renderSuggestionTabContent = (suggestionsGroupedByUserId: any) => {
@@ -161,5 +173,60 @@ export default class PreGameView extends React.PureComponent<
       this.props.event,
       this.props.acceptedSuggestionsByTrackUri
     )
+  }
+
+  private renderUserSuggestionIcon = (
+    user: IUser,
+    suggestions: IDecoratedSuggestion[]
+  ) => {
+    const numPendingTracks = suggestions
+      .filter(
+        (suggestion: IDecoratedSuggestion) =>
+          !this.props.acceptedSuggestionsByTrackUri.has(suggestion.track.uri)
+      )
+      .filter(suggestion => !suggestion.suggestion.accepted).length
+
+    let icon = <PersonPinIcon />
+    if (user.image) {
+      icon = (
+        <Avatar
+          alt={user.displayName}
+          src={user.image}
+          className="PreGame-avatar"
+        />
+      )
+    }
+
+    if (numPendingTracks > 0) {
+      icon = (
+        <Badge
+          className="PreGame-badge"
+          badgeContent={numPendingTracks}
+          color="primary"
+        >
+          {icon}
+        </Badge>
+      )
+    }
+
+    return icon
+  }
+
+  private renderEventPlaylistIcon = () => {
+    const { acceptedSuggestionsByTrackUri } = this.props
+    const numAcceptedTracks = Array.from(acceptedSuggestionsByTrackUri.keys())
+      .length
+    if (numAcceptedTracks > 0) {
+      return (
+        <Badge
+          className="PreGame-badge"
+          badgeContent={numAcceptedTracks}
+          color="primary"
+        >
+          <PlaylistPlayIcon />
+        </Badge>
+      )
+    }
+    return <PlaylistPlayIcon />
   }
 }

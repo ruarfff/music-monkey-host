@@ -35,3 +35,16 @@
   border: 2px solid #dadada;
   border-radius: 7px;
 }
+
+.PreGame-avatar {
+  margin: 5;
+}
+
+.PreGame-badge {
+  margin-top: .85em
+}
+
+.PreGame-tab-bar {
+  margin-top: 1em;  
+  margin-bottom: 1em;
+}
