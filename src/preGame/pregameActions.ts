@@ -33,5 +33,5 @@ export const savePreGamePlaylist = (
   suggestions: IDecoratedSuggestion[]
 ): IAction => ({
   type: SAVE_PRE_GAME_PLAYLIST,
-  payload: suggestions
+  payload: { playlist, suggestions }
 })

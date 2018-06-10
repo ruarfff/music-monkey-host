@@ -28,6 +28,7 @@ interface IPreGameViewProps {
     event: IEvent,
     acceptedSuggestionsByTrackUri: Map<string, IDecoratedSuggestion>
   ): IAction
+  resetUnsavedPlaylist(): IAction
 }
 
 function TabContainer({ children, dir }: any) {
@@ -71,7 +72,8 @@ export default class PreGameView extends React.PureComponent<
       onPreGameTabIndexChange,
       preGameTabIndex,
       saving,
-      suggestions
+      suggestions,
+      resetUnsavedPlaylist
     } = this.props
     const suggestionsGroupedByUserId = groupBy(suggestions, 'user.userId')
 
@@ -104,6 +106,7 @@ export default class PreGameView extends React.PureComponent<
                   saving={saving}
                   acceptedSuggestionsByTrackUri={acceptedSuggestionsByTrackUri}
                   onSavePreGamePlaylist={this.handleSaveEventPlaylist}
+                  onResetPlaylist={resetUnsavedPlaylist}
                 />
               </TabContainer>
               {suggestionsGroupedByUserId &&

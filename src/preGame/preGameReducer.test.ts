@@ -3,6 +3,7 @@ import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import ITrack from '../track/ITrack'
 import {
   PRE_GAME_ACCEPT_SUGGESTED_TRACKS,
+  PRE_GAME_RESET_UNSAVED_PLAYLIST,
   PRE_GAME_TAB_INDEX_CHANGED,
   SAVE_PRE_GAME_PLAYLIST,
   SAVE_PRE_GAME_PLAYLIST_ERROR,
@@ -91,6 +92,30 @@ describe('preGameViewReducer', () => {
     ).toEqual({
       ...initialState,
       acceptedSuggestionsByTrackUri: suggestionByTrackId
+    })
+  })
+
+  it('should handle PRE_GAME_RESET_UNSAVED_PLAYLIST', () => {
+    const suggestion = {
+      suggestion: { suggestionId: '123' },
+      track: { uri: 'abc' } as ITrack
+    } as IDecoratedSuggestion
+    const suggestionByTrackId = new Map<string, IDecoratedSuggestion>()
+    suggestionByTrackId.set('abc', suggestion)
+
+    expect(
+      preGameView(
+        {
+          ...initialState,
+          acceptedSuggestionsByTrackUri: suggestionByTrackId
+        },
+        {
+          type: PRE_GAME_RESET_UNSAVED_PLAYLIST
+        }
+      )
+    ).toEqual({
+      ...initialState,
+      acceptedSuggestionsByTrackUri: new Map()
     })
   })
 })

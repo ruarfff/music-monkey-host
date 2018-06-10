@@ -22,6 +22,7 @@ interface IPreGamePlaylistProps {
   acceptedSuggestionsByTrackUri: Map<string, IDecoratedSuggestion>
   saving: boolean
   onSavePreGamePlaylist(): void
+  onResetPlaylist(): void
 }
 
 export default class PreGamePlaylist extends React.PureComponent<
@@ -133,6 +134,7 @@ export default class PreGamePlaylist extends React.PureComponent<
           variant="raised"
           color="secondary"
           disabled={!hasAcceptedTrack}
+          onClick={this.props.onResetPlaylist}
         >
           <Undo
             className={classNames('PreGame-leftIcon', 'PreGame-iconSmall')}

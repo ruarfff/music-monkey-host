@@ -3,6 +3,7 @@ import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import IPreGameState from './IPreGameState'
 import {
   PRE_GAME_ACCEPT_SUGGESTED_TRACKS,
+  PRE_GAME_RESET_UNSAVED_PLAYLIST,
   PRE_GAME_TAB_INDEX_CHANGED,
   SAVE_PRE_GAME_PLAYLIST,
   SAVE_PRE_GAME_PLAYLIST_ERROR,
@@ -26,6 +27,8 @@ export default function preGameView(
       return { ...state, saving: false }
     case SAVE_PRE_GAME_PLAYLIST_ERROR:
       return { ...state, saving: false, saveEventPlaylistError: payload }
+    case PRE_GAME_RESET_UNSAVED_PLAYLIST:
+      return { ...state, acceptedSuggestionsByTrackUri: new Map() }
     case PRE_GAME_ACCEPT_SUGGESTED_TRACKS:
       const suggestionMap = new Map(state.acceptedSuggestionsByTrackUri)
       if (payload) {
