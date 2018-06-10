@@ -134,13 +134,6 @@ export default class PreGameView extends React.PureComponent<
       ))
   }
 
-  private handleSaveEventPlaylist = () => {
-    this.props.savePreGamePlaylist(
-      this.props.event,
-      this.props.acceptedSuggestionsByTrackUri
-    )
-  }
-
   private renderSuggestionTabContent = (suggestionsGroupedByUserId: any) => {
     return Object.keys(suggestionsGroupedByUserId).map(userId => {
       const suggestions: IDecoratedSuggestion[] =
@@ -161,5 +154,12 @@ export default class PreGameView extends React.PureComponent<
         </TabContainer>
       )
     })
+  }
+
+  private handleSaveEventPlaylist = () => {
+    this.props.savePreGamePlaylist(
+      this.props.event,
+      this.props.acceptedSuggestionsByTrackUri
+    )
   }
 }

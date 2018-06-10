@@ -1,11 +1,11 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import * as SpotifyWebApi from 'spotify-web-api-js'
 import { accessTokenKey } from '../auth/authConstants'
+import IEvent from '../event/IEvent'
 import { REFRESH_EVENT_PLAYLIST } from '../eventView/eventViewActions'
 import IAction from '../IAction'
-import parsePlaylistUrl from '../playlist/parsePlaylistUrl'
 import localStorage from '../storage/localStorage'
-import ITrack from '../track/ITrack'
+import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import {
   SAVE_PRE_GAME_PLAYLIST,
   SAVE_PRE_GAME_PLAYLIST_ERROR,
@@ -13,19 +13,35 @@ import {
 } from './pregameActions'
 
 interface ISavePlaylistArgs {
-  playlist: any
-  playlistTracks: ITrack[]
+  event: IEvent
+  suggestions: Map<string, IDecoratedSuggestion>
 }
 
-function savePreGamePlaylist({ playlist, playlistTracks }: ISavePlaylistArgs) {
+function savePreGamePlaylist({ event, suggestions }: ISavePlaylistArgs) {
   const token = localStorage.get(accessTokenKey)
   const spotifyApi = new SpotifyWebApi()
   spotifyApi.setAccessToken(token)
-  const { playlistId, userName }: any = parsePlaylistUrl(playlist.playlistUrl)
+  if (!event.playlist) {
+    return new Promise((resolve, reject) =>
+      reject(new Error('No Event Playlist'))
+    )
+  }
+  const { playlist } = event
+  const playlistTrackUris: string[] = playlist.tracks.items.map(
+    pl => pl.track.uri
+  )
+  const suggestedTrackUris: string[] = Array.from(suggestions.keys())
+  const suggestionsNotInPlaylist = suggestedTrackUris.filter(
+    trackUri => !playlistTrackUris.includes(trackUri)
+  )
 
   return spotifyApi
-    .addTracksToPlaylist(userName, playlistId, playlistTracks.map(pl => pl.uri))
-    .then(() => playlist)
+    .addTracksToPlaylist(
+      playlist.owner.id,
+      playlist.id,
+      suggestionsNotInPlaylist
+    )
+    .then(() => event)
 }
 
 function* savePreGamePlaylistFlow(action: IAction) {
