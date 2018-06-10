@@ -1,10 +1,8 @@
 import IAction from '../IAction'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
-import ISuggestion from '../suggestion/ISuggestion'
 import ITrack from '../track/ITrack'
-import IAcceptedSuggestionTrack from './IAcceptedSuggestionTrack'
 import {
-  PRE_GAME_ACCEPT_ALL_SUGGESTED_TRACKS,
+  PRE_GAME_ACCEPT_SUGGESTED_TRACKS,
   PRE_GAME_TAB_INDEX_CHANGED
 } from './pregameActions'
 import initialState from './preGameInitialState'
@@ -27,27 +25,23 @@ describe('preGameViewReducer', () => {
     })
   })
 
-  it('should handle PRE_GAME_ACCEPT_ALL_SUGGESTED_TRACKS', () => {
+  it('should handle PRE_GAME_ACCEPT_SUGGESTED_TRACKS', () => {
     expect(
       preGameView(initialState, {
-        type: PRE_GAME_ACCEPT_ALL_SUGGESTED_TRACKS,
+        type: PRE_GAME_ACCEPT_SUGGESTED_TRACKS,
         payload: {
           suggestion: { suggestionId: '123' },
-          tracks: [{ uri: 'abc' } as ITrack, { uri: 'def' } as ITrack]
+          track: { uri: 'abc' } as ITrack
         } as IDecoratedSuggestion
       })
     ).toEqual({
       ...initialState,
-      acceptedTracks: [
+      acceptedSuggestions: [
         {
           suggestion: { suggestionId: '123' },
           track: { uri: 'abc' } as ITrack
-        },
-        {
-          suggestion: { suggestionId: '123' },
-          track: { uri: 'def' } as ITrack
-        }
-      ] as IAcceptedSuggestionTrack[]
+        } as IDecoratedSuggestion
+      ]
     })
   })
 })

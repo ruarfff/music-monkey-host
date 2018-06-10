@@ -5,8 +5,6 @@ import CardMedia from '@material-ui/core/CardMedia/CardMedia'
 import Grid from '@material-ui/core/Grid/Grid'
 import Hidden from '@material-ui/core/Hidden/Hidden'
 import List from '@material-ui/core/List/List'
-import { Theme } from '@material-ui/core/styles'
-import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import DoneAll from '@material-ui/icons/DoneAll'
 import Undo from '@material-ui/icons/Undo'
@@ -15,123 +13,46 @@ import * as React from 'react'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
+import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import TrackList from '../track/TrackList'
-import IAcceptedSuggestionTrack from './IAcceptedSuggestionTrack'
+import './PreGamePlaylist.css'
 
 interface IPreGamePlaylistProps {
   event: IEvent
-  acceptedSuggestionTracks: IAcceptedSuggestionTrack[]
+  acceptedSuggestions: IDecoratedSuggestion[]
   saving: boolean
   acceptAllSuggestedTracks(): IAction
   savePreGamePlaylist(): IAction
 }
 
-const decorate = withStyles((theme: Theme) => ({
-  root: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper
-  },
-  button: {
-    margin: theme.spacing.unit
-  },
-  trackImage: {
-    maxWidth: 64,
-    maxHeight: 64
-  },
-  card: {
-    maxWidth: 345
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%'
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit
-  },
-  rightIcon: {
-    marginLeft: theme.spacing.unit
-  },
-  iconSmall: {
-    fontSize: 20
-  },
-  acceptedTracks: {
-    border: '2px solid #dadada',
-    borderRadius: 'border-radius: 7px'
-  }
-}))
+export default class PreGamePlaylist extends React.PureComponent<
+  IPreGamePlaylistProps
+> {
+  public render() {
+    const {
+      event,
+      acceptedSuggestions,
+      savePreGamePlaylist,
+      saving
+    } = this.props
 
-const handleSaveClicked = (
-  savePreGamePlaylist: any,
-  event: IEvent,
-  acceptedSuggestionTracks: IAcceptedSuggestionTrack[]
-) => () => {
-  savePreGamePlaylist(event, acceptedSuggestionTracks.map(acc => acc.track))
-}
-
-const renderSaveButtons = (
-  classes: any,
-  hasAcceptedTrack: boolean,
-  savePreGamePlaylist: any,
-  event: IEvent,
-  acceptedSuggestionTrack: IAcceptedSuggestionTrack[]
-) => {
-  return (
-    <div>
-      <Button
-        className={classes.button}
-        variant="raised"
-        color="primary"
-        disabled={!hasAcceptedTrack}
-        onClick={handleSaveClicked(
-          savePreGamePlaylist,
-          event,
-          acceptedSuggestionTrack
-        )}
-      >
-        <DoneAll className={classNames(classes.leftIcon, classes.iconSmall)} />
-        Save Changes{' '}
-      </Button>
-      <Button
-        className={classes.button}
-        variant="raised"
-        color="secondary"
-        disabled={!hasAcceptedTrack}
-      >
-        <Undo className={classNames(classes.leftIcon, classes.iconSmall)} />
-        Reset{' '}
-      </Button>
-    </div>
-  )
-}
-
-const PreGamePlaylist = decorate<IPreGamePlaylistProps>(
-  ({
-    classes,
-    event,
-    acceptedSuggestionTracks,
-    savePreGamePlaylist,
-    saving
-  }) => {
     return (
-      <div className={classes.root}>
+      <div className="PreGamePlaylist-root">
         {saving && <LoadingSpinner />}
         {!saving && (
           <Grid container={true} spacing={24}>
             <Grid item={true} sm={8}>
               <Hidden smUp={true}>
-                {renderSaveButtons(
-                  classes,
-                  acceptedSuggestionTracks.length > 0,
+                {this.renderSaveButtons(
+                  acceptedSuggestions.length > 0,
                   savePreGamePlaylist,
                   event,
-                  acceptedSuggestionTracks
+                  acceptedSuggestions
                 )}
               </Hidden>
 
               <List>
-                <TrackList
-                  tracks={acceptedSuggestionTracks.map(acc => acc.track)}
-                />
+                <TrackList tracks={acceptedSuggestions.map(acc => acc.track)} />
               </List>
 
               {event.playlist &&
@@ -149,20 +70,19 @@ const PreGamePlaylist = decorate<IPreGamePlaylistProps>(
             </Grid>
             <Grid item={true} sm={4}>
               <Hidden smDown={true}>
-                {renderSaveButtons(
-                  classes,
-                  acceptedSuggestionTracks.length > 0,
+                {this.renderSaveButtons(
+                  acceptedSuggestions.length > 0,
                   savePreGamePlaylist,
                   event,
-                  acceptedSuggestionTracks
+                  acceptedSuggestions
                 )}
               </Hidden>
-              <Card className={classes.card}>
+              <Card className="PreGamePlaylist-card">
                 {event.playlist &&
                   event.playlist.images &&
                   event.playlist.images.length > 0 && (
                     <CardMedia
-                      className={classes.media}
+                      className="PreGamePlaylist-media"
                       image={event.playlist.images[0].url}
                       title={event.playlist.name}
                     />
@@ -176,7 +96,9 @@ const PreGamePlaylist = decorate<IPreGamePlaylistProps>(
                     {event.playlist && event.playlist.name}
                   </Typography>
                   <Typography variant="subheading">
-                    {event.playlist && event.playlist.followers.total} Followers
+                    {event.playlist &&
+                      (event.playlist.followers || ({} as any)).total}{' '}
+                    Followers
                   </Typography>
                   <Typography component="p">
                     {event.playlist && (
@@ -196,6 +118,57 @@ const PreGamePlaylist = decorate<IPreGamePlaylistProps>(
       </div>
     )
   }
-)
 
-export default PreGamePlaylist
+  private handleSaveClicked = (
+    savePreGamePlaylist: any,
+    event: IEvent,
+    acceptedSuggestionTracks: IDecoratedSuggestion[]
+  ) => () => {
+    savePreGamePlaylist(event, acceptedSuggestionTracks.map(acc => acc.track))
+  }
+
+  private renderSaveButtons = (
+    hasAcceptedTrack: boolean,
+    savePreGamePlaylist: any,
+    event: IEvent,
+    acceptedSuggestionTrack: IDecoratedSuggestion[]
+  ) => {
+    return (
+      <div>
+        <Button
+          className="PreGamePlaylist-.button"
+          variant="raised"
+          color="primary"
+          disabled={!hasAcceptedTrack}
+          onClick={this.handleSaveClicked(
+            savePreGamePlaylist,
+            event,
+            acceptedSuggestionTrack
+          )}
+        >
+          <DoneAll
+            className={classNames(
+              'PreGamePlaylist-leftIcon',
+              'PreGamePlaylist-iconSmall'
+            )}
+          />
+          Save Changes{' '}
+        </Button>
+        <Button
+          className="PreGamePlaylist-button"
+          variant="raised"
+          color="secondary"
+          disabled={!hasAcceptedTrack}
+        >
+          <Undo
+            className={classNames(
+              'PreGamePlaylist-leftIcon',
+              'PreGamePlaylist-iconSmall'
+            )}
+          />
+          Reset{' '}
+        </Button>
+      </div>
+    )
+  }
+}

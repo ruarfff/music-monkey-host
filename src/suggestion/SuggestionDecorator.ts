@@ -1,38 +1,44 @@
 import axios from 'axios'
-import { flatten, forOwn, groupBy } from 'lodash'
+import { find, flatten, forOwn, groupBy } from 'lodash'
+import * as spotifyUri from 'spotify-uri'
 import * as SpotifyWebApi from 'spotify-web-api-js'
 import { accessTokenKey } from '../auth/authConstants'
 import localStorage from '../storage/localStorage'
+import IDecoratedSuggestion from './IDecoratedSuggestion'
 import ISuggestion from './ISuggestion'
-import ISuggestionItem from './ISuggestionItem'
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
 
 export default class SuggestionDecorator {
   public decorateSuggestions = (suggestions: ISuggestion[]) => {
-    const decorateSuggestions: any[] = []
-    forOwn(groupBy(suggestions, 'userId'), (suggestion, userId) => {
-      const userPromise = this.getUser(userId)
-      const tracksPromise = Promise.all(
-        suggestion
-          .map(this.suggestionToTracks)
-          .map(p => p.catch(error => error))
-      ).then(values => values.filter(v => !(v instanceof Error)))
+    return this.decorateSuggestionsWithTracks(suggestions)
+      .then(suggestionsWithTracks => {
+        const groupedByUserId = groupBy(
+          suggestionsWithTracks,
+          'suggestion.userId'
+        )
 
-      decorateSuggestions.push(
-        new Promise((resolve, reject) => {
-          userPromise.then(user => {
-            tracksPromise
-              .then(results => {
-                const tracks = flatten(results)
-                resolve({ user, tracks, suggestion })
+        const decorateSuggestionPromises: any[] = []
+        forOwn(groupedByUserId, (usersSuggestions, userId) => {
+          const decorateWithUserPromise = this.getUser(userId).then(user =>
+            usersSuggestions.map(
+              (suggestionWithTrack: IDecoratedSuggestion) => ({
+                ...suggestionWithTrack,
+                user
               })
-              .catch(reject)
-          })
+            )
+          )
+          decorateSuggestionPromises.push(decorateWithUserPromise)
         })
+        return decorateSuggestionPromises.map(p =>
+          p.catch((error: Error) => error)
+        )
+      })
+      .then(decorateSuggestionPromises =>
+        Promise.all(decorateSuggestionPromises)
+          .then(values => values.filter(v => !(v instanceof Error)))
+          .then(flatten)
       )
-    })
-    return Promise.all(decorateSuggestions)
   }
   private getUser = (userId: string) => {
     return axios
@@ -40,24 +46,54 @@ export default class SuggestionDecorator {
       .then(response => response.data)
   }
 
-  private getSuggestedTrackItem = ({ id }: ISuggestionItem) => {
+  private decorateSuggestionsWithTracks = (suggestions: ISuggestion[]) => {
     const token = localStorage.get(accessTokenKey)
     const spotifyApi = new SpotifyWebApi()
-    if (id) {
-      spotifyApi.setAccessToken(token)
-      return spotifyApi.getTrack(id)
-    } else {
-      return Promise.reject(new Error('Invalid track Id'))
-    }
-  }
+    spotifyApi.setAccessToken(token)
+    const suggestionsGroupedByType = groupBy(suggestions, 'type')
+    const trackSuggestionPromises = (suggestionsGroupedByType.track || [])
+      .map(trackSuggestion => {
+        const trackDetails = spotifyUri(trackSuggestion.trackUri)
+        return spotifyApi
+          .getTrack(trackDetails.id)
+          .then(track => ({ suggestion: trackSuggestion, track }))
+      })
+      .map(p => p.catch(error => error))
 
-  private suggestionToTracks = (suggestion: ISuggestion) => {
-    if (suggestion.type === 'track') {
-      return this.getSuggestedTrackItem(suggestion.item)
-    } else {
-      return Promise.reject(
-        new Error('Invalid suggestion type: ' + suggestion.type)
+    const playlistSuggestionPromises: any[] = []
+
+    if (suggestionsGroupedByType.playlist) {
+      forOwn(
+        groupBy(suggestionsGroupedByType.playlist, 'playlistUri'),
+        (playlistSuggestions, playlistUri) => {
+          const playlistDetails = spotifyUri(playlistUri)
+          playlistSuggestionPromises.push(
+            spotifyApi
+              .getPlaylist(playlistDetails.user, playlistDetails.id)
+              .then(playlist => {
+                const decoratedSuggestions: any[] = []
+                playlist.tracks.items.map(item => {
+                  const matchingSuggestion = find(playlistSuggestions, {
+                    trackUri: item.track.uri
+                  })
+                  if (matchingSuggestion) {
+                    decoratedSuggestions.push({
+                      suggestion: matchingSuggestion,
+                      track: item.track
+                    })
+                  }
+                })
+                return decoratedSuggestions
+              })
+          )
+        }
       )
     }
+    return Promise.all([
+      ...trackSuggestionPromises,
+      ...playlistSuggestionPromises
+    ])
+      .then(values => values.filter(v => !(v instanceof Error)))
+      .then(flatten)
   }
 }

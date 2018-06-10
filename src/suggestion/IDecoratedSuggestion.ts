@@ -5,5 +5,5 @@ import IUser from '../user/IUser'
 export default interface IDecoratedSuggestion {
   user: IUser
   suggestion: ISuggestion
-  tracks: ITrack[]
+  track: ITrack
 }

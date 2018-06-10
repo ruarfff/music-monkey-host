@@ -1,21 +1,20 @@
 import AppBar from '@material-ui/core/AppBar/AppBar'
-import { Theme } from '@material-ui/core/styles'
-import withStyles from '@material-ui/core/styles/withStyles'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
 import PersonPinIcon from '@material-ui/icons/PersonPin'
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay'
+import { groupBy } from 'lodash'
+import * as Pusher from 'pusher-js'
 import * as React from 'react'
-import lifecycle from 'react-pure-lifecycle'
 import SwipeableViews from 'react-swipeable-views'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
+import IUser from '../user/IUser'
 import PreGamePlaylist from './PreGamePlaylistContainer'
-import UserSuggestionsView from './UserSuggestionsViewContainer'
-
-import * as Pusher from 'pusher-js'
+import UserSuggestionsView from './UserSuggestionsView'
+// import UserSuggestionsView from './UserSuggestionsView'
 
 interface IPreGameViewProps {
   event: IEvent
@@ -23,40 +22,7 @@ interface IPreGameViewProps {
   suggestions: IDecoratedSuggestion[]
   onPreGameTabIndexChange(index: number): IAction
   getEventSuggestions(eventId: string): IAction
-}
-
-const decorate = withStyles((theme: Theme) => ({
-  root: {
-    padding: theme.spacing.unit,
-    backgroundColor: theme.palette.background.default,
-    color: theme.palette.primary.main
-  }
-}))
-
-const componentDidUpdate = (
-  props: IPreGameViewProps,
-  prev: IPreGameViewProps
-) => {
-  if (props.event.eventId !== prev.event.eventId) {
-    const eventId = props.event.eventId || ''
-    props.getEventSuggestions(eventId)
-  }
-}
-
-const componentDidMount = (props: IPreGameViewProps) => {
-  if (props.event) {
-    const eventId = props.event.eventId || ''
-    props.getEventSuggestions(eventId)
-    const pusher = new Pusher('d7c284d8f17d26f74047', {
-      cluster: 'eu',
-      encrypted: true
-    })
-
-    const channel = pusher.subscribe('mm-suggestions-' + eventId)
-    channel.bind('suggestion-saved', data => {
-      props.getEventSuggestions(eventId)
-    })
-  }
+  acceptSuggestedTracks(suggestions: IDecoratedSuggestion[]): IAction
 }
 
 function TabContainer({ children, dir }: any) {
@@ -67,81 +33,107 @@ function TabContainer({ children, dir }: any) {
   )
 }
 
-const handleTabChange = (props: IPreGameViewProps) => (
-  event: any,
-  index: number
-) => {
-  props.onPreGameTabIndexChange(index)
-}
-
-const PreGameView = decorate<IPreGameViewProps>(
-  ({
-    theme,
-    classes,
-    event,
-    suggestions,
-    preGameTabIndex,
-    onPreGameTabIndexChange
-  }) => {
-    const safeTheme = theme || ({} as Theme)
-    if (event.playlist) {
-      return (
-        <div className={classes.root}>
-          {suggestions && (
-            <div>
-              <AppBar position="static" color="default">
-                <Tabs
-                  value={preGameTabIndex}
-                  onChange={handleTabChange({
-                    onPreGameTabIndexChange
-                  } as IPreGameViewProps)}
-                  indicatorColor="primary"
-                  textColor="primary"
-                  scrollable={true}
-                  scrollButtons="auto"
-                >
-                  <Tab label="Event Playlist" icon={<PlaylistPlayIcon />} />
-                  {suggestions.map((suggestion, i) => (
-                    <Tab
-                      key={i}
-                      label={suggestion.user.displayName}
-                      icon={<PersonPinIcon />}
-                    />
-                  ))}
-                </Tabs>
-              </AppBar>
-              <SwipeableViews
-                axis={safeTheme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                index={preGameTabIndex}
-                onChangeIndex={onPreGameTabIndexChange}
-              >
-                <TabContainer dir={safeTheme.direction}>
-                  <PreGamePlaylist />
-                </TabContainer>
-
-                {suggestions.map((suggestion, i) => (
-                  <TabContainer key={i} dir={safeTheme.direction}>
-                    <UserSuggestionsView />
-                  </TabContainer>
-                ))}
-              </SwipeableViews>
-            </div>
-          )}
-          {!suggestions && <p>No suggestion yet</p>}
-        </div>
-      )
-    } else {
-      return (
-        <h3>
-          There seems to be an issue with this Event. It does not have a
-          playlist.
-        </h3>
-      )
+export default class PreGameView extends React.PureComponent<
+  IPreGameViewProps
+> {
+  public componentDidUpdate(prevProps: IPreGameViewProps) {
+    if (this.props.event.eventId !== prevProps.event.eventId) {
+      const eventId = this.props.event.eventId || ''
+      this.props.getEventSuggestions(eventId)
     }
   }
-)
 
-export default lifecycle({
-  componentDidUpdate,
-  componentDidMount
-})(PreGameView)
+  public componentDidMount() {
+    if (this.props.event) {
+      const eventId = this.props.event.eventId || ''
+      this.props.getEventSuggestions(eventId)
+      const pusher = new Pusher('d7c284d8f17d26f74047', {
+        cluster: 'eu',
+        encrypted: true
+      })
+
+      const channel = pusher.subscribe('mm-suggestions-' + eventId)
+      channel.bind('suggestion-saved', data => {
+        this.props.getEventSuggestions(eventId)
+      })
+    }
+  }
+
+  public render() {
+    const {
+      event,
+      suggestions,
+      preGameTabIndex,
+      onPreGameTabIndexChange
+    } = this.props
+    const suggestionsGroupedByUserId = groupBy(suggestions, 'user.userId')
+
+    return (
+      <div>
+        {event.playlist && (
+          <div>
+            <AppBar position="static" color="default">
+              <Tabs
+                value={preGameTabIndex}
+                onChange={this.handleTabChange}
+                indicatorColor="primary"
+                textColor="primary"
+                scrollable={true}
+                scrollButtons="auto"
+              >
+                <Tab label="Event Playlist" icon={<PlaylistPlayIcon />} />
+                {suggestionsGroupedByUserId &&
+                  this.renderSuggestionTabs(suggestionsGroupedByUserId)}
+              </Tabs>
+            </AppBar>
+            <SwipeableViews
+              axis="x"
+              index={preGameTabIndex}
+              onChangeIndex={onPreGameTabIndexChange}
+            >
+              <TabContainer dir="ltr">
+                <PreGamePlaylist />
+              </TabContainer>
+              {suggestionsGroupedByUserId &&
+                this.renderSuggestionTabContent(suggestionsGroupedByUserId)}
+            </SwipeableViews>
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  private handleTabChange = (notUsed: any, index: number) => {
+    this.props.onPreGameTabIndexChange(index)
+  }
+
+  private renderSuggestionTabs = (suggestionsGroupedByUserId: any) => {
+    return Object.values(suggestionsGroupedByUserId)
+      .map(userSuggestions => userSuggestions[0].user)
+      .map(user => (
+        <Tab
+          key={user.userId}
+          label={user.displayName}
+          icon={<PersonPinIcon />}
+        />
+      ))
+  }
+
+  private renderSuggestionTabContent = (suggestionsGroupedByUserId: any) => {
+    return Object.keys(suggestionsGroupedByUserId).map(userId => {
+      const suggestions: IDecoratedSuggestion[] =
+        suggestionsGroupedByUserId[userId]
+      const user: IUser = suggestions[0].user
+
+      return (
+        <TabContainer key={userId} dir="ltr">
+          <UserSuggestionsView
+            user={user}
+            suggestions={suggestions}
+            onAcceptSuggestions={this.props.acceptSuggestedTracks}
+          />
+        </TabContainer>
+      )
+    })
+  }
+}

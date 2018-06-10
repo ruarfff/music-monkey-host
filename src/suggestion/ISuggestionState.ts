@@ -1,4 +1,4 @@
-import IDecoratedSuggestion from './IDecoratedSuggestion';
+import IDecoratedSuggestion from './IDecoratedSuggestion'
 import ISuggestion from './ISuggestion'
 
 export default interface ISuggestionState {

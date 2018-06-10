@@ -1,6 +1,6 @@
 import IPlaylistQuery from './IPlaylistQuery'
 
-export default function parsePlayistUrl(
+export default function parsePlaylistUrl(
   playlistUrl: string
 ): IPlaylistQuery | undefined {
   try {

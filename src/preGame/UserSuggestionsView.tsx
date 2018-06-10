@@ -12,24 +12,14 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import DoneAll from '@material-ui/icons/DoneAll'
 import * as classNames from 'classnames'
 import * as React from 'react'
-import IAction from '../IAction'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import ITrack from '../track/ITrack'
-import IAcceptedSuggestionTrack from './IAcceptedSuggestionTrack'
+import IUser from '../user/IUser'
 
 interface IUserSuggestionsViewProps {
+  user: IUser
   suggestions: IDecoratedSuggestion[]
-  preGameTabIndex: number
-  acceptedTracks: IAcceptedSuggestionTrack[]
-  acceptAllSuggestedTracks(suggestion: IDecoratedSuggestion): IAction
-  acceptOneSuggestedTrack(
-    suggestion: IDecoratedSuggestion,
-    track: ITrack
-  ): IAction
-  deleteOneSuggestedTrack(
-    suggestion: IDecoratedSuggestion,
-    track: ITrack
-  ): IAction
+  onAcceptSuggestions(suggestions: IDecoratedSuggestion[]): void
 }
 
 const decorate = withStyles((theme: Theme) => ({
@@ -62,71 +52,50 @@ const decorate = withStyles((theme: Theme) => ({
   }
 }))
 
-type PropsWithStyles = IUserSuggestionsViewProps & WithStyles<'root'>
+type PropsWithStyles = IUserSuggestionsViewProps &
+  WithStyles<
+    | 'root'
+    | 'button'
+    | 'trackImage'
+    | 'card'
+    | 'media'
+    | 'leftIcon'
+    | 'rightIcon'
+    | 'iconSmall'
+  >
 
 class UserSuggestionsView extends React.Component<PropsWithStyles, {}> {
   public render() {
-    const { classes, suggestions, preGameTabIndex } = this.props
-
-    if (
-      preGameTabIndex === 0 ||
-      suggestions.length < 1 ||
-      suggestions.length < preGameTabIndex - 1
-    ) {
+    const { classes, suggestions } = this.props
+    const pendingSuggestions = suggestions.filter(s => !s.suggestion.accepted)
+    if (pendingSuggestions.length < 1) {
       return (
         <Typography align="center" variant="subheading">
           Currently no Suggestions
         </Typography>
       )
     }
-
-    const currentUserSuggestion = suggestions[preGameTabIndex - 1]
-
     return (
       <div className={classes.root}>
         <Grid container={true} spacing={24}>
-          {currentUserSuggestion.tracks.length > 0 && (
-            <Grid item={true} sm={12}>
-              {this.renderSaveButtons()}
-            </Grid>
-          )}
           <Grid item={true} sm={12}>
-            {this.renderTrackList()}
+            {this.renderAcceptButtons(pendingSuggestions)}
+          </Grid>
+          <Grid item={true} sm={12}>
+            {this.renderSuggestionList(pendingSuggestions)}
           </Grid>
         </Grid>
       </div>
     )
   }
 
-  private renderTrackList = () => {
-    const { suggestions, preGameTabIndex, acceptedTracks } = this.props
-    const currentUserSuggestion = suggestions[preGameTabIndex - 1]
-    if (
-      preGameTabIndex < 1 ||
-      !currentUserSuggestion.tracks ||
-      currentUserSuggestion.tracks.length < 1
-    ) {
-      return (
-        <Typography align="center" variant="subheading">
-          No tracks to accept
-        </Typography>
-      )
-    }
-    const tracks = currentUserSuggestion.tracks.filter(
-      (track: ITrack) =>
-        !acceptedTracks.find(
-          (acceptedTrack: IAcceptedSuggestionTrack) =>
-            acceptedTrack.track.uri === track.uri
-        )
+  private renderSuggestionList = (suggestions: IDecoratedSuggestion[]) => {
+    return (
+      <List>
+        {suggestions.map(suggestion => this.renderTrack(suggestion.track))}
+      </List>
     )
-    return <List>{tracks.map((track, i) => this.renderTrack(track))}</List>
   }
-
-  private handleTrackAccepted = (track: ITrack) => () =>
-    this.props.acceptOneSuggestedTrack(
-      this.props.suggestions[this.props.preGameTabIndex - 1],
-      track
-    )
 
   private renderTrack = (track: ITrack) => {
     const classes: any = this.props.classes
@@ -145,10 +114,7 @@ class UserSuggestionsView extends React.Component<PropsWithStyles, {}> {
       <ListItem key={track.uri} dense={true} button={true}>
         {trackImage}
         <ListItemSecondaryAction>
-          <IconButton
-            aria-label="Accept"
-            onClick={this.handleTrackAccepted(track)}
-          >
+          <IconButton aria-label="Accept">
             <CheckCircleIcon />
           </IconButton>
         </ListItemSecondaryAction>
@@ -156,13 +122,13 @@ class UserSuggestionsView extends React.Component<PropsWithStyles, {}> {
       </ListItem>
     )
   }
-  private handleAcceptAllClicked = () => () => {
-    this.props.acceptAllSuggestedTracks(
-      this.props.suggestions[this.props.preGameTabIndex - 1]
-    )
+  private handleAcceptAllClicked = (
+    suggestions: IDecoratedSuggestion[]
+  ) => () => {
+    this.props.onAcceptSuggestions(suggestions)
   }
 
-  private renderSaveButtons = () => {
+  private renderAcceptButtons = (suggestions: IDecoratedSuggestion[]) => {
     const classes: any = this.props.classes
 
     return (
@@ -171,7 +137,7 @@ class UserSuggestionsView extends React.Component<PropsWithStyles, {}> {
           className={classes.button}
           variant="raised"
           color="primary"
-          onClick={this.handleAcceptAllClicked()}
+          onClick={this.handleAcceptAllClicked(suggestions)}
         >
           <DoneAll
             className={classNames(classes.leftIcon, classes.iconSmall)}
@@ -183,4 +149,4 @@ class UserSuggestionsView extends React.Component<PropsWithStyles, {}> {
   }
 }
 
-export default decorate(UserSuggestionsView as any)
+export default decorate(UserSuggestionsView)

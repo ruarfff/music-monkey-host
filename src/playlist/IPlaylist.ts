@@ -1,7 +1,7 @@
 import IExternalUrls from './IExternalUrls'
 import IFollowers from './IFollowers'
 import IPlaylistImage from './IPlaylistImage'
-import IPlayistOwner from './IPlaylistOwner'
+import IPlaylistOwner from './IPlaylistOwner'
 import IPlaylistTracks from './IPlaylistTracks'
 
 export default interface IPlaylist {
@@ -11,13 +11,12 @@ export default interface IPlaylist {
   id: string
   images: IPlaylistImage[]
   name: string
-  owner: IPlayistOwner
+  owner: IPlaylistOwner
   primary_color?: string
   public: boolean
   snapshot_id: string
   tracks: IPlaylistTracks
   type: string
   uri: string
-  followers: IFollowers
-  items?: any
+  followers?: IFollowers
 }

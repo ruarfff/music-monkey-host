@@ -1,4 +1,5 @@
 import IAction from '../IAction'
+import IUser from '../user/IUser'
 import IPlaylist from './IPlaylist'
 
 export const FETCH_PLAYLISTS = 'FETCH_PLAYLISTS'
@@ -7,8 +8,9 @@ export const FETCH_PLAYLISTS_ERROR = 'FETCH_PLAYLISTS_ERROR'
 export const PLAYLIST_SELECTED = 'PLAYLIST_SELECTED'
 export const PLAYLIST_DESELECTED = 'PLAYLIST_DESELECTED'
 
-export const fetchPlaylists = (): IAction => ({
-  type: FETCH_PLAYLISTS
+export const fetchPlaylists = (user: IUser): IAction => ({
+  type: FETCH_PLAYLISTS,
+  payload: user
 })
 
 export const fetchPlaylistsSuccess = (data: IPlaylist): IAction => ({

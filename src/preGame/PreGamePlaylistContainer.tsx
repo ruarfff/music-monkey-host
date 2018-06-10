@@ -5,14 +5,15 @@ import PreGamePlaylist from './PreGamePlaylist'
 
 const mapStateToProps = (state: IRootState) => ({
   event: state.eventView.event,
-  acceptedSuggestionTracks: state.preGame.acceptedTracks,
+  acceptedSuggestions: state.preGame.acceptedSuggestions,
   saving: state.preGame.saving
 })
 
 const mapDispatchToProps = { savePreGamePlaylist }
 
-const PreGamePlaylistContainer = connect(mapStateToProps, mapDispatchToProps)(
-  PreGamePlaylist as any
-)
+const PreGamePlaylistContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PreGamePlaylist as any)
 
 export default PreGamePlaylistContainer

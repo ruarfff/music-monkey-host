@@ -1,6 +1,6 @@
 import IExternalUrls from './IExternalUrls'
 
-export default interface IPlayistOwner {
+export default interface IPlaylistOwner {
   display_name: string
   external_urls: IExternalUrls
   href: string

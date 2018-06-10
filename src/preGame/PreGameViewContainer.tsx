@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import IRootState from '../rootState'
 import { getEventSuggestions } from '../suggestion/suggestionActions'
-import { onPreGameTabIndexChange } from './pregameActions'
+import { acceptSuggestedTracks, onPreGameTabIndexChange } from './pregameActions'
 import PreGameView from './PreGameView'
 
 const mapStateToProps = (state: IRootState) => ({
@@ -13,7 +13,8 @@ const mapStateToProps = (state: IRootState) => ({
 
 const mapDispatchToProps = {
   onPreGameTabIndexChange,
-  getEventSuggestions
+  getEventSuggestions,
+  acceptSuggestedTracks
 }
 
 const PreGameViewContainer = withRouter(connect(

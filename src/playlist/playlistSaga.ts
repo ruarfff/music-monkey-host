@@ -1,24 +1,15 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import * as SpotifyWebApi from 'spotify-web-api-js'
-import { accessTokenKey } from '../auth/authConstants'
-import localStorage from '../storage/localStorage'
+import IAction from '../IAction';
 import {
   FETCH_PLAYLISTS,
   FETCH_PLAYLISTS_ERROR,
   FETCH_PLAYLISTS_SUCCESS
 } from './playlistActions'
+import {fetchUsersPlaylists} from './playlistClient'
 
-function fetchPlaylists() {
-  const token = localStorage.get(accessTokenKey)
-
-  const spotifyApi = new SpotifyWebApi()
-  spotifyApi.setAccessToken(token)
-  return spotifyApi.getUserPlaylists().then(response => response.items)
-}
-
-function* fetchPlaylistsFlow() {
+function* fetchPlaylistsFlow(action: IAction) {
   try {
-    const playlists = yield call(fetchPlaylists)
+    const playlists = yield call(fetchUsersPlaylists, action.payload)
     yield put({ type: FETCH_PLAYLISTS_SUCCESS, payload: playlists })
   } catch (error) {
     yield put({ type: FETCH_PLAYLISTS_ERROR, payload: error })
