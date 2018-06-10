@@ -1,4 +1,4 @@
-import { IHomeState } from './HomeModel'
+import { IHomeState } from "./IHomeState";
 
 export default {
   sidebarIsOpen: false,

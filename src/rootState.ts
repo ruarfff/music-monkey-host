@@ -1,7 +1,7 @@
 import IAuthState from './auth/IAuthState'
 import IEventState from './event/IEventState'
 import IEventViewState from './eventView/IEventViewState'
-import { IHomeState } from './home/HomeModel'
+import { IHomeState } from "./home/IHomeState";
 import IPlaylistState from './playlist/IPlaylistState'
 import IPreGameState from './preGame/IPreGameState'
 import ISuggestionState from './suggestion/ISuggestionState'
