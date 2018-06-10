@@ -3,7 +3,6 @@ import Card from '@material-ui/core/Card/Card'
 import CardContent from '@material-ui/core/CardContent/CardContent'
 import CardMedia from '@material-ui/core/CardMedia/CardMedia'
 import Grid from '@material-ui/core/Grid/Grid'
-import Hidden from '@material-ui/core/Hidden/Hidden'
 import List from '@material-ui/core/List/List'
 import Typography from '@material-ui/core/Typography/Typography'
 import DoneAll from '@material-ui/icons/DoneAll'
@@ -45,9 +44,7 @@ export default class PreGamePlaylist extends React.PureComponent<
         {!saving && (
           <Grid container={true} spacing={24}>
             <Grid item={true} sm={8}>
-              <Hidden smUp={true}>
-                {this.renderSaveButtons(hasAcceptedTrack)}
-              </Hidden>
+              {hasAcceptedTrack && this.renderSaveButtons(hasAcceptedTrack)}
 
               {hasAcceptedTrack && (
                 <List className="PreGame-acceptedTracks">
@@ -69,9 +66,6 @@ export default class PreGamePlaylist extends React.PureComponent<
                 event.playlist.tracks.total < 1 && <p>No tracks yet</p>}
             </Grid>
             <Grid item={true} sm={4}>
-              <Hidden smDown={true}>
-                {this.renderSaveButtons(hasAcceptedTrack)}
-              </Hidden>
               <Card className="PreGame-card">
                 {event.playlist &&
                   event.playlist.images &&
@@ -116,31 +110,33 @@ export default class PreGamePlaylist extends React.PureComponent<
 
   private renderSaveButtons = (hasAcceptedTrack: boolean) => {
     return (
-      <div>
-        <Button
-          className="PreGame-.button"
-          variant="raised"
-          color="primary"
-          disabled={!hasAcceptedTrack}
-          onClick={this.props.onSavePreGamePlaylist}
-        >
-          <DoneAll
-            className={classNames('PreGame-leftIcon', 'PreGame-iconSmall')}
-          />
-          Save Changes{' '}
-        </Button>
-        <Button
-          className="PreGame-button"
-          variant="raised"
-          color="secondary"
-          disabled={!hasAcceptedTrack}
-          onClick={this.props.onResetPlaylist}
-        >
-          <Undo
-            className={classNames('PreGame-leftIcon', 'PreGame-iconSmall')}
-          />
-          Reset{' '}
-        </Button>
+      <div className="PreGame-playlist-actions">
+        <div className="PreGame-playlist-action">
+          <Button
+            variant="raised"
+            color="primary"
+            disabled={!hasAcceptedTrack}
+            onClick={this.props.onSavePreGamePlaylist}
+          >
+            <DoneAll
+              className={classNames('PreGame-leftIcon', 'PreGame-iconSmall')}
+            />
+            Save Changes{' '}
+          </Button>
+        </div>
+        <div className="PreGame-playlist-action">
+          <Button
+            variant="raised"
+            color="secondary"
+            disabled={!hasAcceptedTrack}
+            onClick={this.props.onResetPlaylist}
+          >
+            <Undo
+              className={classNames('PreGame-leftIcon', 'PreGame-iconSmall')}
+            />
+            Reset{' '}
+          </Button>
+        </div>
       </div>
     )
   }
