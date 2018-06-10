@@ -1,37 +1,37 @@
-.PreGamePlaylist-root {
+.PreGame-root {
   width: 100%;
 }
 
-.PreGamePlaylist-button {
+.PreGame-button {
   margin: 0.2em;
 }
 
-.PreGamePlaylist-trackImage {
+.PreGame-trackImage {
   max-width: 4.5em;
   max-height: 4, 5em;
 }
 
-.PreGamePlaylist-card {
+.PreGame-card {
   max-width: 345px;
 }
-.PreGamePlaylist-media {
+.PreGame-media {
   height: 0;
   padding-top: 56.25%;
 }
 
-.PreGamePlaylist-leftIcon {
+.PreGame-leftIcon {
   margin-right: 0.2em;
 }
 
-.PreGamePlaylist-rightIcon {
+.PreGame-rightIcon {
   margin-left: 0.2em;
 }
 
-.PreGamePlaylist-iconSmall {
+.PreGame-iconSmall {
   font-size: 20;
 }
 
-.PreGamePlaylist-acceptedTracks {
+.PreGame-acceptedTracks {
   border: 2px solid #dadada;
   border-radius: 7px;
 }

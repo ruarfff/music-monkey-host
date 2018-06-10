@@ -15,45 +15,41 @@ import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import TrackList from '../track/TrackList'
-import './PreGamePlaylist.css'
+import './PreGame.css'
 
 interface IPreGamePlaylistProps {
   event: IEvent
   acceptedSuggestions: IDecoratedSuggestion[]
   saving: boolean
+  hasAcceptedTrack: boolean
   acceptAllSuggestedTracks(): IAction
-  savePreGamePlaylist(): IAction
+  savePreGamePlaylist(
+    event: IEvent,
+    suggestions: IDecoratedSuggestion[]
+  ): IAction
 }
 
 export default class PreGamePlaylist extends React.PureComponent<
   IPreGamePlaylistProps
 > {
   public render() {
-    const {
-      event,
-      acceptedSuggestions,
-      savePreGamePlaylist,
-      saving
-    } = this.props
+    const { event, acceptedSuggestions, saving, hasAcceptedTrack } = this.props
 
     return (
-      <div className="PreGamePlaylist-root">
+      <div className="PreGame-root">
         {saving && <LoadingSpinner />}
         {!saving && (
           <Grid container={true} spacing={24}>
             <Grid item={true} sm={8}>
-              <Hidden smUp={true}>
-                {this.renderSaveButtons(
-                  acceptedSuggestions.length > 0,
-                  savePreGamePlaylist,
-                  event,
-                  acceptedSuggestions
-                )}
-              </Hidden>
+              <Hidden smUp={true}>{this.renderSaveButtons()}</Hidden>
 
-              <List>
-                <TrackList tracks={acceptedSuggestions.map(acc => acc.track)} />
-              </List>
+              {hasAcceptedTrack && (
+                <List className="PreGame-acceptedTracks">
+                  <TrackList
+                    tracks={acceptedSuggestions.map(acc => acc.track)}
+                  />
+                </List>
+              )}
 
               {event.playlist &&
                 event.playlist.tracks.total > 0 && (
@@ -69,20 +65,13 @@ export default class PreGamePlaylist extends React.PureComponent<
                 event.playlist.tracks.total < 1 && <p>No tracks yet</p>}
             </Grid>
             <Grid item={true} sm={4}>
-              <Hidden smDown={true}>
-                {this.renderSaveButtons(
-                  acceptedSuggestions.length > 0,
-                  savePreGamePlaylist,
-                  event,
-                  acceptedSuggestions
-                )}
-              </Hidden>
-              <Card className="PreGamePlaylist-card">
+              <Hidden smDown={true}>{this.renderSaveButtons()}</Hidden>
+              <Card className="PreGame-card">
                 {event.playlist &&
                   event.playlist.images &&
                   event.playlist.images.length > 0 && (
                     <CardMedia
-                      className="PreGamePlaylist-media"
+                      className="PreGame-media"
                       image={event.playlist.images[0].url}
                       title={event.playlist.name}
                     />
@@ -119,51 +108,40 @@ export default class PreGamePlaylist extends React.PureComponent<
     )
   }
 
-  private handleSaveClicked = (
-    savePreGamePlaylist: any,
-    event: IEvent,
-    acceptedSuggestionTracks: IDecoratedSuggestion[]
-  ) => () => {
-    savePreGamePlaylist(event, acceptedSuggestionTracks.map(acc => acc.track))
+  private handleSaveClicked = () => {
+    const { savePreGamePlaylist, event, acceptedSuggestions } = this.props
+    savePreGamePlaylist(event, acceptedSuggestions)
   }
 
-  private renderSaveButtons = (
-    hasAcceptedTrack: boolean,
-    savePreGamePlaylist: any,
-    event: IEvent,
-    acceptedSuggestionTrack: IDecoratedSuggestion[]
-  ) => {
+  private renderSaveButtons = () => {
+    const { hasAcceptedTrack } = this.props
     return (
       <div>
         <Button
-          className="PreGamePlaylist-.button"
+          className="PreGame-.button"
           variant="raised"
           color="primary"
           disabled={!hasAcceptedTrack}
-          onClick={this.handleSaveClicked(
-            savePreGamePlaylist,
-            event,
-            acceptedSuggestionTrack
-          )}
+          onClick={this.handleSaveClicked}
         >
           <DoneAll
             className={classNames(
-              'PreGamePlaylist-leftIcon',
-              'PreGamePlaylist-iconSmall'
+              'PreGame-leftIcon',
+              'PreGame-iconSmall'
             )}
           />
           Save Changes{' '}
         </Button>
         <Button
-          className="PreGamePlaylist-button"
+          className="PreGame-button"
           variant="raised"
           color="secondary"
           disabled={!hasAcceptedTrack}
         >
           <Undo
             className={classNames(
-              'PreGamePlaylist-leftIcon',
-              'PreGamePlaylist-iconSmall'
+              'PreGame-leftIcon',
+              'PreGame-iconSmall'
             )}
           />
           Reset{' '}

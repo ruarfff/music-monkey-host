@@ -1,4 +1,3 @@
-import { Typography, WithStyles } from '@material-ui/core'
 import Button from '@material-ui/core/Button/Button'
 import Grid from '@material-ui/core/Grid/Grid'
 import IconButton from '@material-ui/core/IconButton/IconButton'
@@ -6,8 +5,7 @@ import List from '@material-ui/core/List/List'
 import ListItem from '@material-ui/core/ListItem/ListItem'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction/ListItemSecondaryAction'
 import ListItemText from '@material-ui/core/ListItemText/ListItemText'
-import { Theme } from '@material-ui/core/styles'
-import withStyles from '@material-ui/core/styles/withStyles'
+import Typography from '@material-ui/core/Typography/Typography'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import DoneAll from '@material-ui/icons/DoneAll'
 import * as classNames from 'classnames'
@@ -16,57 +14,19 @@ import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import ITrack from '../track/ITrack'
 import IUser from '../user/IUser'
 
+import './PreGame.css'
+
 interface IUserSuggestionsViewProps {
   user: IUser
   suggestions: IDecoratedSuggestion[]
   onAcceptSuggestions(suggestions: IDecoratedSuggestion[]): void
 }
 
-const decorate = withStyles((theme: Theme) => ({
-  root: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper
-  },
-  button: {
-    margin: theme.spacing.unit
-  },
-  trackImage: {
-    maxWidth: 64,
-    maxHeight: 64
-  },
-  card: {
-    maxWidth: 345
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%'
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit
-  },
-  rightIcon: {
-    marginLeft: theme.spacing.unit
-  },
-  iconSmall: {
-    fontSize: 20
-  }
-}))
-
-type PropsWithStyles = IUserSuggestionsViewProps &
-  WithStyles<
-    | 'root'
-    | 'button'
-    | 'trackImage'
-    | 'card'
-    | 'media'
-    | 'leftIcon'
-    | 'rightIcon'
-    | 'iconSmall'
-  >
-
-class UserSuggestionsView extends React.Component<PropsWithStyles, {}> {
+export default class UserSuggestionsView extends React.PureComponent<
+  IUserSuggestionsViewProps
+> {
   public render() {
-    const { classes, suggestions } = this.props
+    const { suggestions } = this.props
     const pendingSuggestions = suggestions.filter(s => !s.suggestion.accepted)
     if (pendingSuggestions.length < 1) {
       return (
@@ -76,7 +36,7 @@ class UserSuggestionsView extends React.Component<PropsWithStyles, {}> {
       )
     }
     return (
-      <div className={classes.root}>
+      <div className="PreGame-root">
         <Grid container={true} spacing={24}>
           <Grid item={true} sm={12}>
             {this.renderAcceptButtons(pendingSuggestions)}
@@ -98,12 +58,11 @@ class UserSuggestionsView extends React.Component<PropsWithStyles, {}> {
   }
 
   private renderTrack = (track: ITrack) => {
-    const classes: any = this.props.classes
     let trackImage = <span />
     if (track.album && track.album.images && track.album.images.length > 0) {
       trackImage = (
         <img
-          className={classes.trackImage}
+          className="PreGame-trackImage"
           src={track.album.images[track.album.images.length - 1].url}
           alt={track.name}
         />
@@ -129,18 +88,16 @@ class UserSuggestionsView extends React.Component<PropsWithStyles, {}> {
   }
 
   private renderAcceptButtons = (suggestions: IDecoratedSuggestion[]) => {
-    const classes: any = this.props.classes
-
     return (
       <div>
         <Button
-          className={classes.button}
+          className="PreGame-button"
           variant="raised"
           color="primary"
           onClick={this.handleAcceptAllClicked(suggestions)}
         >
           <DoneAll
-            className={classNames(classes.leftIcon, classes.iconSmall)}
+            className={classNames('PreGame-leftIcon', 'PreGame-iconSmall')}
           />
           Accept All{' '}
         </Button>
@@ -148,5 +105,3 @@ class UserSuggestionsView extends React.Component<PropsWithStyles, {}> {
     )
   }
 }
-
-export default decorate(UserSuggestionsView)

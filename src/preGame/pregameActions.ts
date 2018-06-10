@@ -1,7 +1,6 @@
 import IAction from '../IAction'
 import IPlaylist from '../playlist/IPlaylist'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
-import ITrack from '../track/ITrack'
 
 export const PRE_GAME_TAB_INDEX_CHANGED = 'PRE_GAME_TAB_INDEX_CHANGED'
 
@@ -31,12 +30,8 @@ export const resetUnsavedPlaylist = (): IAction => ({
 
 export const savePreGamePlaylist = (
   playlist: IPlaylist,
-  playlistTracks: ITrack[]
+  suggestions: IDecoratedSuggestion[]
 ): IAction => ({
   type: SAVE_PRE_GAME_PLAYLIST,
-  payload: {
-    event,
-    playlist,
-    playlistTracks
-  }
+  payload: suggestions
 })
