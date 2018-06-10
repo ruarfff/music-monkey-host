@@ -1,6 +1,7 @@
+import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import IPreGameState from './IPreGameState'
 export default {
   preGameTabIndex: 0,
-  acceptedSuggestions: [],
+  acceptedSuggestionsByTrackUri: new Map<string, IDecoratedSuggestion>(),
   saving: false
 } as IPreGameState

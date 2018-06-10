@@ -22,6 +22,13 @@ const rootMidlelwares = [reactRouterMiddleware, sagaMiddleware, logger]
 const middleware = isDevBuild
   ? [...rootMidlelwares, reduxImmutableStateInvariant()]
   : rootMidlelwares
+
+if (isDevBuild) {
+  ;(Map.prototype as any).toJSON = function() {
+    return JSON.parse(JSON.stringify([...this]))
+  }
+}
+
 const windowIfDefined = typeof window === 'undefined' ? null : (window as any)
 const composeEnhancers = isDevBuild
   ? windowIfDefined.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

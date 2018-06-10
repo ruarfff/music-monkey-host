@@ -12,17 +12,22 @@ import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import IUser from '../user/IUser'
-import PreGamePlaylist from './PreGamePlaylistContainer'
+import PreGamePlaylist from './PreGamePlaylist'
 import UserSuggestionsView from './UserSuggestionsView'
-// import UserSuggestionsView from './UserSuggestionsView'
 
 interface IPreGameViewProps {
   event: IEvent
   preGameTabIndex: number
   suggestions: IDecoratedSuggestion[]
+  acceptedSuggestionsByTrackUri: Map<string, IDecoratedSuggestion>
+  saving: boolean
   onPreGameTabIndexChange(index: number): IAction
   getEventSuggestions(eventId: string): IAction
   acceptSuggestedTracks(suggestions: IDecoratedSuggestion[]): IAction
+  savePreGamePlaylist(
+    event: IEvent,
+    acceptedSuggestionsByTrackUri: Map<string, IDecoratedSuggestion>
+  ): IAction
 }
 
 function TabContainer({ children, dir }: any) {
@@ -61,10 +66,12 @@ export default class PreGameView extends React.PureComponent<
 
   public render() {
     const {
+      acceptedSuggestionsByTrackUri,
       event,
-      suggestions,
+      onPreGameTabIndexChange,
       preGameTabIndex,
-      onPreGameTabIndexChange
+      saving,
+      suggestions
     } = this.props
     const suggestionsGroupedByUserId = groupBy(suggestions, 'user.userId')
 
@@ -92,7 +99,12 @@ export default class PreGameView extends React.PureComponent<
               onChangeIndex={onPreGameTabIndexChange}
             >
               <TabContainer dir="ltr">
-                <PreGamePlaylist />
+                <PreGamePlaylist
+                  event={event}
+                  saving={saving}
+                  acceptedSuggestionsByTrackUri={acceptedSuggestionsByTrackUri}
+                  onSavePreGamePlaylist={this.handleSaveEventPlaylist}
+                />
               </TabContainer>
               {suggestionsGroupedByUserId &&
                 this.renderSuggestionTabContent(suggestionsGroupedByUserId)}
@@ -119,17 +131,28 @@ export default class PreGameView extends React.PureComponent<
       ))
   }
 
+  private handleSaveEventPlaylist = () => {
+    this.props.savePreGamePlaylist(
+      this.props.event,
+      this.props.acceptedSuggestionsByTrackUri
+    )
+  }
+
   private renderSuggestionTabContent = (suggestionsGroupedByUserId: any) => {
     return Object.keys(suggestionsGroupedByUserId).map(userId => {
       const suggestions: IDecoratedSuggestion[] =
         suggestionsGroupedByUserId[userId]
       const user: IUser = suggestions[0].user
+      const suggestionsFilteredByAccepted = suggestions.filter(
+        (suggestion: IDecoratedSuggestion) =>
+          !this.props.acceptedSuggestionsByTrackUri.has(suggestion.track.uri)
+      )
 
       return (
         <TabContainer key={userId} dir="ltr">
           <UserSuggestionsView
             user={user}
-            suggestions={suggestions}
+            suggestions={suggestionsFilteredByAccepted}
             onAcceptSuggestions={this.props.acceptSuggestedTracks}
           />
         </TabContainer>

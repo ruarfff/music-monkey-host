@@ -1,5 +1,5 @@
-import { EVENT_FETCH_BY_ID_INITIATED } from '../eventView/eventViewActions'
 import IAction from '../IAction'
+import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import IPreGameState from './IPreGameState'
 import {
   PRE_GAME_ACCEPT_SUGGESTED_TRACKS,
@@ -15,12 +15,6 @@ export default function preGameView(
   { type, payload }: IAction
 ) {
   switch (type) {
-    case EVENT_FETCH_BY_ID_INITIATED:
-      return {
-        ...state,
-        acceptedTracks: [],
-        suggestions: []
-      }
     case PRE_GAME_TAB_INDEX_CHANGED:
       return {
         ...state,
@@ -29,13 +23,19 @@ export default function preGameView(
     case SAVE_PRE_GAME_PLAYLIST:
       return { ...state, saving: true }
     case SAVE_PRE_GAME_PLAYLIST_SUCCESS:
-      return { ...state, saving: false, acceptedTracks: [] }
-    case SAVE_PRE_GAME_PLAYLIST_ERROR:
       return { ...state, saving: false }
+    case SAVE_PRE_GAME_PLAYLIST_ERROR:
+      return { ...state, saving: false, saveEventPlaylistError: payload }
     case PRE_GAME_ACCEPT_SUGGESTED_TRACKS:
+      const suggestionMap = new Map(state.acceptedSuggestionsByTrackUri)
+      if (payload) {
+        payload.forEach((ds: IDecoratedSuggestion) => {
+          suggestionMap.set(ds.track.uri, ds)
+        })
+      }
       return {
         ...state,
-        acceptedSuggestions: [...state.acceptedSuggestions, ...payload]
+        acceptedSuggestionsByTrackUri: suggestionMap
       }
     default:
       return state

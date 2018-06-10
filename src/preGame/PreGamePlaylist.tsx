@@ -11,29 +11,32 @@ import Undo from '@material-ui/icons/Undo'
 import * as classNames from 'classnames'
 import * as React from 'react'
 import IEvent from '../event/IEvent'
-import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
+import ITrack from '../track/ITrack'
 import TrackList from '../track/TrackList'
 import './PreGame.css'
 
 interface IPreGamePlaylistProps {
   event: IEvent
-  acceptedSuggestions: IDecoratedSuggestion[]
+  acceptedSuggestionsByTrackUri: Map<string, IDecoratedSuggestion>
   saving: boolean
-  hasAcceptedTrack: boolean
-  acceptAllSuggestedTracks(): IAction
-  savePreGamePlaylist(
-    event: IEvent,
-    suggestions: IDecoratedSuggestion[]
-  ): IAction
+  onSavePreGamePlaylist(): void
 }
 
 export default class PreGamePlaylist extends React.PureComponent<
   IPreGamePlaylistProps
 > {
   public render() {
-    const { event, acceptedSuggestions, saving, hasAcceptedTrack } = this.props
+    const { event, acceptedSuggestionsByTrackUri, saving } = this.props
+    let acceptedTracks: ITrack[] = []
+    const hasAcceptedTrack = acceptedSuggestionsByTrackUri.size > 0
+
+    if (hasAcceptedTrack) {
+      acceptedTracks = Array.from(acceptedSuggestionsByTrackUri.values()).map(
+        s => s.track
+      )
+    }
 
     return (
       <div className="PreGame-root">
@@ -41,13 +44,13 @@ export default class PreGamePlaylist extends React.PureComponent<
         {!saving && (
           <Grid container={true} spacing={24}>
             <Grid item={true} sm={8}>
-              <Hidden smUp={true}>{this.renderSaveButtons()}</Hidden>
+              <Hidden smUp={true}>
+                {this.renderSaveButtons(hasAcceptedTrack)}
+              </Hidden>
 
               {hasAcceptedTrack && (
                 <List className="PreGame-acceptedTracks">
-                  <TrackList
-                    tracks={acceptedSuggestions.map(acc => acc.track)}
-                  />
+                  <TrackList tracks={acceptedTracks} />
                 </List>
               )}
 
@@ -65,7 +68,9 @@ export default class PreGamePlaylist extends React.PureComponent<
                 event.playlist.tracks.total < 1 && <p>No tracks yet</p>}
             </Grid>
             <Grid item={true} sm={4}>
-              <Hidden smDown={true}>{this.renderSaveButtons()}</Hidden>
+              <Hidden smDown={true}>
+                {this.renderSaveButtons(hasAcceptedTrack)}
+              </Hidden>
               <Card className="PreGame-card">
                 {event.playlist &&
                   event.playlist.images &&
@@ -108,13 +113,7 @@ export default class PreGamePlaylist extends React.PureComponent<
     )
   }
 
-  private handleSaveClicked = () => {
-    const { savePreGamePlaylist, event, acceptedSuggestions } = this.props
-    savePreGamePlaylist(event, acceptedSuggestions)
-  }
-
-  private renderSaveButtons = () => {
-    const { hasAcceptedTrack } = this.props
+  private renderSaveButtons = (hasAcceptedTrack: boolean) => {
     return (
       <div>
         <Button
@@ -122,13 +121,10 @@ export default class PreGamePlaylist extends React.PureComponent<
           variant="raised"
           color="primary"
           disabled={!hasAcceptedTrack}
-          onClick={this.handleSaveClicked}
+          onClick={this.props.onSavePreGamePlaylist}
         >
           <DoneAll
-            className={classNames(
-              'PreGame-leftIcon',
-              'PreGame-iconSmall'
-            )}
+            className={classNames('PreGame-leftIcon', 'PreGame-iconSmall')}
           />
           Save Changes{' '}
         </Button>
@@ -139,10 +135,7 @@ export default class PreGamePlaylist extends React.PureComponent<
           disabled={!hasAcceptedTrack}
         >
           <Undo
-            className={classNames(
-              'PreGame-leftIcon',
-              'PreGame-iconSmall'
-            )}
+            className={classNames('PreGame-leftIcon', 'PreGame-iconSmall')}
           />
           Reset{' '}
         </Button>
