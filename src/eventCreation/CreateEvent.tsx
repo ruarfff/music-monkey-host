@@ -43,7 +43,7 @@ interface ICreateEventProps {
   saveEvent(event: IEvent): IAction
   selectCreatePlaylist(): IAction
   selectExistingPlaylist(): IAction
-  fetchPlaylists(): IAction
+  fetchPlaylists(user: IUser): IAction
 }
 
 const showSavedDialogue = (onCancel: () => void) => {

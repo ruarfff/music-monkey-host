@@ -15,14 +15,14 @@ interface IExistingPlaylistDialogProps {
   playlists: IPlaylist[]
   onClose(event: any): void
   onPlaylistSelected(playlist: IPlaylist): void
-  fetchPlaylists(): IAction
+  fetchPlaylists(user: IUser): IAction
 }
 
 export default class ExistingPlaylistDialog extends React.PureComponent<
   IExistingPlaylistDialogProps
 > {
   public componentDidMount() {
-    this.props.fetchPlaylists()
+    this.props.fetchPlaylists(this.props.user)
   }
 
   public render() {

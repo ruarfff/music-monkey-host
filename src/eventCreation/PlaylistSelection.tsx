@@ -34,7 +34,7 @@ interface IPlaylistSelectionProps {
   onPlaylistAdded(playlistUrl: string): any
   selectCreatePlaylist(): any
   selectExistingPlaylist(): any
-  fetchPlaylists(): IAction
+  fetchPlaylists(user: IUser): IAction
 }
 
 export default decorate(
