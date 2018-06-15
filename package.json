@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV='development' REACT_APP_REDIRECT_URL='http://localhost:3000/callback' react-scripts-ts start",
-    "start:local": "NODE_ENV='development' REACT_APP_MM_API_URL='http://localhost:8080' REACT_APP_REDIRECT_URL='http://localhost:3000/callback' react-scripts-ts start",
+    "start": "NODE_ENV='development' react-scripts-ts start",
+    "start:local": "NODE_ENV='development' REACT_APP_MM_API_URL='http://localhost:8080' react-scripts-ts start",
     "build": "NODE_ENV='production' react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",

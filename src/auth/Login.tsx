@@ -6,7 +6,6 @@ import './Login.css'
 import logo from './spotify-login.svg'
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
-const redirectToUrl = process.env.REACT_APP_REDIRECT_URL
 
 interface ILoginProps {
   auth: IAuthState
@@ -22,6 +21,14 @@ class Login extends React.Component<ILoginProps, {}> {
     if (this.props.auth.isAuthenticating) {
       return <LoadingSpinner />
     }
+
+    const redirectToUrl =
+      location.protocol +
+      '//' +
+      location.hostname +
+      (location.port ? ':' + location.port : '') +
+      '/callback'
+
     return (
       <div className="Login">
         <div className="Login-header">
