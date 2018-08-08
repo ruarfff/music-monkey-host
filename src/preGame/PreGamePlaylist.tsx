@@ -12,6 +12,7 @@ import * as React from 'react'
 import IEvent from '../event/IEvent'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
+import InteractiveTrackList from '../track/InteractiveTrackList'
 import ITrack from '../track/ITrack'
 import TrackList from '../track/TrackList'
 import './PreGame.css'
@@ -45,6 +46,8 @@ export default class PreGamePlaylist extends React.PureComponent<
           <Grid container={true} spacing={24}>
             <Grid item={true} sm={8}>
               {hasAcceptedTrack && this.renderSaveButtons(hasAcceptedTrack)}
+
+              <InteractiveTrackList />
 
               {hasAcceptedTrack && (
                 <List className="PreGame-acceptedTracks">
