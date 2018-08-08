@@ -107,7 +107,7 @@ const showDeleteSuccess = (props: PropsWithStyles) => {
 
 const showDeleteFailed = (props: PropsWithStyles) => {
   SweetAlert.fire({
-    title: "Clouldn't delete Event",
+    title: "Couldn't delete Event",
     text: 'Sorry. An error occurred when trying to delete this Event.',
     type: 'error'
   }).then(() => {
