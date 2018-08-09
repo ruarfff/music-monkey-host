@@ -1,15 +1,12 @@
 import AppBar from '@material-ui/core/AppBar/AppBar'
 import Button from '@material-ui/core/Button/Button'
 import Grid from '@material-ui/core/Grid/Grid'
-import IconButton from '@material-ui/core/IconButton/IconButton'
-import Snackbar from '@material-ui/core/Snackbar/Snackbar'
 import { Theme } from '@material-ui/core/styles'
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
 import Zoom from '@material-ui/core/Zoom/Zoom'
-import CloseIcon from '@material-ui/icons/Close'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/ModeEdit'
 import * as React from 'react'
@@ -26,6 +23,7 @@ import PreGameView from '../preGame/PreGameViewContainer'
 import LinkButton from '../util/LinkButton'
 import PulsingButton from '../util/PulsingButton'
 import EventDetails from './EventDetails'
+import InviteCopyAlert from './InviteCopyAlert'
 import InviteLink from './InviteLink'
 
 interface IEventViewProps extends RouteComponentProps<any> {
@@ -126,36 +124,6 @@ const handleDeleteSelected = (props: IEventViewProps) => () => {
   })
 }
 
-const handleCopytToClipboardAcknowledged = (props: PropsWithStyles) => {
-  return () => props.ackowledgeEventInviteCopied()
-}
-
-const renderCopiedSnackBar = (props: PropsWithStyles) => (
-  <Snackbar
-    anchorOrigin={{
-      vertical: 'top',
-      horizontal: 'center'
-    }}
-    open={true}
-    onClose={handleCopytToClipboardAcknowledged(props)}
-    autoHideDuration={1200}
-    ContentProps={{
-      'aria-describedby': 'message-id'
-    }}
-    message={<span id="message-id">Copied to clipboard</span>}
-    action={[
-      <IconButton
-        key="close"
-        aria-label="Close"
-        color="inherit"
-        onClick={handleCopytToClipboardAcknowledged(props)}
-      >
-        <CloseIcon />
-      </IconButton>
-    ]}
-  />
-)
-
 const renderEventView = (props: PropsWithStyles) => {
   const { event, copyEventInvite } = props
   const inviteId = event.invites ? event.invites[0] : ''
@@ -234,7 +202,12 @@ const EventView: React.SFC<PropsWithStyles> = (props: PropsWithStyles) => (
     {!!props.event && (
       <Zoom in={!props.loading && !!props.event}>{renderEventView(props)}</Zoom>
     )}
-    {props.copiedToClipboard && renderCopiedSnackBar(props)}
+    {props.copiedToClipboard && (
+      <InviteCopyAlert
+        message="Copied to Clipboard"
+        onClose={props.ackowledgeEventInviteCopied}
+      />
+    )}
     {props.deleteFailed && showDeleteFailed(props)}
     {props.deleteSuccess && showDeleteSuccess(props)}
   </div>
