@@ -43,7 +43,9 @@ const getListStyle = (isDraggingOver: boolean) => ({
   width: 250
 })
 
-interface IInteractiveTrackListProps {}
+interface IInteractiveTrackListProps {
+  test?: any
+}
 interface IInteractiveTrackListState {
   items: any[]
 }
@@ -88,28 +90,32 @@ class InteractiveTrackList extends React.Component<
               ref={provided.innerRef}
               style={getListStyle(snapshot.isDraggingOver)}
             >
-              {this.state.items.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index}>
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                      )}
-                    >
-                      {item.content}
-                    </div>
-                  )}
-                </Draggable>
-              ))}
+              {this.state.items.map(this.getDraggable)}
               {provided.placeholder}
             </div>
           )}
         </Droppable>
       </DragDropContext>
+    )
+  }
+
+  private getDraggable(item: any, index: number) {
+    return (
+      <Draggable key={item.id} draggableId={item.id} index={index}>
+        {(provided, snapshot) => (
+          <div
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            style={getItemStyle(
+              snapshot.isDragging,
+              provided.draggableProps.style
+            )}
+          >
+            {item.content}
+          </div>
+        )}
+      </Draggable>
     )
   }
 }
