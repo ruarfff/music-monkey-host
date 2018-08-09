@@ -10,15 +10,13 @@ import {
   deleteEvent,
   getEventById,
   onEventDeleteClosed,
-  onEventDeleteSelected,
-  onEventTabIndexChange
+  onEventDeleteSelected
 } from './eventViewActions'
 
 const mapStateToProps = (state: IRootState) => ({
   error: state.eventView.fetchError,
   event: state.eventView.event,
   loading: state.eventView.loading,
-  eventTabIndex: state.eventView.eventTabIndex,
   deleteSelected: state.eventView.deleteSelected,
   deleteSuccess: state.eventView.deleteSucceeded,
   deleteFailed: state.eventView.deleteFailed,
@@ -26,14 +24,13 @@ const mapStateToProps = (state: IRootState) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  onDeleteAknowledged: () => {    
+  onDeleteAknowledged: () => {
     dispatch(push('/'))
   },
   ...bindActionCreators(
     {
       deleteEvent,
       getEventById,
-      onEventTabIndexChange,
       onEventDeleteSelected,
       onEventDeleteClosed,
       copyEventInvite,
@@ -43,9 +40,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   )
 })
 
-const EventViewContainer = withRouter(connect(
+const EventViewContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(EventView) as any)
+)(withRouter(EventView))
 
 export default EventViewContainer

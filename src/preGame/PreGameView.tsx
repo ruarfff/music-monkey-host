@@ -46,8 +46,19 @@ export default class PreGameView extends React.PureComponent<
   IPreGameViewProps
 > {
   public componentDidUpdate(prevProps: IPreGameViewProps) {
-    if (this.props.event.eventId !== prevProps.event.eventId) {
-      const eventId = this.props.event.eventId || ''
+    const prevEvent = prevProps.event
+    const { event } = this.props
+    let prevEventId = ''
+    let eventId = ''
+
+    if (prevEvent) {
+      prevEventId = prevEvent.eventId || ''
+    }
+    if (event) {
+      eventId = event.eventId || ''
+    }
+
+    if (eventId !== prevEventId) {
       this.props.getEventSuggestions(eventId)
     }
   }
@@ -82,45 +93,48 @@ export default class PreGameView extends React.PureComponent<
 
     return (
       <div>
-        {event.playlist && (
-          <div>
-            <AppBar position="static" color="default">
-              <Tabs
-                value={preGameTabIndex}
-                onChange={this.handleTabChange}
-                indicatorColor="primary"
-                textColor="primary"
-                scrollable={true}
-                scrollButtons="auto"
-                className="PreGame-tab-bar"
+        {event &&
+          event.playlist && (
+            <div>
+              <AppBar position="static" color="default">
+                <Tabs
+                  value={preGameTabIndex}
+                  onChange={this.handleTabChange}
+                  indicatorColor="primary"
+                  textColor="primary"
+                  scrollable={true}
+                  scrollButtons="auto"
+                  className="PreGame-tab-bar"
+                >
+                  <Tab
+                    label="Event Playlist"
+                    icon={this.renderEventPlaylistIcon()}
+                  />
+                  {suggestionsGroupedByUserId &&
+                    this.renderSuggestionTabs(suggestionsGroupedByUserId)}
+                </Tabs>
+              </AppBar>
+              <SwipeableViews
+                axis="x"
+                index={preGameTabIndex}
+                onChangeIndex={onPreGameTabIndexChange}
               >
-                <Tab
-                  label="Event Playlist"
-                  icon={this.renderEventPlaylistIcon()}
-                />
+                <TabContainer dir="ltr">
+                  <PreGamePlaylist
+                    event={event}
+                    saving={saving}
+                    acceptedSuggestionsByTrackUri={
+                      acceptedSuggestionsByTrackUri
+                    }
+                    onSavePreGamePlaylist={this.handleSaveEventPlaylist}
+                    onResetPlaylist={resetUnsavedPlaylist}
+                  />
+                </TabContainer>
                 {suggestionsGroupedByUserId &&
-                  this.renderSuggestionTabs(suggestionsGroupedByUserId)}
-              </Tabs>
-            </AppBar>
-            <SwipeableViews
-              axis="x"
-              index={preGameTabIndex}
-              onChangeIndex={onPreGameTabIndexChange}
-            >
-              <TabContainer dir="ltr">
-                <PreGamePlaylist
-                  event={event}
-                  saving={saving}
-                  acceptedSuggestionsByTrackUri={acceptedSuggestionsByTrackUri}
-                  onSavePreGamePlaylist={this.handleSaveEventPlaylist}
-                  onResetPlaylist={resetUnsavedPlaylist}
-                />
-              </TabContainer>
-              {suggestionsGroupedByUserId &&
-                this.renderSuggestionTabContent(suggestionsGroupedByUserId)}
-            </SwipeableViews>
-          </div>
-        )}
+                  this.renderSuggestionTabContent(suggestionsGroupedByUserId)}
+              </SwipeableViews>
+            </div>
+          )}
       </div>
     )
   }

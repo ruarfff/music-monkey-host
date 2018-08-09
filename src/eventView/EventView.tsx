@@ -1,8 +1,6 @@
 import AppBar from '@material-ui/core/AppBar/AppBar'
 import Button from '@material-ui/core/Button/Button'
 import Grid from '@material-ui/core/Grid/Grid'
-import { Theme } from '@material-ui/core/styles'
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
@@ -10,9 +8,7 @@ import Zoom from '@material-ui/core/Zoom/Zoom'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/ModeEdit'
 import * as React from 'react'
-import lifecycle from 'react-pure-lifecycle'
 import { RouteComponentProps } from 'react-router'
-import SwipeableViews from 'react-swipeable-views'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import EventFetchError from '../event/EventFetchError'
@@ -22,16 +18,17 @@ import LoadingSpinner from '../loading/LoadingSpinner'
 import PreGameView from '../preGame/PreGameViewContainer'
 import LinkButton from '../util/LinkButton'
 import PulsingButton from '../util/PulsingButton'
-import EventDetails from './EventDetails'
 import InviteCopyAlert from './InviteCopyAlert'
 import InviteLink from './InviteLink'
 
+interface IEventState {
+  tabIndex: number
+}
+
 interface IEventViewProps extends RouteComponentProps<any> {
-  error?: Error
+  error: Error
   event: IEvent
-  loading?: boolean
-  eventTabIndex: number
-  theme: any
+  loading: boolean
   deleteSelected: boolean
   deleteSuccess: boolean
   deleteFailed: boolean
@@ -45,32 +42,8 @@ interface IEventViewProps extends RouteComponentProps<any> {
   copyEventInvite(): IAction
   ackowledgeEventInviteCopied(): IAction
 }
-type PropsWithStyles = IEventViewProps &
-  WithStyles<'root' | 'button' | 'rightIcon' | 'deleteButton'>
-
-const style = (theme: Theme) => ({
-  root: {
-    padding: theme.spacing.unit,
-    backgroundColor: theme.palette.background.default,
-    color: theme.palette.primary.main
-  },
-  button: {
-    margin: theme.spacing.unit
-  },
-  rightIcon: {
-    marginLeft: theme.spacing.unit
-  }
-})
 
 const SweetAlert = withReactContent(Swal) as any
-
-const callGetEventById = (props: PropsWithStyles) => {
-  return () => props.getEventById(props.match.params.eventId)
-}
-
-const componentDidMount = (props: PropsWithStyles) => {
-  callGetEventById(props)()
-}
 
 function TabContainer({ children, dir }: any) {
   return (
@@ -80,139 +53,150 @@ function TabContainer({ children, dir }: any) {
   )
 }
 
-const handleTabChange = (props: IEventViewProps) => (
-  event: any,
-  index: number
-) => {
-  props.onEventTabIndexChange(index)
-}
+class EventView extends React.Component<IEventViewProps, IEventState> {
+  public state = {
+    tabIndex: 0
+  }
 
-const showDeleteSuccess = (props: PropsWithStyles) => {
-  SweetAlert.fire({
-    title: 'Event Deleted',
-    type: 'success'
-  }).then(() => {
-    props.onDeleteAknowledged()
-    props.onEventDeleteClosed()
-  })
-}
+  public componentDidMount() {
+    this.props.getEventById(this.props.match.params.eventId)
+  }
 
-const showDeleteFailed = (props: PropsWithStyles) => {
-  SweetAlert.fire({
-    title: "Couldn't delete Event",
-    text: 'Sorry. An error occurred when trying to delete this Event.',
-    type: 'error'
-  }).then(() => {
-    props.onEventDeleteClosed()
-  })
-}
+  public render() {
+    const {
+      loading,
+      error,
+      copiedToClipboard,
+      ackowledgeEventInviteCopied,
+      deleteFailed,
+      deleteSuccess
+    } = this.props
 
-const handleDeleteSelected = (props: IEventViewProps) => () => {
-  SweetAlert.fire({
-    title: 'Are you sure?',
-    text: 'This will completely remove this event',
-    type: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-  }).then((result: any) => {
-    if (result.value) {
-      props.deleteEvent(props.event)
-    }
-    props.onEventDeleteClosed()
-  })
-}
+    return (
+      <div>
+        {loading && <LoadingSpinner />}
+        {loading &&
+          error && <EventFetchError onTryAgain={this.handleGetEvent} />}
+        {event && (
+          <Zoom in={!loading && !!event}>{this.renderEventView()}</Zoom>
+        )}
+        {copiedToClipboard && (
+          <InviteCopyAlert
+            message="Copied to Clipboard"
+            onClose={ackowledgeEventInviteCopied}
+          />
+        )}
+        {deleteFailed && this.showDeleteFailed()}
+        {deleteSuccess && this.showDeleteSuccess()}
+      </div>
+    )
+  }
 
-const renderEventView = (props: PropsWithStyles) => {
-  const { event, copyEventInvite } = props
-  const inviteId = event.invites ? event.invites[0] : ''
+  private handleGetEvent() {
+    this.props.getEventById(this.props.match.params.eventId)
+  }
 
-  return (
-    <Grid container={true} spacing={16}>
-      <Grid item={true} xs={12} sm={4}>
-        <Typography variant="display3" noWrap={true}>
-          {props.event && props.event.name}
-        </Typography>
-      </Grid>
-      <Grid item={true} xs={12} sm={4}>
-        <InviteLink inviteId={inviteId} onCopyEventInvite={copyEventInvite} />
-      </Grid>
-      <Grid item={true} xs={12} sm={4}>
-        <LinkButton
-          className={props.classes.button}
-          variant="raised"
-          color="primary"
-          to={props.location.pathname + '/edit'}
-        >
-          Edit
-          <EditIcon className={props.classes.rightIcon} />
-        </LinkButton>
-        <Button
-          className={props.classes.button}
-          variant="raised"
-          color="secondary"
-          onClick={handleDeleteSelected(props)}
-        >
-          Delete
-          <DeleteIcon className={props.classes.rightIcon} />
-        </Button>
-      </Grid>
+  private handleTabChange = (event: any, index: number) => {
+    this.setState({ tabIndex: index })
+  }
 
-      <Grid item={true} xs={12}>
-        <AppBar position="static" color="default">
-          <Tabs
-            value={props.eventTabIndex}
-            onChange={handleTabChange(props)}
-            indicatorColor="primary"
-            textColor="primary"
-            scrollable={true}
-            scrollButtons="auto"
+  private showDeleteSuccess = () => {
+    SweetAlert.fire({
+      title: 'Event Deleted',
+      type: 'success'
+    }).then(() => {
+      this.props.onDeleteAknowledged()
+      this.props.onEventDeleteClosed()
+    })
+  }
+
+  private showDeleteFailed = () => {
+    SweetAlert.fire({
+      title: "Couldn't delete Event",
+      text: 'Sorry. An error occurred when trying to delete this Event.',
+      type: 'error'
+    }).then(() => {
+      this.props.onEventDeleteClosed()
+    })
+  }
+
+  private handleDeleteSelected = () => () => {
+    SweetAlert.fire({
+      title: 'Are you sure?',
+      text: 'This will completely remove this event',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result: any) => {
+      if (result.value) {
+        this.props.deleteEvent(this.props.event)
+      }
+      this.props.onEventDeleteClosed()
+    })
+  }
+
+  private renderEventView = () => {
+    const { event, copyEventInvite, location } = this.props
+    const inviteId = event && event.invites ? event.invites[0] : ''
+    const { tabIndex } = this.state
+
+    return (
+      <Grid container={true} spacing={16}>
+        <Grid item={true} xs={12} sm={4}>
+          <Typography variant="display3" noWrap={true}>
+            {event && event.name}
+          </Typography>
+        </Grid>
+        <Grid item={true} xs={12} sm={4}>
+          <InviteLink inviteId={inviteId} onCopyEventInvite={copyEventInvite} />
+        </Grid>
+        <Grid item={true} xs={12} sm={4}>
+          <LinkButton
+            variant="raised"
+            color="primary"
+            to={location.pathname + '/edit'}
           >
-            <Tab label="Pre-Game" />
-            <Tab label="In-Game" />
-            <Tab label="Event" />
-          </Tabs>
-        </AppBar>
-        <SwipeableViews
-          axis={props.theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          index={props.eventTabIndex}
-          onChangeIndex={props.onEventTabIndexChange}
-        >
-          <TabContainer dir={props.theme.direction}>
-            <PreGameView />
-          </TabContainer>
-          <TabContainer dir={props.theme.direction}>
-            <PulsingButton />
-          </TabContainer>
-          <TabContainer dir={props.theme.direction}>
-            <EventDetails event={props.event} />
-          </TabContainer>
-        </SwipeableViews>
+            Edit
+            <EditIcon />
+          </LinkButton>
+          <Button
+            variant="raised"
+            color="secondary"
+            onClick={this.handleDeleteSelected()}
+          >
+            Delete
+            <DeleteIcon />
+          </Button>
+        </Grid>
+
+        <Grid item={true} xs={12}>
+          <AppBar position="static" color="default">
+            <Tabs
+              value={tabIndex}
+              onChange={this.handleTabChange}
+              indicatorColor="primary"
+              textColor="primary"
+            >
+              <Tab label="Playlist" />
+              <Tab label="Suggestions" />
+            </Tabs>
+          </AppBar>
+          {tabIndex === 0 && (
+            <TabContainer dir={'x'}>
+              <PreGameView />
+            </TabContainer>
+          )}
+          {tabIndex === 1 && (
+            <TabContainer dir={'x'}>
+              <PulsingButton />
+            </TabContainer>
+          )}
+        </Grid>
       </Grid>
-    </Grid>
-  )
+    )
+  }
 }
 
-const EventView: React.SFC<PropsWithStyles> = (props: PropsWithStyles) => (
-  <div>
-    {props.loading && <LoadingSpinner />}
-    {!props.loading &&
-      props.error && <EventFetchError onTryAgain={callGetEventById(props)} />}
-    {!!props.event && (
-      <Zoom in={!props.loading && !!props.event}>{renderEventView(props)}</Zoom>
-    )}
-    {props.copiedToClipboard && (
-      <InviteCopyAlert
-        message="Copied to Clipboard"
-        onClose={props.ackowledgeEventInviteCopied}
-      />
-    )}
-    {props.deleteFailed && showDeleteFailed(props)}
-    {props.deleteSuccess && showDeleteSuccess(props)}
-  </div>
-)
-
-export default lifecycle({
-  componentDidMount
-})(withStyles(style, { withTheme: true })<IEventViewProps>(EventView))
+export default EventView

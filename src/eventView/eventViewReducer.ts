@@ -8,8 +8,7 @@ import {
   EVENT_FETCH_BY_ID_INITIATED,
   EVENT_FETCHED_BY_ID,
   EVENT_INVITE_COPIED,
-  EVENT_INVITE_COPY_ACKNOWLEDGED,
-  EVENT_TAB_INDEX_CHANGED
+  EVENT_INVITE_COPY_ACKNOWLEDGED
 } from './eventViewActions'
 import initialState from './eventViewInitialState'
 import IEventViewState from './IEventViewState'
@@ -36,11 +35,6 @@ export default function eventView(
         ...state,
         fetchError: payload,
         loading: false
-      }
-    case EVENT_TAB_INDEX_CHANGED:
-      return {
-        ...state,
-        eventTabIndex: payload
       }
     case EVENT_DELETE_SELECTED:
       return {
