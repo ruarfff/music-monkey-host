@@ -1,11 +1,7 @@
 import AppBar from '@material-ui/core/AppBar/AppBar'
 import Button from '@material-ui/core/Button/Button'
-import FormControl from '@material-ui/core/FormControl/FormControl'
 import Grid from '@material-ui/core/Grid/Grid'
 import IconButton from '@material-ui/core/IconButton/IconButton'
-import Input from '@material-ui/core/Input/Input'
-import InputAdornment from '@material-ui/core/InputAdornment/InputAdornment'
-import InputLabel from '@material-ui/core/InputLabel/InputLabel'
 import Snackbar from '@material-ui/core/Snackbar/Snackbar'
 import { Theme } from '@material-ui/core/styles'
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles'
@@ -14,12 +10,9 @@ import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
 import Zoom from '@material-ui/core/Zoom/Zoom'
 import CloseIcon from '@material-ui/icons/Close'
-import ContentCopy from '@material-ui/icons/ContentCopy'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/ModeEdit'
-import { isEmpty } from 'lodash'
 import * as React from 'react'
-import * as CopyToClipboard from 'react-copy-to-clipboard'
 import lifecycle from 'react-pure-lifecycle'
 import { RouteComponentProps } from 'react-router'
 import SwipeableViews from 'react-swipeable-views'
@@ -33,6 +26,7 @@ import PreGameView from '../preGame/PreGameViewContainer'
 import LinkButton from '../util/LinkButton'
 import PulsingButton from '../util/PulsingButton'
 import EventDetails from './EventDetails'
+import InviteLink from './InviteLink'
 
 interface IEventViewProps extends RouteComponentProps<any> {
   error?: Error
@@ -132,39 +126,6 @@ const handleDeleteSelected = (props: IEventViewProps) => () => {
   })
 }
 
-const renderInviteLink = (props: PropsWithStyles) => {
-  if (!props.event || isEmpty(props.event.invites)) {
-    return <span />
-  }
-  const invites = props.event.invites || []
-  const inviteLink = 'https://guests.musicmonkey.io/invite/' + invites[0]
-
-  return (
-    <CopyToClipboard text={inviteLink} onCopy={handleCopyToClipboard(props)}>
-      <FormControl>
-        <InputLabel htmlFor="invite-link">invite Link</InputLabel>
-        <Input
-          disabled={true}
-          id="invite-link"
-          type="text"
-          value={inviteLink}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton aria-label="Copy to clipboard">
-                <ContentCopy />
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-      </FormControl>
-    </CopyToClipboard>
-  )
-}
-
-const handleCopyToClipboard = (props: PropsWithStyles) => {
-  return () => props.copyEventInvite()
-}
-
 const handleCopytToClipboardAcknowledged = (props: PropsWithStyles) => {
   return () => props.ackowledgeEventInviteCopied()
 }
@@ -195,70 +156,75 @@ const renderCopiedSnackBar = (props: PropsWithStyles) => (
   />
 )
 
-const renderEventView = (props: PropsWithStyles) => (
-  <Grid container={true} spacing={16}>
-    <Grid item={true} xs={12} sm={4}>
-      <Typography variant="display3" noWrap={true}>
-        {props.event && props.event.name}
-      </Typography>
-    </Grid>
-    <Grid item={true} xs={12} sm={4}>
-      {renderInviteLink(props)}
-    </Grid>
-    <Grid item={true} xs={12} sm={4}>
-      <LinkButton
-        className={props.classes.button}
-        variant="raised"
-        color="primary"
-        to={props.location.pathname + '/edit'}
-      >
-        Edit
-        <EditIcon className={props.classes.rightIcon} />
-      </LinkButton>
-      <Button
-        className={props.classes.button}
-        variant="raised"
-        color="secondary"
-        onClick={handleDeleteSelected(props)}
-      >
-        Delete
-        <DeleteIcon className={props.classes.rightIcon} />
-      </Button>
-    </Grid>
+const renderEventView = (props: PropsWithStyles) => {
+  const { event, copyEventInvite } = props
+  const inviteId = event.invites ? event.invites[0] : ''
 
-    <Grid item={true} xs={12}>
-      <AppBar position="static" color="default">
-        <Tabs
-          value={props.eventTabIndex}
-          onChange={handleTabChange(props)}
-          indicatorColor="primary"
-          textColor="primary"
-          scrollable={true}
-          scrollButtons="auto"
+  return (
+    <Grid container={true} spacing={16}>
+      <Grid item={true} xs={12} sm={4}>
+        <Typography variant="display3" noWrap={true}>
+          {props.event && props.event.name}
+        </Typography>
+      </Grid>
+      <Grid item={true} xs={12} sm={4}>
+        <InviteLink inviteId={inviteId} onCopyEventInvite={copyEventInvite} />
+      </Grid>
+      <Grid item={true} xs={12} sm={4}>
+        <LinkButton
+          className={props.classes.button}
+          variant="raised"
+          color="primary"
+          to={props.location.pathname + '/edit'}
         >
-          <Tab label="Pre-Game" />
-          <Tab label="In-Game" />
-          <Tab label="Event" />
-        </Tabs>
-      </AppBar>
-      <SwipeableViews
-        axis={props.theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={props.eventTabIndex}
-        onChangeIndex={props.onEventTabIndexChange}
-      >
-        <TabContainer dir={props.theme.direction}>
-          <PreGameView />
-        </TabContainer>
-        <TabContainer dir={props.theme.direction}>
-          <PulsingButton />
-        </TabContainer>
-        <TabContainer dir={props.theme.direction}>
-          <EventDetails event={props.event} />
-        </TabContainer>
-      </SwipeableViews>
+          Edit
+          <EditIcon className={props.classes.rightIcon} />
+        </LinkButton>
+        <Button
+          className={props.classes.button}
+          variant="raised"
+          color="secondary"
+          onClick={handleDeleteSelected(props)}
+        >
+          Delete
+          <DeleteIcon className={props.classes.rightIcon} />
+        </Button>
+      </Grid>
+
+      <Grid item={true} xs={12}>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={props.eventTabIndex}
+            onChange={handleTabChange(props)}
+            indicatorColor="primary"
+            textColor="primary"
+            scrollable={true}
+            scrollButtons="auto"
+          >
+            <Tab label="Pre-Game" />
+            <Tab label="In-Game" />
+            <Tab label="Event" />
+          </Tabs>
+        </AppBar>
+        <SwipeableViews
+          axis={props.theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          index={props.eventTabIndex}
+          onChangeIndex={props.onEventTabIndexChange}
+        >
+          <TabContainer dir={props.theme.direction}>
+            <PreGameView />
+          </TabContainer>
+          <TabContainer dir={props.theme.direction}>
+            <PulsingButton />
+          </TabContainer>
+          <TabContainer dir={props.theme.direction}>
+            <EventDetails event={props.event} />
+          </TabContainer>
+        </SwipeableViews>
+      </Grid>
     </Grid>
-  </Grid>
-)
+  )
+}
 
 const EventView: React.SFC<PropsWithStyles> = (props: PropsWithStyles) => (
   <div>
