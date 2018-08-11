@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography/Typography'
 import Zoom from '@material-ui/core/Zoom/Zoom'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/ModeEdit'
+import * as Pusher from 'pusher-js'
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router'
 import Swal from 'sweetalert2'
@@ -17,8 +18,8 @@ import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import LinkButton from '../util/LinkButton'
-import PulsingButton from '../util/PulsingButton'
 import EventPlaylist from './EventPlaylist'
+import EventSuggestions from './EventSuggestionsContainer'
 import InviteCopyAlert from './InviteCopyAlert'
 import InviteLink from './InviteLink'
 
@@ -43,6 +44,7 @@ interface IEventViewProps extends RouteComponentProps<any> {
   onDeleteAcknowledged(): IAction
   copyEventInvite(): IAction
   acknowledgeEventInviteCopied(): IAction
+  getEventSuggestions(eventId: string): IAction
 }
 
 const SweetAlert = withReactContent(Swal) as any
@@ -60,8 +62,39 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
     tabIndex: 0
   }
 
+  public componentDidUpdate(prevProps: IEventViewProps) {
+    const prevEvent = prevProps.event
+    const { event } = this.props
+    let prevEventId = ''
+    let eventId = ''
+
+    if (prevEvent) {
+      prevEventId = prevEvent.eventId || ''
+    }
+    if (event) {
+      eventId = event.eventId || ''
+    }
+
+    if (eventId !== prevEventId) {
+      this.props.getEventSuggestions(eventId)
+    }
+  }
+
   public componentDidMount() {
     this.props.getEventById(this.props.match.params.eventId)
+    if (this.props.event) {
+      const eventId = this.props.event.eventId || ''
+      this.props.getEventSuggestions(eventId)
+      const pusher = new Pusher('d7c284d8f17d26f74047', {
+        cluster: 'eu',
+        encrypted: true
+      })
+
+      const channel = pusher.subscribe('mm-suggestions-' + eventId)
+      channel.bind('suggestion-saved', data => {
+        this.props.getEventSuggestions(eventId)
+      })
+    }
   }
 
   public render() {
@@ -204,7 +237,7 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
           )}
           {tabIndex === 1 && (
             <TabContainer dir={'x'}>
-              <PulsingButton />
+              <EventSuggestions />
             </TabContainer>
           )}
         </Grid>

@@ -3,6 +3,7 @@ import { withRouter } from 'react-router'
 import { push } from 'react-router-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import IRootState from '../rootState'
+import { getEventSuggestions } from '../suggestion/suggestionActions'
 import EventView from './EventView'
 import {
   acknowledgeEventInviteCopied,
@@ -32,6 +33,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     {
       deleteEvent,
       getEventById,
+      getEventSuggestions,
       onEventDeleteSelected,
       onEventDeleteClosed,
       copyEventInvite,

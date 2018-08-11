@@ -6,4 +6,5 @@ export default interface ISuggestion {
   trackUri: string
   playlistUri?: string
   accepted: boolean
+  rejected: boolean
 }
