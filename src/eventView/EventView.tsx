@@ -15,9 +15,10 @@ import EventFetchError from '../event/EventFetchError'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
-import PreGameView from '../preGame/PreGameViewContainer'
+import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import LinkButton from '../util/LinkButton'
 import PulsingButton from '../util/PulsingButton'
+import EventPlaylist from './EventPlaylist'
 import InviteCopyAlert from './InviteCopyAlert'
 import InviteLink from './InviteLink'
 
@@ -33,14 +34,15 @@ interface IEventViewProps extends RouteComponentProps<any> {
   deleteSuccess: boolean
   deleteFailed: boolean
   copiedToClipboard: boolean
+  acceptedSuggestionsByTrackUri: Map<string, IDecoratedSuggestion>
   getEventById(eventId: string): IAction
   onEventTabIndexChange(index: number): IAction
   onEventDeleteSelected(): IAction
   onEventDeleteClosed(): IAction
   deleteEvent(event: IEvent): IAction
-  onDeleteAknowledged(): IAction
+  onDeleteAcknowledged(): IAction
   copyEventInvite(): IAction
-  ackowledgeEventInviteCopied(): IAction
+  acknowledgeEventInviteCopied(): IAction
 }
 
 const SweetAlert = withReactContent(Swal) as any
@@ -67,7 +69,7 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
       loading,
       error,
       copiedToClipboard,
-      ackowledgeEventInviteCopied,
+      acknowledgeEventInviteCopied,
       deleteFailed,
       deleteSuccess
     } = this.props
@@ -83,7 +85,7 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
         {copiedToClipboard && (
           <InviteCopyAlert
             message="Copied to Clipboard"
-            onClose={ackowledgeEventInviteCopied}
+            onClose={acknowledgeEventInviteCopied}
           />
         )}
         {deleteFailed && this.showDeleteFailed()}
@@ -105,7 +107,7 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
       title: 'Event Deleted',
       type: 'success'
     }).then(() => {
-      this.props.onDeleteAknowledged()
+      this.props.onDeleteAcknowledged()
       this.props.onEventDeleteClosed()
     })
   }
@@ -138,10 +140,15 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
   }
 
   private renderEventView = () => {
-    const { event, copyEventInvite, location } = this.props
+    const {
+      event,
+      copyEventInvite,
+      location,
+      acceptedSuggestionsByTrackUri
+    } = this.props
     const inviteId = event && event.invites ? event.invites[0] : ''
     const { tabIndex } = this.state
-
+    const saving = false
     return (
       <Grid container={true} spacing={16}>
         <Grid item={true} xs={12} sm={4}>
@@ -178,6 +185,7 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
               onChange={this.handleTabChange}
               indicatorColor="primary"
               textColor="primary"
+              centered={true}
             >
               <Tab label="Playlist" />
               <Tab label="Suggestions" />
@@ -185,7 +193,13 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
           </AppBar>
           {tabIndex === 0 && (
             <TabContainer dir={'x'}>
-              <PreGameView />
+              <EventPlaylist
+                event={event}
+                saving={saving}
+                acceptedSuggestionsByTrackUri={acceptedSuggestionsByTrackUri}
+                onResetPlaylist={this.handlePlaylistReset}
+                onSavePlaylist={this.handlePlaylistSaved}
+              />
             </TabContainer>
           )}
           {tabIndex === 1 && (
@@ -196,6 +210,14 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
         </Grid>
       </Grid>
     )
+  }
+
+  private handlePlaylistReset = () => {
+    return null
+  }
+
+  private handlePlaylistSaved = () => {
+    return null
   }
 }
 

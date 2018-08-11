@@ -5,7 +5,7 @@ import { bindActionCreators, Dispatch } from 'redux'
 import IRootState from '../rootState'
 import EventView from './EventView'
 import {
-  ackowledgeEventInviteCopied,
+  acknowledgeEventInviteCopied,
   copyEventInvite,
   deleteEvent,
   getEventById,
@@ -20,11 +20,12 @@ const mapStateToProps = (state: IRootState) => ({
   deleteSelected: state.eventView.deleteSelected,
   deleteSuccess: state.eventView.deleteSucceeded,
   deleteFailed: state.eventView.deleteFailed,
-  copiedToClipboard: state.eventView.copiedToClipboard
+  copiedToClipboard: state.eventView.copiedToClipboard,
+  acceptedSuggestionsByTrackUri: state.preGame.acceptedSuggestionsByTrackUri
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  onDeleteAknowledged: () => {
+  onDeleteAcknowledged: () => {
     dispatch(push('/'))
   },
   ...bindActionCreators(
@@ -34,7 +35,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
       onEventDeleteSelected,
       onEventDeleteClosed,
       copyEventInvite,
-      ackowledgeEventInviteCopied
+      acknowledgeEventInviteCopied
     },
     dispatch
   )

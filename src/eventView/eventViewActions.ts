@@ -38,6 +38,6 @@ export const copyEventInvite = (): IAction => ({
   type: EVENT_INVITE_COPIED
 })
 
-export const ackowledgeEventInviteCopied = (): IAction => ({
+export const acknowledgeEventInviteCopied = (): IAction => ({
   type: EVENT_INVITE_COPY_ACKNOWLEDGED
 })
