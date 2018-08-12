@@ -5,7 +5,9 @@ import List from '@material-ui/core/List/List'
 import ListItem from '@material-ui/core/ListItem/ListItem'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction/ListItemSecondaryAction'
 import ListItemText from '@material-ui/core/ListItemText/ListItemText'
+import Slide from '@material-ui/core/Slide'
 import Typography from '@material-ui/core/Typography/Typography'
+import BlockIcon from '@material-ui/icons/Block'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import DoneAll from '@material-ui/icons/DoneAll'
 import * as classNames from 'classnames'
@@ -14,16 +16,28 @@ import IAction from '../IAction'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import ITrack from '../track/ITrack'
 
+import ISuggestion from '../suggestion/ISuggestion'
 import './EventSuggestions.css'
 
 interface IEventSuggestionsProps {
   suggestions: IDecoratedSuggestion[]
-  acceptSuggestedTracks(suggestions: IDecoratedSuggestion[]): IAction
+  acceptAllSuggestions(): IAction
+  acceptSuggestion(suggestion: ISuggestion): IAction
+}
+
+interface IEventSuggestionsState {
+  tracksBeingRemoved: ITrack
 }
 
 export default class EventSuggestions extends React.PureComponent<
-  IEventSuggestionsProps
+  IEventSuggestionsProps,
+  IEventSuggestionsState
 > {
+  constructor(props: IEventSuggestionsProps) {
+    super(props)
+    this.state = { tracksBeingRemoved: {} } as IEventSuggestionsState
+  }
+
   public render() {
     const { suggestions } = this.props
     const pendingSuggestions = suggestions.filter(
@@ -40,25 +54,22 @@ export default class EventSuggestions extends React.PureComponent<
       <div className="EventSuggestions-root">
         <Grid container={true} spacing={24}>
           <Grid item={true} sm={12}>
-            {this.renderAcceptButtons(pendingSuggestions)}
+            {this.renderAcceptButtons()}
           </Grid>
           <Grid item={true} sm={12}>
-            {this.renderSuggestionList(pendingSuggestions)}
+            <List>
+              {suggestions.map(decoratedSuggestion =>
+                this.renderSuggestion(decoratedSuggestion)
+              )}
+            </List>
           </Grid>
         </Grid>
       </div>
     )
   }
 
-  private renderSuggestionList = (suggestions: IDecoratedSuggestion[]) => {
-    return (
-      <List>
-        {suggestions.map(suggestion => this.renderTrack(suggestion.track))}
-      </List>
-    )
-  }
-
-  private renderTrack = (track: ITrack) => {
+  private renderSuggestion = (decoratedSuggestion: IDecoratedSuggestion) => {
+    const { track } = decoratedSuggestion
     let trackImage = <span />
     if (track.album && track.album.images && track.album.images.length > 0) {
       trackImage = (
@@ -71,31 +82,68 @@ export default class EventSuggestions extends React.PureComponent<
     }
 
     return (
-      <ListItem key={track.uri} dense={true} button={true}>
-        {trackImage}
-        <ListItemSecondaryAction>
-          <IconButton aria-label="Accept">
-            <CheckCircleIcon />
-          </IconButton>
-        </ListItemSecondaryAction>
-        <ListItemText primary={track.name} />
-      </ListItem>
+      <Slide
+        key={track.uri}
+        in={track.uri !== this.state.tracksBeingRemoved.uri}
+        direction="right"
+        unmountOnExit={true}
+      >
+        <ListItem dense={true} button={true}>
+          {trackImage}
+          <ListItemSecondaryAction>
+            <IconButton
+              aria-label="Delete"
+              onClick={this.handleSuggestionRejected(decoratedSuggestion)}
+            >
+              <BlockIcon />
+            </IconButton>
+            <IconButton
+              aria-label="Accept"
+              onClick={this.handleSuggestionAccepted(decoratedSuggestion)}
+            >
+              <CheckCircleIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+          <ListItemText primary={track.name} />
+        </ListItem>
+      </Slide>
     )
   }
-  private handleAcceptAllClicked = (
-    suggestions: IDecoratedSuggestion[]
+
+  private handleSuggestionAccepted = (
+    decoratedSuggestion: IDecoratedSuggestion
   ) => () => {
-    this.props.acceptSuggestedTracks(suggestions)
+    const { track, suggestion } = decoratedSuggestion
+    this.setState({ tracksBeingRemoved: track })
+    setTimeout(() => {
+      this.props.acceptSuggestion(suggestion)
+      this.setState({ tracksBeingRemoved: {} as ITrack })
+    }, 1000)
   }
 
-  private renderAcceptButtons = (suggestions: IDecoratedSuggestion[]) => {
+  private handleSuggestionRejected = (
+    decoratedSuggestion: IDecoratedSuggestion
+  ) => () => {
+    const { track, suggestion } = decoratedSuggestion
+    this.setState({ tracksBeingRemoved: track })
+    setTimeout(() => {
+      this.props.acceptSuggestion(suggestion)
+      this.setState({ tracksBeingRemoved: {} as ITrack })
+    }, 1000)
+  }
+
+  private handleAcceptAllClicked = () => {
+    this.props.acceptAllSuggestions()
+  }
+
+  private renderAcceptButtons = () => {
     return (
       <div>
         <Button
           className="EventSuggestions-button"
           variant="raised"
           color="primary"
-          onClick={this.handleAcceptAllClicked(suggestions)}
+          onClick={this.handleAcceptAllClicked}
         >
           <DoneAll
             className={classNames(

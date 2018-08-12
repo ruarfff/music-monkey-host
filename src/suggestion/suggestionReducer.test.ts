@@ -3,12 +3,13 @@ import IDecoratedSuggestion from './IDecoratedSuggestion'
 import ISuggestion from './ISuggestion'
 import ISuggestionState from './ISuggestionState'
 import {
+  ACCEPT_ALL_SUGGESTIONS,
+  ACCEPT_MULTIPLE_SUGGESTIONS,
+  ACCEPT_SUGGESTION,
   FETCH_SUGGESTIONS_FAILED,
   FETCH_SUGGESTIONS_INITIATED,
   FETCH_SUGGESTIONS_SUCCESS,
-  SET_ALL_SUGGESTIONS_TO_ACCEPTED,
-  SET_SUGGESTION_TO_ACCEPTED,
-  SET_SUGGESTIONS_TO_ACCEPTED
+  REJECT_SUGGESTION
 } from './suggestionActions'
 import initialState from './suggestionInitialState'
 import suggestion from './suggestionReducer'
@@ -83,7 +84,7 @@ describe('suggestionReducer', () => {
     })
   })
 
-  it('should handle SET_SUGGESTION_TO_ACCEPTED', () => {
+  it('should handle ACCEPT_SUGGESTION', () => {
     expect(
       suggestion(
         {
@@ -102,7 +103,7 @@ describe('suggestionReducer', () => {
           ]
         },
         {
-          type: SET_SUGGESTION_TO_ACCEPTED,
+          type: ACCEPT_SUGGESTION,
           payload: {
             suggestionId: '123',
             accepted: false,
@@ -129,7 +130,7 @@ describe('suggestionReducer', () => {
     } as ISuggestionState)
   })
 
-  it('should handle SET_SUGGESTIONS_TO_ACCEPTED', () => {
+  it('should handle ACCEPT_MULTIPLE_SUGGESTIONS', () => {
     const suggestions = [
       {
         suggestion: { suggestionId: '1' }
@@ -146,7 +147,7 @@ describe('suggestionReducer', () => {
           pendingSuggestions: suggestions
         },
         {
-          type: SET_SUGGESTIONS_TO_ACCEPTED,
+          type: ACCEPT_MULTIPLE_SUGGESTIONS,
           payload: suggestions.map(s => s.suggestion)
         }
       )
@@ -164,7 +165,7 @@ describe('suggestionReducer', () => {
     } as ISuggestionState)
   })
 
-  it('should handle SET_ALL_SUGGESTIONS_TO_ACCEPTED', () => {
+  it('should handle ACCEPT_ALL_SUGGESTIONS', () => {
     expect(
       suggestion(
         {
@@ -182,7 +183,7 @@ describe('suggestionReducer', () => {
           ]
         },
         {
-          type: SET_ALL_SUGGESTIONS_TO_ACCEPTED
+          type: ACCEPT_ALL_SUGGESTIONS
         }
       )
     ).toEqual({
@@ -200,5 +201,32 @@ describe('suggestionReducer', () => {
         } as IDecoratedSuggestion
       ]
     } as ISuggestionState)
+  })
+
+  it('should handle REJECT_SUGGESTION', () => {
+    const suggestionToReject = {
+      suggestion: {
+        suggestionId: '123',
+        accepted: false,
+        rejected: false
+      } as ISuggestion
+    } as IDecoratedSuggestion
+    const pendingSuggestion = {
+      suggestion: { suggestionId: 'na' } as ISuggestion
+    } as IDecoratedSuggestion
+
+    expect(
+      suggestion(
+        {
+          ...initialState,
+          pendingSuggestions: [pendingSuggestion, suggestionToReject]
+        },
+        { type: REJECT_SUGGESTION, payload: suggestionToReject.suggestion }
+      )
+    ).toEqual({
+      ...initialState,
+      pendingSuggestions: [pendingSuggestion],
+      rejectedSuggestions: [{...suggestionToReject, suggestion: {...suggestionToReject.suggestion, rejected: true}}]
+    })
   })
 })
