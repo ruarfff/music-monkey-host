@@ -1,5 +1,6 @@
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
+import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 
 export const EVENT_FETCH_BY_ID_INITIATED = 'EVENT_FETCH_BY_ID_INITIATED'
 export const EVENT_FETCHED_BY_ID = 'EVENT_FETCHED_BY_ID'
@@ -15,6 +16,8 @@ export const EVENT_INVITE_COPY_ACKNOWLEDGED = 'EVENT_INVITE_COPY_ACKNOWLEDGED'
 export const REFRESH_EVENT_PLAYLIST = 'REFRESH_EVENT_PLAYLIST'
 export const REFRESH_EVENT_PLAYLIST_SUCCESS = 'REFRESH_EVENT_PLAYLIST_SUCCESS'
 export const REFRESH_EVENT_PLAYLIST_FAILED = 'REFRESH_EVENT_PLAYLIST_FAILED'
+
+export const EVENT_ACCEPT_SUGGESTED_TRACKS = 'EVENT_ACCEPT_SUGGESTED_TRACKS'
 
 export const getEventById = (eventId: string): IAction => ({
   payload: eventId,
@@ -40,4 +43,11 @@ export const copyEventInvite = (): IAction => ({
 
 export const acknowledgeEventInviteCopied = (): IAction => ({
   type: EVENT_INVITE_COPY_ACKNOWLEDGED
+})
+
+export const acceptSuggestedTracks = (
+  suggestions: IDecoratedSuggestion[]
+): IAction => ({
+  type: EVENT_ACCEPT_SUGGESTED_TRACKS,
+  payload: suggestions
 })

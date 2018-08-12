@@ -10,6 +10,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import DoneAll from '@material-ui/icons/DoneAll'
 import * as classNames from 'classnames'
 import * as React from 'react'
+import IAction from '../IAction'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import ITrack from '../track/ITrack'
 
@@ -17,7 +18,7 @@ import './EventSuggestions.css'
 
 interface IEventSuggestionsProps {
   suggestions: IDecoratedSuggestion[]
-  onAcceptSuggestions(suggestions: IDecoratedSuggestion[]): void
+  acceptSuggestedTracks(suggestions: IDecoratedSuggestion[]): IAction
 }
 
 export default class EventSuggestions extends React.PureComponent<
@@ -84,7 +85,7 @@ export default class EventSuggestions extends React.PureComponent<
   private handleAcceptAllClicked = (
     suggestions: IDecoratedSuggestion[]
   ) => () => {
-    this.props.onAcceptSuggestions(suggestions)
+    this.props.acceptSuggestedTracks(suggestions)
   }
 
   private renderAcceptButtons = (suggestions: IDecoratedSuggestion[]) => {
@@ -97,7 +98,10 @@ export default class EventSuggestions extends React.PureComponent<
           onClick={this.handleAcceptAllClicked(suggestions)}
         >
           <DoneAll
-            className={classNames('EventSuggestions-leftIcon', 'EventSuggestions-iconSmall')}
+            className={classNames(
+              'EventSuggestions-leftIcon',
+              'EventSuggestions-iconSmall'
+            )}
           />
           Accept All{' '}
         </Button>

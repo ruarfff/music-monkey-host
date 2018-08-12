@@ -44,7 +44,7 @@ interface IEventViewProps extends RouteComponentProps<any> {
   onDeleteAcknowledged(): IAction
   copyEventInvite(): IAction
   acknowledgeEventInviteCopied(): IAction
-  getEventSuggestions(eventId: string): IAction
+  getEventSuggestions(eventId: string): IAction  
 }
 
 const SweetAlert = withReactContent(Swal) as any

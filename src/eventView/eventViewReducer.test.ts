@@ -1,6 +1,9 @@
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
+import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
+import ITrack from '../track/ITrack'
 import {
+  EVENT_ACCEPT_SUGGESTED_TRACKS,
   EVENT_DELETE_CLOSED,
   EVENT_DELETE_FAILED,
   EVENT_DELETE_SELECTED,
@@ -108,5 +111,24 @@ describe('eventViewReducer', () => {
         }
       )
     ).toEqual({ ...initialState, deleteFailed: true })
+  })
+
+  it('should handle EVENT_ACCEPT_SUGGESTED_TRACKS', () => {
+    const suggestion = {
+      suggestion: { suggestionId: '123' },
+      track: { uri: 'abc' } as ITrack
+    } as IDecoratedSuggestion
+    const suggestionByTrackId = new Map<string, IDecoratedSuggestion>()
+    suggestionByTrackId.set('abc', suggestion)
+
+    expect(
+      eventView(initialState, {
+        type: EVENT_ACCEPT_SUGGESTED_TRACKS,
+        payload: [suggestion]
+      })
+    ).toEqual({
+      ...initialState,
+      acceptedSuggestionsByTrackUri: suggestionByTrackId
+    })
   })
 })

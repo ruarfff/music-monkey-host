@@ -1,4 +1,5 @@
 import IEvent from '../event/IEvent'
+import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 
 export default interface IEventViewState {
   event?: IEvent
@@ -8,4 +9,5 @@ export default interface IEventViewState {
   deleteSucceeded: boolean
   deleteFailed: boolean
   copiedToClipboard: boolean
+  acceptedSuggestionsByTrackUri: Map<string, IDecoratedSuggestion>
 }

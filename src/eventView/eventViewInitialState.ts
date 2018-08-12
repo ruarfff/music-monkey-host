@@ -1,3 +1,4 @@
+import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import IEventViewState from './IEventViewState'
 
 export default {
@@ -5,5 +6,6 @@ export default {
   loading: false,
   fetchError: undefined,
   deleteSelected: false,
-  copiedToClipboard: false
+  copiedToClipboard: false,
+  acceptedSuggestionsByTrackUri: new Map<string, IDecoratedSuggestion>()
 } as IEventViewState
