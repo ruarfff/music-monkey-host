@@ -10,4 +10,6 @@ export default interface IEventViewState {
   deleteFailed: boolean
   copiedToClipboard: boolean
   acceptedSuggestionsByTrackUri: Map<string, IDecoratedSuggestion>
+  pendingSuggestions: IDecoratedSuggestion[]
+  rejectedSuggestions: IDecoratedSuggestion[]
 }

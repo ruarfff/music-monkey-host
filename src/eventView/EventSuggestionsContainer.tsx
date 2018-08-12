@@ -4,7 +4,7 @@ import EventSuggestions from './EventSuggestions'
 import { acceptSuggestedTracks } from './eventViewActions'
 
 const mapStateToProps = (state: IRootState) => ({
-  suggestions: state.suggestion.suggestions
+  suggestions: state.suggestion.pendingSuggestions
 })
 
 const mapDispatchToProps = {

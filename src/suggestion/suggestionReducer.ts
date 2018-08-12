@@ -2,7 +2,7 @@ import IAction from '../IAction'
 import IDecoratedSuggestion from './IDecoratedSuggestion'
 import ISuggestion from './ISuggestion'
 import ISuggestionState from './ISuggestionState'
-import { 
+import {
   FETCH_SUGGESTIONS_FAILED,
   FETCH_SUGGESTIONS_INITIATED,
   FETCH_SUGGESTIONS_SUCCESS,
@@ -20,70 +20,90 @@ export default function suggestion(
     case FETCH_SUGGESTIONS_INITIATED:
       return { ...state, fetchingSuggestions: true } as ISuggestionState
     case FETCH_SUGGESTIONS_SUCCESS:
+      const suggestions = payload
       return {
         ...state,
         fetchingSuggestions: false,
-        suggestions: payload
+        pendingSuggestions: suggestions.filter(
+          (s: ISuggestion) => !s.accepted && !s.rejected
+        ),
+        rejectedSuggestions: suggestions.filter((s: ISuggestion) => s.rejected),
+        acceptedSuggestions: suggestions.filter((s: ISuggestion) => s.accepted)
       } as ISuggestionState
     case FETCH_SUGGESTIONS_FAILED:
       return {
         ...state,
         fetchingSuggestions: false,
         fetchingSuggestionsError: payload
-      } as ISuggestionState   
+      } as ISuggestionState
     case SET_SUGGESTION_TO_ACCEPTED:
-      const suggestionsInPlace = [...state.suggestions]
-      let index = 0
-      const suggestionToAccept = state.suggestions.find((s, i) => {
-        const found = s.suggestion.suggestionId === payload.suggestionId
-        if (found) {
-          index = i
-        }
-        return found
-      })
-      if (suggestionToAccept) {
-        suggestionsInPlace[index] = {
-          ...suggestionToAccept,
-          suggestion: { ...suggestionToAccept.suggestion, accepted: true }
-        }
-      }
+      const suggestionToAccept = state.pendingSuggestions.find(
+        s => s.suggestion.suggestionId === payload.suggestionId
+      )
+      const acceptedSuggestions = !!suggestionToAccept
+        ? [
+            ...state.acceptedSuggestions,
+            {
+              ...suggestionToAccept,
+              suggestion: { ...suggestionToAccept.suggestion, accepted: true }
+            }
+          ]
+        : state.acceptedSuggestions
+      const pendingSuggestions = !!suggestionToAccept
+        ? state.pendingSuggestions.filter(
+            s => s.suggestion.suggestionId !== payload.suggestionId
+          )
+        : state.pendingSuggestions
+
       return {
         ...state,
-        suggestions: suggestionsInPlace
+        acceptedSuggestions,
+        pendingSuggestions
       }
     case SET_SUGGESTIONS_TO_ACCEPTED:
-      const suggestionsToAccept = payload || []
+      const suggestionsToAccept: ISuggestion[] = payload || []
+      const pendingWithAcceptedSet = state.pendingSuggestions.map(ds => {
+        if (
+          suggestionsToAccept.find(
+            s => s.suggestionId === ds.suggestion.suggestionId
+          )
+        ) {
+          return {
+            ...ds,
+            suggestion: {
+              ...ds.suggestion,
+              accepted: true
+            }
+          }
+        } else {
+          return ds
+        }
+      })
+
       return {
         ...state,
-        suggestions: state.suggestions.map(
-          (decoratedSuggestion: IDecoratedSuggestion) => {
-            if (
-              suggestionsToAccept.find(
-                (s: ISuggestion) =>
-                  s.suggestionId === decoratedSuggestion.suggestion.suggestionId
-              )
-            ) {
-              return {
-                ...decoratedSuggestion,
-                suggestion: {
-                  ...decoratedSuggestion.suggestion,
-                  accepted: true
-                }
-              }
-            }
-            return decoratedSuggestion
-          }
-        )
+        pendingSuggestions: pendingWithAcceptedSet.filter(
+          s => !s.suggestion.accepted
+        ),
+        acceptedSuggestions: [
+          ...state.acceptedSuggestions,
+          ...pendingWithAcceptedSet.filter(s => s.suggestion.accepted)
+        ]
       }
     case SET_ALL_SUGGESTIONS_TO_ACCEPTED:
+      const pendingSetToAccepted = state.pendingSuggestions.map(
+        (decoratedSuggestion: IDecoratedSuggestion) => ({
+          ...decoratedSuggestion,
+          suggestion: { ...decoratedSuggestion.suggestion, accepted: true }
+        })
+      )
       return {
         ...state,
-        suggestions: state.suggestions.map(
-          (decoratedSuggestion: IDecoratedSuggestion) => ({
-            ...decoratedSuggestion,
-            suggestion: { ...decoratedSuggestion.suggestion, accepted: true }
-          })
-        )
+        pendingSuggestions: [],
+        acceptedSuggestions: [
+          ...state.acceptedSuggestions,
+          ...pendingSetToAccepted
+        ]
       }
     default:
       return state

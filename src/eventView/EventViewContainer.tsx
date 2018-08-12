@@ -5,7 +5,7 @@ import { bindActionCreators, Dispatch } from 'redux'
 import IRootState from '../rootState'
 import { getEventSuggestions } from '../suggestion/suggestionActions'
 import EventView from './EventView'
-import {  
+import {
   acknowledgeEventInviteCopied,
   copyEventInvite,
   deleteEvent,
