@@ -45,17 +45,23 @@ describe('suggestionReducer', () => {
 
   it('should handle FETCH_SUGGESTIONS_SUCCESS', () => {
     const suggestions = [
-      { suggestionId: 'pending' } as ISuggestion,
       {
-        suggestionId: 'rejected',
-        accepted: false,
-        rejected: true
-      } as ISuggestion,
+        suggestion: { suggestionId: 'pending' } as ISuggestion
+      } as IDecoratedSuggestion,
       {
-        suggestionId: 'accepted',
-        accepted: true,
-        rejected: false
-      } as ISuggestion
+        suggestion: {
+          suggestionId: 'rejected',
+          accepted: false,
+          rejected: true
+        } as ISuggestion
+      } as IDecoratedSuggestion,
+      {
+        suggestion: {
+          suggestionId: 'accepted',
+          accepted: true,
+          rejected: false
+        } as ISuggestion
+      } as IDecoratedSuggestion
     ]
 
     expect(
@@ -66,21 +72,9 @@ describe('suggestionReducer', () => {
     ).toEqual({
       ...initialState,
       fetchingSuggestions: false,
-      pendingSuggestions: [{ suggestionId: 'pending' } as ISuggestion],
-      rejectedSuggestions: [
-        {
-          suggestionId: 'rejected',
-          accepted: false,
-          rejected: true
-        } as ISuggestion
-      ],
-      acceptedSuggestions: [
-        {
-          suggestionId: 'accepted',
-          accepted: true,
-          rejected: false
-        } as ISuggestion
-      ]
+      pendingSuggestions: [suggestions[0]],
+      rejectedSuggestions: [suggestions[1]],
+      acceptedSuggestions: [suggestions[2]]
     })
   })
 
@@ -226,7 +220,12 @@ describe('suggestionReducer', () => {
     ).toEqual({
       ...initialState,
       pendingSuggestions: [pendingSuggestion],
-      rejectedSuggestions: [{...suggestionToReject, suggestion: {...suggestionToReject.suggestion, rejected: true}}]
+      rejectedSuggestions: [
+        {
+          ...suggestionToReject,
+          suggestion: { ...suggestionToReject.suggestion, rejected: true }
+        }
+      ]
     })
   })
 })

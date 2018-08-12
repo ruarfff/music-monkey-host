@@ -23,6 +23,7 @@ interface IEventSuggestionsProps {
   suggestions: IDecoratedSuggestion[]
   acceptAllSuggestions(): IAction
   acceptSuggestion(suggestion: ISuggestion): IAction
+  rejectSuggestion(suggestion: ISuggestion): IAction
 }
 
 interface IEventSuggestionsState {
@@ -40,10 +41,7 @@ export default class EventSuggestions extends React.PureComponent<
 
   public render() {
     const { suggestions } = this.props
-    const pendingSuggestions = suggestions.filter(
-      s => !s.suggestion.accepted && !s.suggestion.rejected
-    )
-    if (pendingSuggestions.length < 1) {
+    if (!suggestions || suggestions.length < 1) {
       return (
         <Typography align="center" variant="subheading">
           Currently no Suggestions
@@ -127,9 +125,9 @@ export default class EventSuggestions extends React.PureComponent<
     const { track, suggestion } = decoratedSuggestion
     this.setState({ tracksBeingRemoved: track })
     setTimeout(() => {
-      this.props.acceptSuggestion(suggestion)
+      this.props.rejectSuggestion(suggestion)
       this.setState({ tracksBeingRemoved: {} as ITrack })
-    }, 1000)
+    }, 500)
   }
 
   private handleAcceptAllClicked = () => {

@@ -2,7 +2,8 @@ import { connect } from 'react-redux'
 import IRootState from '../rootState'
 import {
   acceptAllSuggestions,
-  acceptSuggestion
+  acceptSuggestion,
+  rejectSuggestion
 } from '../suggestion/suggestionActions'
 import EventSuggestions from './EventSuggestions'
 
@@ -12,7 +13,8 @@ const mapStateToProps = (state: IRootState) => ({
 
 const mapDispatchToProps = {
   acceptAllSuggestions,
-  acceptSuggestion
+  acceptSuggestion,
+  rejectSuggestion
 }
 
 const PreGameViewContainer = connect(

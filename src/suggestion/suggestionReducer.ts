@@ -26,10 +26,15 @@ export default function suggestion(
         ...state,
         fetchingSuggestions: false,
         pendingSuggestions: suggestions.filter(
-          (s: ISuggestion) => !s.accepted && !s.rejected
+          (s: IDecoratedSuggestion) =>
+            !s.suggestion.accepted && !s.suggestion.rejected
         ),
-        rejectedSuggestions: suggestions.filter((s: ISuggestion) => s.rejected),
-        acceptedSuggestions: suggestions.filter((s: ISuggestion) => s.accepted)
+        rejectedSuggestions: suggestions.filter(
+          (s: IDecoratedSuggestion) => s.suggestion.rejected
+        ),
+        acceptedSuggestions: suggestions.filter(
+          (s: IDecoratedSuggestion) => s.suggestion.accepted
+        )
       } as ISuggestionState
     }
     case FETCH_SUGGESTIONS_FAILED:
@@ -113,7 +118,7 @@ export default function suggestion(
     case REJECT_SUGGESTION: {
       const suggestionToReject = state.pendingSuggestions.find(
         s => s.suggestion.suggestionId === payload.suggestionId
-      ) 
+      )
       const rejectedSuggestions = !!suggestionToReject
         ? [
             ...state.rejectedSuggestions,
