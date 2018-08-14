@@ -1,7 +1,5 @@
 import IAction from '../IAction'
-import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import {
-  EVENT_ACCEPT_SUGGESTED_TRACKS,
   EVENT_DELETE_CLOSED,
   EVENT_DELETE_FAILED,
   EVENT_DELETE_SELECTED,
@@ -69,17 +67,6 @@ export default function eventView(
       return {
         ...state,
         copiedToClipboard: false
-      }
-    case EVENT_ACCEPT_SUGGESTED_TRACKS:
-      const suggestionMap = new Map(state.acceptedSuggestionsByTrackUri)
-      if (payload) {
-        payload.forEach((ds: IDecoratedSuggestion) => {
-          suggestionMap.set(ds.track.uri, ds)
-        })
-      }
-      return {
-        ...state,
-        acceptedSuggestionsByTrackUri: suggestionMap
       }
     default:
       return state
