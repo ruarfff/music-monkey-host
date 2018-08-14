@@ -3,9 +3,12 @@ import IAction from '../IAction'
 import {
   FETCH_SUGGESTIONS_FAILED,
   FETCH_SUGGESTIONS_INITIATED,
-  FETCH_SUGGESTIONS_SUCCESS
+  FETCH_SUGGESTIONS_SUCCESS,
+  REJECT_SUGGESTION,
+  REJECT_SUGGESTION_FAILED,
+  REJECT_SUGGESTION_SUCCESS
 } from './suggestionActions'
-import { getEventSuggestions } from './suggestionClient'
+import { getEventSuggestions, rejectSuggestion } from './suggestionClient'
 import SuggestionDecorator from './SuggestionDecorator'
 
 const suggestionDecorator = new SuggestionDecorator()
@@ -28,4 +31,17 @@ function* fetchSuggestionsFlow(action: IAction) {
 
 export function* watchFetchSuggestions() {
   yield takeEvery(FETCH_SUGGESTIONS_INITIATED, fetchSuggestionsFlow)
+}
+
+function* rejectSuggestionFlow(action: IAction) {
+  try {
+    const rejectedSuggestion = yield call(rejectSuggestion, action.payload)
+    yield put({ type: REJECT_SUGGESTION_SUCCESS, payload: rejectedSuggestion })
+  } catch (err) {
+    yield put({ type: REJECT_SUGGESTION_FAILED, payload: err })
+  }
+}
+
+export function* watchRejectSuggestion() {
+  yield takeEvery(REJECT_SUGGESTION, rejectSuggestionFlow)
 }

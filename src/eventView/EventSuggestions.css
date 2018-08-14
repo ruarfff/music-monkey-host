@@ -24,6 +24,10 @@
   border-radius: 7px;
 }
 
+.EventSuggestions-audio {
+  margin-right: 5em;
+}
+
 .EventSuggestions-avatar {
-  margin: 5;
+  margin-left: 12em;
 }

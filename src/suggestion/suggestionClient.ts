@@ -17,3 +17,9 @@ export const acceptSuggestions = (
     suggestions
   )
 }
+
+export const rejectSuggestion = (suggestion: ISuggestion) => {
+  return axios.post(
+    serviceUrl + '/suggestions/' + suggestion.suggestionId + '/reject'
+  )
+}

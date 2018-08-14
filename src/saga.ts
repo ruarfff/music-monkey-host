@@ -19,7 +19,10 @@ import {
 } from './eventView/eventViewSaga'
 import { watchFetchPlaylists } from './playlist/playlistSaga'
 import { watchSavePreGamePlaylist } from './preGame/preGameSaga'
-import { watchFetchSuggestions } from './suggestion/suggestionSaga'
+import {
+  watchFetchSuggestions,
+  watchRejectSuggestion
+} from './suggestion/suggestionSaga'
 
 export default function* saga() {
   yield all([
@@ -37,6 +40,7 @@ export default function* saga() {
     watchDeleteEvent(),
     watchSavePreGamePlaylist(),
     watchRefreshEventPlaylist(),
-    watchFetchSuggestions()
+    watchFetchSuggestions(),
+    watchRejectSuggestion()
   ])
 }

@@ -1,3 +1,4 @@
+import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button/Button'
 import Grid from '@material-ui/core/Grid/Grid'
 import IconButton from '@material-ui/core/IconButton/IconButton'
@@ -10,13 +11,13 @@ import Typography from '@material-ui/core/Typography/Typography'
 import BlockIcon from '@material-ui/icons/Block'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import DoneAll from '@material-ui/icons/DoneAll'
+import PersonPinIcon from '@material-ui/icons/PersonPin'
 import * as classNames from 'classnames'
 import * as React from 'react'
 import IAction from '../IAction'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
-import ITrack from '../track/ITrack'
-
 import ISuggestion from '../suggestion/ISuggestion'
+import ITrack from '../track/ITrack'
 import './EventSuggestions.css'
 
 interface IEventSuggestionsProps {
@@ -67,7 +68,7 @@ export default class EventSuggestions extends React.PureComponent<
   }
 
   private renderSuggestion = (decoratedSuggestion: IDecoratedSuggestion) => {
-    const { track } = decoratedSuggestion
+    const { track, user } = decoratedSuggestion
     let trackImage = <span />
     if (track.album && track.album.images && track.album.images.length > 0) {
       trackImage = (
@@ -75,6 +76,16 @@ export default class EventSuggestions extends React.PureComponent<
           className="EventSuggestions-trackImage"
           src={track.album.images[track.album.images.length - 1].url}
           alt={track.name}
+        />
+      )
+    }
+    let icon = <PersonPinIcon className="EventSuggestions-avatar" />
+    if (user.image) {
+      icon = (
+        <Avatar
+          alt={user.displayName}
+          src={user.image}
+          className="EventSuggestions-avatar"
         />
       )
     }
@@ -89,6 +100,16 @@ export default class EventSuggestions extends React.PureComponent<
       >
         <ListItem dense={true} button={true}>
           {trackImage}
+          <ListItemText primary={track.name} />
+          {icon}
+          {track.preview_url && (
+            <audio
+              src={track.preview_url}
+              controls={true}
+              className="EventSuggestions-audio"
+              preload="none"
+            />
+          )}
           <ListItemSecondaryAction>
             <IconButton
               aria-label="Delete"
@@ -103,7 +124,6 @@ export default class EventSuggestions extends React.PureComponent<
               <CheckCircleIcon />
             </IconButton>
           </ListItemSecondaryAction>
-          <ListItemText primary={track.name} />
         </ListItem>
       </Slide>
     )
