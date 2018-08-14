@@ -84,6 +84,7 @@ export default class EventSuggestions extends React.PureComponent<
         key={track.uri}
         in={track.uri !== this.state.tracksBeingRemoved.uri}
         direction="right"
+        mountOnEnter={true}
         unmountOnExit={true}
       >
         <ListItem dense={true} button={true}>
@@ -114,9 +115,9 @@ export default class EventSuggestions extends React.PureComponent<
     const { track, suggestion } = decoratedSuggestion
     this.setState({ tracksBeingRemoved: track })
     setTimeout(() => {
-      this.props.acceptSuggestion(suggestion)
       this.setState({ tracksBeingRemoved: {} as ITrack })
-    }, 1000)
+      this.props.acceptSuggestion(suggestion)
+    }, 700)
   }
 
   private handleSuggestionRejected = (
@@ -125,9 +126,9 @@ export default class EventSuggestions extends React.PureComponent<
     const { track, suggestion } = decoratedSuggestion
     this.setState({ tracksBeingRemoved: track })
     setTimeout(() => {
-      this.props.rejectSuggestion(suggestion)
       this.setState({ tracksBeingRemoved: {} as ITrack })
-    }, 500)
+      this.props.rejectSuggestion(suggestion)
+    }, 700)
   }
 
   private handleAcceptAllClicked = () => {

@@ -22,7 +22,7 @@ const mapStateToProps = (state: IRootState) => ({
   deleteSuccess: state.eventView.deleteSucceeded,
   deleteFailed: state.eventView.deleteFailed,
   copiedToClipboard: state.eventView.copiedToClipboard,
-  acceptedSuggestionsByTrackUri: state.preGame.acceptedSuggestionsByTrackUri
+  acceptedSuggestions: state.suggestion.acceptedSuggestions
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

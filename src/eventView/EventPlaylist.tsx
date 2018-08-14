@@ -18,7 +18,7 @@ import TrackList from '../track/TrackList'
 
 interface IEventPlaylistProps {
   event: IEvent
-  acceptedSuggestionsByTrackUri: Map<string, IDecoratedSuggestion>
+  acceptedSuggestions: IDecoratedSuggestion[]
   saving: boolean
   onSavePlaylist(): void
   onResetPlaylist(): void
@@ -28,18 +28,23 @@ export default class EventPlaylist extends React.PureComponent<
   IEventPlaylistProps
 > {
   public render() {
-    const { event, acceptedSuggestionsByTrackUri, saving } = this.props
+    const { event, acceptedSuggestions, saving } = this.props
     let acceptedTracks: ITrack[] = []
-    const hasAcceptedTrack = acceptedSuggestionsByTrackUri.size > 0
+    let playlistTracks: ITrack[] = []
+    if (event && event.playlist) {
+      playlistTracks = event.playlist.tracks.items.map(item => item.track)
+    }
+
+    if (acceptedSuggestions && acceptedSuggestions.length > 0) {
+      acceptedTracks = acceptedSuggestions
+        .map(s => s.track)
+        .filter(t => playlistTracks.filter(pt => pt.uri === t.uri).length === 0)
+    }
+
+    const hasAcceptedTrack = acceptedTracks.length > 0
 
     if (!event) {
       return <span />
-    }
-
-    if (hasAcceptedTrack) {
-      acceptedTracks = Array.from(acceptedSuggestionsByTrackUri.values()).map(
-        s => s.track
-      )
     }
 
     return (

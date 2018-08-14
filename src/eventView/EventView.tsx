@@ -35,7 +35,7 @@ interface IEventViewProps extends RouteComponentProps<any> {
   deleteSuccess: boolean
   deleteFailed: boolean
   copiedToClipboard: boolean
-  acceptedSuggestionsByTrackUri: Map<string, IDecoratedSuggestion>
+  acceptedSuggestions: IDecoratedSuggestion[]
   getEventById(eventId: string): IAction
   onEventTabIndexChange(index: number): IAction
   onEventDeleteSelected(): IAction
@@ -44,7 +44,7 @@ interface IEventViewProps extends RouteComponentProps<any> {
   onDeleteAcknowledged(): IAction
   copyEventInvite(): IAction
   acknowledgeEventInviteCopied(): IAction
-  getEventSuggestions(eventId: string): IAction  
+  getEventSuggestions(eventId: string): IAction
 }
 
 const SweetAlert = withReactContent(Swal) as any
@@ -101,19 +101,21 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
     const {
       loading,
       error,
+      event,
       copiedToClipboard,
       acknowledgeEventInviteCopied,
       deleteFailed,
       deleteSuccess
     } = this.props
+    const shouldShowEvent: boolean = !loading && !!event
 
     return (
       <div>
         {loading && <LoadingSpinner />}
         {loading &&
           error && <EventFetchError onTryAgain={this.handleGetEvent} />}
-        {event && (
-          <Zoom in={!loading && !!event}>{this.renderEventView()}</Zoom>
+        {shouldShowEvent && (
+          <Zoom in={shouldShowEvent}>{this.renderEventView()}</Zoom>
         )}
         {copiedToClipboard && (
           <InviteCopyAlert
@@ -173,12 +175,7 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
   }
 
   private renderEventView = () => {
-    const {
-      event,
-      copyEventInvite,
-      location,
-      acceptedSuggestionsByTrackUri
-    } = this.props
+    const { event, copyEventInvite, location, acceptedSuggestions } = this.props
     const inviteId = event && event.invites ? event.invites[0] : ''
     const { tabIndex } = this.state
     const saving = false
@@ -229,7 +226,7 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
               <EventPlaylist
                 event={event}
                 saving={saving}
-                acceptedSuggestionsByTrackUri={acceptedSuggestionsByTrackUri}
+                acceptedSuggestions={acceptedSuggestions}
                 onResetPlaylist={this.handlePlaylistReset}
                 onSavePlaylist={this.handlePlaylistSaved}
               />
