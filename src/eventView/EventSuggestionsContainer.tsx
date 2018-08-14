@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import IRootState from '../rootState'
 import {
-  acceptAllSuggestions,
-  acceptSuggestion,
-  rejectSuggestion
+  rejectSuggestion,
+  stageAllSuggestions,
+  stageSuggestion
 } from '../suggestion/suggestionActions'
 import EventSuggestions from './EventSuggestions'
 
@@ -12,8 +12,8 @@ const mapStateToProps = (state: IRootState) => ({
 })
 
 const mapDispatchToProps = {
-  acceptAllSuggestions,
-  acceptSuggestion,
+  stageAllSuggestions,
+  stageSuggestion,
   rejectSuggestion
 }
 

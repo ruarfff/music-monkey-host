@@ -5,6 +5,7 @@ export default interface ISuggestionState {
   acceptedSuggestions: IDecoratedSuggestion[]
   pendingSuggestions: IDecoratedSuggestion[]
   rejectedSuggestions: IDecoratedSuggestion[]
+  stagedSuggestions:  IDecoratedSuggestion[]
   savedSuggestion?: ISuggestion
   deletedSuggestion?: ISuggestion
   deletingSuggestion: boolean

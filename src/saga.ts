@@ -12,6 +12,7 @@ import {
   watchFetchEvents,
   watchUpdateLocationAutoComplete
 } from './event/eventSaga'
+import { watchSaveEventPlaylist } from './eventView/eventPlaylistSaga'
 import {
   watchDeleteEvent,
   watchFetchEventById,
@@ -41,6 +42,7 @@ export default function* saga() {
     watchSavePreGamePlaylist(),
     watchRefreshEventPlaylist(),
     watchFetchSuggestions(),
-    watchRejectSuggestion()
+    watchRejectSuggestion(),
+    watchSaveEventPlaylist()
   ])
 }

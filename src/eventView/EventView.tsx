@@ -18,7 +18,7 @@ import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import LinkButton from '../util/LinkButton'
-import EventPlaylist from './EventPlaylist'
+import EventPlaylist from './EventPlaylistContainer'
 import EventSuggestions from './EventSuggestionsContainer'
 import InviteCopyAlert from './InviteCopyAlert'
 import InviteLink from './InviteLink'
@@ -175,10 +175,9 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
   }
 
   private renderEventView = () => {
-    const { event, copyEventInvite, location, acceptedSuggestions } = this.props
+    const { event, copyEventInvite, location } = this.props
     const inviteId = event && event.invites ? event.invites[0] : ''
     const { tabIndex } = this.state
-    const saving = false
     return (
       <Grid container={true} spacing={16}>
         <Grid item={true} xs={12} sm={4}>
@@ -223,13 +222,7 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
           </AppBar>
           {tabIndex === 0 && (
             <TabContainer dir={'x'}>
-              <EventPlaylist
-                event={event}
-                saving={saving}
-                acceptedSuggestions={acceptedSuggestions}
-                onResetPlaylist={this.handlePlaylistReset}
-                onSavePlaylist={this.handlePlaylistSaved}
-              />
+              <EventPlaylist />
             </TabContainer>
           )}
           {tabIndex === 1 && (
@@ -240,14 +233,6 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
         </Grid>
       </Grid>
     )
-  }
-
-  private handlePlaylistReset = () => {
-    return null
-  }
-
-  private handlePlaylistSaved = () => {
-    return null
   }
 }
 

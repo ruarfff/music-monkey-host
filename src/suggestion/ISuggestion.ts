@@ -7,4 +7,5 @@ export default interface ISuggestion {
   playlistUri?: string
   accepted: boolean
   rejected: boolean
+  staged: boolean
 }

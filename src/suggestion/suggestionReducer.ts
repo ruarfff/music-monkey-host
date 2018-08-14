@@ -3,13 +3,13 @@ import IDecoratedSuggestion from './IDecoratedSuggestion'
 import ISuggestion from './ISuggestion'
 import ISuggestionState from './ISuggestionState'
 import {
-  ACCEPT_ALL_SUGGESTIONS,
-  ACCEPT_MULTIPLE_SUGGESTIONS,
-  ACCEPT_SUGGESTION,
   FETCH_SUGGESTIONS_FAILED,
   FETCH_SUGGESTIONS_INITIATED,
   FETCH_SUGGESTIONS_SUCCESS,
-  REJECT_SUGGESTION
+  REJECT_SUGGESTION,
+  STAGE_ALL_SUGGESTIONS,
+  STAGE_MULTIPLE_SUGGESTIONS,
+  STAGE_SUGGESTION
 } from './suggestionActions'
 import initialState from './suggestionInitialState'
 
@@ -43,19 +43,19 @@ export default function suggestion(
         fetchingSuggestions: false,
         fetchingSuggestionsError: payload
       } as ISuggestionState
-    case ACCEPT_SUGGESTION: {
+    case STAGE_SUGGESTION: {
       const suggestionToAccept = state.pendingSuggestions.find(
         s => s.suggestion.suggestionId === payload.suggestionId
       )
-      const acceptedSuggestions = !!suggestionToAccept
+      const stagedSuggestions = !!suggestionToAccept
         ? [
-            ...state.acceptedSuggestions,
+            ...state.stagedSuggestions,
             {
               ...suggestionToAccept,
-              suggestion: { ...suggestionToAccept.suggestion, accepted: true }
+              suggestion: { ...suggestionToAccept.suggestion, staged: true }
             }
           ]
-        : state.acceptedSuggestions
+        : state.stagedSuggestions
       const pendingSuggestions = !!suggestionToAccept
         ? state.pendingSuggestions.filter(
             s => s.suggestion.suggestionId !== payload.suggestionId
@@ -64,13 +64,13 @@ export default function suggestion(
 
       return {
         ...state,
-        acceptedSuggestions,
+        stagedSuggestions,
         pendingSuggestions
       }
     }
-    case ACCEPT_MULTIPLE_SUGGESTIONS: {
+    case STAGE_MULTIPLE_SUGGESTIONS: {
       const suggestionsToAccept: ISuggestion[] = payload || []
-      const pendingWithAcceptedSet = state.pendingSuggestions.map(ds => {
+      const pendingWithStagedSet = state.pendingSuggestions.map(ds => {
         if (
           suggestionsToAccept.find(
             s => s.suggestionId === ds.suggestion.suggestionId
@@ -80,7 +80,7 @@ export default function suggestion(
             ...ds,
             suggestion: {
               ...ds.suggestion,
-              accepted: true
+              staged: true
             }
           }
         } else {
@@ -90,29 +90,26 @@ export default function suggestion(
 
       return {
         ...state,
-        pendingSuggestions: pendingWithAcceptedSet.filter(
-          s => !s.suggestion.accepted
+        pendingSuggestions: pendingWithStagedSet.filter(
+          s => !s.suggestion.staged
         ),
-        acceptedSuggestions: [
-          ...state.acceptedSuggestions,
-          ...pendingWithAcceptedSet.filter(s => s.suggestion.accepted)
+        stagedSuggestions: [
+          ...state.stagedSuggestions,
+          ...pendingWithStagedSet.filter(s => s.suggestion.staged)
         ]
       }
     }
-    case ACCEPT_ALL_SUGGESTIONS: {
-      const pendingSetToAccepted = state.pendingSuggestions.map(
+    case STAGE_ALL_SUGGESTIONS: {
+      const pendingSetToStaged = state.pendingSuggestions.map(
         (decoratedSuggestion: IDecoratedSuggestion) => ({
           ...decoratedSuggestion,
-          suggestion: { ...decoratedSuggestion.suggestion, accepted: true }
+          suggestion: { ...decoratedSuggestion.suggestion, staged: true }
         })
       )
       return {
         ...state,
         pendingSuggestions: [],
-        acceptedSuggestions: [
-          ...state.acceptedSuggestions,
-          ...pendingSetToAccepted
-        ]
+        stagedSuggestions: [...state.stagedSuggestions, ...pendingSetToStaged]
       }
     }
     case REJECT_SUGGESTION: {

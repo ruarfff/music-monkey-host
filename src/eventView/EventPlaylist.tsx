@@ -10,17 +10,20 @@ import Undo from '@material-ui/icons/Undo'
 import * as classNames from 'classnames'
 import * as React from 'react'
 import IEvent from '../event/IEvent'
+import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import '../preGame/PreGame.css'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import ITrack from '../track/ITrack'
 import TrackList from '../track/TrackList'
 
+import './EventPlaylist.css'
+
 interface IEventPlaylistProps {
   event: IEvent
-  acceptedSuggestions: IDecoratedSuggestion[]
+  stagedSuggestions: IDecoratedSuggestion[]
   saving: boolean
-  onSavePlaylist(): void
+  saveEventPlaylist(): IAction
   onResetPlaylist(): void
 }
 
@@ -28,36 +31,36 @@ export default class EventPlaylist extends React.PureComponent<
   IEventPlaylistProps
 > {
   public render() {
-    const { event, acceptedSuggestions, saving } = this.props
-    let acceptedTracks: ITrack[] = []
+    const { event, stagedSuggestions, saving } = this.props
+    let stagedTracks: ITrack[] = []
     let playlistTracks: ITrack[] = []
     if (event && event.playlist) {
       playlistTracks = event.playlist.tracks.items.map(item => item.track)
     }
 
-    if (acceptedSuggestions && acceptedSuggestions.length > 0) {
-      acceptedTracks = acceptedSuggestions
+    if (stagedSuggestions && stagedSuggestions.length > 0) {
+      stagedTracks = stagedSuggestions
         .map(s => s.track)
         .filter(t => playlistTracks.filter(pt => pt.uri === t.uri).length === 0)
     }
 
-    const hasAcceptedTrack = acceptedTracks.length > 0
+    const hasStagedTrack = stagedTracks.length > 0
 
     if (!event) {
       return <span />
     }
 
     return (
-      <div className="PreGame-root">
+      <div className="EventPlaylist-root">
         {saving && <LoadingSpinner />}
         {!saving && (
           <Grid container={true} spacing={24}>
             <Grid item={true} sm={8}>
-              {hasAcceptedTrack && this.renderSaveButtons(hasAcceptedTrack)}
+              {hasStagedTrack && this.renderSaveButtons(hasStagedTrack)}
 
-              {hasAcceptedTrack && (
-                <List className="PreGame-acceptedTracks">
-                  <TrackList tracks={acceptedTracks} />
+              {hasStagedTrack && (
+                <List className="EventPlaylist-stagedTracks">
+                  <TrackList tracks={stagedTracks} />
                 </List>
               )}
 
@@ -75,12 +78,12 @@ export default class EventPlaylist extends React.PureComponent<
                 event.playlist.tracks.total < 1 && <p>No tracks yet</p>}
             </Grid>
             <Grid item={true} sm={4}>
-              <Card className="PreGame-card">
+              <Card className="EventPlaylist-card">
                 {event.playlist &&
                   event.playlist.images &&
                   event.playlist.images.length > 0 && (
                     <CardMedia
-                      className="PreGame-media"
+                      className="EventPlaylist-media"
                       image={event.playlist.images[0].url}
                       title={event.playlist.name}
                     />
@@ -117,31 +120,37 @@ export default class EventPlaylist extends React.PureComponent<
     )
   }
 
-  private renderSaveButtons = (hasAcceptedTrack: boolean) => {
+  private renderSaveButtons = (hasStagedTrack: boolean) => {
     return (
-      <div className="PreGame-playlist-actions">
-        <div className="PreGame-playlist-action">
+      <div className="EventPlaylist-playlist-actions">
+        <div className="EventPlaylist-playlist-action">
           <Button
             variant="raised"
             color="primary"
-            disabled={!hasAcceptedTrack}
-            onClick={this.props.onSavePlaylist}
+            disabled={!hasStagedTrack}
+            onClick={this.props.saveEventPlaylist}
           >
             <DoneAll
-              className={classNames('PreGame-leftIcon', 'PreGame-iconSmall')}
+              className={classNames(
+                'EventPlaylist-leftIcon',
+                'EventPlaylist-iconSmall'
+              )}
             />
             Save Changes{' '}
           </Button>
         </div>
-        <div className="PreGame-playlist-action">
+        <div className="EventPlaylist-playlist-action">
           <Button
             variant="raised"
             color="secondary"
-            disabled={!hasAcceptedTrack}
+            disabled={!hasStagedTrack}
             onClick={this.props.onResetPlaylist}
           >
             <Undo
-              className={classNames('PreGame-leftIcon', 'PreGame-iconSmall')}
+              className={classNames(
+                'EventPlaylist-leftIcon',
+                'EventPlaylist-iconSmall'
+              )}
             />
             Reset{' '}
           </Button>

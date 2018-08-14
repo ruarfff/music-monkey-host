@@ -5,9 +5,9 @@ export const FETCH_SUGGESTIONS_INITIATED = 'FETCH_SUGGESTIONS_INITIATED'
 export const FETCH_SUGGESTIONS_SUCCESS = 'FETCH_SUGGESTIONS_SUCCESS'
 export const FETCH_SUGGESTIONS_FAILED = 'FETCH_SUGGESTIONS_FAILED'
 
-export const ACCEPT_SUGGESTION = 'ACCEPT_SUGGESTION'
-export const ACCEPT_MULTIPLE_SUGGESTIONS = 'ACCEPT_MULTIPLE_SUGGESTIONS'
-export const ACCEPT_ALL_SUGGESTIONS = 'ACCEPT_ALL_SUGGESTIONS'
+export const STAGE_SUGGESTION = 'STAGE_SUGGESTION'
+export const STAGE_MULTIPLE_SUGGESTIONS = 'STAGE_MULTIPLE_SUGGESTIONS'
+export const STAGE_ALL_SUGGESTIONS = 'STAGE_ALL_SUGGESTIONS'
 
 export const REJECT_SUGGESTION = 'REJECT_SUGGESTION'
 export const REJECT_SUGGESTION_SUCCESS = 'REJECT_SUGGESTION_SUCCESS'
@@ -18,20 +18,20 @@ export const getEventSuggestions = (eventId: string): IAction => ({
   payload: eventId
 })
 
-export const acceptSuggestion = (suggestion: ISuggestion): IAction => ({
-  type: ACCEPT_SUGGESTION,
+export const stageSuggestion = (suggestion: ISuggestion): IAction => ({
+  type: STAGE_SUGGESTION,
   payload: suggestion
 })
 
-export const acceptMultipleSuggestions = (
+export const stageMultipleSuggestions = (
   suggestions: ISuggestion[]
 ): IAction => ({
-  type: ACCEPT_MULTIPLE_SUGGESTIONS,
+  type: STAGE_MULTIPLE_SUGGESTIONS,
   payload: suggestions
 })
 
-export const acceptAllSuggestions = (): IAction => ({
-  type: ACCEPT_ALL_SUGGESTIONS
+export const stageAllSuggestions = (): IAction => ({
+  type: STAGE_ALL_SUGGESTIONS
 })
 
 export const rejectSuggestion = (suggestion: ISuggestion): IAction => ({

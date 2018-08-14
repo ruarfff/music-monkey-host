@@ -22,8 +22,8 @@ import './EventSuggestions.css'
 
 interface IEventSuggestionsProps {
   suggestions: IDecoratedSuggestion[]
-  acceptAllSuggestions(): IAction
-  acceptSuggestion(suggestion: ISuggestion): IAction
+  stageAllSuggestions(): IAction
+  stageSuggestion(suggestion: ISuggestion): IAction
   rejectSuggestion(suggestion: ISuggestion): IAction
 }
 
@@ -136,7 +136,7 @@ export default class EventSuggestions extends React.PureComponent<
     this.setState({ tracksBeingRemoved: track })
     setTimeout(() => {
       this.setState({ tracksBeingRemoved: {} as ITrack })
-      this.props.acceptSuggestion(suggestion)
+      this.props.stageSuggestion(suggestion)
     }, 700)
   }
 
@@ -152,7 +152,7 @@ export default class EventSuggestions extends React.PureComponent<
   }
 
   private handleAcceptAllClicked = () => {
-    this.props.acceptAllSuggestions()
+    this.props.stageAllSuggestions()
   }
 
   private renderAcceptButtons = () => {

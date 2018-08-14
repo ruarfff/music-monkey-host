@@ -3,13 +3,13 @@ import IDecoratedSuggestion from './IDecoratedSuggestion'
 import ISuggestion from './ISuggestion'
 import ISuggestionState from './ISuggestionState'
 import {
-  ACCEPT_ALL_SUGGESTIONS,
-  ACCEPT_MULTIPLE_SUGGESTIONS,
-  ACCEPT_SUGGESTION,
   FETCH_SUGGESTIONS_FAILED,
   FETCH_SUGGESTIONS_INITIATED,
   FETCH_SUGGESTIONS_SUCCESS,
-  REJECT_SUGGESTION
+  REJECT_SUGGESTION,
+  STAGE_ALL_SUGGESTIONS,
+  STAGE_MULTIPLE_SUGGESTIONS,
+  STAGE_SUGGESTION
 } from './suggestionActions'
 import initialState from './suggestionInitialState'
 import suggestion from './suggestionReducer'
@@ -78,7 +78,7 @@ describe('suggestionReducer', () => {
     })
   })
 
-  it('should handle ACCEPT_SUGGESTION', () => {
+  it('should handle STAGE_SUGGESTION', () => {
     expect(
       suggestion(
         {
@@ -90,17 +90,17 @@ describe('suggestionReducer', () => {
             {
               suggestion: {
                 suggestionId: '123',
-                accepted: false,
+                staged: false,
                 rejected: false
               } as ISuggestion
             } as IDecoratedSuggestion
           ]
         },
         {
-          type: ACCEPT_SUGGESTION,
+          type: STAGE_SUGGESTION,
           payload: {
             suggestionId: '123',
-            accepted: false,
+            staged: false,
             rejected: false
           } as ISuggestion
         }
@@ -112,11 +112,11 @@ describe('suggestionReducer', () => {
           suggestion: { suggestionId: 'na' } as ISuggestion
         } as IDecoratedSuggestion
       ],
-      acceptedSuggestions: [
+      stagedSuggestions: [
         {
           suggestion: {
             suggestionId: '123',
-            accepted: true,
+            staged: true,
             rejected: false
           } as ISuggestion
         } as IDecoratedSuggestion
@@ -124,7 +124,7 @@ describe('suggestionReducer', () => {
     } as ISuggestionState)
   })
 
-  it('should handle ACCEPT_MULTIPLE_SUGGESTIONS', () => {
+  it('should handle STAGE_MULTIPLE_SUGGESTIONS', () => {
     const suggestions = [
       {
         suggestion: { suggestionId: '1' }
@@ -141,25 +141,25 @@ describe('suggestionReducer', () => {
           pendingSuggestions: suggestions
         },
         {
-          type: ACCEPT_MULTIPLE_SUGGESTIONS,
+          type: STAGE_MULTIPLE_SUGGESTIONS,
           payload: suggestions.map(s => s.suggestion)
         }
       )
     ).toEqual({
       ...initialState,
       pendingSuggestions: [],
-      acceptedSuggestions: [
+      stagedSuggestions: [
         {
-          suggestion: { suggestionId: '1', accepted: true }
+          suggestion: { suggestionId: '1', staged: true }
         } as IDecoratedSuggestion,
         {
-          suggestion: { suggestionId: '2', accepted: true }
+          suggestion: { suggestionId: '2', staged: true }
         } as IDecoratedSuggestion
       ]
     } as ISuggestionState)
   })
 
-  it('should handle ACCEPT_ALL_SUGGESTIONS', () => {
+  it('should handle STAGE_ALL_SUGGESTIONS', () => {
     expect(
       suggestion(
         {
@@ -171,26 +171,26 @@ describe('suggestionReducer', () => {
             {
               suggestion: {
                 suggestionId: '123',
-                accepted: false
+                staged: false
               } as ISuggestion
             } as IDecoratedSuggestion
           ]
         },
         {
-          type: ACCEPT_ALL_SUGGESTIONS
+          type: STAGE_ALL_SUGGESTIONS
         }
       )
     ).toEqual({
       ...initialState,
       pendingSuggestions: [],
-      acceptedSuggestions: [
+      stagedSuggestions: [
         {
-          suggestion: { suggestionId: 'na', accepted: true } as ISuggestion
+          suggestion: { suggestionId: 'na', staged: true } as ISuggestion
         } as IDecoratedSuggestion,
         {
           suggestion: {
             suggestionId: '123',
-            accepted: true
+            staged: true
           } as ISuggestion
         } as IDecoratedSuggestion
       ]
