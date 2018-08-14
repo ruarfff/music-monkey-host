@@ -24,7 +24,7 @@ interface IEventPlaylistProps {
   stagedSuggestions: IDecoratedSuggestion[]
   saving: boolean
   saveEventPlaylist(): IAction
-  onResetPlaylist(): void
+  resetStagedSuggestions(): IAction
 }
 
 export default class EventPlaylist extends React.PureComponent<
@@ -144,7 +144,7 @@ export default class EventPlaylist extends React.PureComponent<
             variant="raised"
             color="secondary"
             disabled={!hasStagedTrack}
-            onClick={this.props.onResetPlaylist}
+            onClick={this.props.resetStagedSuggestions}
           >
             <Undo
               className={classNames(

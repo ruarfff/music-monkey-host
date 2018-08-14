@@ -7,6 +7,7 @@ import {
   FETCH_SUGGESTIONS_INITIATED,
   FETCH_SUGGESTIONS_SUCCESS,
   REJECT_SUGGESTION,
+  RESET_STAGED_SUGGESTIONS,
   STAGE_ALL_SUGGESTIONS,
   STAGE_MULTIPLE_SUGGESTIONS,
   STAGE_SUGGESTION
@@ -110,6 +111,18 @@ export default function suggestion(
         ...state,
         pendingSuggestions: [],
         stagedSuggestions: [...state.stagedSuggestions, ...pendingSetToStaged]
+      }
+    }
+    case RESET_STAGED_SUGGESTIONS: {
+      const unStaged = state.stagedSuggestions.map(s => ({
+        ...s,
+        suggestion: { ...s.suggestion, staged: false }
+      }))
+
+      return {
+        ...state,
+        stagedSuggestions: [],
+        pendingSuggestions: [...unStaged, ...state.pendingSuggestions]
       }
     }
     case REJECT_SUGGESTION: {

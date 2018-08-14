@@ -8,6 +8,7 @@ export const FETCH_SUGGESTIONS_FAILED = 'FETCH_SUGGESTIONS_FAILED'
 export const STAGE_SUGGESTION = 'STAGE_SUGGESTION'
 export const STAGE_MULTIPLE_SUGGESTIONS = 'STAGE_MULTIPLE_SUGGESTIONS'
 export const STAGE_ALL_SUGGESTIONS = 'STAGE_ALL_SUGGESTIONS'
+export const RESET_STAGED_SUGGESTIONS = 'RESET_STAGED_SUGGESTIONS'
 
 export const REJECT_SUGGESTION = 'REJECT_SUGGESTION'
 export const REJECT_SUGGESTION_SUCCESS = 'REJECT_SUGGESTION_SUCCESS'
@@ -32,6 +33,10 @@ export const stageMultipleSuggestions = (
 
 export const stageAllSuggestions = (): IAction => ({
   type: STAGE_ALL_SUGGESTIONS
+})
+
+export const resetStagedSuggestions = (): IAction => ({
+  type: RESET_STAGED_SUGGESTIONS
 })
 
 export const rejectSuggestion = (suggestion: ISuggestion): IAction => ({

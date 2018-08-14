@@ -7,6 +7,7 @@ import {
   FETCH_SUGGESTIONS_INITIATED,
   FETCH_SUGGESTIONS_SUCCESS,
   REJECT_SUGGESTION,
+  RESET_STAGED_SUGGESTIONS,
   STAGE_ALL_SUGGESTIONS,
   STAGE_MULTIPLE_SUGGESTIONS,
   STAGE_SUGGESTION
@@ -194,6 +195,36 @@ describe('suggestionReducer', () => {
           } as ISuggestion
         } as IDecoratedSuggestion
       ]
+    } as ISuggestionState)
+  })
+
+  it('should handle RESET_STAGED_SUGGESTIONS', () => {
+    const sampleSuggestion = {
+      suggestion: {
+        suggestionId: '123',
+        staged: false
+      } as ISuggestion
+    } as IDecoratedSuggestion
+    expect(
+      suggestion(
+        {
+          ...initialState,
+          stagedSuggestions: [sampleSuggestion],
+          pendingSuggestions: []
+        },
+        {
+          type: RESET_STAGED_SUGGESTIONS
+        }
+      )
+    ).toEqual({
+      ...initialState,
+      pendingSuggestions: [
+        {
+          ...sampleSuggestion,
+          suggestion: { ...sampleSuggestion.suggestion, staged: false }
+        }
+      ],
+      stagedSuggestions: []
     } as ISuggestionState)
   })
 

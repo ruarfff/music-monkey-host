@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import IRootState from '../rootState'
+import {resetStagedSuggestions} from '../suggestion/suggestionActions'
 import EventPlaylist from './EventPlaylist'
 import { saveEventPlaylist } from './eventViewActions'
 
@@ -11,7 +12,7 @@ const mapStateToProps = (state: IRootState) => ({
 
 const mapDispatchToProps = {
   saveEventPlaylist,
-  onResetPlaylist: () => {}
+  resetStagedSuggestions
 }
 
 const PreGameViewContainer = connect(
