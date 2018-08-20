@@ -8,8 +8,6 @@ import { isEmpty } from 'lodash'
 import * as React from 'react'
 import * as CopyToClipboard from 'react-copy-to-clipboard'
 
-const serviceUrl = process.env.REACT_APP_MM_API_URL
-
 interface IInviteLinkProps {
   inviteId: string
   onCopyEventInvite(): void
@@ -20,7 +18,7 @@ const InviteLink = (props: IInviteLinkProps) => {
   if (isEmpty(inviteId)) {
     return <span />
   }
-  const inviteLink = serviceUrl + '/invite/' + inviteId
+  const inviteLink = 'https://guests.musicmonkey.io//invite/' + inviteId
 
   return (
     <CopyToClipboard text={inviteLink} onCopy={props.onCopyEventInvite}>
