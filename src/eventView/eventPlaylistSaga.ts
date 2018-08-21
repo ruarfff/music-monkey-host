@@ -5,9 +5,13 @@ import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import localStorage from '../storage/localStorage'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
-import { FETCH_SUGGESTIONS_INITIATED } from '../suggestion/suggestionActions'
+import {
+  FETCH_SUGGESTIONS_INITIATED,
+  RESET_STAGED_SUGGESTIONS
+} from '../suggestion/suggestionActions'
 import { acceptSuggestions } from '../suggestion/suggestionClient'
 import {
+  EVENT_FETCH_BY_ID_INITIATED,
   SAVE_EVENT_PLAYLIST,
   SAVE_EVENT_PLAYLIST_ERROR,
   SAVE_EVENT_PLAYLIST_SUCCESS
@@ -24,15 +28,14 @@ function saveEventPlaylist({ event, suggestions }: ISavePlaylistArgs) {
   const spotifyApi = new SpotifyWebApi()
   spotifyApi.setAccessToken(token)
   if (!event.playlist) {
-    return new Promise((resolve, reject) =>
-      reject(new Error('No Event Playlist'))
-    )
+    return Promise.reject(new Error('No Event Playlist'))
   }
   const { playlist } = event
   const playlistTrackUris: string[] = playlist.tracks.items.map(
     pl => pl.track.uri
   )
   const suggestedTrackUris: string[] = Array.from(suggestions.keys())
+
   const trackUrisNotInPlaylist = suggestedTrackUris.filter(
     trackUri => !playlistTrackUris.includes(trackUri)
   )
@@ -61,6 +64,8 @@ function* saveEventPlaylistFlow(action: IAction) {
   try {
     const event = yield call(saveEventPlaylist, action.payload)
     yield put({ type: SAVE_EVENT_PLAYLIST_SUCCESS, payload: event })
+    yield put({ type: RESET_STAGED_SUGGESTIONS })
+    yield put({ type: EVENT_FETCH_BY_ID_INITIATED, payload: event.eventId })
     yield put({ type: FETCH_SUGGESTIONS_INITIATED, payload: event.eventId })
   } catch (err) {
     yield put({ type: SAVE_EVENT_PLAYLIST_ERROR, payload: err })

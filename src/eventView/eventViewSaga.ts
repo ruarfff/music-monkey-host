@@ -60,17 +60,6 @@ export function* watchDeleteEvent() {
   yield takeEvery(EVENT_DELETE_INITIATED, deleteEventFlow)
 }
 
-// function refreshPlaylist() {}
-
-// function* refreshEventPlaylistFlow(action: IAction) {
-//   try {
-//     const event = yield call(refreshPlaylist, action.payload)
-//     yield put({ type: REFRESH_EVENT_PLAYLIST_SUCCESS, payload: event })
-//   } catch (err) {
-//     yield put({ type: REFRESH_EVENT_PLAYLIST_FAILED, payload: err })
-//   }
-// }
-
 export function* watchRefreshEventPlaylist() {
   yield takeEvery(REFRESH_EVENT_PLAYLIST, fetchEventByIdFlow)
 }

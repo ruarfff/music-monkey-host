@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import IRootState from '../rootState'
-import {resetStagedSuggestions} from '../suggestion/suggestionActions'
+import { resetStagedSuggestions } from '../suggestion/suggestionActions'
 import EventPlaylist from './EventPlaylist'
 import { saveEventPlaylist } from './eventViewActions'
 

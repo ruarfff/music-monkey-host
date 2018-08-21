@@ -23,6 +23,11 @@ import EventSuggestions from './EventSuggestionsContainer'
 import InviteCopyAlert from './InviteCopyAlert'
 import InviteLink from './InviteLink'
 
+const pusher = new Pusher('d7c284d8f17d26f74047', {
+  cluster: 'eu',
+  encrypted: true
+})
+
 interface IEventState {
   tabIndex: number
 }
@@ -85,11 +90,6 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
     if (this.props.event) {
       const eventId = this.props.event.eventId || ''
       this.props.getEventSuggestions(eventId)
-      const pusher = new Pusher('d7c284d8f17d26f74047', {
-        cluster: 'eu',
-        encrypted: true
-      })
-
       const channel = pusher.subscribe('mm-suggestions-' + eventId)
       channel.bind('suggestion-saved', data => {
         this.props.getEventSuggestions(eventId)

@@ -23,7 +23,10 @@ interface IEventPlaylistProps {
   event: IEvent
   stagedSuggestions: IDecoratedSuggestion[]
   saving: boolean
-  saveEventPlaylist(): IAction
+  saveEventPlaylist(
+    event: IEvent,
+    suggestions: Map<string, IDecoratedSuggestion>
+  ): IAction
   resetStagedSuggestions(): IAction
 }
 
@@ -33,15 +36,9 @@ export default class EventPlaylist extends React.PureComponent<
   public render() {
     const { event, stagedSuggestions, saving } = this.props
     let stagedTracks: ITrack[] = []
-    let playlistTracks: ITrack[] = []
-    if (event && event.playlist) {
-      playlistTracks = event.playlist.tracks.items.map(item => item.track)
-    }
 
     if (stagedSuggestions && stagedSuggestions.length > 0) {
-      stagedTracks = stagedSuggestions
-        .map(s => s.track)
-        .filter(t => playlistTracks.filter(pt => pt.uri === t.uri).length === 0)
+      stagedTracks = stagedSuggestions.map(s => s.track)
     }
 
     const hasStagedTrack = stagedTracks.length > 0
@@ -128,7 +125,7 @@ export default class EventPlaylist extends React.PureComponent<
             variant="raised"
             color="primary"
             disabled={!hasStagedTrack}
-            onClick={this.props.saveEventPlaylist}
+            onClick={this.handleSavePlaylist}
           >
             <DoneAll
               className={classNames(
@@ -157,5 +154,16 @@ export default class EventPlaylist extends React.PureComponent<
         </div>
       </div>
     )
+  }
+
+  private handleSavePlaylist = () => {
+    const { event, stagedSuggestions, saveEventPlaylist } = this.props
+    if (stagedSuggestions && stagedSuggestions.length > 0) {
+      const suggestionMap = new Map()
+      stagedSuggestions.forEach((ds: IDecoratedSuggestion) => {
+        suggestionMap.set(ds.track.uri, ds)
+      })
+      saveEventPlaylist(event, suggestionMap)
+    }
   }
 }
