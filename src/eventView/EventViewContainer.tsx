@@ -22,7 +22,9 @@ const mapStateToProps = (state: IRootState) => ({
   deleteSuccess: state.eventView.deleteSucceeded,
   deleteFailed: state.eventView.deleteFailed,
   copiedToClipboard: state.eventView.copiedToClipboard,
-  acceptedSuggestions: state.suggestion.acceptedSuggestions
+  acceptedSuggestions: state.suggestion.acceptedSuggestions,
+  stagedSuggestions: state.suggestion.stagedSuggestions,
+  pendingSuggestions: state.suggestion.pendingSuggestions
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

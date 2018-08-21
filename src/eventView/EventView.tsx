@@ -1,3 +1,4 @@
+import { Badge } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar/AppBar'
 import Button from '@material-ui/core/Button/Button'
 import Grid from '@material-ui/core/Grid/Grid'
@@ -7,6 +8,8 @@ import Typography from '@material-ui/core/Typography/Typography'
 import Zoom from '@material-ui/core/Zoom/Zoom'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/ModeEdit'
+import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay'
+import SubscriptionIcon from '@material-ui/icons/Subscriptions'
 import * as Pusher from 'pusher-js'
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router'
@@ -20,6 +23,7 @@ import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import LinkButton from '../util/LinkButton'
 import EventPlaylist from './EventPlaylistContainer'
 import EventSuggestions from './EventSuggestionsContainer'
+import './EventView.css'
 import InviteCopyAlert from './InviteCopyAlert'
 import InviteLink from './InviteLink'
 
@@ -41,6 +45,8 @@ interface IEventViewProps extends RouteComponentProps<any> {
   deleteFailed: boolean
   copiedToClipboard: boolean
   acceptedSuggestions: IDecoratedSuggestion[]
+  stagedSuggestions: IDecoratedSuggestion[]
+  pendingSuggestions: IDecoratedSuggestion[]
   getEventById(eventId: string): IAction
   onEventTabIndexChange(index: number): IAction
   onEventDeleteSelected(): IAction
@@ -214,8 +220,8 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
               textColor="primary"
               centered={true}
             >
-              <Tab label="Playlist" />
-              <Tab label="Suggestions" />
+              <Tab label="Playlist" icon={this.renderEventPlaylistIcon()} />
+              <Tab label="Suggestions" icon={this.renderSuggestionsIcon()} />
             </Tabs>
           </AppBar>
           {tabIndex === 0 && (
@@ -231,6 +237,40 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
         </Grid>
       </Grid>
     )
+  }
+
+  private renderEventPlaylistIcon = () => {
+    const { stagedSuggestions } = this.props
+    const numAcceptedTracks = stagedSuggestions ? stagedSuggestions.length : 0
+    if (numAcceptedTracks > 0) {
+      return (
+        <Badge
+          className="EventView-badge"
+          badgeContent={numAcceptedTracks}
+          color="primary"
+        >
+          <PlaylistPlayIcon />
+        </Badge>
+      )
+    }
+    return <PlaylistPlayIcon />
+  }
+
+  private renderSuggestionsIcon = () => {
+    const { pendingSuggestions } = this.props
+    const numSuggestions = pendingSuggestions ? pendingSuggestions.length : 0
+    if (numSuggestions > 0) {
+      return (
+        <Badge
+          className="EventView-badge"
+          badgeContent={numSuggestions}
+          color="primary"
+        >
+          <SubscriptionIcon />
+        </Badge>
+      )
+    }
+    return <SubscriptionIcon />
   }
 }
 
