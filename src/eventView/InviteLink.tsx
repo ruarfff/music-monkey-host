@@ -18,7 +18,7 @@ const InviteLink = (props: IInviteLinkProps) => {
   if (isEmpty(inviteId)) {
     return <span />
   }
-  const inviteLink = 'https://guests.musicmonkey.io//invite/' + inviteId
+  const inviteLink = 'https://guests.musicmonkey.io/invite/' + inviteId
 
   return (
     <CopyToClipboard text={inviteLink} onCopy={props.onCopyEventInvite}>

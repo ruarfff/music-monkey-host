@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography/Typography'
 import Zoom from '@material-ui/core/Zoom/Zoom'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/ModeEdit'
+import PeopleIcon from '@material-ui/icons/People'
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay'
 import SubscriptionIcon from '@material-ui/icons/Subscriptions'
 import * as Pusher from 'pusher-js'
@@ -21,6 +22,7 @@ import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import LinkButton from '../util/LinkButton'
+import EventGuests from './EventGuestsContainer'
 import EventPlaylist from './EventPlaylistContainer'
 import EventSuggestions from './EventSuggestionsContainer'
 import './EventView.css'
@@ -222,6 +224,7 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
             >
               <Tab label="Playlist" icon={this.renderEventPlaylistIcon()} />
               <Tab label="Suggestions" icon={this.renderSuggestionsIcon()} />
+              <Tab label="Guests" icon={<PeopleIcon />} />
             </Tabs>
           </AppBar>
           {tabIndex === 0 && (
@@ -232,6 +235,11 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
           {tabIndex === 1 && (
             <TabContainer dir={'x'}>
               <EventSuggestions />
+            </TabContainer>
+          )}
+          {tabIndex === 2 && (
+            <TabContainer dir={'x'}>
+              <EventGuests />
             </TabContainer>
           )}
         </Grid>

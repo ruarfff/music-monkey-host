@@ -8,10 +8,10 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction/L
 import ListItemText from '@material-ui/core/ListItemText/ListItemText'
 import Slide from '@material-ui/core/Slide'
 import Typography from '@material-ui/core/Typography/Typography'
+import AccountCircle from '@material-ui/icons/AccountCircle'
 import BlockIcon from '@material-ui/icons/Block'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import DoneAll from '@material-ui/icons/DoneAll'
-import PersonPinIcon from '@material-ui/icons/PersonPin'
 import * as classNames from 'classnames'
 import * as React from 'react'
 import IAction from '../IAction'
@@ -31,7 +31,7 @@ interface IEventSuggestionsState {
   tracksBeingRemoved: ITrack
 }
 
-export default class EventSuggestions extends React.PureComponent<
+export default class EventSuggestions extends React.Component<
   IEventSuggestionsProps,
   IEventSuggestionsState
 > {
@@ -79,7 +79,7 @@ export default class EventSuggestions extends React.PureComponent<
         />
       )
     }
-    let icon = <PersonPinIcon className="EventSuggestions-avatar" />
+    let icon = <AccountCircle className="EventSuggestions-avatar" />
     if (user.image) {
       icon = (
         <Avatar
