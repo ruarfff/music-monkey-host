@@ -82,19 +82,17 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
 
     if (eventId !== prevEventId) {
       this.props.getEventSuggestions(eventId)
+      this.props.getEventSuggestions(eventId)
+      const channel = pusher.subscribe('mm-suggestions-' + eventId)
+      channel.bind('suggestion-saved', data => {
+        console.log('suggestion-saved', data)
+        this.props.getEventSuggestions(eventId)
+      })
     }
   }
 
   public componentDidMount() {
     this.props.getEventById(this.props.match.params.eventId)
-    if (this.props.event) {
-      const eventId = this.props.event.eventId || ''
-      this.props.getEventSuggestions(eventId)
-      const channel = pusher.subscribe('mm-suggestions-' + eventId)
-      channel.bind('suggestion-saved', data => {
-        this.props.getEventSuggestions(eventId)
-      })
-    }
   }
 
   public render() {
