@@ -1,4 +1,23 @@
+.Home-root {
+  display: 'flex';
+  flex-grow: 1;
+  overflow: hidden;
+  z-index: 1;
+}
 .Home-error-message {
   margin-top: 6em;
   padding: 2em;
+}
+
+.Home-content {
+  flex-grow: 1;
+  margin-top: 2.5em;
+  padding: 2.5em;
+}
+
+.Home-toolbar {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 8px;
 }

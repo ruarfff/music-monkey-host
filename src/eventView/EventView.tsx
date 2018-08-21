@@ -1,33 +1,33 @@
-import { Badge } from '@material-ui/core'
-import AppBar from '@material-ui/core/AppBar/AppBar'
-import Button from '@material-ui/core/Button/Button'
-import Grid from '@material-ui/core/Grid/Grid'
-import Tab from '@material-ui/core/Tab/Tab'
-import Tabs from '@material-ui/core/Tabs/Tabs'
-import Typography from '@material-ui/core/Typography/Typography'
-import Zoom from '@material-ui/core/Zoom/Zoom'
-import DeleteIcon from '@material-ui/icons/Delete'
-import EditIcon from '@material-ui/icons/ModeEdit'
-import PeopleIcon from '@material-ui/icons/People'
-import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay'
-import SubscriptionIcon from '@material-ui/icons/Subscriptions'
-import * as Pusher from 'pusher-js'
-import * as React from 'react'
-import { RouteComponentProps } from 'react-router'
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
-import EventFetchError from '../event/EventFetchError'
-import IEvent from '../event/IEvent'
-import IAction from '../IAction'
-import LoadingSpinner from '../loading/LoadingSpinner'
-import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
-import LinkButton from '../util/LinkButton'
-import EventGuests from './EventGuestsContainer'
-import EventPlaylist from './EventPlaylistContainer'
-import EventSuggestions from './EventSuggestionsContainer'
-import './EventView.css'
-import InviteCopyAlert from './InviteCopyAlert'
-import InviteLink from './InviteLink'
+import { Badge } from '@material-ui/core';
+import AppBar from '@material-ui/core/AppBar/AppBar';
+import Button from '@material-ui/core/Button/Button';
+import Grid from '@material-ui/core/Grid/Grid';
+import Tab from '@material-ui/core/Tab/Tab';
+import Tabs from '@material-ui/core/Tabs/Tabs';
+import Typography from '@material-ui/core/Typography/Typography';
+import Zoom from '@material-ui/core/Zoom/Zoom';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import PeopleIcon from '@material-ui/icons/People';
+import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
+import SubscriptionIcon from '@material-ui/icons/Subscriptions';
+import * as Pusher from 'pusher-js';
+import * as React from 'react';
+import { RouteComponentProps } from 'react-router';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import EventFetchError from '../event/EventFetchError';
+import IEvent from '../event/IEvent';
+import IAction from '../IAction';
+import LoadingSpinner from '../loading/LoadingSpinner';
+import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion';
+import LinkButton from '../util/LinkButton';
+import EventGuests from './EventGuestsContainer';
+import EventPlaylist from './EventPlaylistContainer';
+import EventSuggestions from './EventSuggestionsContainer';
+import './EventView.css';
+import InviteCopyAlert from './InviteCopyAlert';
+import InviteLink from './InviteLink';
 
 const pusher = new Pusher('d7c284d8f17d26f74047', {
   cluster: 'eu',

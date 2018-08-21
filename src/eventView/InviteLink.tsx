@@ -3,7 +3,7 @@ import IconButton from '@material-ui/core/IconButton/IconButton'
 import Input from '@material-ui/core/Input/Input'
 import InputAdornment from '@material-ui/core/InputAdornment/InputAdornment'
 import InputLabel from '@material-ui/core/InputLabel/InputLabel'
-import ContentCopy from '@material-ui/icons/ContentCopy'
+import FileCopy from '@material-ui/icons/FileCopy'
 import { isEmpty } from 'lodash'
 import * as React from 'react'
 import * as CopyToClipboard from 'react-copy-to-clipboard'
@@ -32,7 +32,7 @@ const InviteLink = (props: IInviteLinkProps) => {
           endAdornment={
             <InputAdornment position="end">
               <IconButton aria-label="Copy to clipboard">
-                <ContentCopy />
+                <FileCopy />
               </IconButton>
             </InputAdornment>
           }
