@@ -23,7 +23,7 @@
     "pusher-js": "^4.2.2",
     "query-string": "^6.1.0",
     "react": "^16.4.0",
-    "react-beautiful-dnd": "^8.0.7",
+    "react-beautiful-dnd": "^9.0.1",
     "react-cookie": "^2.2.0",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.4.1",
