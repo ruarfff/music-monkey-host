@@ -1,3 +1,4 @@
+import { ListItemIcon } from '@material-ui/core'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button/Button'
 import Grid from '@material-ui/core/Grid/Grid'
@@ -72,16 +73,20 @@ export default class EventSuggestions extends React.Component<
     let trackImage = <span />
     if (track.album && track.album.images && track.album.images.length > 0) {
       trackImage = (
-        <img
-          className="EventSuggestions-trackImage"
-          src={track.album.images[track.album.images.length - 1].url}
-          alt={track.name}
-        />
+        <ListItemIcon>
+          <img
+            className="EventSuggestions-trackImage"
+            src={track.album.images[track.album.images.length - 1].url}
+            alt={track.name}
+          />
+        </ListItemIcon>
       )
     }
-    let icon = <AccountCircle className="EventSuggestions-avatar" />
+    let userAccountIcon = (
+      <AccountCircle className="EventSuggestions-avatar-small" />
+    )
     if (user.image) {
-      icon = (
+      userAccountIcon = (
         <Avatar
           alt={user.displayName}
           src={user.image}
@@ -101,7 +106,7 @@ export default class EventSuggestions extends React.Component<
         <ListItem dense={true} button={true}>
           {trackImage}
           <ListItemText primary={track.name} />
-          {icon}
+
           {track.preview_url && (
             <audio
               src={track.preview_url}
@@ -110,6 +115,8 @@ export default class EventSuggestions extends React.Component<
               preload="none"
             />
           )}
+
+          {userAccountIcon}
           <ListItemSecondaryAction>
             <IconButton
               aria-label="Delete"

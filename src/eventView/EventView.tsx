@@ -278,6 +278,7 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
   }
 
   private handleSuggestionNotification = () => {
+    console.log('*$&(*#&(*&@(*&(*@&#(*&@#(*@&(*@&*(')
     const { event } = this.props
     if (event && event.eventId) {
       this.props.getEventSuggestions(event.eventId)

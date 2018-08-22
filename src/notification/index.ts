@@ -15,14 +15,14 @@ export const subscribeToSuggestionsAccepted = (
   callback: any
 ) => {
   if (!subscribedToSuggestions) {
+    console.log('mm-suggestions-' + eventId)
     const channel = pusher.subscribe('mm-suggestions-' + eventId)
-    channel.bind('suggestions-accepted', callback)
+    channel.bind('suggestion-saved', callback)
     subscribedToSuggestions = true
   }
 }
 
 export const subscribeToVotesModified = (eventId: string, callback: any) => {
-  console.log('mm-votes-' + eventId)
   if (!subscribedToVoteCreate) {
     const channel = pusher.subscribe('mm-votes-' + eventId)
     channel.bind('vote-saved', callback)

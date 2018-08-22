@@ -25,9 +25,15 @@
 }
 
 .EventSuggestions-audio {
-  margin-right: 5em;
+  margin-right: 10em;
 }
 
 .EventSuggestions-avatar {
-  margin-left: 12em;
+  margin-right: 8em;
+  right: 1.3em;
+  margin-left: .81em;
+}
+.EventSuggestions-avatar-small {
+  margin-right: 8em;
+  font-size: 2em;
 }
