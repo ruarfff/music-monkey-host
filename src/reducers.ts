@@ -8,6 +8,7 @@ import preGame from './preGame/preGameReducer'
 import suggestion from './suggestion/suggestionReducer'
 import track from './track/trackReducer'
 import user from './user/userReducer'
+import vote from './vote/voteReducer'
 
 const reducers = combineReducers({
   auth,
@@ -18,7 +19,8 @@ const reducers = combineReducers({
   preGame,
   suggestion,
   track,
-  user
+  user,
+  vote
 })
 
 export default reducers

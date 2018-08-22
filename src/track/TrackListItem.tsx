@@ -1,20 +1,43 @@
+import Badge from '@material-ui/core/Badge'
+import IconButton from '@material-ui/core/IconButton'
 import ListItem from '@material-ui/core/ListItem/ListItem'
 import ListItemText from '@material-ui/core/ListItemText/ListItemText'
+import FavouriteIcon from '@material-ui/icons/FavoriteBorder'
 import * as React from 'react'
 import ITrack from './ITrack'
+import './TrackListItem.css'
 
 // TODO:  use this: https://codepen.io/dmarcus/pen/vKdWxW
 // Also this for styles: https://codepen.io/ArnaudBalland/pen/vGZKLr
 
 interface ITrackListItemProps {
   track: ITrack
-  onTrackSelected?: ((track: ITrack) => void)
+  withVoting: boolean
+  currentUserVoted: boolean
+  numberOfVotes: number
+  onVote: ((track: ITrack) => void)
+  onTrackSelected: ((track: ITrack) => void)
 }
 
 const TrackListItem = ({
   track,
-  onTrackSelected = (t: ITrack) => ({} as any)
+  withVoting,
+  currentUserVoted,
+  numberOfVotes,
+  onVote,
+  onTrackSelected
 }: ITrackListItemProps) => {
+  if (!track) {
+    return <span />
+  }
+  const handleTrackSelected = () => {
+    onTrackSelected(track)
+  }
+
+  const handleTrackVote = () => {
+    onVote(track)
+  }
+
   let trackImage = <span />
   if (track.album && track.album.images && track.album.images.length > 0) {
     trackImage = (
@@ -24,15 +47,26 @@ const TrackListItem = ({
       />
     )
   }
-
-  const handleTrackSelected = () => {
-    onTrackSelected(track)
+  let votingButton = <span />
+  if (withVoting) {
+    votingButton = (
+      <IconButton aria-label="Vote" onClick={handleTrackVote}>
+        <Badge
+          badgeContent={numberOfVotes}
+          color={currentUserVoted ? 'secondary' : 'primary'}
+          className="TrackListItem-voting"
+        >
+          <FavouriteIcon />
+        </Badge>
+      </IconButton>
+    )
   }
 
   return (
-    <ListItem dense={true} button={true} onClick={handleTrackSelected}>
+    <ListItem dense={true} button={!withVoting} onClick={handleTrackSelected}>
       {trackImage}
       <ListItemText primary={track.name} />
+      {votingButton}
     </ListItem>
   )
 }

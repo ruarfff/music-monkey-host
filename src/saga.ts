@@ -24,6 +24,7 @@ import {
   watchFetchSuggestions,
   watchRejectSuggestion
 } from './suggestion/suggestionSaga'
+import { watchFetchEventVotes } from './vote/voteSaga'
 
 export default function* saga() {
   yield all([
@@ -43,6 +44,7 @@ export default function* saga() {
     watchRefreshEventPlaylist(),
     watchFetchSuggestions(),
     watchRejectSuggestion(),
-    watchSaveEventPlaylist()
+    watchSaveEventPlaylist(),
+    watchFetchEventVotes()
   ])
 }

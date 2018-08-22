@@ -4,6 +4,7 @@ import { push } from 'react-router-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import IRootState from '../rootState'
 import { getEventSuggestions } from '../suggestion/suggestionActions'
+import { fetchEventVotes } from '../vote/voteActions'
 import EventView from './EventView'
 import {
   acknowledgeEventInviteCopied,
@@ -39,7 +40,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
       onEventDeleteSelected,
       onEventDeleteClosed,
       copyEventInvite,
-      acknowledgeEventInviteCopied
+      acknowledgeEventInviteCopied,
+      fetchEventVotes
     },
     dispatch
   )

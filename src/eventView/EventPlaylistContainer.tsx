@@ -7,7 +7,8 @@ import { saveEventPlaylist } from './eventViewActions'
 const mapStateToProps = (state: IRootState) => ({
   event: state.eventView.event,
   saving: state.eventView.savingEventPlaylist,
-  stagedSuggestions: state.suggestion.stagedSuggestions
+  stagedSuggestions: state.suggestion.stagedSuggestions,
+  votes: state.vote.votes
 })
 
 const mapDispatchToProps = {

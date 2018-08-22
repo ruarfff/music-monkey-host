@@ -16,13 +16,14 @@ import '../preGame/PreGame.css'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import ITrack from '../track/ITrack'
 import TrackList from '../track/TrackList'
-
+import ITrackVoteStatus from '../vote/ITrackVoteStatus'
 import './EventPlaylist.css'
 
 interface IEventPlaylistProps {
   event: IEvent
   stagedSuggestions: IDecoratedSuggestion[]
   saving: boolean
+  votes: Map<string, ITrackVoteStatus>
   saveEventPlaylist(
     event: IEvent,
     suggestions: Map<string, IDecoratedSuggestion>
@@ -34,7 +35,7 @@ export default class EventPlaylist extends React.PureComponent<
   IEventPlaylistProps
 > {
   public render() {
-    const { event, stagedSuggestions, saving } = this.props
+    const { event, stagedSuggestions, saving, votes } = this.props
     let stagedTracks: ITrack[] = []
 
     if (stagedSuggestions && stagedSuggestions.length > 0) {
@@ -68,6 +69,8 @@ export default class EventPlaylist extends React.PureComponent<
                       tracks={event.playlist.tracks.items.map(
                         item => item.track
                       )}
+                      withVoting={true}
+                      votes={votes}
                     />
                   </List>
                 )}

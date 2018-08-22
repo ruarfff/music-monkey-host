@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography/Typography'
 import PersonPinIcon from '@material-ui/icons/PersonPin'
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay'
 import { groupBy } from 'lodash'
-import * as Pusher from 'pusher-js'
 import * as React from 'react'
 import SwipeableViews from 'react-swipeable-views'
 import IEvent from '../event/IEvent'
@@ -67,15 +66,6 @@ export default class PreGameView extends React.PureComponent<
     if (this.props.event) {
       const eventId = this.props.event.eventId || ''
       this.props.getEventSuggestions(eventId)
-      const pusher = new Pusher('d7c284d8f17d26f74047', {
-        cluster: 'eu',
-        encrypted: true
-      })
-
-      const channel = pusher.subscribe('mm-suggestions-' + eventId)
-      channel.bind('suggestion-saved', data => {
-        this.props.getEventSuggestions(eventId)
-      })
     }
   }
 

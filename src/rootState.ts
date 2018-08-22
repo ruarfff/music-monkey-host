@@ -1,12 +1,13 @@
 import IAuthState from './auth/IAuthState'
 import IEventState from './event/IEventState'
 import IEventViewState from './eventView/IEventViewState'
-import { IHomeState } from "./home/IHomeState";
+import { IHomeState } from './home/IHomeState'
 import IPlaylistState from './playlist/IPlaylistState'
 import IPreGameState from './preGame/IPreGameState'
 import ISuggestionState from './suggestion/ISuggestionState'
 import ITrackState from './track/ITrackState'
 import IUserState from './user/IUserState'
+import IVoteState from './vote/IVoteState'
 
 export default interface IRootState {
   auth: IAuthState
@@ -18,4 +19,5 @@ export default interface IRootState {
   preGame: IPreGameState
   track: ITrackState
   suggestion: ISuggestionState
+  vote: IVoteState
 }

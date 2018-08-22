@@ -1,4 +1,4 @@
-import { IRsvp } from '../rsvp/IRsvp'
+import IRsvp from '../rsvp/IRsvp'
 import ISafeUser from '../user/ISafeUser'
 
 export default interface IEventGuest {

@@ -1,38 +1,36 @@
-import { Badge } from '@material-ui/core';
-import AppBar from '@material-ui/core/AppBar/AppBar';
-import Button from '@material-ui/core/Button/Button';
-import Grid from '@material-ui/core/Grid/Grid';
-import Tab from '@material-ui/core/Tab/Tab';
-import Tabs from '@material-ui/core/Tabs/Tabs';
-import Typography from '@material-ui/core/Typography/Typography';
-import Zoom from '@material-ui/core/Zoom/Zoom';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import PeopleIcon from '@material-ui/icons/People';
-import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
-import SubscriptionIcon from '@material-ui/icons/Subscriptions';
-import * as Pusher from 'pusher-js';
-import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import EventFetchError from '../event/EventFetchError';
-import IEvent from '../event/IEvent';
-import IAction from '../IAction';
-import LoadingSpinner from '../loading/LoadingSpinner';
-import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion';
-import LinkButton from '../util/LinkButton';
-import EventGuests from './EventGuestsContainer';
-import EventPlaylist from './EventPlaylistContainer';
-import EventSuggestions from './EventSuggestionsContainer';
-import './EventView.css';
-import InviteCopyAlert from './InviteCopyAlert';
-import InviteLink from './InviteLink';
-
-const pusher = new Pusher('d7c284d8f17d26f74047', {
-  cluster: 'eu',
-  encrypted: true
-})
+import { Badge } from '@material-ui/core'
+import AppBar from '@material-ui/core/AppBar/AppBar'
+import Button from '@material-ui/core/Button/Button'
+import Grid from '@material-ui/core/Grid/Grid'
+import Tab from '@material-ui/core/Tab/Tab'
+import Tabs from '@material-ui/core/Tabs/Tabs'
+import Typography from '@material-ui/core/Typography/Typography'
+import Zoom from '@material-ui/core/Zoom/Zoom'
+import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
+import PeopleIcon from '@material-ui/icons/People'
+import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay'
+import SubscriptionIcon from '@material-ui/icons/Subscriptions'
+import * as React from 'react'
+import { RouteComponentProps } from 'react-router'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import EventFetchError from '../event/EventFetchError'
+import IEvent from '../event/IEvent'
+import IAction from '../IAction'
+import LoadingSpinner from '../loading/LoadingSpinner'
+import {
+  subscribeToSuggestionsAccepted,
+  subscribeToVotesModified
+} from '../notification'
+import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
+import LinkButton from '../util/LinkButton'
+import EventGuests from './EventGuestsContainer'
+import EventPlaylist from './EventPlaylistContainer'
+import EventSuggestions from './EventSuggestionsContainer'
+import './EventView.css'
+import InviteCopyAlert from './InviteCopyAlert'
+import InviteLink from './InviteLink'
 
 interface IEventState {
   tabIndex: number
@@ -58,6 +56,7 @@ interface IEventViewProps extends RouteComponentProps<any> {
   copyEventInvite(): IAction
   acknowledgeEventInviteCopied(): IAction
   getEventSuggestions(eventId: string): IAction
+  fetchEventVotes(eventId: string): IAction
 }
 
 const SweetAlert = withReactContent(Swal) as any
@@ -90,12 +89,9 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
 
     if (eventId !== prevEventId) {
       this.props.getEventSuggestions(eventId)
-      this.props.getEventSuggestions(eventId)
-      const channel = pusher.subscribe('mm-suggestions-' + eventId)
-      channel.bind('suggestion-saved', data => {
-        console.log('suggestion-saved', data)
-        this.props.getEventSuggestions(eventId)
-      })
+      subscribeToSuggestionsAccepted(eventId, this.handleSuggestionNotification)
+      this.props.fetchEventVotes(eventId)
+      subscribeToVotesModified(eventId, this.handleEventVotesModified)
     }
   }
 
@@ -279,6 +275,20 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
       )
     }
     return <SubscriptionIcon />
+  }
+
+  private handleSuggestionNotification = () => {
+    const { event } = this.props
+    if (event && event.eventId) {
+      this.props.getEventSuggestions(event.eventId)
+    }
+  }
+
+  private handleEventVotesModified = () => {
+    const { event } = this.props
+    if (event && event.eventId) {
+      this.props.fetchEventVotes(event.eventId)
+    }
   }
 }
 
