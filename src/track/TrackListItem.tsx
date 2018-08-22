@@ -63,7 +63,7 @@ const TrackListItem = ({
   }
 
   return (
-    <ListItem dense={true} button={!withVoting} onClick={handleTrackSelected}>
+    <ListItem dense={true} button={true} onClick={handleTrackSelected}>
       {trackImage}
       <ListItemText primary={track.name} />
       {votingButton}

@@ -71,6 +71,7 @@ export default class EventPlaylist extends React.PureComponent<
                       )}
                       withVoting={true}
                       votes={votes}
+                      onDragEnd={this.handlePlaylistReorder}
                     />
                   </List>
                 )}
@@ -168,5 +169,14 @@ export default class EventPlaylist extends React.PureComponent<
       })
       saveEventPlaylist(event, suggestionMap)
     }
+  }
+
+  private handlePlaylistReorder = (result: any) => {
+    // dropped outside the list
+    if (!result.destination) {
+      return
+    }
+
+    console.log('DRAG', result)
   }
 }
