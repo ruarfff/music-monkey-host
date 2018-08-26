@@ -2,6 +2,7 @@ import axios from 'axios'
 import * as moment from 'moment'
 import { call, put, takeEvery } from 'redux-saga/effects'
 import EventDecorator from '../event/EventDecorator'
+import { EVENT_PLAYLIST_FETCHED } from '../eventPlaylist/eventPlaylistActions'
 import IAction from '../IAction'
 import {
   EVENT_DELETE_FAILED,
@@ -33,7 +34,10 @@ function* fetchEventByIdFlow(action: IAction) {
   try {
     const event = yield call(fetchEvent, eventId)
     const decoratedEvent = yield call(eventDecorator.decorateEvent, event)
+    const playlist = decoratedEvent.playlist
+    delete decoratedEvent.playlist
     yield put({ type: EVENT_FETCHED_BY_ID, payload: decoratedEvent })
+    yield put({ type: EVENT_PLAYLIST_FETCHED, payload: playlist })
   } catch (err) {
     yield put({ type: EVENT_FETCH_BY_ID_ERROR, payload: err })
   }

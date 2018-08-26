@@ -9,9 +9,11 @@ import DoneAll from '@material-ui/icons/DoneAll'
 import Undo from '@material-ui/icons/Undo'
 import * as classNames from 'classnames'
 import * as React from 'react'
+import { DropResult } from 'react-beautiful-dnd'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
+import IPlaylist from '../playlist/IPlaylist'
 import '../preGame/PreGame.css'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import ITrack from '../track/ITrack'
@@ -21,6 +23,7 @@ import './EventPlaylist.css'
 
 interface IEventPlaylistProps {
   event: IEvent
+  playlist: IPlaylist
   stagedSuggestions: IDecoratedSuggestion[]
   saving: boolean
   votes: Map<string, ITrackVoteStatus>
@@ -29,24 +32,29 @@ interface IEventPlaylistProps {
     suggestions: Map<string, IDecoratedSuggestion>
   ): IAction
   resetStagedSuggestions(): IAction
+  onPlaylistDragDrop(
+    playlist: IPlaylist,
+    fromIndex: number,
+    toIndex: number
+  ): IAction
 }
 
 export default class EventPlaylist extends React.PureComponent<
   IEventPlaylistProps
 > {
   public render() {
-    const { event, stagedSuggestions, saving, votes } = this.props
+    const { playlist, stagedSuggestions, saving, votes } = this.props
     let stagedTracks: ITrack[] = []
+
+    if (!playlist) {
+      return <span />
+    }
 
     if (stagedSuggestions && stagedSuggestions.length > 0) {
       stagedTracks = stagedSuggestions.map(s => s.track)
     }
 
     const hasStagedTrack = stagedTracks.length > 0
-
-    if (!event) {
-      return <span />
-    }
 
     return (
       <div className="EventPlaylist-root">
@@ -62,31 +70,28 @@ export default class EventPlaylist extends React.PureComponent<
                 </List>
               )}
 
-              {event.playlist &&
-                event.playlist.tracks.total > 0 && (
+              {playlist &&
+                playlist.tracks.total > 0 && (
                   <List>
                     <TrackList
-                      tracks={event.playlist.tracks.items.map(
-                        item => item.track
-                      )}
+                      tracks={playlist.tracks.items.map(item => item.track)}
                       withVoting={true}
                       votes={votes}
                       onDragEnd={this.handlePlaylistDragDrop}
                     />
                   </List>
                 )}
-              {event.playlist &&
-                event.playlist.tracks.total < 1 && <p>No tracks yet</p>}
+              {playlist && playlist.tracks.total < 1 && <p>No tracks yet</p>}
             </Grid>
             <Grid item={true} sm={4}>
               <Card className="EventPlaylist-card">
-                {event.playlist &&
-                  event.playlist.images &&
-                  event.playlist.images.length > 0 && (
+                {playlist &&
+                  playlist.images &&
+                  playlist.images.length > 0 && (
                     <CardMedia
                       className="EventPlaylist-media"
-                      image={event.playlist.images[0].url}
-                      title={event.playlist.name}
+                      image={playlist.images[0].url}
+                      title={playlist.name}
                     />
                   )}
                 <CardContent>
@@ -95,19 +100,15 @@ export default class EventPlaylist extends React.PureComponent<
                     variant="headline"
                     component="h2"
                   >
-                    {event.playlist && event.playlist.name}
+                    {playlist && playlist.name}
                   </Typography>
                   <Typography variant="subheading">
-                    {event.playlist &&
-                      (event.playlist.followers || ({} as any)).total}{' '}
+                    {playlist && (playlist.followers || ({} as any)).total}{' '}
                     Followers
                   </Typography>
                   <Typography component="p">
-                    {event.playlist && (
-                      <a
-                        href={event.playlist.external_urls.spotify}
-                        target="_blank"
-                      >
+                    {playlist && (
+                      <a href={playlist.external_urls.spotify} target="_blank">
                         Open in Spotify
                       </a>
                     )}
@@ -171,12 +172,16 @@ export default class EventPlaylist extends React.PureComponent<
     }
   }
 
-  private handlePlaylistDragDrop = (result: any) => {
+  private handlePlaylistDragDrop = (result: DropResult) => {
     // dropped outside the list
     if (!result.destination) {
       return
     }
 
-    console.log('DRAG', result)
+    this.props.onPlaylistDragDrop(
+      this.props.playlist,
+      result.source.index,
+      result.destination.index
+    )
   }
 }

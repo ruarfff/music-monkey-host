@@ -2,10 +2,14 @@ import { connect } from 'react-redux'
 import IRootState from '../rootState'
 import { resetStagedSuggestions } from '../suggestion/suggestionActions'
 import EventPlaylist from './EventPlaylist'
-import { saveEventPlaylist } from './eventPlaylistActions'
+import {
+  moveItemInEventPlaylist,
+  saveEventPlaylist
+} from './eventPlaylistActions'
 
 const mapStateToProps = (state: IRootState) => ({
   event: state.eventView.event,
+  playlist: state.eventPlaylist.playlist,
   saving: state.eventPlaylist.savingEventPlaylist,
   stagedSuggestions: state.suggestion.stagedSuggestions,
   votes: state.vote.votes
@@ -13,7 +17,8 @@ const mapStateToProps = (state: IRootState) => ({
 
 const mapDispatchToProps = {
   saveEventPlaylist,
-  resetStagedSuggestions
+  resetStagedSuggestions,
+  onPlaylistDragDrop: moveItemInEventPlaylist
 }
 
 const PreGameViewContainer = connect(
