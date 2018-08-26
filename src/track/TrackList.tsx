@@ -19,19 +19,13 @@ interface ITrackListProps {
 const getItemStyle = (isDragging: any, draggableStyle: any) => {
   if (isDragging) {
     return {
-      background: 'lightgreen',
+      border: 'solid 1px',
+      borderRadius: '6px',
       ...draggableStyle
     }
   } else {
     return { ...draggableStyle }
   }
-}
-
-const getListStyle = (isDraggingOver: any) => {
-  if (isDraggingOver) {
-    return { background: 'lightblue' }
-  }
-  return {}
 }
 
 const TrackList = ({
@@ -44,12 +38,9 @@ const TrackList = ({
 }: ITrackListProps) => (
   <React.Fragment>
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="droppable">
-        {(provided, snapshot) => (
-          <div
-            ref={provided.innerRef}
-            style={getListStyle(snapshot.isDraggingOver)}
-          >
+      <Droppable droppableId="track-list-droppable">
+        {provided => (
+          <div ref={provided.innerRef}>
             {tracks.map((track, i) => {
               const trackId = track.uri
               let numberOfVotes = 0

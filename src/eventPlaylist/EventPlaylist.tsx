@@ -71,7 +71,7 @@ export default class EventPlaylist extends React.PureComponent<
                       )}
                       withVoting={true}
                       votes={votes}
-                      onDragEnd={this.handlePlaylistReorder}
+                      onDragEnd={this.handlePlaylistDragDrop}
                     />
                   </List>
                 )}
@@ -171,7 +171,7 @@ export default class EventPlaylist extends React.PureComponent<
     }
   }
 
-  private handlePlaylistReorder = (result: any) => {
+  private handlePlaylistDragDrop = (result: any) => {
     // dropped outside the list
     if (!result.destination) {
       return

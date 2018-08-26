@@ -12,7 +12,7 @@ import {
   watchFetchEvents,
   watchUpdateLocationAutoComplete
 } from './event/eventSaga'
-import { watchSaveEventPlaylist } from './eventView/eventPlaylistSaga'
+import { watchSaveEventPlaylist } from './eventPlaylist/eventPlaylistSaga'
 import {
   watchDeleteEvent,
   watchFetchEventById,

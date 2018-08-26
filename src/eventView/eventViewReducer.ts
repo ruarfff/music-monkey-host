@@ -8,10 +8,7 @@ import {
   EVENT_FETCH_BY_ID_INITIATED,
   EVENT_FETCHED_BY_ID,
   EVENT_INVITE_COPIED,
-  EVENT_INVITE_COPY_ACKNOWLEDGED,
-  SAVE_EVENT_PLAYLIST,
-  SAVE_EVENT_PLAYLIST_ERROR,
-  SAVE_EVENT_PLAYLIST_SUCCESS
+  EVENT_INVITE_COPY_ACKNOWLEDGED
 } from './eventViewActions'
 import initialState from './eventViewInitialState'
 import IEventViewState from './IEventViewState'
@@ -70,16 +67,6 @@ export default function eventView(
       return {
         ...state,
         copiedToClipboard: false
-      }
-    case SAVE_EVENT_PLAYLIST:
-      return { ...state, savingEventPlaylist: true }
-    case SAVE_EVENT_PLAYLIST_SUCCESS:
-      return { ...state, savingEventPlaylist: false }
-    case SAVE_EVENT_PLAYLIST_ERROR:
-      return {
-        ...state,
-        savingEventPlaylist: false,
-        saveEventPlaylistError: payload
       }
     default:
       return state

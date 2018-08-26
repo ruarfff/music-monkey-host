@@ -7,10 +7,7 @@ import {
   EVENT_DELETE_SUCCESSFUL,
   EVENT_FETCH_BY_ID_ERROR,
   EVENT_FETCH_BY_ID_INITIATED,
-  EVENT_FETCHED_BY_ID,
-  SAVE_EVENT_PLAYLIST,
-  SAVE_EVENT_PLAYLIST_ERROR,
-  SAVE_EVENT_PLAYLIST_SUCCESS
+  EVENT_FETCHED_BY_ID
 } from './eventViewActions'
 import initialState from './eventViewInitialState'
 import eventView from './eventViewReducer'
@@ -111,52 +108,5 @@ describe('eventViewReducer', () => {
         }
       )
     ).toEqual({ ...initialState, deleteFailed: true })
-  })
-
-  it('should handle SAVE_EVENT_PLAYLIST', () => {
-    expect(
-      eventView(initialState, {
-        type: SAVE_EVENT_PLAYLIST
-      })
-    ).toEqual({
-      ...initialState,
-      savingEventPlaylist: true
-    })
-  })
-
-  it('should handle SAVE_EVENT_PLAYLIST_SUCCESS', () => {
-    expect(
-      eventView(
-        {
-          ...initialState,
-          savingEventPlaylist: true
-        },
-        {
-          type: SAVE_EVENT_PLAYLIST_SUCCESS
-        }
-      )
-    ).toEqual({
-      ...initialState,
-      savingEventPlaylist: false
-    })
-  })
-
-  it('should handle SAVE_EVENT_PLAYLIST_ERROR', () => {
-    expect(
-      eventView(
-        {
-          ...initialState,
-          savingEventPlaylist: true
-        },
-        {
-          type: SAVE_EVENT_PLAYLIST_ERROR,
-          payload: new Error('oh-the-humanity')
-        }
-      )
-    ).toEqual({
-      ...initialState,
-      savingEventPlaylist: false,
-      saveEventPlaylistError: new Error('oh-the-humanity')
-    })
   })
 })

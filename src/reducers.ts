@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import auth from './auth/authReducer'
 import event from './event/eventReducer'
+import eventPlaylist from './eventPlaylist/eventPlaylistReducer'
 import eventView from './eventView/eventViewReducer'
 import home from './home/homeReducer'
 import playlist from './playlist/playlistReducer'
@@ -13,6 +14,7 @@ import vote from './vote/voteReducer'
 const reducers = combineReducers({
   auth,
   event,
+  eventPlaylist,
   eventView,
   home,
   playlist,

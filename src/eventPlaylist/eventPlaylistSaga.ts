@@ -2,6 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import * as SpotifyWebApi from 'spotify-web-api-js'
 import { accessTokenKey } from '../auth/authConstants'
 import IEvent from '../event/IEvent'
+import { EVENT_FETCH_BY_ID_INITIATED } from '../eventView/eventViewActions'
 import IAction from '../IAction'
 import localStorage from '../storage/localStorage'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
@@ -11,11 +12,10 @@ import {
 } from '../suggestion/suggestionActions'
 import { acceptSuggestions } from '../suggestion/suggestionClient'
 import {
-  EVENT_FETCH_BY_ID_INITIATED,
   SAVE_EVENT_PLAYLIST,
   SAVE_EVENT_PLAYLIST_ERROR,
   SAVE_EVENT_PLAYLIST_SUCCESS
-} from './eventViewActions'
+} from './eventPlaylistActions'
 
 interface ISavePlaylistArgs {
   event: IEvent
