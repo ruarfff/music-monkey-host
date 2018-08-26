@@ -4,7 +4,33 @@ import localStorage from '../storage/localStorage'
 import IUser from '../user/IUser'
 import IPlaylist from './IPlaylist'
 
-export const fetchUsersPlaylists = (user: IUser) => {
+export const reOrderPlaylist = (playlist, fromIndex, toIndex) => {
+  const token = localStorage.get(accessTokenKey)
+
+  const spotifyApi = new SpotifyWebApi()
+  spotifyApi.setAccessToken(token)
+
+  let insertBefore = toIndex
+  if (fromIndex < toIndex) {
+    insertBefore++
+  }
+  return spotifyApi.reorderTracksInPlaylist(
+    playlist.id,
+    fromIndex,
+    insertBefore
+  )
+}
+
+export const fetchPlaylist = playlistId => {
+  const token = localStorage.get(accessTokenKey)
+
+  const spotifyApi = new SpotifyWebApi()
+  spotifyApi.setAccessToken(token)
+
+  return spotifyApi.getPlaylist(playlistId)
+}
+
+export const fetchUsersPlaylists = user => {
   const token = localStorage.get(accessTokenKey)
 
   const spotifyApi = new SpotifyWebApi()
@@ -25,7 +51,7 @@ export const fetchUsersPlaylists = (user: IUser) => {
                   r({
                     ...playlist,
                     tracks: { ...playlist.tracks, items: tracks.items }
-                  } as IPlaylist)
+                  })
                 })
                 .catch(rej)
             })

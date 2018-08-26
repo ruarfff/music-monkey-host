@@ -4,6 +4,7 @@ import { accessTokenKey } from '../auth/authConstants'
 import IEvent from '../event/IEvent'
 import { EVENT_FETCH_BY_ID_INITIATED } from '../eventView/eventViewActions'
 import IAction from '../IAction'
+import { reOrderPlaylist } from '../playlist/playlistClient'
 import localStorage from '../storage/localStorage'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import {
@@ -12,6 +13,7 @@ import {
 } from '../suggestion/suggestionActions'
 import { acceptSuggestions } from '../suggestion/suggestionClient'
 import {
+  MOVE_ITEM_IN_EVENT_PLAYLIST,
   SAVE_EVENT_PLAYLIST,
   SAVE_EVENT_PLAYLIST_ERROR,
   SAVE_EVENT_PLAYLIST_SUCCESS
@@ -74,4 +76,17 @@ function* saveEventPlaylistFlow(action: IAction) {
 
 export function* watchSaveEventPlaylist() {
   yield takeEvery(SAVE_EVENT_PLAYLIST, saveEventPlaylistFlow)
+}
+
+function moveItemInEventPlaylistFlow(action: IAction) {
+  try {
+    const { playlist, fromIndex, toIndex } = action.payload
+    reOrderPlaylist(playlist, fromIndex, toIndex)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export function* watchMoveItemInEventPlaylist() {
+  yield takeEvery(MOVE_ITEM_IN_EVENT_PLAYLIST, moveItemInEventPlaylistFlow)
 }
