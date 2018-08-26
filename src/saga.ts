@@ -22,7 +22,6 @@ import {
   watchRefreshEventPlaylist
 } from './eventView/eventViewSaga'
 import { watchFetchPlaylists } from './playlist/playlistSaga'
-import { watchSavePreGamePlaylist } from './preGame/preGameSaga'
 import {
   watchFetchSuggestions,
   watchRejectSuggestion
@@ -43,7 +42,6 @@ export default function* saga() {
     watchStoreRefreshToken(),
     watchRefresh(),
     watchDeleteEvent(),
-    watchSavePreGamePlaylist(),
     watchRefreshEventPlaylist(),
     watchFetchSuggestions(),
     watchRejectSuggestion(),
