@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import ITrackVoteStatus from '../vote/ITrackVoteStatus'
 import ITrack from './ITrack'
 import TrackListItem from './TrackListItem'
@@ -12,6 +13,19 @@ interface ITrackListProps {
   votes?: Map<string, ITrackVoteStatus>
   onVote?: ((track: ITrack) => void)
   onTrackSelected?: ((track: ITrack) => void)
+  onDragEnd?: ((result: any) => void)
+}
+
+const getItemStyle = (isDragging: any, draggableStyle: any) => {
+  if (isDragging) {
+    return {
+      border: 'solid 1px',
+      borderRadius: '6px',
+      ...draggableStyle
+    }
+  } else {
+    return { ...draggableStyle }
+  }
 }
 
 const TrackList = ({
@@ -19,32 +33,56 @@ const TrackList = ({
   withVoting = false,
   votes = new Map(),
   onVote = (t: ITrack) => ({} as any),
-  onTrackSelected = (t: ITrack) => ({} as any)
+  onTrackSelected = (t: ITrack) => ({} as any),
+  onDragEnd = (result: any) => ({} as any)
 }: ITrackListProps) => (
   <React.Fragment>
-    {tracks.map((track, i) => {
-      const trackId = track.uri
-      let numberOfVotes = 0
-      let userVoted = false
-      if (votes && votes.has(trackId)) {
-        const voteStatus: ITrackVoteStatus =
-          votes.get(trackId) || ({} as ITrackVoteStatus)
-        numberOfVotes = voteStatus.numberOfVotes
-        userVoted = voteStatus.votedByCurrentUser
-      }
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="track-list-droppable">
+        {provided => (
+          <div ref={provided.innerRef}>
+            {tracks.map((track, i) => {
+              const trackId = track.uri
+              let numberOfVotes = 0
+              let userVoted = false
+              if (votes && votes.has(trackId)) {
+                const voteStatus: ITrackVoteStatus =
+                  votes.get(trackId) || ({} as ITrackVoteStatus)
+                numberOfVotes = voteStatus.numberOfVotes
+                userVoted = voteStatus.votedByCurrentUser
+              }
 
-      return (
-        <TrackListItem
-          key={i}
-          track={track}
-          withVoting={withVoting}
-          currentUserVoted={userVoted}
-          numberOfVotes={numberOfVotes}
-          onTrackSelected={onTrackSelected}
-          onVote={onVote}
-        />
-      )
-    })}
+              return (
+                <Draggable key={i} draggableId={trackId} index={i}>
+                  {(draggableProvided, draggableSnapshot) => (
+                    <div
+                      ref={draggableProvided.innerRef}
+                      {...draggableProvided.draggableProps}
+                      {...draggableProvided.dragHandleProps}
+                      style={getItemStyle(
+                        draggableSnapshot.isDragging,
+                        draggableProvided.draggableProps.style
+                      )}
+                    >
+                      <TrackListItem
+                        track={track}
+                        withVoting={withVoting}
+                        currentUserVoted={userVoted}
+                        numberOfVotes={numberOfVotes}
+                        onTrackSelected={onTrackSelected}
+                        onVote={onVote}
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              )
+            })}
+
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   </React.Fragment>
 )
 

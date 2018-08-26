@@ -1,5 +1,6 @@
 import IAuthState from './auth/IAuthState'
 import IEventState from './event/IEventState'
+import IEventPlaylistState from './eventPlaylist/IEventPlaylistState'
 import IEventViewState from './eventView/IEventViewState'
 import { IHomeState } from './home/IHomeState'
 import IPlaylistState from './playlist/IPlaylistState'
@@ -16,6 +17,7 @@ export default interface IRootState {
   home: IHomeState
   event: IEventState
   eventView: IEventViewState
+  eventPlaylist: IEventPlaylistState
   preGame: IPreGameState
   track: ITrackState
   suggestion: ISuggestionState

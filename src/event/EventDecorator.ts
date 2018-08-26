@@ -1,28 +1,19 @@
-import * as SpotifyWebApi from 'spotify-web-api-js'
-import { accessTokenKey } from '../auth/authConstants'
 import { fetchEventGuests } from '../guest/guestClient'
 import IPlaylist from '../playlist/IPlaylist'
 import IPlaylistQuery from '../playlist/IPlaylistQuery'
 import parsePlaylistUrl from '../playlist/parsePlaylistUrl'
-import localStorage from '../storage/localStorage'
+import { fetchPlaylist } from '../playlist/playlistClient'
 import IEvent from './IEvent'
 
 const defaultEventImage = '/img/partycover-sm.png'
 
 export default class EventDecorator {
-  public getEventPlaylist = (event: IEvent) => {
-    const token = localStorage.get(accessTokenKey)
+  public getEventPlaylist = (event: IEvent): Promise<IPlaylist> => {
     const playlistQuery: IPlaylistQuery | undefined = parsePlaylistUrl(
       event.playlistUrl
     )
-    const spotifyApi = new SpotifyWebApi()
-
-    spotifyApi.setAccessToken(token)
     if (playlistQuery) {
-      return spotifyApi.getPlaylist(
-        playlistQuery.userName,
-        playlistQuery.playlistId
-      )
+      return fetchPlaylist(playlistQuery.playlistId)
     } else {
       return Promise.reject(new Error('Invalid Playlist Url'))
     }

@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid/Grid'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
-import Zoom from '@material-ui/core/Zoom/Zoom'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import PeopleIcon from '@material-ui/icons/People'
@@ -17,6 +16,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import EventFetchError from '../event/EventFetchError'
 import IEvent from '../event/IEvent'
+import EventPlaylist from '../eventPlaylist/EventPlaylistContainer'
 import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import {
@@ -26,7 +26,6 @@ import {
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import LinkButton from '../util/LinkButton'
 import EventGuests from './EventGuestsContainer'
-import EventPlaylist from './EventPlaylistContainer'
 import EventSuggestions from './EventSuggestionsContainer'
 import './EventView.css'
 import InviteCopyAlert from './InviteCopyAlert'
@@ -116,9 +115,7 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
         {loading && <LoadingSpinner />}
         {loading &&
           error && <EventFetchError onTryAgain={this.handleGetEvent} />}
-        {shouldShowEvent && (
-          <Zoom in={shouldShowEvent}>{this.renderEventView()}</Zoom>
-        )}
+        {shouldShowEvent && this.renderEventView()}
         {copiedToClipboard && (
           <InviteCopyAlert
             message="Copied to Clipboard"
