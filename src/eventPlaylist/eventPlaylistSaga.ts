@@ -1,12 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import * as SpotifyWebApi from 'spotify-web-api-js'
-import { accessTokenKey } from '../auth/authConstants'
 import { EVENT_FETCH_BY_ID_INITIATED } from '../eventView/eventViewActions'
 import IAction from '../IAction'
 import IPlaylist from '../playlist/IPlaylist'
 import { addTracksToPlaylist } from '../playlist/playlistClient'
 import { reOrderPlaylist } from '../playlist/playlistClient'
-import localStorage from '../storage/localStorage'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import {
   FETCH_SUGGESTIONS_INITIATED,
@@ -31,9 +28,6 @@ function saveEventPlaylist({
   playlist,
   suggestions
 }: ISavePlaylistArgs) {
-  const token = localStorage.get(accessTokenKey)
-  const spotifyApi = new SpotifyWebApi()
-  spotifyApi.setAccessToken(token)
   if (!playlist) {
     return Promise.reject(new Error('No Event Playlist'))
   }

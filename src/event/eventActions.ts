@@ -1,4 +1,5 @@
 import Action from '../IAction'
+import IPlaylistDetails from '../playlist/IPlaylistDetails'
 import IUser from '../user/IUser'
 import IEvent from './IEvent'
 
@@ -83,7 +84,9 @@ export const closeCreatePlaylist = (): Action => ({
   type: CREATE_PLAYLIST_CLOSED
 })
 
-export const createEventPlaylist = (playlistDetails: any): Action => ({
+export const createEventPlaylist = (
+  playlistDetails: IPlaylistDetails
+): Action => ({
   payload: playlistDetails,
   type: EVENT_CREATE_PLAYLIST_INITIATED
 })

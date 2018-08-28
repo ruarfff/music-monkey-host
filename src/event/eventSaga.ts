@@ -1,12 +1,8 @@
-import axios from 'axios'
-import * as moment from 'moment'
 import { call, put, takeEvery } from 'redux-saga/effects'
-import * as SpotifyWebApi from 'spotify-web-api-js'
-import { accessTokenKey } from '../auth/authConstants'
 import IAction from '../IAction'
 import IPlaylist from '../playlist/IPlaylist'
 import IPlaylistDetails from '../playlist/IPlaylistDetails'
-import localStorage from '../storage/localStorage'
+import { createPlaylist } from '../playlist/playlistClient'
 import {
   EVENT_CONTENT_UPDATED,
   EVENT_CREATE_PLAYLIST_INITIATED,
@@ -22,30 +18,21 @@ import {
   EVENTS_FETCH_INITIATED,
   EVENTS_FETCHED
 } from './eventActions'
-import { getEvents } from './eventClient'
+import { getEvents, saveEvent } from './eventClient'
 import IEvent from './IEvent'
 
 const { geocodeByAddress, getLatLng } = require('react-places-autocomplete')
 
-const serviceUrl = process.env.REACT_APP_MM_API_URL
+function savePlaylist(playlistDetails: IPlaylistDetails) {
+  const { name, description, userId } = playlistDetails
 
-function createPlaylist(playlistDetails: IPlaylistDetails) {
-  const token = localStorage.get(accessTokenKey)
-  const spotifyApi = new SpotifyWebApi()
-  const { userId, name, isPublic, description } = playlistDetails
-
-  spotifyApi.setAccessToken(token)
-  return spotifyApi.createPlaylist(userId, {
-    description,
-    name,
-    public: isPublic
-  })
+  return createPlaylist(userId, name, description)
 }
 
 function* createPlaylistFlow(action: IAction) {
   const playlistDetails: IPlaylistDetails = action.payload
   try {
-    const playlist = yield call(createPlaylist, playlistDetails)
+    const playlist = yield call(savePlaylist, playlistDetails)
     yield put({
       payload: playlist,
       type: EVENT_PLAYLIST_CREATED
@@ -78,33 +65,6 @@ function* fetchLatLngFlow(action: IAction) {
   } catch (error) {
     yield put({ type: EVENT_LOCATION_ERROR, payload: error })
   }
-}
-
-function saveEvent(event: IEvent) {
-  const address =
-    event.location && event.location.address
-      ? event.location.address
-      : 'Nowhere'
-  return axios
-    .post(serviceUrl + '/events', {
-      ...event,
-      invites: undefined,
-      endDateTime: event.endDateTime.toISOString(),
-      location: {
-        ...event.location,
-        address
-      },
-      startDateTime: event.startDateTime.toISOString()
-    })
-    .then(response => {
-      const savedEvent = {
-        ...response.data,
-        endDateTime: moment(response.data.endDateTime),
-        startDateTime: moment(response.data.startDateTime)
-      }
-
-      return savedEvent
-    })
 }
 
 function* saveEventFlow(action: IAction) {

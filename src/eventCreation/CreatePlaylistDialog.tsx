@@ -3,14 +3,13 @@ import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import FormGroup from '@material-ui/core/FormGroup'
-import Switch from '@material-ui/core/Switch'
 import TextField from '@material-ui/core/TextField/TextField'
 import * as React from 'react'
 import IPlaylistDetails from '../playlist/IPlaylistDetails'
+import IUser from '../user/IUser'
 
 interface ICreatePlaylistDialogProps {
+  user: IUser
   open: boolean
   onClose(): void
   onPlaylistCreation(details: IPlaylistDetails): void
@@ -19,7 +18,6 @@ interface ICreatePlaylistDialogProps {
 interface ICreatPlaylistDialogState {
   description: string
   name: string
-  isPublic: boolean
 }
 
 export default class CreatePlaylistDialog extends React.Component<
@@ -30,13 +28,8 @@ export default class CreatePlaylistDialog extends React.Component<
     super(props)
     this.state = {
       description: '',
-      isPublic: true,
       name: ''
     }
-  }
-
-  public togglePublic = () => {
-    this.setState({ ...this.state, isPublic: !this.state.isPublic })
   }
 
   public handleChange = (name: string) => (event: any) => {
@@ -81,18 +74,6 @@ export default class CreatePlaylistDialog extends React.Component<
             value={this.state.description}
             onChange={this.handleChange('description')}
           />
-          <FormGroup row={true}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={this.state.isPublic}
-                  onChange={this.togglePublic}
-                  color="primary"
-                />
-              }
-              label="Public"
-            />
-          </FormGroup>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="secondary">
@@ -100,7 +81,10 @@ export default class CreatePlaylistDialog extends React.Component<
           </Button>
           <Button
             disabled={!this.state.name}
-            onClick={this.handlePlaylistSave(this.state as IPlaylistDetails)}
+            onClick={this.handlePlaylistSave({
+              ...this.state,
+              userId: this.props.user.userId
+            } as IPlaylistDetails)}
             color="primary"
           >
             Create

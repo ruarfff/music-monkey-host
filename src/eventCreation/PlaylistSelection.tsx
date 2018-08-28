@@ -141,6 +141,7 @@ export default decorate(
               fetchPlaylists={fetchPlaylists}
             />
             <CreatePlaylistDialog
+              user={user}
               open={playlistInput.isCreatingNewPlaylist}
               onClose={closeCreatePlaylist}
               onPlaylistCreation={this.handlePlaylistCreation}

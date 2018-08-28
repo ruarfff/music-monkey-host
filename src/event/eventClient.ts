@@ -31,5 +31,38 @@ export const getEventById = (eventId: string) => {
 }
 
 export const deleteEvent = (eventId: string) => {
-  return axios.delete(serviceUrl + '/events/' + eventId)
+  return axios.delete(serviceUrl + '/events/' + eventId, {
+    withCredentials: true
+  })
+}
+
+export const saveEvent = (event: IEvent) => {
+  const address =
+    event.location && event.location.address
+      ? event.location.address
+      : 'Nowhere'
+  return axios
+    .post(
+      serviceUrl + '/events',
+      {
+        ...event,
+        invites: undefined,
+        endDateTime: event.endDateTime.toISOString(),
+        location: {
+          ...event.location,
+          address
+        },
+        startDateTime: event.startDateTime.toISOString()
+      },
+      { withCredentials: true }
+    )
+    .then(response => {
+      const savedEvent = {
+        ...response.data,
+        endDateTime: moment(response.data.endDateTime),
+        startDateTime: moment(response.data.startDateTime)
+      }
+
+      return savedEvent
+    })
 }

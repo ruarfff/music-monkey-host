@@ -12,6 +12,7 @@ import IPlaylistInput from '../event/IPlaylistInput'
 import IAction from '../IAction'
 import LocationAutoComplete from '../location/LocationAutoComplete'
 import IPlaylist from '../playlist/IPlaylist'
+import IPlaylistDetails from '../playlist/IPlaylistDetails'
 import FileUpload from '../upload/FileUpload'
 import IUser from '../user/IUser'
 import './CreateEvent.css'
@@ -33,7 +34,7 @@ interface ICreateEventProps {
   cancel(): void
   closeCreatePlaylist(): IAction
   closeExistingPlaylist(): IAction
-  createEventPlaylist(playlist: IPlaylist): IAction
+  createEventPlaylist(playlist: IPlaylistDetails): IAction
   eventContentUpdated(content: any): IAction
   eventImageUploadError(): IAction
   eventImageUploaded(): IAction
@@ -57,7 +58,7 @@ const showSavedDialogue = (onCancel: () => void) => {
 export default class CreateEvent extends React.PureComponent<
   ICreateEventProps
 > {
-  public componentDidMount() {    
+  public componentDidMount() {
     this.props.initializeCreateForm(this.props.event, this.props.user)
   }
 
@@ -218,7 +219,7 @@ export default class CreateEvent extends React.PureComponent<
   }
 
   private handleContentUpdated = (key: string) => (content: any) => {
-    const  eventPart = {}
+    const eventPart = {}
     eventPart[key] = content
     this.props.eventContentUpdated(eventPart)
   }

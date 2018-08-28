@@ -52,7 +52,7 @@ export const fetchUsersPlaylists = user => {
           playlist =>
             new Promise((r, rej) => {
               spotifyApi
-                .getPlaylistTracks(playlist.owner.id, playlist.id)
+                .getPlaylistTracks(playlist.id)
                 .then(tracks => {
                   r({
                     ...playlist,
@@ -65,5 +65,17 @@ export const fetchUsersPlaylists = user => {
       )
       playlistsWithTracks.then(resolve).catch(reject)
     })
+  })
+}
+
+export const createPlaylist = (userId, name, description) => {
+  const token = localStorage.get(accessTokenKey)
+  const spotifyApi = new SpotifyWebApi()
+  spotifyApi.setAccessToken(token)
+
+  return spotifyApi.createPlaylist(userId, {
+    description,
+    name,
+    public: true
   })
 }
