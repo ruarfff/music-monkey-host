@@ -27,7 +27,8 @@ interface IEventPlaylistProps {
   saving: boolean
   votes: Map<string, ITrackVoteStatus>
   saveEventPlaylist(
-    event: IEvent,
+    eventId: string,
+    playlist: IPlaylist,
     suggestions: Map<string, IDecoratedSuggestion>
   ): IAction
   resetStagedSuggestions(): IAction
@@ -161,13 +162,13 @@ export default class EventPlaylist extends React.PureComponent<
   }
 
   private handleSavePlaylist = () => {
-    const { event, stagedSuggestions, saveEventPlaylist } = this.props
+    const { event, playlist, stagedSuggestions, saveEventPlaylist } = this.props
     if (stagedSuggestions && stagedSuggestions.length > 0) {
       const suggestionMap = new Map()
       stagedSuggestions.forEach((ds: IDecoratedSuggestion) => {
         suggestionMap.set(ds.track.uri, ds)
       })
-      saveEventPlaylist(event, suggestionMap)
+      saveEventPlaylist(event.eventId || '', playlist, suggestionMap)
     }
   }
 

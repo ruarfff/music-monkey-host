@@ -1,4 +1,3 @@
-import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import IPlaylist from '../playlist/IPlaylist'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
@@ -12,11 +11,12 @@ export const EVENT_PLAYLIST_FETCHED = 'EVENT_PLAYLIST_FETCHED'
 export const MOVE_ITEM_IN_EVENT_PLAYLIST = 'MOVE_ITEM_IN_EVENT_PLAYLIST'
 
 export const saveEventPlaylist = (
-  event: IEvent,
+  eventId: string,
+  playlist: IPlaylist,
   suggestions: Map<string, IDecoratedSuggestion>
 ): IAction => ({
   type: SAVE_EVENT_PLAYLIST,
-  payload: { event, suggestions }
+  payload: { eventId, playlist, suggestions }
 })
 
 export const moveItemInEventPlaylist = (

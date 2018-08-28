@@ -4,9 +4,16 @@ import localStorage from '../storage/localStorage'
 import IUser from '../user/IUser'
 import IPlaylist from './IPlaylist'
 
+export const addTracksToPlaylist = (playlistId, trackUris) => {
+  const token = localStorage.get(accessTokenKey)
+  const spotifyApi = new SpotifyWebApi()
+  spotifyApi.setAccessToken(token)
+
+  return spotifyApi.addTracksToPlaylist(playlistId, trackUris)
+}
+
 export const reOrderPlaylist = (playlist, fromIndex, toIndex) => {
   const token = localStorage.get(accessTokenKey)
-
   const spotifyApi = new SpotifyWebApi()
   spotifyApi.setAccessToken(token)
 
@@ -23,7 +30,6 @@ export const reOrderPlaylist = (playlist, fromIndex, toIndex) => {
 
 export const fetchPlaylist = playlistId => {
   const token = localStorage.get(accessTokenKey)
-
   const spotifyApi = new SpotifyWebApi()
   spotifyApi.setAccessToken(token)
 
