@@ -21,7 +21,7 @@ import NoEvents from './NoEvents'
 interface IEventsProps {
   events: IEventState
   user: IUserState
-  getEvents(userId: string): IAction
+  getEvents(): IAction
 }
 
 const renderEventCreateAction = () => (
@@ -60,7 +60,9 @@ const renderEventsList = (events: IEvent[], noEventsMessage: string) => (
     <div className="eventsList">
       {map(
         sortBy(events, (event: IEvent) => event.startDateTime).reverse(),
-        (event: IEvent) => <EventCard key={event.eventId} event={event} />
+        (event: IEvent) => (
+          <EventCard key={event.eventId} event={event} />
+        )
       )}
     </div>
   </React.Fragment>
@@ -69,14 +71,14 @@ const renderEventsList = (events: IEvent[], noEventsMessage: string) => (
 class Events extends React.Component<IEventsProps> {
   public componentDidMount() {
     if (this.props.user.data) {
-      this.props.getEvents(this.props.user.data.userId)
+      this.props.getEvents()
     }
   }
 
   public render() {
     const { events, eventsLoading } = this.props.events
     const now = moment()
-    let pastEvents: IEvent[] = [] 
+    let pastEvents: IEvent[] = []
     let upcomingEvents: IEvent[] = []
     if (!!events) {
       pastEvents = events.filter(event => event.startDateTime.isBefore(now))

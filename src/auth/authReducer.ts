@@ -1,5 +1,6 @@
 import Action from '../IAction'
 import {
+  CLEAR_AUTH_ERROR,
   LOGGED_OUT,
   LOGGING_IN,
   LOGIN_FAILURE,
@@ -21,6 +22,8 @@ export default function auth(
       return { ...initialState, isAuthenticating: false, authError: payload }
     case LOGGED_OUT:
       return { ...initialState, isAuthenticated: false }
+    case CLEAR_AUTH_ERROR:
+      return { ...state, authError: undefined }
     default:
       return state
   }

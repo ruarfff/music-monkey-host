@@ -31,7 +31,7 @@ export const onEventDeleteClosed = (): IAction => ({
 
 export const deleteEvent = (event: IEvent): IAction => ({
   type: EVENT_DELETE_INITIATED,
-  payload: event
+  payload: event.eventId
 })
 
 export const copyEventInvite = (): IAction => ({

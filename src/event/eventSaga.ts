@@ -22,6 +22,7 @@ import {
   EVENTS_FETCH_INITIATED,
   EVENTS_FETCHED
 } from './eventActions'
+import { getEvents } from './eventClient'
 import EventDecorator from './EventDecorator'
 import IEvent from './IEvent'
 
@@ -44,9 +45,9 @@ function createPlaylist(playlistDetails: IPlaylistDetails) {
 }
 
 function* createPlaylistFlow(action: IAction) {
-  const playlistDetials: IPlaylistDetails = action.payload
+  const playlistDetails: IPlaylistDetails = action.payload
   try {
-    const playlist = yield call(createPlaylist, playlistDetials)
+    const playlist = yield call(createPlaylist, playlistDetails)
     yield put({
       payload: playlist,
       type: EVENT_PLAYLIST_CREATED
@@ -121,20 +122,9 @@ function* saveEventFlow(action: IAction) {
   }
 }
 
-function fetchEvents(userId: string) {
-  return axios.get(serviceUrl + '/events?userId=' + userId).then(response =>
-    response.data.map((event: IEvent) => ({
-      ...event,
-      endDateTime: moment(event.endDateTime),
-      startDateTime: moment(event.startDateTime)
-    }))
-  )
-}
-
-function* fetchEventsFlow(action: IAction) {
-  const userId: string = action.payload
+function* fetchEventsFlow() {
   try {
-    const events = yield call(fetchEvents, userId)
+    const events = yield call(getEvents)
     const decoratedEvents = yield call(eventDecorator.decorateEvents, events)
     yield put({ type: EVENTS_FETCHED, payload: decoratedEvents })
   } catch (err) {

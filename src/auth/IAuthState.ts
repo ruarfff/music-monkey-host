@@ -1,5 +1,5 @@
 export default interface IAuthState {
-  authError?: Error
+  authError?: any
   isAuthenticated: boolean
   isAuthenticating: boolean
 }

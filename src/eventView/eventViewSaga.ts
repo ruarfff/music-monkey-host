@@ -1,7 +1,5 @@
-import axios from 'axios'
-import * as moment from 'moment'
 import { call, put, takeEvery } from 'redux-saga/effects'
-import EventDecorator from '../event/EventDecorator'
+import { deleteEvent, getEventById } from '../event/eventClient'
 import { EVENT_PLAYLIST_FETCHED } from '../eventPlaylist/eventPlaylistActions'
 import IAction from '../IAction'
 import {
@@ -14,29 +12,13 @@ import {
   REFRESH_EVENT_PLAYLIST
 } from './eventViewActions'
 
-const serviceUrl = process.env.REACT_APP_MM_API_URL
-const eventDecorator = new EventDecorator()
-interface IDeleteParams {
-  eventId: string
-  userId: string
-}
-
-function fetchEvent(eventId: string) {
-  return axios.get(serviceUrl + '/events/' + eventId).then(response => ({
-    ...response.data,
-    endDateTime: moment(response.data.endDateTime),
-    startDateTime: moment(response.data.startDateTime)
-  }))
-}
-
 function* fetchEventByIdFlow(action: IAction) {
   const eventId: string = action.payload
   try {
-    const event = yield call(fetchEvent, eventId)
-    const decoratedEvent = yield call(eventDecorator.decorateEvent, event)
-    const playlist = decoratedEvent.playlist
-    delete decoratedEvent.playlist
-    yield put({ type: EVENT_FETCHED_BY_ID, payload: decoratedEvent })
+    const event = yield call(getEventById, eventId)
+    const playlist = event.playlist
+    delete event.playlist
+    yield put({ type: EVENT_FETCHED_BY_ID, payload: event })
     yield put({ type: EVENT_PLAYLIST_FETCHED, payload: playlist })
   } catch (err) {
     yield put({ type: EVENT_FETCH_BY_ID_ERROR, payload: err })
@@ -45,10 +27,6 @@ function* fetchEventByIdFlow(action: IAction) {
 
 export function* watchFetchEventById() {
   yield takeEvery(EVENT_FETCH_BY_ID_INITIATED, fetchEventByIdFlow)
-}
-
-function deleteEvent({ eventId, userId }: IDeleteParams) {
-  return axios.delete(serviceUrl + '/events/' + eventId + '?userId=' + userId)
 }
 
 function* deleteEventFlow(action: IAction) {

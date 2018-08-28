@@ -93,7 +93,6 @@ export const initializeCreateForm = (event: IEvent, user: IUser): Action => ({
   type: EVENT_CREATE_FORM_INITIALIZED
 })
 
-export const getEvents = (userId: string): Action => ({
-  payload: userId,
+export const getEvents = (): Action => ({
   type: EVENTS_FETCH_INITIATED
 })

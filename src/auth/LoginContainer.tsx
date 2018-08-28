@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import IRootState from '../rootState'
-import { login } from './authActions'
+import { clearAuthError, login } from './authActions'
 import Login from './Login'
 
 const mapStateToProps = (state: IRootState) => ({
@@ -8,6 +8,7 @@ const mapStateToProps = (state: IRootState) => ({
 })
 
 const mapDispatchToProps = {
+  clearAuthError,
   login
 }
 
