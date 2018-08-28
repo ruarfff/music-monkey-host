@@ -23,13 +23,11 @@ import {
   EVENTS_FETCHED
 } from './eventActions'
 import { getEvents } from './eventClient'
-import EventDecorator from './EventDecorator'
 import IEvent from './IEvent'
 
 const { geocodeByAddress, getLatLng } = require('react-places-autocomplete')
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
-const eventDecorator = new EventDecorator()
 
 function createPlaylist(playlistDetails: IPlaylistDetails) {
   const token = localStorage.get(accessTokenKey)
@@ -125,8 +123,7 @@ function* saveEventFlow(action: IAction) {
 function* fetchEventsFlow() {
   try {
     const events = yield call(getEvents)
-    const decoratedEvents = yield call(eventDecorator.decorateEvents, events)
-    yield put({ type: EVENTS_FETCHED, payload: decoratedEvents })
+    yield put({ type: EVENTS_FETCHED, payload: events })
   } catch (err) {
     yield put({ type: EVENTS_FETCH_ERROR, payload: err })
   }

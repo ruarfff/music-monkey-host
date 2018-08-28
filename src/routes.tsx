@@ -4,7 +4,6 @@ import { ConnectedRouter, routerActions } from 'react-router-redux'
 import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper'
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect'
 
-import Callback from './auth/CallbackContainer'
 import Login from './auth/LoginContainer'
 import CreateEvent from './eventCreation/CreateEventContainer'
 import EditEventContainer from './eventEditing/EditEventContainer'
@@ -53,10 +52,6 @@ const routes = [
   {
     component: userIsNotAuthenticated(Login as any),
     path: '/login'
-  },
-  {
-    component: Callback,
-    path: '/callback'
   }
 ]
 
@@ -79,7 +74,9 @@ interface IRoutesProps {
 export const Routes: React.SFC<IRoutesProps> = ({ history }) => (
   <ConnectedRouter history={history}>
     <div>
-      {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
+      {routes.map((route, i) => (
+        <RouteWithSubRoutes key={i} {...route} />
+      ))}
     </div>
   </ConnectedRouter>
 )
