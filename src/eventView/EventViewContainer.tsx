@@ -3,8 +3,6 @@ import { withRouter } from 'react-router'
 import { push } from 'react-router-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import IRootState from '../rootState'
-import { getEventSuggestions } from '../suggestion/suggestionActions'
-import { fetchEventVotes } from '../vote/voteActions'
 import EventView from './EventView'
 import {
   acknowledgeEventInviteCopied,
@@ -22,10 +20,7 @@ const mapStateToProps = (state: IRootState) => ({
   deleteSelected: state.eventView.deleteSelected,
   deleteSuccess: state.eventView.deleteSucceeded,
   deleteFailed: state.eventView.deleteFailed,
-  copiedToClipboard: state.eventView.copiedToClipboard,
-  acceptedSuggestions: state.suggestion.acceptedSuggestions,
-  stagedSuggestions: state.suggestion.stagedSuggestions,
-  pendingSuggestions: state.suggestion.pendingSuggestions
+  copiedToClipboard: state.eventView.copiedToClipboard
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -36,12 +31,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     {
       deleteEvent,
       getEventById,
-      getEventSuggestions,
       onEventDeleteSelected,
       onEventDeleteClosed,
       copyEventInvite,
-      acknowledgeEventInviteCopied,
-      fetchEventVotes
+      acknowledgeEventInviteCopied
     },
     dispatch
   )

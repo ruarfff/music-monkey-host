@@ -1,4 +1,3 @@
-import { Badge } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar/AppBar'
 import Button from '@material-ui/core/Button/Button'
 import Grid from '@material-ui/core/Grid/Grid'
@@ -7,31 +6,22 @@ import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
-import PeopleIcon from '@material-ui/icons/People'
-import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay'
-import SubscriptionIcon from '@material-ui/icons/Subscriptions'
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import EventFetchError from '../event/EventFetchError'
 import IEvent from '../event/IEvent'
-import EventPlaylist from '../eventPlaylist/EventPlaylistContainer'
 import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
-import {
-  subscribeToSuggestionsAccepted,
-  subscribeToVotesModified
-} from '../notification'
-import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import LinkButton from '../util/LinkButton'
 import EventGuests from './EventGuestsContainer'
-import EventSuggestions from './EventSuggestionsContainer'
+import EventTracksView from './EventTracksViewContainer'
 import './EventView.css'
 import InviteCopyAlert from './InviteCopyAlert'
 import InviteLink from './InviteLink'
 
-interface IEventState {
+interface IEventViewState {
   tabIndex: number
 }
 
@@ -43,19 +33,13 @@ interface IEventViewProps extends RouteComponentProps<any> {
   deleteSuccess: boolean
   deleteFailed: boolean
   copiedToClipboard: boolean
-  acceptedSuggestions: IDecoratedSuggestion[]
-  stagedSuggestions: IDecoratedSuggestion[]
-  pendingSuggestions: IDecoratedSuggestion[]
   getEventById(eventId: string): IAction
-  onEventTabIndexChange(index: number): IAction
   onEventDeleteSelected(): IAction
   onEventDeleteClosed(): IAction
   deleteEvent(event: IEvent): IAction
   onDeleteAcknowledged(): IAction
   copyEventInvite(): IAction
   acknowledgeEventInviteCopied(): IAction
-  getEventSuggestions(eventId: string): IAction
-  fetchEventVotes(eventId: string): IAction
 }
 
 const SweetAlert = withReactContent(Swal) as any
@@ -68,30 +52,9 @@ function TabContainer({ children, dir }: any) {
   )
 }
 
-class EventView extends React.Component<IEventViewProps, IEventState> {
+class EventView extends React.Component<IEventViewProps, IEventViewState> {
   public state = {
     tabIndex: 0
-  }
-
-  public componentDidUpdate(prevProps: IEventViewProps) {
-    const prevEvent = prevProps.event
-    const { event } = this.props
-    let prevEventId = ''
-    let eventId = ''
-
-    if (prevEvent) {
-      prevEventId = prevEvent.eventId || ''
-    }
-    if (event) {
-      eventId = event.eventId || ''
-    }
-
-    if (eventId !== prevEventId) {
-      this.props.getEventSuggestions(eventId)
-      subscribeToSuggestionsAccepted(eventId, this.handleSuggestionNotification)
-      this.props.fetchEventVotes(eventId)
-      subscribeToVotesModified(eventId, this.handleEventVotesModified)
-    }
   }
 
   public componentDidMount() {
@@ -215,19 +178,19 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
               textColor="primary"
               centered={true}
             >
-              <Tab label="Playlist" icon={this.renderEventPlaylistIcon()} />
-              <Tab label="Suggestions" icon={this.renderSuggestionsIcon()} />
-              <Tab label="Guests" icon={<PeopleIcon />} />
+              <Tab label="Event Summary" />
+              <Tab label="Playlist" />
+              <Tab label="Guest List" />
             </Tabs>
           </AppBar>
           {tabIndex === 0 && (
             <TabContainer dir={'x'}>
-              <EventPlaylist />
+              <p>Event!!</p>
             </TabContainer>
           )}
           {tabIndex === 1 && (
             <TabContainer dir={'x'}>
-              <EventSuggestions />
+              <EventTracksView />
             </TabContainer>
           )}
           {tabIndex === 2 && (
@@ -238,55 +201,6 @@ class EventView extends React.Component<IEventViewProps, IEventState> {
         </Grid>
       </Grid>
     )
-  }
-
-  private renderEventPlaylistIcon = () => {
-    const { stagedSuggestions } = this.props
-    const numAcceptedTracks = stagedSuggestions ? stagedSuggestions.length : 0
-    if (numAcceptedTracks > 0) {
-      return (
-        <Badge
-          className="EventView-badge"
-          badgeContent={numAcceptedTracks}
-          color="primary"
-        >
-          <PlaylistPlayIcon />
-        </Badge>
-      )
-    }
-    return <PlaylistPlayIcon />
-  }
-
-  private renderSuggestionsIcon = () => {
-    const { pendingSuggestions } = this.props
-    const numSuggestions = pendingSuggestions ? pendingSuggestions.length : 0
-    if (numSuggestions > 0) {
-      return (
-        <Badge
-          className="EventView-badge"
-          badgeContent={numSuggestions}
-          color="primary"
-        >
-          <SubscriptionIcon />
-        </Badge>
-      )
-    }
-    return <SubscriptionIcon />
-  }
-
-  private handleSuggestionNotification = () => {
-    console.log('*$&(*#&(*&@(*&(*@&#(*&@#(*@&(*@&*(')
-    const { event } = this.props
-    if (event && event.eventId) {
-      this.props.getEventSuggestions(event.eventId)
-    }
-  }
-
-  private handleEventVotesModified = () => {
-    const { event } = this.props
-    if (event && event.eventId) {
-      this.props.fetchEventVotes(event.eventId)
-    }
   }
 }
 
