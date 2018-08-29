@@ -14,7 +14,8 @@ import {
 } from './event/eventSaga'
 import {
   watchMoveItemInEventPlaylist,
-  watchSaveEventPlaylist
+  watchSaveEventPlaylist,
+  watchSortPlaylistByVotesDescending
 } from './eventPlaylist/eventPlaylistSaga'
 import {
   watchDeleteEvent,
@@ -47,6 +48,7 @@ export default function* saga() {
     watchRejectSuggestion(),
     watchSaveEventPlaylist(),
     watchFetchEventVotes(),
-    watchMoveItemInEventPlaylist()
+    watchMoveItemInEventPlaylist(),
+    watchSortPlaylistByVotesDescending()
   ])
 }

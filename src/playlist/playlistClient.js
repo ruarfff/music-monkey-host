@@ -5,18 +5,12 @@ import IUser from '../user/IUser'
 import IPlaylist from './IPlaylist'
 
 export const addTracksToPlaylist = (playlistId, trackUris) => {
-  const token = localStorage.get(accessTokenKey)
-  const spotifyApi = new SpotifyWebApi()
-  spotifyApi.setAccessToken(token)
-
+  const spotifyApi = getSpotifyApi()
   return spotifyApi.addTracksToPlaylist(playlistId, trackUris)
 }
 
 export const reOrderPlaylist = (playlist, fromIndex, toIndex) => {
-  const token = localStorage.get(accessTokenKey)
-  const spotifyApi = new SpotifyWebApi()
-  spotifyApi.setAccessToken(token)
-
+  const spotifyApi = getSpotifyApi()
   let insertBefore = toIndex
   if (fromIndex < toIndex) {
     insertBefore++
@@ -29,18 +23,12 @@ export const reOrderPlaylist = (playlist, fromIndex, toIndex) => {
 }
 
 export const fetchPlaylist = playlistId => {
-  const token = localStorage.get(accessTokenKey)
-  const spotifyApi = new SpotifyWebApi()
-  spotifyApi.setAccessToken(token)
-
+  const spotifyApi = getSpotifyApi()
   return spotifyApi.getPlaylist(playlistId)
 }
 
 export const fetchUsersPlaylists = user => {
-  const token = localStorage.get(accessTokenKey)
-
-  const spotifyApi = new SpotifyWebApi()
-  spotifyApi.setAccessToken(token)
+  const spotifyApi = getSpotifyApi()
   return new Promise((resolve, reject) => {
     spotifyApi.getUserPlaylists().then(response => {
       const playlists = response.items.filter(
@@ -69,13 +57,27 @@ export const fetchUsersPlaylists = user => {
 }
 
 export const createPlaylist = (userId, name, description) => {
-  const token = localStorage.get(accessTokenKey)
-  const spotifyApi = new SpotifyWebApi()
-  spotifyApi.setAccessToken(token)
+  const spotifyApi = getSpotifyApi()
 
   return spotifyApi.createPlaylist(userId, {
     description,
     name,
     public: true
   })
+}
+
+export const replaceTracksInPlaylist = (playlistId, trackUris) => {
+  const spotifyApi = getSpotifyApi()
+  return spotifyApi.replaceTracksInPlaylist(playlistId, trackUris)
+}
+
+/**
+ * Initialize the spotify api with an access token.
+ * Better not to cache this and call in each method in case the cached token expires.
+ */
+function getSpotifyApi() {
+  const token = localStorage.get(accessTokenKey)
+  const spotifyApi = new SpotifyWebApi()
+  spotifyApi.setAccessToken(token)
+  return spotifyApi
 }

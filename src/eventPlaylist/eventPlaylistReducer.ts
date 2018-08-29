@@ -1,8 +1,10 @@
+import * as _ from 'lodash'
 import IAction from '../IAction'
 import arrayMove from '../util/arrayMove'
 import {
   EVENT_PLAYLIST_FETCHED,
   MOVE_ITEM_IN_EVENT_PLAYLIST,
+  PLAYLIST_SORTED_BY_VOTES_DESCENDING,
   SAVE_EVENT_PLAYLIST,
   SAVE_EVENT_PLAYLIST_ERROR,
   SAVE_EVENT_PLAYLIST_SUCCESS
@@ -47,6 +49,9 @@ export default function eventPlaylist(
         console.error(err)
         return state
       }
+    }
+    case PLAYLIST_SORTED_BY_VOTES_DESCENDING: {
+      return { ...state, playlist: payload }
     }
     default:
       return state

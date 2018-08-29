@@ -4,6 +4,8 @@ import CardContent from '@material-ui/core/CardContent/CardContent'
 import CardMedia from '@material-ui/core/CardMedia/CardMedia'
 import Grid from '@material-ui/core/Grid/Grid'
 import List from '@material-ui/core/List/List'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 import Typography from '@material-ui/core/Typography/Typography'
 import DoneAll from '@material-ui/icons/DoneAll'
 import Undo from '@material-ui/icons/Undo'
@@ -37,11 +39,33 @@ interface IEventPlaylistProps {
     fromIndex: number,
     toIndex: number
   ): IAction
+  sortPlaylistByVotesDescending(
+    playlist: IPlaylist,
+    votes: Map<string, ITrackVoteStatus>
+  ): IAction
 }
 
-export default class EventPlaylist extends React.PureComponent<
+export default class EventPlaylist extends React.Component<
   IEventPlaylistProps
 > {
+  public state = {
+    anchorEl: null
+  }
+
+  public handleClick = (event: any) => {
+    this.setState({ anchorEl: event.currentTarget })
+  }
+
+  public handleClose = (type: string) => () => {
+    if (type === 'vote') {
+      this.props.sortPlaylistByVotesDescending(
+        this.props.playlist,
+        this.props.votes
+      )
+    }
+    this.setState({ anchorEl: null })
+  }
+
   public render() {
     const { playlist, stagedSuggestions, saving, votes } = this.props
     let stagedTracks: ITrack[] = []
@@ -55,33 +79,60 @@ export default class EventPlaylist extends React.PureComponent<
     }
 
     const hasStagedTrack = stagedTracks.length > 0
-
+    const { anchorEl } = this.state
     return (
       <div className="EventPlaylist-root">
         {saving && <LoadingSpinner />}
         {!saving && (
           <Grid container={true} spacing={24}>
             <Grid item={true} sm={8}>
-              {hasStagedTrack && this.renderSaveButtons(hasStagedTrack)}
+              <Grid container={true} spacing={8}>
+                <Grid item={true} sm={4}>
+                  {hasStagedTrack && this.renderSaveButtons(hasStagedTrack)}
+                </Grid>
+                <Grid item={true} sm={4}>
+                  <div>
+                    <Button
+                      aria-owns={anchorEl ? 'simple-menu' : undefined}
+                      aria-haspopup="true"
+                      onClick={this.handleClick}
+                    >
+                      Sort
+                    </Button>
+                    <Menu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      open={Boolean(anchorEl)}
+                      onClose={this.handleClose('root')}
+                    >
+                      <MenuItem onClick={this.handleClose('vote')}>
+                        By Vote
+                      </MenuItem>
+                    </Menu>
+                  </div>
+                </Grid>
+                <Grid item={true} sm={8}>
+                  {hasStagedTrack && (
+                    <List className="EventPlaylist-stagedTracks">
+                      <TrackList tracks={stagedTracks} />
+                    </List>
+                  )}
 
-              {hasStagedTrack && (
-                <List className="EventPlaylist-stagedTracks">
-                  <TrackList tracks={stagedTracks} />
-                </List>
-              )}
-
-              {playlist &&
-                playlist.tracks.total > 0 && (
-                  <List>
-                    <TrackList
-                      tracks={playlist.tracks.items.map(item => item.track)}
-                      withVoting={true}
-                      votes={votes}
-                      onDragEnd={this.handlePlaylistDragDrop}
-                    />
-                  </List>
-                )}
-              {playlist && playlist.tracks.total < 1 && <p>No tracks yet</p>}
+                  {playlist &&
+                    playlist.tracks.total > 0 && (
+                      <List>
+                        <TrackList
+                          tracks={playlist.tracks.items.map(item => item.track)}
+                          withVoting={true}
+                          votes={votes}
+                          onDragEnd={this.handlePlaylistDragDrop}
+                        />
+                      </List>
+                    )}
+                  {playlist &&
+                    playlist.tracks.total < 1 && <p>No tracks yet</p>}
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item={true} sm={4}>
               <Card className="EventPlaylist-card">

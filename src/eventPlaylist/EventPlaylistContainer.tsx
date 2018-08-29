@@ -4,7 +4,8 @@ import { resetStagedSuggestions } from '../suggestion/suggestionActions'
 import EventPlaylist from './EventPlaylist'
 import {
   moveItemInEventPlaylist,
-  saveEventPlaylist
+  saveEventPlaylist,
+  sortPlaylistByVotesDescending
 } from './eventPlaylistActions'
 
 const mapStateToProps = (state: IRootState) => ({
@@ -18,7 +19,8 @@ const mapStateToProps = (state: IRootState) => ({
 const mapDispatchToProps = {
   saveEventPlaylist,
   resetStagedSuggestions,
-  onPlaylistDragDrop: moveItemInEventPlaylist
+  onPlaylistDragDrop: moveItemInEventPlaylist,
+  sortPlaylistByVotesDescending
 }
 
 const PreGameViewContainer = connect(

@@ -2,19 +2,26 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import { EVENT_FETCH_BY_ID_INITIATED } from '../eventView/eventViewActions'
 import IAction from '../IAction'
 import IPlaylist from '../playlist/IPlaylist'
+import IPlaylistItem from '../playlist/IPlaylistItem'
+import {
+  reOrderPlaylist,
+  replaceTracksInPlaylist
+} from '../playlist/playlistClient'
 import { addTracksToPlaylist } from '../playlist/playlistClient'
-import { reOrderPlaylist } from '../playlist/playlistClient'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import {
   FETCH_SUGGESTIONS_INITIATED,
   RESET_STAGED_SUGGESTIONS
 } from '../suggestion/suggestionActions'
 import { acceptSuggestions } from '../suggestion/suggestionClient'
+import ITrackVoteStatus from '../vote/ITrackVoteStatus'
 import {
   MOVE_ITEM_IN_EVENT_PLAYLIST,
+  PLAYLIST_SORTED_BY_VOTES_DESCENDING,
   SAVE_EVENT_PLAYLIST,
   SAVE_EVENT_PLAYLIST_ERROR,
-  SAVE_EVENT_PLAYLIST_SUCCESS
+  SAVE_EVENT_PLAYLIST_SUCCESS,
+  SORT_PLAYLIST_BY_VOTES_DESCENDING
 } from './eventPlaylistActions'
 
 interface ISavePlaylistArgs {
@@ -86,4 +93,58 @@ function moveItemInEventPlaylistFlow(action: IAction) {
 
 export function* watchMoveItemInEventPlaylist() {
   yield takeEvery(MOVE_ITEM_IN_EVENT_PLAYLIST, moveItemInEventPlaylistFlow)
+}
+
+function sortPlaylistByVotesDescending(
+  playlist: IPlaylist,
+  votes: Map<string, ITrackVoteStatus>
+) {
+  const playlistItems = [...playlist.tracks.items]
+  console.log('VOTES', votes)
+  console.log('playlistItems', playlistItems)
+  playlistItems.sort((a: any, b: any) => {
+    let numA = 0
+    let numB = 0
+    if (votes.has(a.track.uri)) {
+      numA = votes.get(a.track.uri)!.numberOfVotes
+    }
+    if (votes.has(b.track.uri)) {
+      numB = votes.get(b.track.uri)!.numberOfVotes
+    }
+    if (numA < numB) {
+      return 1
+    }
+    if (numA > numB) {
+      return -1
+    }
+
+    return 0
+  })
+  return {
+    ...playlist,
+    tracks: { ...playlist.tracks, items: playlistItems }
+  }
+}
+
+function* sortPlaylistByVotesDescendingFlow({ payload }: IAction) {
+  const { playlist, votes } = payload
+  const sortedPlaylist: IPlaylist = sortPlaylistByVotesDescending(
+    playlist,
+    votes
+  )
+  const trackIUris = sortedPlaylist.tracks.items.map(
+    (p: IPlaylistItem) => p.track.uri
+  )
+  yield call(replaceTracksInPlaylist, sortedPlaylist.id, trackIUris)
+  yield put({
+    type: PLAYLIST_SORTED_BY_VOTES_DESCENDING,
+    payload: sortedPlaylist
+  })
+}
+
+export function* watchSortPlaylistByVotesDescending() {
+  yield takeEvery(
+    SORT_PLAYLIST_BY_VOTES_DESCENDING,
+    sortPlaylistByVotesDescendingFlow
+  )
 }
