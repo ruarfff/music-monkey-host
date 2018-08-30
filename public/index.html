@@ -5,6 +5,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-40607409-6"></script>
   <script>
+    // Google analytics
     if (window.location.host === "hosts.musicmonkey.io") {
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
@@ -14,6 +15,7 @@
     }
   </script>
   <script>
+    // Full story
     if (window.location.host === "hosts.musicmonkey.io") {
       window['_fs_debug'] = false;
       window['_fs_host'] = 'fullstory.com';
@@ -24,15 +26,16 @@
         g = m[e] = function (a, b) { g.q ? g.q.push([a, b]) : g._api(a, b); }; g.q = [];
         o = n.createElement(t); o.async = 1; o.src = 'https://' + _fs_host + '/s/fs.js';
         y = n.getElementsByTagName(t)[0]; y.parentNode.insertBefore(o, y);
-        g.identify = function (i, v) { g(l, { uid: i }); if (v) g(l, v) }; g.setUserVars = function (v) { g(l, v) };
-        y = "rec"; g.shutdown = function (i, v) { g(y, !1) }; g.restart = function (i, v) { g(y, !0) };
-        y = "consent"; g[y] = function (a) { g(y, !arguments.length || a) };
+        g.identify = function (i, v) { g(l, { uid: i }); if (v) g(l, v) }; g.setUserVars = function (v) { g(l, v) }; g.event = function (i, v) { g('event', { n: i, p: v }) };
+        g.shutdown = function () { g("rec", !1) }; g.restart = function () { g("rec", !0) };
+        g.consent = function (a) { g("consent", !arguments.length || a) };
         g.identifyAccount = function (i, v) { o = 'account'; v = v || {}; v.acctId = i; g(o, v) };
         g.clearUserCookie = function () { };
       })(window, document, window['_fs_namespace'], 'script', 'user');
     }
   </script>
   <script>
+    // Rollbar
     if (window.location.host === "hosts.musicmonkey.io") {
       var _rollbarConfig = {
         accessToken: "5970668220af452ebe2a49861b26b2f0",
