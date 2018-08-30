@@ -1,0 +1,49 @@
+.EventPlaylistSummary-card {
+  display: flex;
+}
+
+.EventPlaylistSummary-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+}
+
+.EventPlaylistSummary-item {
+  text-align: center;
+}
+
+.EventPlaylistSummary-content {
+  flex: 1 0 auto;
+}
+
+.EventPlaylistSummary-cover {
+  width: 5.5em;
+  height: 5.5em;
+  padding-top: 0.3em;
+  padding-left: 0.3em;
+}
+
+.EventPlaylistSummary-controls {
+  display: flex;
+  align-items: center;
+  padding-left: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.EventPlaylistSummary-playIcon {
+  height: 2em;
+  width: 2em;
+}
+
+.EventPlaylistSummary-status {
+  padding-left: 2em;
+  padding-bottom: 0.5em;
+}
+
+.EventPlaylistSummary-time {
+  padding-left: 2em;
+  padding-bottom: 0.5em;
+}

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import IRootState from '../rootState'
 import { getEventSuggestions } from '../suggestion/suggestionActions'
 import { fetchEventVotes } from '../vote/voteActions'
-import EventTracksView from './EventTracksView'
+import EventPlaylistView from './EventPlaylistView'
 
 const mapStateToProps = (state: IRootState) => ({
   event: state.eventView.event,
@@ -16,9 +16,9 @@ const mapDispatchToProps = {
   fetchEventVotes
 }
 
-const EventTracksViewContainer = connect(
+const EventPlaylistViewContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(EventTracksView)
+)(EventPlaylistView)
 
-export default EventTracksViewContainer
+export default EventPlaylistViewContainer

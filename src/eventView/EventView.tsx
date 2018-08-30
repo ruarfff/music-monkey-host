@@ -1,22 +1,17 @@
 import AppBar from '@material-ui/core/AppBar/AppBar'
-import Button from '@material-ui/core/Button/Button'
 import Grid from '@material-ui/core/Grid/Grid'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
-import DeleteIcon from '@material-ui/icons/Delete'
-import EditIcon from '@material-ui/icons/Edit'
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router'
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
 import EventFetchError from '../event/EventFetchError'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
-import LinkButton from '../util/LinkButton'
 import EventGuests from './EventGuestsContainer'
-import EventTracksView from './EventTracksViewContainer'
+import EventTracksView from './EventPlaylistViewContainer'
+import EventSummaryView from './EventSummaryViewContainer'
 import './EventView.css'
 import InviteCopyAlert from './InviteCopyAlert'
 import InviteLink from './InviteLink'
@@ -29,20 +24,11 @@ interface IEventViewProps extends RouteComponentProps<any> {
   error: Error
   event: IEvent
   loading: boolean
-  deleteSelected: boolean
-  deleteSuccess: boolean
-  deleteFailed: boolean
   copiedToClipboard: boolean
   getEventById(eventId: string): IAction
-  onEventDeleteSelected(): IAction
-  onEventDeleteClosed(): IAction
-  deleteEvent(event: IEvent): IAction
-  onDeleteAcknowledged(): IAction
   copyEventInvite(): IAction
   acknowledgeEventInviteCopied(): IAction
 }
-
-const SweetAlert = withReactContent(Swal) as any
 
 function TabContainer({ children, dir }: any) {
   return (
@@ -67,9 +53,7 @@ class EventView extends React.Component<IEventViewProps, IEventViewState> {
       error,
       event,
       copiedToClipboard,
-      acknowledgeEventInviteCopied,
-      deleteFailed,
-      deleteSuccess
+      acknowledgeEventInviteCopied
     } = this.props
     const shouldShowEvent: boolean = !loading && !!event
 
@@ -85,8 +69,6 @@ class EventView extends React.Component<IEventViewProps, IEventViewState> {
             onClose={acknowledgeEventInviteCopied}
           />
         )}
-        {deleteFailed && this.showDeleteFailed()}
-        {deleteSuccess && this.showDeleteSuccess()}
       </div>
     )
   }
@@ -99,76 +81,20 @@ class EventView extends React.Component<IEventViewProps, IEventViewState> {
     this.setState({ tabIndex: index })
   }
 
-  private showDeleteSuccess = () => {
-    SweetAlert.fire({
-      title: 'Event Deleted',
-      type: 'success'
-    }).then(() => {
-      this.props.onDeleteAcknowledged()
-      this.props.onEventDeleteClosed()
-    })
-  }
-
-  private showDeleteFailed = () => {
-    SweetAlert.fire({
-      title: "Couldn't delete Event",
-      text: 'Sorry. An error occurred when trying to delete this Event.',
-      type: 'error'
-    }).then(() => {
-      this.props.onEventDeleteClosed()
-    })
-  }
-
-  private handleDeleteSelected = () => () => {
-    SweetAlert.fire({
-      title: 'Are you sure?',
-      text: 'This will completely remove this event',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result: any) => {
-      if (result.value) {
-        this.props.deleteEvent(this.props.event)
-      }
-      this.props.onEventDeleteClosed()
-    })
-  }
-
   private renderEventView = () => {
-    const { event, copyEventInvite, location } = this.props
+    const { event, copyEventInvite } = this.props
     const inviteId = event && event.invites ? event.invites[0] : ''
     const { tabIndex } = this.state
     return (
       <Grid container={true} spacing={16}>
-        <Grid item={true} xs={12} sm={4}>
-          <Typography variant="display3" noWrap={true}>
+        <Grid item={true} xs={12} sm={8}>
+          <Typography variant="display3" noWrap={true} gutterBottom={true} className="EventView-title">
             {event && event.name}
           </Typography>
         </Grid>
         <Grid item={true} xs={12} sm={4}>
           <InviteLink inviteId={inviteId} onCopyEventInvite={copyEventInvite} />
         </Grid>
-        <Grid item={true} xs={12} sm={4}>
-          <LinkButton
-            variant="raised"
-            color="primary"
-            to={location.pathname + '/edit'}
-          >
-            Edit
-            <EditIcon />
-          </LinkButton>
-          <Button
-            variant="raised"
-            color="secondary"
-            onClick={this.handleDeleteSelected()}
-          >
-            Delete
-            <DeleteIcon />
-          </Button>
-        </Grid>
-
         <Grid item={true} xs={12}>
           <AppBar position="static" color="default">
             <Tabs
@@ -185,7 +111,7 @@ class EventView extends React.Component<IEventViewProps, IEventViewState> {
           </AppBar>
           {tabIndex === 0 && (
             <TabContainer dir={'x'}>
-              <p>Event!!</p>
+              <EventSummaryView />
             </TabContainer>
           )}
           {tabIndex === 1 && (

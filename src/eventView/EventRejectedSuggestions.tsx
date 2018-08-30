@@ -69,7 +69,7 @@ export default class EventRejectedSuggestions extends React.PureComponent<
     }
 
     return (
-      <ListItem dense={true} button={true}>
+      <ListItem dense={true} button={true} key={track.uri}>
         {trackImage}
         <ListItemText primary={track.name} />
 
