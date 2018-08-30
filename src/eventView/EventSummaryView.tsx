@@ -7,8 +7,8 @@ import withReactContent from 'sweetalert2-react-content'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import LinkButton from '../util/LinkButton'
-import './EventSummaryView.css'
 import EventDetails from './EventDetailsContainer'
+import './EventSummaryView.css'
 
 interface IEventSummaryViewProps {
   event: IEvent
