@@ -1,23 +1,15 @@
-import { Theme, WithStyles, withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography/Typography'
 import * as React from 'react'
 import IEvent from '../event/IEvent'
+import './EventDetails.css'
 
 interface IEventDetailsProps {
   event: IEvent
 }
 
-type PropsWithStyles = IEventDetailsProps & WithStyles<'root'>
-
-const style = (theme: Theme) => ({
-  root: {
-    padding: theme.spacing.unit
-  }
-})
-
-const EventDetails: React.SFC<PropsWithStyles> = ({
+const EventDetails: React.SFC<IEventDetailsProps> = ({
   event
-}: PropsWithStyles) => (
+}: IEventDetailsProps) => (
   <Typography component="div">
     <Typography variant="display3" gutterBottom={true}>
       {event.name}
@@ -66,6 +58,4 @@ const EventDetails: React.SFC<PropsWithStyles> = ({
   </Typography>
 )
 
-export default withStyles(style, { withTheme: true })<IEventDetailsProps>(
-  EventDetails
-)
+export default EventDetails

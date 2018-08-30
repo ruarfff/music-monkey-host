@@ -8,6 +8,7 @@ import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import LinkButton from '../util/LinkButton'
 import './EventSummaryView.css'
+import EventDetails from './EventDetailsContainer'
 
 interface IEventSummaryViewProps {
   event: IEvent
@@ -28,6 +29,7 @@ class EventSummaryView extends React.PureComponent<IEventSummaryViewProps> {
 
     return (
       <div>
+        <EventDetails />
         <LinkButton
           variant="raised"
           color="primary"
