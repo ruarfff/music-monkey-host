@@ -1,6 +1,8 @@
 import Typography from '@material-ui/core/Typography/Typography'
+import EditIcon from '@material-ui/icons/Edit'
 import * as React from 'react'
 import IEvent from '../event/IEvent'
+import LinkButton from '../util/LinkButton'
 import './EventDetails.css'
 
 interface IEventDetailsProps {
@@ -55,6 +57,14 @@ const EventDetails: React.SFC<IEventDetailsProps> = ({
         Open in Spotify
       </a>
     </Typography>
+    <LinkButton
+      variant="raised"
+      color="primary"
+      to={location.pathname + '/edit'}
+    >
+      Edit
+      <EditIcon />
+    </LinkButton>
   </Typography>
 )
 
