@@ -1,6 +1,6 @@
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
+import Paper from '@material-ui/core/Paper/Paper'
 import Typography from '@material-ui/core/Typography'
 import * as React from 'react'
 import IPlaylist from '../playlist/IPlaylist'

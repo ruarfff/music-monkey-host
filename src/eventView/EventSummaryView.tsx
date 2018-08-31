@@ -2,6 +2,7 @@ import Grid from '@material-ui/core/Grid/Grid'
 import * as React from 'react'
 import IEvent from '../event/IEvent'
 import EventDetails from './EventDetailsContainer'
+import EventGuests from './EventGuestsContainer'
 import EventSummaryPlaylist from './EventSummaryPlaylistContainer'
 import './EventSummaryView.css'
 
@@ -16,7 +17,7 @@ export default class EventSummaryView extends React.PureComponent<
     return (
       <Grid container={true} spacing={24}>
         <Grid container={true} item={true} xs={12}>
-          <Grid container={true} item={true} xs={8}>
+          <Grid container={true} spacing={24} item={true} xs={8}>
             <Grid item={true} xs={12}>
               <EventDetails />
             </Grid>
@@ -25,7 +26,7 @@ export default class EventSummaryView extends React.PureComponent<
             </Grid>
           </Grid>
           <Grid item={true} xs={4}>
-            <h2>Guests</h2>
+            <EventGuests />
           </Grid>
         </Grid>
       </Grid>

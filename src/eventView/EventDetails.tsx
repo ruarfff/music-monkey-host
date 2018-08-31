@@ -1,3 +1,4 @@
+import Paper from '@material-ui/core/Paper/Paper'
 import Typography from '@material-ui/core/Typography/Typography'
 import EditIcon from '@material-ui/icons/Edit'
 import * as React from 'react'
@@ -12,7 +13,7 @@ interface IEventDetailsProps {
 const EventDetails: React.SFC<IEventDetailsProps> = ({
   event
 }: IEventDetailsProps) => (
-  <Typography component="div">
+  <Paper className="EventDetails-root">
     <Typography variant="display3" gutterBottom={true}>
       {event.name}
     </Typography>
@@ -51,12 +52,6 @@ const EventDetails: React.SFC<IEventDetailsProps> = ({
       </Typography>
     )}
 
-    <Typography variant="body1" gutterBottom={true}>
-      Playlist:{' '}
-      <a href={event.playlistUrl} target="_blank">
-        Open in Spotify
-      </a>
-    </Typography>
     <LinkButton
       variant="raised"
       color="primary"
@@ -65,7 +60,7 @@ const EventDetails: React.SFC<IEventDetailsProps> = ({
       Edit
       <EditIcon />
     </LinkButton>
-  </Typography>
+  </Paper>
 )
 
 export default EventDetails
