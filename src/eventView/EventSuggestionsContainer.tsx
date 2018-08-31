@@ -17,9 +17,9 @@ const mapDispatchToProps = {
   rejectSuggestion
 }
 
-const PreGameViewContainer = connect(
+const EventSuggestionContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(EventSuggestions)
 
-export default PreGameViewContainer
+export default EventSuggestionContainer
