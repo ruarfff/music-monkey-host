@@ -1,3 +1,26 @@
 .EventDetails-root {
   flex-grow: 1;
 }
+
+.EventDetails-grid {
+}
+
+.EventDetails-title-container {
+  padding: 2em;
+}
+
+.EventDetails-title {
+  padding-left: 0.8em;
+}
+
+.EventDetails-img {
+  max-width: 12em;
+  max-height: 12em;
+  margin-left: 1.2em;
+}
+
+.EventDetails-info {
+}
+
+.EventDetails-actions {
+}
