@@ -1,3 +1,4 @@
+import IEventSettings from '../event/IEventSettings'
 import IAction from '../IAction'
 import {
   EVENT_DELETE_CLOSED,
@@ -8,7 +9,9 @@ import {
   EVENT_FETCH_BY_ID_INITIATED,
   EVENT_FETCHED_BY_ID,
   EVENT_INVITE_COPIED,
-  EVENT_INVITE_COPY_ACKNOWLEDGED
+  EVENT_INVITE_COPY_ACKNOWLEDGED,
+  TOGGLE_DYNAMIC_VOTING,
+  TOGGLE_DYNAMIC_VOTING_ERROR
 } from './eventViewActions'
 import initialState from './eventViewInitialState'
 import IEventViewState from './IEventViewState'
@@ -68,7 +71,29 @@ export default function eventView(
         ...state,
         copiedToClipboard: false
       }
+    case TOGGLE_DYNAMIC_VOTING:
+      return toggleDynamicVoting(state)
+    case TOGGLE_DYNAMIC_VOTING_ERROR:
+      return toggleDynamicVoting(state)
     default:
       return state
+  }
+}
+
+function toggleDynamicVoting(state: IEventViewState) {
+  const { event } = state
+  if (event) {
+    return {
+      ...state,
+      event: {
+        ...event,
+        settings: {
+          ...event.settings,
+          dynamicVotingEnabled: !event.settings.dynamicVotingEnabled
+        } as IEventSettings
+      }
+    }
+  } else {
+    return { ...state }
   }
 }

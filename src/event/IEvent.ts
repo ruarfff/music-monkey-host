@@ -2,6 +2,7 @@ import { Moment } from 'moment'
 import ILocation from '../location/ILocation'
 import IPlaylist from '../playlist/IPlaylist'
 import IEventGuest from './IEventGuest'
+import IEventSettings from './IEventSettings'
 
 export default interface IEvent {
   eventId?: string
@@ -18,4 +19,5 @@ export default interface IEvent {
   venue?: string
   invites?: string[]
   guests?: IEventGuest[]
+  settings: IEventSettings
 }

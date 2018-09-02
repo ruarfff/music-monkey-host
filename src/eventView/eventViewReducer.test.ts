@@ -7,7 +7,9 @@ import {
   EVENT_DELETE_SUCCESSFUL,
   EVENT_FETCH_BY_ID_ERROR,
   EVENT_FETCH_BY_ID_INITIATED,
-  EVENT_FETCHED_BY_ID
+  EVENT_FETCHED_BY_ID,
+  TOGGLE_DYNAMIC_VOTING,
+  TOGGLE_DYNAMIC_VOTING_ERROR
 } from './eventViewActions'
 import initialState from './eventViewInitialState'
 import eventView from './eventViewReducer'
@@ -108,5 +110,34 @@ describe('eventViewReducer', () => {
         }
       )
     ).toEqual({ ...initialState, deleteFailed: true })
+  })
+
+  it('should handle TOGGLE_DYNAMIC_VOTINGs', () => {
+    const event = { settings: { dynamicVotingEnabled: false } } as IEvent
+    expect(
+      eventView({ ...initialState, event }, { type: TOGGLE_DYNAMIC_VOTING })
+    ).toEqual({
+      ...initialState,
+      event: {
+        ...event,
+        settings: { ...event.settings, dynamicVotingEnabled: true }
+      }
+    })
+  })
+
+  it('should handle TOGGLE_DYNAMIC_VOTING_ERROR', () => {
+    const event = { settings: { dynamicVotingEnabled: true } } as IEvent
+    expect(
+      eventView(
+        { ...initialState, event },
+        { type: TOGGLE_DYNAMIC_VOTING_ERROR }
+      )
+    ).toEqual({
+      ...initialState,
+      event: {
+        ...event,
+        settings: { ...event.settings, dynamicVotingEnabled: false }
+      }
+    })
   })
 })

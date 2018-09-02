@@ -16,6 +16,9 @@ export const REFRESH_EVENT_PLAYLIST = 'REFRESH_EVENT_PLAYLIST'
 export const REFRESH_EVENT_PLAYLIST_SUCCESS = 'REFRESH_EVENT_PLAYLIST_SUCCESS'
 export const REFRESH_EVENT_PLAYLIST_FAILED = 'REFRESH_EVENT_PLAYLIST_FAILED'
 
+export const TOGGLE_DYNAMIC_VOTING = 'TOGGLE_DYNAMIC_VOTING'
+export const TOGGLE_DYNAMIC_VOTING_ERROR = 'TOGGLE_DYNAMIC_VOTING_ERROR'
+
 export const getEventById = (eventId: string): IAction => ({
   payload: eventId,
   type: EVENT_FETCH_BY_ID_INITIATED
@@ -40,4 +43,9 @@ export const copyEventInvite = (): IAction => ({
 
 export const acknowledgeEventInviteCopied = (): IAction => ({
   type: EVENT_INVITE_COPY_ACKNOWLEDGED
+})
+
+export const toggleDynamicVoting = (event: IEvent): IAction => ({
+  type: TOGGLE_DYNAMIC_VOTING,
+  payload: event
 })

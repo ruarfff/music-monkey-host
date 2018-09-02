@@ -1,5 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { deleteEvent, getEventById } from '../event/eventClient'
+import { deleteEvent, getEventById, updateEvent } from '../event/eventClient'
+import IEventSettings from '../event/IEventSettings'
 import { EVENT_PLAYLIST_FETCHED } from '../eventPlaylist/eventPlaylistActions'
 import IAction from '../IAction'
 import {
@@ -9,7 +10,9 @@ import {
   EVENT_FETCH_BY_ID_ERROR,
   EVENT_FETCH_BY_ID_INITIATED,
   EVENT_FETCHED_BY_ID,
-  REFRESH_EVENT_PLAYLIST
+  REFRESH_EVENT_PLAYLIST,
+  TOGGLE_DYNAMIC_VOTING,
+  TOGGLE_DYNAMIC_VOTING_ERROR
 } from './eventViewActions'
 
 function* fetchEventByIdFlow(action: IAction) {
@@ -18,6 +21,9 @@ function* fetchEventByIdFlow(action: IAction) {
     const event = yield call(getEventById, eventId)
     const playlist = event.playlist
     delete event.playlist
+    if (!event.settings) {
+      event.settings = {} as IEventSettings
+    }
     yield put({ type: EVENT_FETCHED_BY_ID, payload: event })
     yield put({ type: EVENT_PLAYLIST_FETCHED, payload: playlist })
   } catch (err) {
@@ -44,4 +50,23 @@ export function* watchDeleteEvent() {
 
 export function* watchRefreshEventPlaylist() {
   yield takeEvery(REFRESH_EVENT_PLAYLIST, fetchEventByIdFlow)
+}
+
+function* toggleDynamicVotingFlow(action: IAction) {
+  try {
+    const event = action.payload
+    yield call(updateEvent, {
+      ...event,
+      settings: {
+        ...event.settings,
+        dynamicVotingEnabled: !event.settings.dynamicVotingEnabled
+      } as IEventSettings
+    })
+  } catch (err) {
+    yield put({ type: TOGGLE_DYNAMIC_VOTING_ERROR })
+  }
+}
+
+export function* watchToggleDynamicVoting() {
+  yield takeEvery(TOGGLE_DYNAMIC_VOTING, toggleDynamicVotingFlow)
 }

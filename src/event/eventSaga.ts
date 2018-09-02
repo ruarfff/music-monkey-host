@@ -18,7 +18,7 @@ import {
   EVENTS_FETCH_INITIATED,
   EVENTS_FETCHED
 } from './eventActions'
-import { getEvents, saveEvent } from './eventClient'
+import { createEvent, getEvents } from './eventClient'
 import IEvent from './IEvent'
 
 const { geocodeByAddress, getLatLng } = require('react-places-autocomplete')
@@ -70,7 +70,7 @@ function* fetchLatLngFlow(action: IAction) {
 function* saveEventFlow(action: IAction) {
   const event: IEvent = action.payload
   try {
-    const savedEvent = yield call(saveEvent, event)
+    const savedEvent = yield call(createEvent, event)
     yield put({
       payload: savedEvent,
       type: EVENT_SAVED

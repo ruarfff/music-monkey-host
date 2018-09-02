@@ -1,4 +1,5 @@
 import * as moment from 'moment'
+import IEventSettings from './IEventSettings'
 import IEventState from './IEventState'
 
 export default {
@@ -29,7 +30,8 @@ export default {
       .add(2, 'hours')
       .startOf('hour'),
     venue: '',
-    invites: []
+    invites: [],
+    settings: {} as IEventSettings
   },
   eventsLoading: false,
   showSavedDialogue: false

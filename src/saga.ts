@@ -20,7 +20,8 @@ import {
 import {
   watchDeleteEvent,
   watchFetchEventById,
-  watchRefreshEventPlaylist
+  watchRefreshEventPlaylist,
+  watchToggleDynamicVoting
 } from './eventView/eventViewSaga'
 import { watchFetchPlaylists } from './playlist/playlistSaga'
 import {
@@ -49,6 +50,7 @@ export default function* saga() {
     watchSaveEventPlaylist(),
     watchFetchEventVotes(),
     watchMoveItemInEventPlaylist(),
-    watchSortPlaylistByVotesDescending()
+    watchSortPlaylistByVotesDescending(),
+    watchToggleDynamicVoting()
   ])
 }

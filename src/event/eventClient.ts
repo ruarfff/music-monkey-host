@@ -23,11 +23,7 @@ export const getEventById = (eventId: string) => {
     .get(serviceUrl + '/events/' + eventId, {
       withCredentials: true
     })
-    .then(response => ({
-      ...response.data,
-      endDateTime: moment(response.data.endDateTime),
-      startDateTime: moment(response.data.startDateTime)
-    }))
+    .then(parseEventResponse)
 }
 
 export const deleteEvent = (eventId: string) => {
@@ -36,7 +32,7 @@ export const deleteEvent = (eventId: string) => {
   })
 }
 
-export const saveEvent = (event: IEvent) => {
+export const createEvent = (event: IEvent) => {
   const address =
     event.location && event.location.address
       ? event.location.address
@@ -56,13 +52,21 @@ export const saveEvent = (event: IEvent) => {
       },
       { withCredentials: true }
     )
-    .then(response => {
-      const savedEvent = {
-        ...response.data,
-        endDateTime: moment(response.data.endDateTime),
-        startDateTime: moment(response.data.startDateTime)
-      }
+    .then(parseEventResponse)
+}
 
-      return savedEvent
+export const updateEvent = (event: IEvent) => {
+  return axios
+    .put(serviceUrl + '/events/' + event.eventId, event, {
+      withCredentials: true
     })
+    .then(parseEventResponse)
+}
+
+function parseEventResponse(response: any) {
+  return {
+    ...response.data,
+    endDateTime: moment(response.data.endDateTime),
+    startDateTime: moment(response.data.startDateTime)
+  }
 }
