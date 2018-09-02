@@ -2,6 +2,8 @@ import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 
 export const EVENT_FETCH_BY_ID_INITIATED = 'EVENT_FETCH_BY_ID_INITIATED'
+export const EVENT_FETCH_BY_ID_NO_LOADING_INITIATED =
+  'EVENT_FETCH_BY_ID_NO_LOADING_INITIATED'
 export const EVENT_FETCHED_BY_ID = 'EVENT_FETCHED_BY_ID'
 export const EVENT_FETCH_BY_ID_ERROR = 'EVENT_FETCH_BY_ID_ERROR'
 export const EVENT_DELETE_SELECTED = 'EVENT_DELETE_SELECTED'
@@ -22,6 +24,11 @@ export const TOGGLE_DYNAMIC_VOTING_ERROR = 'TOGGLE_DYNAMIC_VOTING_ERROR'
 export const getEventById = (eventId: string): IAction => ({
   payload: eventId,
   type: EVENT_FETCH_BY_ID_INITIATED
+})
+
+export const getEventByIdNoLoading = (eventId: string): IAction => ({
+  payload: eventId,
+  type: EVENT_FETCH_BY_ID_NO_LOADING_INITIATED
 })
 
 export const onEventDeleteSelected = (): IAction => ({

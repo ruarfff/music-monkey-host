@@ -20,6 +20,7 @@ import {
 import {
   watchDeleteEvent,
   watchFetchEventById,
+  watchFetchEventByIdNoLoading,
   watchRefreshEventPlaylist,
   watchToggleDynamicVoting
 } from './eventView/eventViewSaga'
@@ -51,6 +52,7 @@ export default function* saga() {
     watchFetchEventVotes(),
     watchMoveItemInEventPlaylist(),
     watchSortPlaylistByVotesDescending(),
-    watchToggleDynamicVoting()
+    watchToggleDynamicVoting(),
+    watchFetchEventByIdNoLoading()
   ])
 }

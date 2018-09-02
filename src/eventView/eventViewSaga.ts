@@ -9,6 +9,7 @@ import {
   EVENT_DELETE_SUCCESSFUL,
   EVENT_FETCH_BY_ID_ERROR,
   EVENT_FETCH_BY_ID_INITIATED,
+  EVENT_FETCH_BY_ID_NO_LOADING_INITIATED,
   EVENT_FETCHED_BY_ID,
   REFRESH_EVENT_PLAYLIST,
   TOGGLE_DYNAMIC_VOTING,
@@ -33,6 +34,10 @@ function* fetchEventByIdFlow(action: IAction) {
 
 export function* watchFetchEventById() {
   yield takeEvery(EVENT_FETCH_BY_ID_INITIATED, fetchEventByIdFlow)
+}
+
+export function* watchFetchEventByIdNoLoading() {
+  yield takeEvery(EVENT_FETCH_BY_ID_NO_LOADING_INITIATED, fetchEventByIdFlow)
 }
 
 function* deleteEventFlow(action: IAction) {

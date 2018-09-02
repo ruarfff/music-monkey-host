@@ -10,11 +10,6 @@ import * as React from 'react'
 import IEvent from '../event/IEvent'
 import EventPlaylist from '../eventPlaylist/EventPlaylistContainer'
 import EventPlaylistSummary from '../eventPlaylist/EventPlaylistSummaryContainer'
-import IAction from '../IAction'
-import {
-  subscribeToSuggestionsAccepted,
-  subscribeToVotesModified
-} from '../notification'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import './EventPlaylistView.css'
 import EventRejectedSuggestions from './EventRejectedSuggestionsContainer'
@@ -29,8 +24,6 @@ interface IEventPlaylistViewProps {
   acceptedSuggestions: IDecoratedSuggestion[]
   stagedSuggestions: IDecoratedSuggestion[]
   pendingSuggestions: IDecoratedSuggestion[]
-  getEventSuggestions(eventId: string): IAction
-  fetchEventVotes(eventId: string): IAction
 }
 
 function TabContainer({ children, dir }: any) {
@@ -47,16 +40,6 @@ class EventPlaylistView extends React.Component<
 > {
   public state = {
     tabIndex: 0
-  }
-
-  public componentDidMount() {
-    const { event } = this.props
-    const eventId = event.eventId || ''
-
-    this.props.getEventSuggestions(eventId)
-    subscribeToSuggestionsAccepted(eventId, this.handleSuggestionNotification)
-    this.props.fetchEventVotes(eventId)
-    subscribeToVotesModified(eventId, this.handleEventVotesModified)
   }
 
   public render() {
@@ -139,20 +122,6 @@ class EventPlaylistView extends React.Component<
       )
     }
     return <SubscriptionIcon />
-  }
-
-  private handleSuggestionNotification = () => {
-    const { event } = this.props
-    if (event && event.eventId) {
-      this.props.getEventSuggestions(event.eventId)
-    }
-  }
-
-  private handleEventVotesModified = () => {
-    const { event } = this.props
-    if (event && event.eventId) {
-      this.props.fetchEventVotes(event.eventId)
-    }
   }
 }
 

@@ -9,6 +9,10 @@ import EventFetchError from '../event/EventFetchError'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
+import {
+  subscribeToSuggestionsAccepted,
+  subscribeToVotesModified
+} from '../notification'
 import EventGuests from './EventGuestsContainer'
 import EventTracksView from './EventPlaylistViewContainer'
 import EventSummaryView from './EventSummaryViewContainer'
@@ -28,6 +32,9 @@ interface IEventViewProps extends RouteComponentProps<any> {
   getEventById(eventId: string): IAction
   copyEventInvite(): IAction
   acknowledgeEventInviteCopied(): IAction
+  getEventSuggestions(eventId: string): IAction
+  fetchEventVotes(eventId: string): IAction
+  getEventByIdNoLoading(eventId: string): IAction
 }
 
 function TabContainer({ children, dir }: any) {
@@ -44,7 +51,12 @@ class EventView extends React.Component<IEventViewProps, IEventViewState> {
   }
 
   public componentDidMount() {
+    const eventId = this.props.match.params.eventId
     this.props.getEventById(this.props.match.params.eventId)
+    this.props.getEventSuggestions(eventId)
+    subscribeToSuggestionsAccepted(eventId, this.handleSuggestionNotification)
+    this.props.fetchEventVotes(eventId)
+    subscribeToVotesModified(eventId, this.handleEventVotesModified)
   }
 
   public render() {
@@ -73,14 +85,6 @@ class EventView extends React.Component<IEventViewProps, IEventViewState> {
     )
   }
 
-  private handleGetEvent() {
-    this.props.getEventById(this.props.match.params.eventId)
-  }
-
-  private handleTabChange = (event: any, index: number) => {
-    this.setState({ tabIndex: index })
-  }
-
   private renderEventView = () => {
     const { event, copyEventInvite } = this.props
     const inviteId = event && event.invites ? event.invites[0] : ''
@@ -88,7 +92,12 @@ class EventView extends React.Component<IEventViewProps, IEventViewState> {
     return (
       <Grid container={true} spacing={16}>
         <Grid item={true} xs={12} sm={8}>
-          <Typography variant="display3" noWrap={true} gutterBottom={true} className="EventView-title">
+          <Typography
+            variant="display3"
+            noWrap={true}
+            gutterBottom={true}
+            className="EventView-title"
+          >
             {event && event.name}
           </Typography>
         </Grid>
@@ -127,6 +136,32 @@ class EventView extends React.Component<IEventViewProps, IEventViewState> {
         </Grid>
       </Grid>
     )
+  }
+
+  private handleGetEvent() {
+    this.props.getEventById(this.props.match.params.eventId)
+  }
+
+  private handleTabChange = (event: any, index: number) => {
+    this.setState({ tabIndex: index })
+  }
+
+  private handleSuggestionNotification = () => {
+    const eventId = this.props.match.params.eventId
+    if (eventId) {
+      this.props.getEventSuggestions(eventId)
+    }
+  }
+
+  private handleEventVotesModified = () => {
+    const eventId = this.props.match.params.eventId
+    const { event } = this.props
+    if (eventId) {
+      this.props.fetchEventVotes(eventId)
+    }
+    if (event && event.settings.dynamicVotingEnabled) {
+      this.props.getEventByIdNoLoading(eventId)
+    }
   }
 }
 

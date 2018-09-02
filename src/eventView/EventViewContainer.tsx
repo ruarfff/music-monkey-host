@@ -1,6 +1,9 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
+import { getEventByIdNoLoading } from '../eventView/eventViewActions'
 import IRootState from '../rootState'
+import { getEventSuggestions } from '../suggestion/suggestionActions'
+import { fetchEventVotes } from '../vote/voteActions'
 import EventView from './EventView'
 import {
   acknowledgeEventInviteCopied,
@@ -18,7 +21,10 @@ const mapStateToProps = (state: IRootState) => ({
 const mapDispatchToProps = {
   getEventById,
   copyEventInvite,
-  acknowledgeEventInviteCopied
+  acknowledgeEventInviteCopied,
+  getEventSuggestions,
+  fetchEventVotes,
+  getEventByIdNoLoading
 }
 
 const EventViewContainer = connect(

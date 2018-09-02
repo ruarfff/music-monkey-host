@@ -1,7 +1,5 @@
 import { connect } from 'react-redux'
 import IRootState from '../rootState'
-import { getEventSuggestions } from '../suggestion/suggestionActions'
-import { fetchEventVotes } from '../vote/voteActions'
 import EventPlaylistView from './EventPlaylistView'
 
 const mapStateToProps = (state: IRootState) => ({
@@ -11,10 +9,7 @@ const mapStateToProps = (state: IRootState) => ({
   pendingSuggestions: state.suggestion.pendingSuggestions
 })
 
-const mapDispatchToProps = {
-  getEventSuggestions,
-  fetchEventVotes
-}
+const mapDispatchToProps = {}
 
 const EventPlaylistViewContainer = connect(
   mapStateToProps,
