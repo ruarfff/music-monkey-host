@@ -20,7 +20,7 @@ export default class EventGuests extends React.PureComponent<
     if (!event || !event.guests || event.guests.length < 1) {
       return (
         <Typography align="center" variant="subheading">
-          No guests have opened their invited yet.
+          No guests have opened their invite yet.
         </Typography>
       )
     }

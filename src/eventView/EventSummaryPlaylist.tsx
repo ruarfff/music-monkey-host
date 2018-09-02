@@ -1,10 +1,10 @@
-import ButtonBase from '@material-ui/core/ButtonBase'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper/Paper'
-import Typography from '@material-ui/core/Typography'
-import * as React from 'react'
-import IPlaylist from '../playlist/IPlaylist'
-import './EventSummaryPlaylist.css'
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper/Paper';
+import Typography from '@material-ui/core/Typography';
+import * as React from 'react';
+import IPlaylist from '../playlist/IPlaylist';
+import './EventSummaryPlaylist.css';
 
 interface IEventSummaryPlaylistProps {
   playlist: IPlaylist
@@ -17,12 +17,17 @@ export default class EventSummaryPlaylist extends React.PureComponent<
     if (!playlist) {
       return <span />
     }
-    const numTracks = playlist.tracks.items.length
     const openUrl = playlist.external_urls.spotify
+    const numTracks =
+      playlist.tracks && playlist.tracks.items
+        ? playlist.tracks.items.length
+        : 0
     const durationSeconds =
-      playlist.tracks.items
-        .map(item => item.track.duration_ms)
-        .reduce((acc, dur) => acc + dur) / 1000
+      numTracks > 0
+        ? playlist.tracks.items
+            .map(item => item.track.duration_ms)
+            .reduce((acc, dur) => acc + dur) / 1000
+        : 0
     const formattedDuration = this.formatDuration(durationSeconds)
     const image =
       playlist.images && playlist.images.length ? playlist.images[0].url : null
