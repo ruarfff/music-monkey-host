@@ -6,7 +6,6 @@ import { DateTimePicker } from 'material-ui-pickers'
 import * as React from 'react'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-
 import IEvent from '../event/IEvent'
 import IPlaylistInput from '../event/IPlaylistInput'
 import IAction from '../IAction'
@@ -16,7 +15,6 @@ import IPlaylistDetails from '../playlist/IPlaylistDetails'
 import FileUpload from '../upload/FileUpload'
 import IUser from '../user/IUser'
 import './CreateEvent.css'
-import EventCodeInput from './EventCodeInput'
 import EventDescriptionInput from './EventDescriptionInput'
 import EventNameInput from './EventNameInput'
 import EventOrganizerInput from './EventOrganizerInput'
@@ -164,14 +162,7 @@ export default class CreateEvent extends React.PureComponent<
             />
           </Grid>
 
-          <Grid item={true} xs={12} sm={6}>
-            <EventCodeInput
-              value={event.eventCode || ''}
-              onChange={this.handleContentUpdated('eventCode')}
-            />
-          </Grid>
-
-          <Grid item={true} xs={12} sm={6}>
+          <Grid item={true} xs={12} sm={12}>
             <PlaylistSelection
               playlists={playlists}
               fetchPlaylists={fetchPlaylists}
