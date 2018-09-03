@@ -1,3 +1,4 @@
+import * as moment from 'moment'
 import Action from '../IAction'
 import {
   CREATE_PLAYLIST_CLOSED,
@@ -20,6 +21,7 @@ import {
   SELECT_EXISTING_PLAYLIST_SELECTED
 } from './eventActions'
 import initialState from './eventInitialState'
+import IEvent from './IEvent'
 import IEventState from './IEventState'
 
 export default function event(
@@ -52,14 +54,21 @@ export default function event(
           location: payload
         }
       }
-    case EVENT_CONTENT_UPDATED:
+    case EVENT_CONTENT_UPDATED: {
+      const savingEvent: IEvent = {
+        ...state.savingEvent,
+        ...payload
+      }
+      const startTime = moment(savingEvent.startDateTime)
+      const endTime = moment(savingEvent.endDateTime)
+      if (endTime < startTime) {
+        savingEvent.endDateTime = startTime.add(2, 'hours')
+      }
       return {
         ...state,
-        savingEvent: {
-          ...state.savingEvent,
-          ...payload
-        }
+        savingEvent
       }
+    }
     case EVENT_IMAGE_UPLOADED:
       return {
         ...state,
