@@ -14,6 +14,7 @@ import './EventDetails.css'
 interface IEventDetailsProps {
   event: IEvent
   toggleDynamicVoting(event: IEvent): IAction
+  toggleAutoAcceptSuggestions(event: IEvent): IAction
 }
 
 export default class EventDetails extends React.PureComponent<
@@ -85,6 +86,16 @@ export default class EventDetails extends React.PureComponent<
                 <FormControlLabel
                   control={
                     <Switch
+                      checked={event.settings.autoAcceptSuggestionsEnabled}
+                      onChange={this.autoAcceptSuggestionsToggled}
+                      value="autoAcceptSuggestionsEnabled"
+                    />
+                  }
+                  label="Auto Accept Suggestions"
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
                       checked={event.settings.dynamicVotingEnabled}
                       onChange={this.handleDynamicVotingToggled}
                       value="dynamicVotingEnabled"
@@ -113,5 +124,10 @@ export default class EventDetails extends React.PureComponent<
   private handleDynamicVotingToggled = () => {
     const { event, toggleDynamicVoting } = this.props
     toggleDynamicVoting(event)
+  }
+
+  private autoAcceptSuggestionsToggled = () => {
+    const { event, toggleAutoAcceptSuggestions } = this.props
+    toggleAutoAcceptSuggestions(event)
   }
 }

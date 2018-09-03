@@ -8,6 +8,8 @@ import {
   EVENT_FETCH_BY_ID_ERROR,
   EVENT_FETCH_BY_ID_INITIATED,
   EVENT_FETCHED_BY_ID,
+  TOGGLE_AUTO_ACCEPT_SUGGESTIONS,
+  TOGGLE_AUTO_ACCEPT_SUGGESTIONS_ERROR,
   TOGGLE_DYNAMIC_VOTING,
   TOGGLE_DYNAMIC_VOTING_ERROR
 } from './eventViewActions'
@@ -112,7 +114,7 @@ describe('eventViewReducer', () => {
     ).toEqual({ ...initialState, deleteFailed: true })
   })
 
-  it('should handle TOGGLE_DYNAMIC_VOTINGs', () => {
+  it('should handle TOGGLE_DYNAMIC_VOTING', () => {
     const event = { settings: { dynamicVotingEnabled: false } } as IEvent
     expect(
       eventView({ ...initialState, event }, { type: TOGGLE_DYNAMIC_VOTING })
@@ -137,6 +139,48 @@ describe('eventViewReducer', () => {
       event: {
         ...event,
         settings: { ...event.settings, dynamicVotingEnabled: false }
+      }
+    })
+  })
+
+  it('should handle TOGGLE_AUTO_ACCEPT_SUGGESTIONS', () => {
+    const event = {
+      settings: {
+        dynamicVotingEnabled: false,
+        autoAcceptSuggestionsEnabled: false
+      }
+    } as IEvent
+    expect(
+      eventView(
+        { ...initialState, event },
+        { type: TOGGLE_AUTO_ACCEPT_SUGGESTIONS }
+      )
+    ).toEqual({
+      ...initialState,
+      event: {
+        ...event,
+        settings: { ...event.settings, autoAcceptSuggestionsEnabled: true }
+      }
+    })
+  })
+
+  it('should handle TOGGLE_AUTO_ACCEPT_SUGGESTIONS_ERROR', () => {
+    const event = {
+      settings: {
+        dynamicVotingEnabled: false,
+        autoAcceptSuggestionsEnabled: true
+      }
+    } as IEvent
+    expect(
+      eventView(
+        { ...initialState, event },
+        { type: TOGGLE_AUTO_ACCEPT_SUGGESTIONS_ERROR }
+      )
+    ).toEqual({
+      ...initialState,
+      event: {
+        ...event,
+        settings: { ...event.settings, autoAcceptSuggestionsEnabled: false }
       }
     })
   })

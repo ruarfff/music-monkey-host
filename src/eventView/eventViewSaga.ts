@@ -12,6 +12,8 @@ import {
   EVENT_FETCH_BY_ID_NO_LOADING_INITIATED,
   EVENT_FETCHED_BY_ID,
   REFRESH_EVENT_PLAYLIST,
+  TOGGLE_AUTO_ACCEPT_SUGGESTIONS,
+  TOGGLE_AUTO_ACCEPT_SUGGESTIONS_ERROR,
   TOGGLE_DYNAMIC_VOTING,
   TOGGLE_DYNAMIC_VOTING_ERROR
 } from './eventViewActions'
@@ -74,4 +76,24 @@ function* toggleDynamicVotingFlow(action: IAction) {
 
 export function* watchToggleDynamicVoting() {
   yield takeEvery(TOGGLE_DYNAMIC_VOTING, toggleDynamicVotingFlow)
+}
+
+function* toggleAutoAcceptSuggestions(action: IAction) {
+  try {
+    const event = action.payload
+    yield call(updateEvent, {
+      ...event,
+      settings: {
+        ...event.settings,
+        autoAcceptSuggestionsEnabled: !event.settings
+          .autoAcceptSuggestionsEnabled
+      } as IEventSettings
+    })
+  } catch (err) {
+    yield put({ type: TOGGLE_AUTO_ACCEPT_SUGGESTIONS_ERROR })
+  }
+}
+
+export function* watchToggleAutoAcceptSuggestions() {
+  yield takeEvery(TOGGLE_AUTO_ACCEPT_SUGGESTIONS, toggleAutoAcceptSuggestions)
 }

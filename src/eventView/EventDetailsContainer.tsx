@@ -1,13 +1,13 @@
 import { connect } from 'react-redux'
 import IRootState from '../rootState'
 import EventDetails from './EventDetails'
-import { toggleDynamicVoting } from './eventViewActions'
+import { toggleAutoAcceptSuggestions, toggleDynamicVoting } from './eventViewActions'
 
 const mapStateToProps = (state: IRootState) => ({
   event: state.eventView.event
 })
 
-const mapDispatchToProps = { toggleDynamicVoting }
+const mapDispatchToProps = { toggleDynamicVoting, toggleAutoAcceptSuggestions }
 
 const EventDetailsContainer = connect(
   mapStateToProps,

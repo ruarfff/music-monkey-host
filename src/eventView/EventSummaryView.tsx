@@ -17,7 +17,7 @@ export default class EventSummaryView extends React.PureComponent<
     return (
       <Grid container={true} spacing={24}>
         <Grid container={true} item={true} xs={12}>
-          <Grid container={true} spacing={24} item={true} xs={8}>
+          <Grid container={true} spacing={24} item={true} xs={12} sm={8}>
             <Grid item={true} xs={12}>
               <EventDetails />
             </Grid>
@@ -25,7 +25,7 @@ export default class EventSummaryView extends React.PureComponent<
               <EventSummaryPlaylist />
             </Grid>
           </Grid>
-          <Grid item={true} xs={4}>
+          <Grid item={true} xs={12} sm={4}>
             <EventGuests />
           </Grid>
         </Grid>

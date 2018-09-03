@@ -10,6 +10,8 @@ import {
   EVENT_FETCHED_BY_ID,
   EVENT_INVITE_COPIED,
   EVENT_INVITE_COPY_ACKNOWLEDGED,
+  TOGGLE_AUTO_ACCEPT_SUGGESTIONS,
+  TOGGLE_AUTO_ACCEPT_SUGGESTIONS_ERROR,
   TOGGLE_DYNAMIC_VOTING,
   TOGGLE_DYNAMIC_VOTING_ERROR
 } from './eventViewActions'
@@ -75,8 +77,31 @@ export default function eventView(
       return toggleDynamicVoting(state)
     case TOGGLE_DYNAMIC_VOTING_ERROR:
       return toggleDynamicVoting(state)
+    case TOGGLE_AUTO_ACCEPT_SUGGESTIONS:
+      return toggleAutoAcceptSuggestions(state)
+    case TOGGLE_AUTO_ACCEPT_SUGGESTIONS_ERROR:
+      return toggleAutoAcceptSuggestions(state)
     default:
       return state
+  }
+}
+
+function toggleAutoAcceptSuggestions(state: IEventViewState) {
+  const { event } = state
+  if (event) {
+    return {
+      ...state,
+      event: {
+        ...event,
+        settings: {
+          ...event.settings,
+          autoAcceptSuggestionsEnabled: !event.settings
+            .autoAcceptSuggestionsEnabled
+        } as IEventSettings
+      }
+    }
+  } else {
+    return { ...state }
   }
 }
 

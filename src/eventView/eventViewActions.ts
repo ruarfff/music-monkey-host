@@ -20,6 +20,9 @@ export const REFRESH_EVENT_PLAYLIST_FAILED = 'REFRESH_EVENT_PLAYLIST_FAILED'
 
 export const TOGGLE_DYNAMIC_VOTING = 'TOGGLE_DYNAMIC_VOTING'
 export const TOGGLE_DYNAMIC_VOTING_ERROR = 'TOGGLE_DYNAMIC_VOTING_ERROR'
+export const TOGGLE_AUTO_ACCEPT_SUGGESTIONS = 'TOGGLE_AUTO_ACCEPT_SUGGESTIONS'
+export const TOGGLE_AUTO_ACCEPT_SUGGESTIONS_ERROR =
+  'TOGGLE_AUTO_ACCEPT_SUGGESTIONS_ERROR'
 
 export const getEventById = (eventId: string): IAction => ({
   payload: eventId,
@@ -54,5 +57,10 @@ export const acknowledgeEventInviteCopied = (): IAction => ({
 
 export const toggleDynamicVoting = (event: IEvent): IAction => ({
   type: TOGGLE_DYNAMIC_VOTING,
+  payload: event
+})
+
+export const toggleAutoAcceptSuggestions = (event: IEvent): IAction => ({
+  type: TOGGLE_AUTO_ACCEPT_SUGGESTIONS,
   payload: event
 })
