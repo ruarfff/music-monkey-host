@@ -11,7 +11,9 @@ import {
   TOGGLE_AUTO_ACCEPT_SUGGESTIONS,
   TOGGLE_AUTO_ACCEPT_SUGGESTIONS_ERROR,
   TOGGLE_DYNAMIC_VOTING,
-  TOGGLE_DYNAMIC_VOTING_ERROR
+  TOGGLE_DYNAMIC_VOTING_ERROR,
+  TOGGLE_SUGGESTING_PLAYLISTS,
+  TOGGLE_SUGGESTING_PLAYLISTS_ERROR
 } from './eventViewActions'
 import initialState from './eventViewInitialState'
 import eventView from './eventViewReducer'
@@ -181,6 +183,46 @@ describe('eventViewReducer', () => {
       event: {
         ...event,
         settings: { ...event.settings, autoAcceptSuggestionsEnabled: false }
+      }
+    })
+  })
+
+  it('should handle TOGGLE_SUGGESTING_PLAYLISTS', () => {
+    const event = {
+      settings: {
+        suggestingPlaylistsEnabled: false
+      }
+    } as IEvent
+    expect(
+      eventView(
+        { ...initialState, event },
+        { type: TOGGLE_SUGGESTING_PLAYLISTS }
+      )
+    ).toEqual({
+      ...initialState,
+      event: {
+        ...event,
+        settings: { ...event.settings, suggestingPlaylistsEnabled: true }
+      }
+    })
+  })
+
+  it('should handle TOGGLE_SUGGESTING_PLAYLISTS_ERROR', () => {
+    const event = {
+      settings: {
+        suggestingPlaylistsEnabled: true
+      }
+    } as IEvent
+    expect(
+      eventView(
+        { ...initialState, event },
+        { type: TOGGLE_SUGGESTING_PLAYLISTS_ERROR }
+      )
+    ).toEqual({
+      ...initialState,
+      event: {
+        ...event,
+        settings: { ...event.settings, suggestingPlaylistsEnabled: false }
       }
     })
   })

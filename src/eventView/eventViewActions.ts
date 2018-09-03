@@ -23,6 +23,9 @@ export const TOGGLE_DYNAMIC_VOTING_ERROR = 'TOGGLE_DYNAMIC_VOTING_ERROR'
 export const TOGGLE_AUTO_ACCEPT_SUGGESTIONS = 'TOGGLE_AUTO_ACCEPT_SUGGESTIONS'
 export const TOGGLE_AUTO_ACCEPT_SUGGESTIONS_ERROR =
   'TOGGLE_AUTO_ACCEPT_SUGGESTIONS_ERROR'
+export const TOGGLE_SUGGESTING_PLAYLISTS = 'TOGGLE_SUGGESTING_PLAYLISTS'
+export const TOGGLE_SUGGESTING_PLAYLISTS_ERROR =
+  'TOGGLE_SUGGESTING_PLAYLISTS_ERROR'
 
 export const getEventById = (eventId: string): IAction => ({
   payload: eventId,
@@ -62,5 +65,10 @@ export const toggleDynamicVoting = (event: IEvent): IAction => ({
 
 export const toggleAutoAcceptSuggestions = (event: IEvent): IAction => ({
   type: TOGGLE_AUTO_ACCEPT_SUGGESTIONS,
+  payload: event
+})
+
+export const toggleSuggestingPlaylists = (event: IEvent): IAction => ({
+  type: TOGGLE_SUGGESTING_PLAYLISTS,
   payload: event
 })

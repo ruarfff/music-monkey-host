@@ -15,7 +15,8 @@ import {
   TOGGLE_AUTO_ACCEPT_SUGGESTIONS,
   TOGGLE_AUTO_ACCEPT_SUGGESTIONS_ERROR,
   TOGGLE_DYNAMIC_VOTING,
-  TOGGLE_DYNAMIC_VOTING_ERROR
+  TOGGLE_DYNAMIC_VOTING_ERROR,
+  TOGGLE_SUGGESTING_PLAYLISTS
 } from './eventViewActions'
 
 function* fetchEventByIdFlow(action: IAction) {
@@ -96,4 +97,23 @@ function* toggleAutoAcceptSuggestions(action: IAction) {
 
 export function* watchToggleAutoAcceptSuggestions() {
   yield takeEvery(TOGGLE_AUTO_ACCEPT_SUGGESTIONS, toggleAutoAcceptSuggestions)
+}
+
+function* toggleSuggestingPlaylists(action: IAction) {
+  try {
+    const event = action.payload
+    yield call(updateEvent, {
+      ...event,
+      settings: {
+        ...event.settings,
+        suggestingPlaylistsEnabled: !event.settings.suggestingPlaylistsEnabled
+      } as IEventSettings
+    })
+  } catch (err) {
+    yield put({ type: TOGGLE_AUTO_ACCEPT_SUGGESTIONS_ERROR })
+  }
+}
+
+export function* watchToggleSuggestingPlaylists() {
+  yield takeEvery(TOGGLE_SUGGESTING_PLAYLISTS, toggleSuggestingPlaylists)
 }

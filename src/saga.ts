@@ -23,7 +23,8 @@ import {
   watchFetchEventByIdNoLoading,
   watchRefreshEventPlaylist,
   watchToggleAutoAcceptSuggestions,
-  watchToggleDynamicVoting
+  watchToggleDynamicVoting,
+  watchToggleSuggestingPlaylists
 } from './eventView/eventViewSaga'
 import { watchFetchPlaylists } from './playlist/playlistSaga'
 import {
@@ -55,6 +56,7 @@ export default function* saga() {
     watchSortPlaylistByVotesDescending(),
     watchToggleDynamicVoting(),
     watchFetchEventByIdNoLoading(),
-    watchToggleAutoAcceptSuggestions()
+    watchToggleAutoAcceptSuggestions(),
+    watchToggleSuggestingPlaylists()
   ])
 }

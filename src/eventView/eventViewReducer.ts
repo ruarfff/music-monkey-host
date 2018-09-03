@@ -13,7 +13,9 @@ import {
   TOGGLE_AUTO_ACCEPT_SUGGESTIONS,
   TOGGLE_AUTO_ACCEPT_SUGGESTIONS_ERROR,
   TOGGLE_DYNAMIC_VOTING,
-  TOGGLE_DYNAMIC_VOTING_ERROR
+  TOGGLE_DYNAMIC_VOTING_ERROR,
+  TOGGLE_SUGGESTING_PLAYLISTS,
+  TOGGLE_SUGGESTING_PLAYLISTS_ERROR
 } from './eventViewActions'
 import initialState from './eventViewInitialState'
 import IEventViewState from './IEventViewState'
@@ -81,8 +83,30 @@ export default function eventView(
       return toggleAutoAcceptSuggestions(state)
     case TOGGLE_AUTO_ACCEPT_SUGGESTIONS_ERROR:
       return toggleAutoAcceptSuggestions(state)
+    case TOGGLE_SUGGESTING_PLAYLISTS:
+      return toggleSuggestPlaylists(state)
+    case TOGGLE_SUGGESTING_PLAYLISTS_ERROR:
+      return toggleSuggestPlaylists(state)
     default:
       return state
+  }
+}
+
+function toggleSuggestPlaylists(state: IEventViewState) {
+  const { event } = state
+  if (event) {
+    return {
+      ...state,
+      event: {
+        ...event,
+        settings: {
+          ...event.settings,
+          suggestingPlaylistsEnabled: !event.settings.suggestingPlaylistsEnabled
+        } as IEventSettings
+      }
+    }
+  } else {
+    return { ...state }
   }
 }
 

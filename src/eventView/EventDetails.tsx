@@ -15,6 +15,7 @@ interface IEventDetailsProps {
   event: IEvent
   toggleDynamicVoting(event: IEvent): IAction
   toggleAutoAcceptSuggestions(event: IEvent): IAction
+  toggleSuggestingPlaylists(event: IEvent): IAction
 }
 
 export default class EventDetails extends React.PureComponent<
@@ -86,6 +87,16 @@ export default class EventDetails extends React.PureComponent<
                 <FormControlLabel
                   control={
                     <Switch
+                      checked={event.settings.suggestingPlaylistsEnabled}
+                      onChange={this.suggestingPlaylistsToggled}
+                      value="suggestingPlaylistsEnabled"
+                    />
+                  }
+                  label="Allow Playlist Suggestions"
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
                       checked={event.settings.autoAcceptSuggestionsEnabled}
                       onChange={this.autoAcceptSuggestionsToggled}
                       value="autoAcceptSuggestionsEnabled"
@@ -129,5 +140,10 @@ export default class EventDetails extends React.PureComponent<
   private autoAcceptSuggestionsToggled = () => {
     const { event, toggleAutoAcceptSuggestions } = this.props
     toggleAutoAcceptSuggestions(event)
+  }
+
+  private suggestingPlaylistsToggled = () => {
+    const { event, toggleSuggestingPlaylists } = this.props
+    toggleSuggestingPlaylists(event)
   }
 }
