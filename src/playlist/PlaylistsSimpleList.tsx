@@ -30,7 +30,7 @@ export default class PlaylistsSimpleList extends React.PureComponent<
 
     let playlistView = <p>You do not have any playlists yet</p>
 
-    if (playlists.length > 0) {
+    if (playlists && playlists.length > 0) {
       playlistView = (
         <List>
           {playlists
