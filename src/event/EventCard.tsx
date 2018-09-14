@@ -1,12 +1,11 @@
+import Avatar from '@material-ui/core/Avatar'
 import Card from '@material-ui/core/Card/Card'
-import CardContent from '@material-ui/core/CardContent/CardContent'
-import CardHeader from '@material-ui/core/CardHeader/CardHeader'
-import CardMedia from '@material-ui/core/CardMedia/CardMedia'
 import { Theme } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
+import eventIcon from '../assets/event-date-icon.svg'
 import IEvent from './IEvent'
 
 const decorate = withStyles((theme: Theme) => ({
@@ -14,16 +13,53 @@ const decorate = withStyles((theme: Theme) => ({
     display: 'flex'
   },
   card: {
-    height: '16em',
+    height: '150px',
     marginTop: '1em',
     marginLeft: '1em',
     marginRight: '1em',
-    maxWidth: '14em',
-    width: '14em'
+    width: '200px',
+    paddingLeft: '15px',
+    paddingTop: '15px',
   },
   media: {
     height: 0,
     paddingTop: '56.25%' // 16:9
+  },
+  title: {
+    marginBottom: 16,
+    fontSize: 14,
+  },
+  link: {
+    textDecoration: 'none',
+  },
+  timeTitle: {
+    color: '#979797',
+    fontSize: '12px',
+    lineHeight: '16px',
+    marginBottom: '8px',
+  },
+  timeTitleBig: {
+    fintSize: '16px',
+    lineHeight: '24px',
+    color: 'black',
+    fontFamily: 'Roboto, sans-sarif',
+  },
+  eventName: {
+    color: '#979797',
+    fontSize: '12px',
+    lineHeight: '16px',
+    fontWight: 600,
+  },
+  eventDescription: {
+    color: '#979797',
+    fontSize: '12px',
+    lineHeight: '16px',
+    marginBottom: '4px'
+  },
+  avatar: {
+    width: '30px',
+    height: '30px',
+    fontSize: '10px',
   }
 }))
 
@@ -33,23 +69,26 @@ interface IEventCardProps {
 
 const EventCard = decorate<IEventCardProps>(({ classes, event }) => (
   <Card className={classes.card}>
-    <Link to={'/events/' + event.eventId}>
-      <CardHeader
-        subheader={event.startDateTime ? event.startDateTime.format('LLL') : ''}
-      />
-      {event.imageUrl && (
-        <CardMedia
-          className={classes.media}
-          image={event.imageUrl}
-          title="Event Image"
-        />
-      )}
-    </Link>
-    <CardContent>
-      <Typography component="p" noWrap={true}>
+    <Link to={'/events/' + event.eventId} className={classes.link}>
+      <Typography className={classes.timeTitle}>
+        <img src={eventIcon} alt="" className="eventCardIcon"/>
+        {event.startDateTime ? event.startDateTime.format('LT') : ''}
+      </Typography>
+      <Typography className={classes.timeTitleBig}>
+        {event.startDateTime ? event.startDateTime.format('dddd, MMMM Do') : ''}
+      </Typography>
+      <Typography className={classes.eventName}>
+        {event.name && event.name}
+      </Typography>
+
+      <Typography noWrap={true} className={classes.eventDescription}>
         {event.location && event.location.address}
       </Typography>
-    </CardContent>
+
+      <Avatar className={classes.avatar}>
+        +{event.guests && event.guests.length}
+      </Avatar>
+    </Link>
   </Card>
 ))
 

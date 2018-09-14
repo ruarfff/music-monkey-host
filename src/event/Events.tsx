@@ -1,14 +1,13 @@
-import Button from '@material-ui/core/Button/Button'
 import Divider from '@material-ui/core/Divider/Divider'
 import Grid from '@material-ui/core/Grid/Grid'
 import Hidden from '@material-ui/core/Hidden/Hidden'
-import Tooltip from '@material-ui/core/Tooltip/Tooltip'
+import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography/Typography'
-import AddIcon from '@material-ui/icons/Add'
 import { map, sortBy } from 'lodash'
 import * as moment from 'moment'
 import * as React from 'react'
-import { Link } from 'react-router-dom'
+import arrowLeft from '../assets/arrow-left.svg'
+import arrowRight from '../assets/arrow-right.svg'
 import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import IUserState from '../user/IUserState'
@@ -23,26 +22,6 @@ interface IEventsProps {
   user: IUserState
   getEvents(): IAction
 }
-
-const renderEventCreateAction = () => (
-  <div className="eventCreateActionContainer">
-    <Typography
-      align="center"
-      variant="headline"
-      gutterBottom={true}
-      className="eventCreateText"
-    >
-      Create New Event
-    </Typography>
-    <Link to="/create-event" className="eventCreateButton">
-      <Tooltip id="tooltip-fab" title="Create Event">
-        <Button variant="fab" color="primary" aria-label="Create Event">
-          <AddIcon />
-        </Button>
-      </Tooltip>
-    </Link>
-  </div>
-)
 
 const renderEventsList = (events: IEvent[], noEventsMessage: string) => (
   <React.Fragment>
@@ -95,33 +74,27 @@ class Events extends React.Component<IEventsProps> {
           !!events &&
           events.length > 0 && (
             <React.Fragment>
-              {renderEventCreateAction()}
               <Grid container={true} spacing={24} direction="row">
                 <Hidden xsDown={true}>
-                  <Grid item={true} sm={6}>
-                    <Typography
-                      className="eventsListCaption"
-                      align="center"
-                      variant="headline"
-                      gutterBottom={true}
+                  <Grid item={true} sm={12}>
+                    <span
+                      className="eventListTitle"
                     >
                       Upcoming Events
-                    </Typography>
-                  </Grid>
-                </Hidden>
-                <Hidden xsDown={true}>
-                  <Grid item={true} sm={6}>
-                    <Typography
-                      className="eventsListCaption"
-                      align="center"
-                      variant="headline"
-                      gutterBottom={true}
+                    </span>
+                    <span
+                      className="eventListShowAll"
                     >
-                      Past Events
-                    </Typography>
+                      View all events
+                    </span>
                   </Grid>
                 </Hidden>
-                <Grid item={true} xs={12} sm={6} className="eventsUpcoming">
+
+                <Grid item={true} xs={12} className="eventsRow">
+                  <IconButton>
+                    <img src={arrowLeft} alt="left"/>
+                  </IconButton>
+
                   <Hidden smUp={true}>
                     <Typography
                       className="eventsListCaption"
@@ -132,8 +105,30 @@ class Events extends React.Component<IEventsProps> {
                     </Typography>
                   </Hidden>
                   {renderEventsList(upcomingEvents, 'No Upcoming Events')}
+                  <IconButton>
+                    <img src={arrowRight} alt="right"/>
+                  </IconButton>
                 </Grid>
-                <Grid item={true} xs={12} sm={6}>
+
+                <Hidden xsDown={true}>
+                  <Grid item={true} sm={12}>
+                    <span
+                      className="eventListTitle"
+                    >
+                      Past Events
+                    </span>
+                    <span
+                      className="eventListShowAll"
+                    >
+                      View all events
+                    </span>
+                  </Grid>
+                </Hidden>
+
+                <Grid item={true} xs={12} className="eventsRow">
+                  <IconButton>
+                    <img src={arrowLeft} alt="left"/>
+                  </IconButton>
                   <Hidden smUp={true}>
                     <Divider />
                     <Typography
@@ -145,6 +140,9 @@ class Events extends React.Component<IEventsProps> {
                     </Typography>
                   </Hidden>
                   {renderEventsList(pastEvents, 'No Past Events Yet')}
+                  <IconButton>
+                    <img src={arrowRight} alt="right"/>
+                  </IconButton>
                 </Grid>
               </Grid>
             </React.Fragment>

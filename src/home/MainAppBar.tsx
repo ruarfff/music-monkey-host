@@ -1,5 +1,7 @@
 import AppBar from '@material-ui/core/AppBar/AppBar'
 import Avatar from '@material-ui/core/Avatar/Avatar'
+import Badge from '@material-ui/core/Badge'
+import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton/IconButton'
 import Menu from '@material-ui/core/Menu/Menu'
 import MenuItem from '@material-ui/core/MenuItem/MenuItem'
@@ -7,7 +9,10 @@ import { withStyles, WithStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar/Toolbar'
 import Typography from '@material-ui/core/Typography/Typography'
 import AccountCircle from '@material-ui/icons/AccountCircle'
+import NotificationsIcon from '@material-ui/icons/Notifications'
 import * as React from 'react'
+import { Link } from 'react-router-dom'
+import eventIcon from '../assets/event-icon.svg'
 import IAction from '../IAction'
 import IUser from '../user/IUser'
 
@@ -18,7 +23,12 @@ const decorate = withStyles(({ transitions, zIndex }) => ({
       duration: transitions.duration.leavingScreen,
       easing: transitions.easing.sharp
     }),
-    zIndex: zIndex.drawer + 1
+    zIndex: zIndex.drawer + 1,
+    position: 'relative',
+    boxShadow: 'none',
+    backgroundColor: 'transparent',
+    color: 'black',
+    paddingTop: '30px'
   },
   hide: {
     display: 'none'
@@ -28,11 +38,33 @@ const decorate = withStyles(({ transitions, zIndex }) => ({
     marginRight: 36
   },
   profile: {
-    marginRight: 12
+    marginRight: 12,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   title: {
     flex: 1,
-    cursor: 'pointer'
+    cursor: 'pointer',
+    fontSize: '34px',
+    lineHeight: '40px',
+    padding: '16px'
+  },
+  addEventBtn: {
+    textTransform: 'uppercase',
+    backgroundColor: '#F79022',
+    color: 'white',
+    padding: '8px 18px',
+  },
+  notification: {
+    color: '#979797',
+  },
+  userName: {
+    color: '#979797',
+  },
+  imageInButton: {
+    marginRight: '5px',
   }
 }))
 
@@ -42,11 +74,23 @@ interface IMainAppBarProps {
   handleTitleClicked(): void
 }
 
+type MainAppBarClasses =
+  'root' |
+  'appBar' |
+  'hide' |
+  'menuButton' |
+  'profile' |
+  'title' |
+  'addEventBtn' |
+  'notification' |
+  'userName' |
+  'imageInButton'
+
 export default decorate(
   class MainAppBar extends React.Component<
     IMainAppBarProps &
       WithStyles<
-        'root' | 'appBar' | 'hide' | 'menuButton' | 'profile' | 'title'
+        MainAppBarClasses
       >
   > {
     public state = {
@@ -70,9 +114,29 @@ export default decorate(
       const { anchorEl } = this.state
       const open = Boolean(anchorEl)
       const userHasProfileImage = !!user && !!user.image
+      const userHasName = !!user && !!user.displayName
 
       const profilePic = (
         <div className={classes.profile}>
+          <Link to="/create-event" className="Home-create-event-link">
+            <Button
+              variant="contained"
+              size="small"
+              className={classes.addEventBtn}
+            >
+              <img className={classes.imageInButton} src={eventIcon} alt=""/>
+              Create new event
+            </Button>
+          </Link>
+          <IconButton color="inherit">
+            <Badge
+              className={classes.notification}
+              badgeContent={17}
+              color="secondary"
+            >
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
           <IconButton
             aria-owns={open ? 'menu-appbar' : undefined}
             aria-haspopup="true"
@@ -85,6 +149,21 @@ export default decorate(
               <AccountCircle />
             )}
           </IconButton>
+          {userHasName ? (
+            <Typography
+              className={classes.userName}
+              onClick={this.handleTitleCLicked}
+            >
+              {user.displayName}
+            </Typography>
+          ) : (
+            <Typography
+              className={classes.userName}
+              onClick={this.handleTitleCLicked}
+            >
+              Name
+            </Typography>
+          )}
           <Menu
             id="menu-appbar"
             anchorEl={anchorEl}
@@ -105,7 +184,7 @@ export default decorate(
       )
 
       return (
-        <AppBar position="absolute" className={classes.appBar}>
+        <AppBar className={classes.appBar}>
           <Toolbar>
             <Typography
               variant="title"
@@ -113,7 +192,7 @@ export default decorate(
               className={classes.title}
               onClick={this.handleTitleCLicked}
             >
-              MusicMonkey
+              Dashboard
             </Typography>
 
             {profilePic}

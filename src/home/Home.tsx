@@ -6,6 +6,7 @@ import { RouteWithSubRoutes } from '../routes'
 import IUser from '../user/IUser'
 import LoginError from './LoginError'
 import MainAppBar from './MainAppBarContainer'
+import MainAppLeftMenu from './MainAppLeftMenu'
 
 interface IHomeProps extends RouteComponentProps<any> {
   routes: Route[]
@@ -16,19 +17,22 @@ interface IHomeProps extends RouteComponentProps<any> {
 
 const Home = ({ user, userLoading, userError, routes }: IHomeProps) => (
   <div className="Home-root">
-    <MainAppBar />
-    {user && (
-      <main className="Home-content">
-        <div className="Home-toolbar" />
-        <Route exact={true} path="/" component={Events} />
-        {routes.map((route, i) => (
-          <RouteWithSubRoutes key={i} {...route} />
-        ))}
-      </main>
-    )}
+    <MainAppLeftMenu />
+    <div className="Home-right-side">
+      <MainAppBar />
+      {user && (
+        <main className="Home-content">
+          <div className="Home-toolbar" />
+          <Route exact={true} path="/" component={Events} />
+          {routes.map((route, i) => (
+            <RouteWithSubRoutes key={i} {...route} />
+          ))}
+        </main>
+      )}
 
-    {userLoading && <LoadingSpinner />}
-    {userError && <LoginError />}
+      {userLoading && <LoadingSpinner />}
+      {userError && <LoginError />}
+    </div>
   </div>
 )
 

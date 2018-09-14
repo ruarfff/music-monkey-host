@@ -1,12 +1,12 @@
 import * as React from 'react'
+import logoText from '../assets/logo-text.svg'
+import logo from '../assets/logo.svg'
 import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import ErrorNotification from '../util/ErrorNotification'
 import IAuthState from './IAuthState'
 import './Login.css'
 import spotifyLoginButtonImage from './spotify-login.svg'
-import logo from '../assets/logo.svg'
-import logoText from '../assets/logo-text.svg'
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
 const authSuffix = process.env.REACT_APP_AUTH_SUFFIX
