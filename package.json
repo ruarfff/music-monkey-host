@@ -18,7 +18,7 @@
     "aws-sdk": "^2.229.1",
     "axios": "^0.18.0",
     "lodash": "^4.17.10",
-    "material-ui-pickers": "^1.0.0-rc.12",
+    "material-ui-pickers": "^1.0.0-rc.14",
     "moment": "^2.22.1",
     "pusher-js": "^4.2.2",
     "query-string": "^6.1.0",
