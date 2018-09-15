@@ -85,6 +85,6 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "redux-immutable-state-invariant": "^2.1.0",
     "sinon": "^5.0.10",
-    "typescript": "^3.0.1"
+    "typescript": "^3.0.3"
   }
 }
