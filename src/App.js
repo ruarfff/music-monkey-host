@@ -10,7 +10,6 @@ import JssProvider from 'react-jss/lib/JssProvider'
 import { Provider } from 'react-redux'
 import { Routes } from './routes'
 
-import { Store } from 'redux'
 import theme from './theme'
 
 const generateClassName = createGenerateClassName()

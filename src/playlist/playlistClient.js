@@ -1,8 +1,6 @@
 import * as SpotifyWebApi from 'spotify-web-api-js'
 import { accessTokenKey } from '../auth/authConstants'
 import localStorage from '../storage/localStorage'
-import IUser from '../user/IUser'
-import IPlaylist from './IPlaylist'
 
 export const addTracksToPlaylist = (playlistId, trackUris) => {
   const spotifyApi = getSpotifyApi()
