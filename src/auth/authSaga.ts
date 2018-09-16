@@ -45,7 +45,6 @@ export function* loginFlow() {
 export function* watchLogin() {
   yield takeEvery(LOGGING_IN, loginFlow)
 }
-
 export function* logoutFlow() {
   try {
     localStorage.set(refreshTokenKey, null)
