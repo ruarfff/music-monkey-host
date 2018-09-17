@@ -1,6 +1,6 @@
 import Avatar from '@material-ui/core/Avatar'
 import Card from '@material-ui/core/Card/Card'
-import { Theme } from '@material-ui/core/styles'
+import { Theme, WithStyles } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import * as React from 'react'
@@ -63,33 +63,54 @@ const decorate = withStyles((theme: Theme) => ({
   }
 }))
 
+type IEventCardClasses =
+  'actions' |
+  'card' |
+  'media' |
+  'title' |
+  'link' |
+  'timeTitle' |
+  'timeTitleBig' |
+  'eventName' |
+  'eventDescription' |
+  'avatar'
+
 interface IEventCardProps {
-  event: IEvent
+  event: IEvent,
 }
 
-const EventCard = decorate<IEventCardProps>(({ classes, event }) => (
-  <Card className={classes.card}>
-    <Link to={'/events/' + event.eventId} className={classes.link}>
-      <Typography className={classes.timeTitle}>
-        <img src={eventIcon} alt="" className="eventCardIcon"/>
-        {event.startDateTime ? event.startDateTime.format('LT') : ''}
-      </Typography>
-      <Typography className={classes.timeTitleBig}>
-        {event.startDateTime ? event.startDateTime.format('dddd, MMMM Do') : ''}
-      </Typography>
-      <Typography className={classes.eventName}>
-        {event.name && event.name}
-      </Typography>
+export default decorate(
+  class EventCard extends React.Component<
+    IEventCardProps &
+    WithStyles<
+      IEventCardClasses
+      >
+    > {
+    public render() {
+      const {event, classes} = this.props
+      return (
+        <Card className={classes.card}>
+          <Link to={'/events/' + event.eventId} className={classes.link}>
+            <Typography className={classes.timeTitle}>
+              <img src={eventIcon} alt="" className="eventCardIcon"/>
+              {event.startDateTime ? event.startDateTime.format('LT') : ''}
+            </Typography>
+            <Typography className={classes.timeTitleBig}>
+              {event.startDateTime ? event.startDateTime.format('dddd, MMMM Do') : ''}
+            </Typography>
+            <Typography className={classes.eventName}>
+              {event.name && event.name}
+            </Typography>
 
-      <Typography noWrap={true} className={classes.eventDescription}>
-        {event.location && event.location.address}
-      </Typography>
+            <Typography noWrap={true} className={classes.eventDescription}>
+              {event.location && event.location.address}
+            </Typography>
 
-      <Avatar className={classes.avatar}>
-        +{event.guests && event.guests.length}
-      </Avatar>
-    </Link>
-  </Card>
-))
-
-export default EventCard
+            <Avatar className={classes.avatar}>
+              +{event.guests && event.guests.length}
+            </Avatar>
+          </Link>
+        </Card>
+      )
+    }
+  })
