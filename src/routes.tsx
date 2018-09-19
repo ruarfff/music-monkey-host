@@ -10,6 +10,7 @@ import EditEventContainer from './eventEditing/EditEventContainer'
 import EventView from './eventView/EventViewContainer'
 import Home from './home/HomeContainer'
 import IRootState from './rootState'
+import EventsContainer from './eventsView/EventsViewContainer'
 
 const locationHelper = locationHelperBuilder({})
 
@@ -46,6 +47,11 @@ const routes = [
       {
         component: EditEventContainer,
         path: '/events/:eventId/edit'
+      },
+      {
+        component: EventsContainer,
+        exact: true,
+        path: '/events/all'
       }
     ]
   },
