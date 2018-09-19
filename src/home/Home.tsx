@@ -1,3 +1,4 @@
+import {History} from 'history'
 import * as React from 'react'
 import { Route, RouteComponentProps } from 'react-router'
 import Events from '../event/EventsContainer'
@@ -13,11 +14,12 @@ interface IHomeProps extends RouteComponentProps<any> {
   user: IUser
   userLoading: boolean
   userError: Error
+  history: History
 }
 
-const Home = ({ user, userLoading, userError, routes }: IHomeProps) => (
+const Home = ({ user, userLoading, userError, routes, history }: IHomeProps) => (
   <div className="Home-root">
-    <MainAppLeftMenu />
+    <MainAppLeftMenu path={history.location.pathname}/>
     <div className="Home-right-side">
       <MainAppBar />
       {user && (
