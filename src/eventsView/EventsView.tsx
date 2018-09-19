@@ -8,13 +8,13 @@ import * as moment from 'moment'
 import * as React from 'react'
 import arrowLeft from '../assets/arrow-left.svg'
 import arrowRight from '../assets/arrow-right.svg'
+import IEvent from '../event/IEvent'
+import IEventState from '../event/IEventState'
+import NoEvents from '../event/NoEvents'
 import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import IUserState from '../user/IUserState'
 import EventBigCard from './EventBigCard'
-import IEvent from '../event/IEvent'
-import IEventState from '../event/IEventState'
-import NoEvents from '../event/NoEvents'
 
 interface IEventsProps {
   events: IEventState
