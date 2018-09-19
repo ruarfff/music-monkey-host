@@ -11,7 +11,7 @@ interface IEventInputProps {
   onChange(value: string): void
 }
 
-const EventInput: React.SFC<IEventInputProps & WithStyles<IInputClasses>> = props => {
+export const EventInput: React.SFC<IEventInputProps & WithStyles<IInputClasses>> = props => {
   const handleChange = (event: any) => {
     props.onChange(event.target.value)
   }

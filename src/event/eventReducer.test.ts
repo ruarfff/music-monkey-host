@@ -182,6 +182,7 @@ describe('eventReducer', () => {
       ).toEqual({
         ...initialState,
         events: [...initialState.events, event],
+        savingEvent: event,
         showSavedDialogue: true
       })
     })
