@@ -1,6 +1,6 @@
-interface ILatLng {
-  lat?: number;
-  lng?: number;
+export interface ILatLng {
+  lat: number;
+  lng: number;
 }
 
 export default interface ILocation {

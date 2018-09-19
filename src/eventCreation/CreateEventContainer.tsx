@@ -16,6 +16,9 @@ import {
   selectCreatePlaylist,
   selectExistingPlaylist
 } from '../event/eventActions'
+import {
+  copyEventInvite,
+} from '../eventView/eventViewActions'
 import { fetchPlaylists } from '../playlist/playlistActions'
 import IRootState from '../rootState'
 import CreateEvent from './CreateEvent'
@@ -47,7 +50,8 @@ const mapDispatchToProps = (dispatch: any) => ({
       saveEvent,
       selectCreatePlaylist,
       selectExistingPlaylist,
-      fetchPlaylists
+      fetchPlaylists,
+      copyEventInvite
     },
     dispatch
   )

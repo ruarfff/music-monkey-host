@@ -33,68 +33,66 @@ const decorate = withStyles(({}) => ({
   }
 }))
 
+class MainAppLeftMenu extends React.Component<{} &
+  WithStyles<
+    'listItemText' | 'listItem' | 'subItemText' | 'subListItem'
+    >
+  > {
+  public state = {
+    isOpen: false,
+  }
 
-export default decorate(
-  class MainAppLeftMenu extends React.Component<
-    {} &
-    WithStyles<
-      'listItemText' | 'listItem' | 'subItemText' | 'subListItem'
-      >
-    > {
-    public state = {
-      isOpen: false,
-    }
+  public handleOpen = () => {
+    this.setState({ isOpen: !this.state.isOpen })
+  }
 
-    public handleOpen = () => {
-      this.setState({ isOpen: !this.state.isOpen })
-    }
-
-    public renderListItem = (text: string, icon: string, textStyle: string, collapsed: boolean) => {
-      const { classes } = this.props
-      return (
-        <ListItem className={classes.listItem} button={true} onClick={this.handleOpen}>
-          <ListItemIcon>
-            <img src={icon}/>
-          </ListItemIcon>
-          <ListItemText
-            inset={true}
-            disableTypography={true}
-            primary={
-              <Typography className={textStyle}>
-                {text}
-              </Typography>
-            }
-          />
-          {
-            collapsed ? (this.state.isOpen ?
-            <ExpandLess color="inherit" /> :
-            <ExpandMore color="inherit" />) : ''
-          }
-        </ListItem>
-      )
-    }
-
-    public renderSubMenuItem = (text: string) => {
-      const { classes } = this.props
-
-      return (
-        <ListItem className={classes.subListItem} button={true}>
-          <ListItemIcon>
-            <img src={SubMenuIcon}/>
-          </ListItemIcon>
-          <ListItemText inset={true} primary={
-            <Typography className={classes.subItemText}>
+  public renderListItem = (text: string, icon: string, textStyle: string, collapsed: boolean) => {
+    const { classes } = this.props
+    return (
+      <ListItem className={classes.listItem} button={true} onClick={this.handleOpen}>
+        <ListItemIcon>
+          <img src={icon}/>
+        </ListItemIcon>
+        <ListItemText
+          inset={true}
+          disableTypography={true}
+          primary={
+            <Typography className={textStyle}>
               {text}
             </Typography>
-          }/>
-        </ListItem>
-      )
-    }
+          }
+        />
+        {
+          collapsed ? (this.state.isOpen ?
+          <ExpandLess color="inherit" /> :
+          <ExpandMore color="inherit" />) : ''
+        }
+      </ListItem>
+    )
+  }
 
-    public render() {
-      const { classes } = this.props
+  public renderSubMenuItem = (text: string) => {
+    const { classes } = this.props
 
-      return (
+    return (
+      <ListItem className={classes.subListItem} button={true}>
+        <ListItemIcon>
+          <img src={SubMenuIcon}/>
+        </ListItemIcon>
+        <ListItemText inset={true} primary={
+          <Typography className={classes.subItemText}>
+            {text}
+          </Typography>
+        }/>
+      </ListItem>
+    )
+  }
+
+  public render() {
+    const { classes } = this.props
+
+    return (
+      <div className="Home-left-menu-wrapper">
         <div className="Home-left-menu">
           <div className="Home-logo-container">
             <img src={logo} alt=""/>
@@ -113,7 +111,9 @@ export default decorate(
             </Collapse>
           </List>
         </div>
-      )
-    }
+      </div>
+    )
   }
-)
+}
+
+export default decorate(MainAppLeftMenu)

@@ -25,20 +25,51 @@ const styles = theme => ({
     position: 'absolute',
     right: 0,
     zIndex: 1
+  },
+  input: {
+    borderRadius: '4px',
+    border: '1px solid #979797',
+    paddingLeft: '16px',
+    minHeight: '40px',
+    '&:hover:not($disabled):before': {
+      borderBottom: '1px solid #979797!important',
+    },
+    '&:before': {
+      content: 'none',
+    },
+    '&:after': {
+      content: 'none',
+    }
+  },
+  label: {
+    paddingLeft: '16px',
+    '&:hover:not($disabled):before': {
+      borderBottom: 'none!important',
+    },
+    paddingTop: '4px'
   }
 })
 
-function renderInput(inputProps) {
+function renderInput(inputProps, classes) {
+  const {
+    onChange,
+    onBlur,
+    onKeyDown,
+    placeholder,
+    value,
+  } = inputProps
   return (
     <TextField
       label="Location"
       fullWidth
       margin="normal"
-      onChange={inputProps.onChange}
-      onBlur={inputProps.onBlur}
-      onKeyDown={inputProps.onKeyDown}
-      placeholder={inputProps.placeholder}
-      value={inputProps.value}
+      onChange={onChange}
+      onBlur={onBlur}
+      onKeyDown={onKeyDown}
+      placeholder={placeholder}
+      value={value}
+      InputProps={{className: classes.input}}
+      InputLabelProps={{className: classes.label}}
     />
   )
 }
@@ -98,9 +129,9 @@ const LocationAutoComplete = ({
           {renderInput({
             ...getInputProps({
               formClass,
-              placeholder
+              placeholder,
             })
-          })}
+          }, classes)}
 
           {renderSuggestionsContainer({
             children: suggestions.map(suggestion =>

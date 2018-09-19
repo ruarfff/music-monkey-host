@@ -23,7 +23,7 @@ const s3 = new AWS.S3({
 
 const djsConfig = {
   autoProcessQueue: false,
-  dictDefaultMessage: 'Event Image',
+  dictDefaultMessage: 'Add Image',
   maxFiles: 1,
   paramName: 'event-image'
 }

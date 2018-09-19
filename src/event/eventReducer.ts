@@ -97,6 +97,7 @@ export default function event(
       return {
         ...state,
         events: [...state.events, payload],
+        savingEvent: payload,
         showSavedDialogue: true
       }
     case EVENT_SAVE_ERROR:

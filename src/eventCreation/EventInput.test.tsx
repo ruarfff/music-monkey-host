@@ -1,12 +1,12 @@
 import { shallow } from 'enzyme'
 import * as React from 'react'
-import EventNameInput from './EventNameInput'
+import EventInput from './EventInput'
 
-describe('<EventNameInput />', () => {
+describe('<EventInput />', () => {
   it('should render without crashing', () => {
     const dummyOnChange = (value: string) => ({})
     const wrapper = shallow(
-      <EventNameInput value={''} onChange={dummyOnChange} />
+      <EventInput label={''} value={''} onChange={dummyOnChange} />
     )
 
     expect(wrapper).toBeTruthy()
@@ -15,7 +15,7 @@ describe('<EventNameInput />', () => {
   it('shoud call onChange when input is updated', () => {
     const dummyOnChange = jest.fn()
     const wrapper = shallow(
-      <EventNameInput value={''} onChange={dummyOnChange} />
+      <EventInput label={''} value={''} onChange={dummyOnChange} />
     )
     wrapper
       .find('TextField')

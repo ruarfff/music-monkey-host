@@ -1,3 +1,8 @@
+body {
+  background: #ffffff!important;
+  font-family: 'Roboto', 'sans-serif';
+}
+
 .Home-root {
   display: flex;
   flex-grow: 1;
@@ -23,10 +28,15 @@
   padding: 0 8px;
 }
 
+.Home-left-menu-wrapper {
+  width: 300px;
+}
+
 .Home-left-menu {
   width: 300px;
+  position: fixed;
   background-color: #5159a6;
-  height: 100vh;
+  height: 100%;
   box-shadow:
     0px 2px 4px -1px rgba(0, 0, 0, 0.12),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14),

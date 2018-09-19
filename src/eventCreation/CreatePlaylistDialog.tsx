@@ -76,7 +76,11 @@ export default class CreatePlaylistDialog extends React.Component<
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} color="secondary">
+          <Button
+            onClick={onClose}
+            color="secondary"
+            variant="raised"
+          >
             Cancel
           </Button>
           <Button
@@ -86,6 +90,7 @@ export default class CreatePlaylistDialog extends React.Component<
               userId: this.props.user.userId
             } as IPlaylistDetails)}
             color="primary"
+            variant="raised"
           >
             Create
           </Button>
