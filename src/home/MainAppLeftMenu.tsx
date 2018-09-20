@@ -1,5 +1,6 @@
 import List from '@material-ui/core/List'
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 import EventIcon from '../assets/event-icon.svg'
 import HomeIcon from '../assets/home-icon.svg'
 import logo from '../assets/logo-home.svg'
@@ -17,15 +18,15 @@ class MainAppLeftMenu extends React.Component<IMainAppLeftMenuProps> {
     const eventsList = [
       {
         text: 'Past Events',
-        link: '/'
+        link: '/events/past'
       },
       {
         text: 'Upcoming Events',
-        link: '/'
+        link: '/events/upcoming'
       },
       {
         text: 'All Events',
-        link: '/'
+        link: '/events/all'
       },
       {
         text: 'Create New Event',
@@ -40,13 +41,15 @@ class MainAppLeftMenu extends React.Component<IMainAppLeftMenuProps> {
             <img src={logo} alt=""/>
           </div>
           <List>
-            <LeftMenuItem
-              text={'Home'}
-              pathName={'/'}
-              currentPath={path}
-              icon={HomeIcon}
-              collapsed={false}
-            />
+            <Link to={'/'}>
+              <LeftMenuItem
+                text={'Home'}
+                pathName={'/'}
+                currentPath={path}
+                icon={HomeIcon}
+                collapsed={false}
+              />
+            </Link>
             <LeftMenuItem
               text={'Events'}
               currentPath={path}

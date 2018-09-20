@@ -1,13 +1,12 @@
-import Divider from '@material-ui/core/Divider/Divider'
+import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid/Grid'
 import Hidden from '@material-ui/core/Hidden/Hidden'
-import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography/Typography'
+import { History } from 'history'
 import { map, sortBy } from 'lodash'
 import * as moment from 'moment'
 import * as React from 'react'
-import arrowLeft from '../assets/arrow-left.svg'
-import arrowRight from '../assets/arrow-right.svg'
+import { Link } from 'react-router-dom'
 import IEvent from '../event/IEvent'
 import IEventState from '../event/IEventState'
 import NoEvents from '../event/NoEvents'
@@ -19,6 +18,7 @@ import EventBigCard from './EventBigCard'
 interface IEventsProps {
   events: IEventState
   user: IUserState
+  history: History
   getEvents(): IAction
 }
 
@@ -27,7 +27,6 @@ class EventsView extends React.Component<IEventsProps> {
     if (this.props.user) {
       this.props.getEvents()
     }
-    console.log(this.props.events)
   }
 
   public renderEventsList = (events: IEvent[], noEventsMessage: string) => (
@@ -55,13 +54,20 @@ class EventsView extends React.Component<IEventsProps> {
   )
 
   public render() {
+    const { history } = this.props
     const { events, eventsLoading } = this.props.events
+    const currentPath = history.location.pathname
+
     const now = moment()
+
+    let allEvents: IEvent[] = []
     let pastEvents: IEvent[] = []
     let upcomingEvents: IEvent[] = []
+
     if (!!events) {
       pastEvents = events.filter(event => event.startDateTime.isBefore(now))
       upcomingEvents = events.filter(event => event.startDateTime.isAfter(now))
+      allEvents = events.filter(event => event)
     }
 
     return (
@@ -77,72 +83,36 @@ class EventsView extends React.Component<IEventsProps> {
             <Grid container={true} spacing={24} direction="row">
               <Hidden xsDown={true}>
                 <Grid item={true} sm={12}>
-                    <span
-                      className="eventListTitle"
+                  <Link to='/events/all'>
+                    <Button
+                      variant='text'
+                      color={currentPath === '/events/all' ? 'primary' : 'secondary'}
                     >
-                      Upcoming Events
-                    </span>
-                  <span
-                    className="eventListShowAll"
-                  >
-                      View all events
-                    </span>
+                      ALL
+                    </Button>
+                  </Link>
+                  <Link to='/events/past'>
+                    <Button
+                      variant='text'
+                      color={currentPath === '/events/past' ? 'primary' : 'secondary'}
+                    >
+                      PAST EVENTS
+                    </Button>
+                  </Link>
+                  <Link to='/events/upcoming'>
+                    <Button
+                      variant='text'
+                      color={currentPath === '/events/upcoming' ? 'primary' : 'secondary'}
+                    >
+                      UPCOMING EVENTS
+                    </Button>
+                  </Link>
                 </Grid>
               </Hidden>
-
-              <Grid item={true} xs={12} className="eventsRow">
-                <IconButton>
-                  <img src={arrowLeft} alt="left"/>
-                </IconButton>
-
-                <Hidden smUp={true}>
-                  <Typography
-                    className="eventsListCaption"
-                    variant="display1"
-                    gutterBottom={true}
-                  >
-                    Upcoming Events
-                  </Typography>
-                </Hidden>
-                {this.renderEventsList(upcomingEvents, 'No Upcoming Events')}
-                <IconButton>
-                  <img src={arrowRight} alt="right"/>
-                </IconButton>
-              </Grid>
-
-              <Hidden xsDown={true}>
-                <Grid item={true} sm={12}>
-                    <span
-                      className="eventListTitle"
-                    >
-                      Past Events
-                    </span>
-                  <span
-                    className="eventListShowAll"
-                  >
-                      View all events
-                    </span>
-                </Grid>
-              </Hidden>
-
-              <Grid item={true} xs={12} className="eventsRow">
-                <IconButton>
-                  <img src={arrowLeft} alt="left"/>
-                </IconButton>
-                <Hidden smUp={true}>
-                  <Divider />
-                  <Typography
-                    className="eventsListCaption"
-                    variant="display1"
-                    gutterBottom={true}
-                  >
-                    Past Events
-                  </Typography>
-                </Hidden>
-                {this.renderEventsList(pastEvents, 'No Past Events Yet')}
-                <IconButton>
-                  <img src={arrowRight} alt="right"/>
-                </IconButton>
+              <Grid item={true} md={12}>
+                {currentPath === '/events/all' && this.renderEventsList(allEvents, 'no events')}
+                {currentPath === '/events/past' && this.renderEventsList(pastEvents, 'no events')}
+                {currentPath === '/events/upcoming' && this.renderEventsList(upcomingEvents, 'no events')}
               </Grid>
             </Grid>
           </React.Fragment>

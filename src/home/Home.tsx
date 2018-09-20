@@ -1,4 +1,4 @@
-import {History} from 'history'
+import { History } from 'history'
 import * as React from 'react'
 import { Route, RouteComponentProps } from 'react-router'
 import Events from '../event/EventsContainer'

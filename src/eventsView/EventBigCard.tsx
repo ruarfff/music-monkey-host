@@ -1,79 +1,62 @@
-import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card/Card'
+import Grid from '@material-ui/core/Grid'
 import { Theme, WithStyles } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-import eventIcon from '../assets/event-date-icon.svg'
+import eventIcon from '../assets/event-icon-small.svg'
+import locationIcon from '../assets/location-icon-small.svg'
 import IEvent from '../event/IEvent'
 
 const decorate = withStyles((theme: Theme) => ({
-  actions: {
-    display: 'flex'
-  },
   card: {
-    height: '150px',
+    height: '390px',
     marginTop: '1em',
     marginLeft: '1em',
     marginRight: '1em',
-    width: '200px',
-    paddingLeft: '15px',
-    paddingTop: '15px',
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%' // 16:9
+    width: '300px'
   },
   title: {
-    marginBottom: 16,
-    fontSize: 14,
+    marginBottom: 24,
+    fontSize: '20px',
+    lineHeight: '23px',
   },
   link: {
     textDecoration: 'none',
-  },
-  timeTitle: {
-    color: '#979797',
-    fontSize: '12px',
-    lineHeight: '16px',
-    marginBottom: '8px',
-  },
-  timeTitleBig: {
-    fintSize: '16px',
-    lineHeight: '24px',
-    color: 'black',
-    fontFamily: 'Roboto, sans-sarif',
-  },
-  eventName: {
-    color: '#979797',
-    fontSize: '12px',
-    lineHeight: '16px',
-    fontWight: 600,
   },
   eventDescription: {
     color: '#979797',
     fontSize: '12px',
     lineHeight: '16px',
-    marginBottom: '4px'
+    marginBottom: '4px',
+    display: 'flex'
   },
-  avatar: {
-    width: '30px',
-    height: '30px',
-    fontSize: '10px',
+  imgContainer: {
+    width: '100%'
+  },
+  img: {
+    width: 'inherit',
+    height: '190px'
+  },
+  cardContent: {
+    padding: '15px 25px',
+    height: 'calc(100% - 194px)',
+    display: 'flex',
+    justifyContent: 'space-between',
   }
 }))
 
 type IEventCardClasses =
-  'actions' |
   'card' |
-  'media' |
   'title' |
   'link' |
-  'timeTitle' |
-  'timeTitleBig' |
-  'eventName' |
   'eventDescription' |
-  'avatar'
+  'avatar' |
+  'img' |
+  'imgContainer' |
+  'cardContent'
 
 interface IEventBigCardProps {
   event: IEvent,
@@ -88,26 +71,41 @@ class EventBigCard extends React.Component<
     const {event, classes} = this.props
     return (
       <Card className={classes.card}>
-        <Link to={'/events/' + event.eventId} className={classes.link}>
-          <Typography className={classes.timeTitle}>
-            <img src={eventIcon} alt="" className="eventCardIcon"/>
-            {event.startDateTime ? event.startDateTime.format('LT') : ''}
+        <div className={classes.imgContainer}>
+          <img className={classes.img} src={event.imageUrl} alt=""/>
+        </div>
+        <Grid container={true} direction='column' justify='space-between' className={classes.cardContent}>
+          <Typography className={classes.title}>
+            {event.name}
           </Typography>
-          <Typography className={classes.timeTitleBig}>
-            {event.startDateTime ? event.startDateTime.format('dddd, MMMM Do') : ''}
-          </Typography>
-          <Typography className={classes.eventName}>
-            {event.name && event.name}
-          </Typography>
+          <div>
+            <Typography className={classes.eventDescription}>
+              <img src={eventIcon}/>
+              {event.startDateTime ? event.startDateTime.format('Do MMMM YYYY') : ''}
+            </Typography>
+            <Typography noWrap={true} className={classes.eventDescription}>
+              <img src={locationIcon}/>
+              {event.location && event.location.address}
+            </Typography>
+          </div>
+          <div>
+            <Link to={'/events/' + event.eventId} className={classes.link}>
+              <Button
+                color='primary'
+              >
+                GO TO EVENT
+              </Button>
+            </Link>
+            <a href={event.playlist ? event.playlist.external_urls.spotify : '/'} className={classes.link}>
+              <Button
+                color='primary'
+              >
+                PLAYLIST
+              </Button>
+            </a>
+          </div>
 
-          <Typography noWrap={true} className={classes.eventDescription}>
-            {event.location && event.location.address}
-          </Typography>
-
-          <Avatar className={classes.avatar}>
-            +{event.guests && event.guests.length}
-          </Avatar>
-        </Link>
+        </Grid>
       </Card>
     )
   }

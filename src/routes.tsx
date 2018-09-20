@@ -52,7 +52,17 @@ const routes = [
         component: EventsContainer,
         exact: true,
         path: '/events/all'
-      }
+      },
+      {
+        component: EventsContainer,
+        exact: true,
+        path: '/events/upcoming'
+      },
+      {
+        component: EventsContainer,
+        exact: true,
+        path: '/events/past'
+      },
     ]
   },
   {
