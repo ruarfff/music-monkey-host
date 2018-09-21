@@ -83,26 +83,26 @@ class EventsView extends React.Component<IEventsProps> {
             <Grid container={true} spacing={24} direction="row">
               <Hidden xsDown={true}>
                 <Grid item={true} sm={12}>
-                  <Link to='/events/all'>
+                  <Link to='/all-events'>
                     <Button
                       variant='text'
-                      color={currentPath === '/events/all' ? 'primary' : 'secondary'}
+                      color={currentPath === '/all-events' ? 'primary' : 'secondary'}
                     >
                       ALL
                     </Button>
                   </Link>
-                  <Link to='/events/past'>
+                  <Link to='/past-events'>
                     <Button
                       variant='text'
-                      color={currentPath === '/events/past' ? 'primary' : 'secondary'}
+                      color={currentPath === '/past-events' ? 'primary' : 'secondary'}
                     >
                       PAST EVENTS
                     </Button>
                   </Link>
-                  <Link to='/events/upcoming'>
+                  <Link to='/upcoming-events'>
                     <Button
                       variant='text'
-                      color={currentPath === '/events/upcoming' ? 'primary' : 'secondary'}
+                      color={currentPath === '/upcoming-events' ? 'primary' : 'secondary'}
                     >
                       UPCOMING EVENTS
                     </Button>
@@ -110,9 +110,9 @@ class EventsView extends React.Component<IEventsProps> {
                 </Grid>
               </Hidden>
               <Grid item={true} md={12}>
-                {currentPath === '/events/all' && this.renderEventsList(allEvents, 'no events')}
-                {currentPath === '/events/past' && this.renderEventsList(pastEvents, 'no events')}
-                {currentPath === '/events/upcoming' && this.renderEventsList(upcomingEvents, 'no events')}
+                {currentPath === '/all-events' && this.renderEventsList(allEvents, 'no events')}
+                {currentPath === '/past-events' && this.renderEventsList(pastEvents, 'no events')}
+                {currentPath === '/upcoming-events' && this.renderEventsList(upcomingEvents, 'no events')}
               </Grid>
             </Grid>
           </React.Fragment>

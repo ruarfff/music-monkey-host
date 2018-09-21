@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography/Typography'
 import { map, sortBy } from 'lodash'
 import * as moment from 'moment'
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 import arrowLeft from '../assets/arrow-left.svg'
 import arrowRight from '../assets/arrow-right.svg'
 import IAction from '../IAction'
@@ -82,11 +83,12 @@ class Events extends React.Component<IEventsProps> {
                     >
                       Upcoming Events
                     </span>
-                    <span
+                    <Link
+                      to={'/all-events'}
                       className="eventListShowAll"
                     >
                       View all events
-                    </span>
+                    </Link>
                   </Grid>
                 </Hidden>
 
@@ -117,11 +119,12 @@ class Events extends React.Component<IEventsProps> {
                     >
                       Past Events
                     </span>
-                    <span
+                    <Link
+                      to={'/all-events'}
                       className="eventListShowAll"
                     >
                       View all events
-                    </span>
+                    </Link>
                   </Grid>
                 </Hidden>
 

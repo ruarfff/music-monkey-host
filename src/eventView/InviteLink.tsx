@@ -1,20 +1,23 @@
-import FormControl from '@material-ui/core/FormControl/FormControl'
-import IconButton from '@material-ui/core/IconButton/IconButton'
-import Input from '@material-ui/core/Input/Input'
-import InputAdornment from '@material-ui/core/InputAdornment/InputAdornment'
-import InputLabel from '@material-ui/core/InputLabel/InputLabel'
-import FileCopy from '@material-ui/icons/FileCopy'
+import Button from '@material-ui/core/Button'
+import { WithStyles } from '@material-ui/core/es'
+import withStyle from '@material-ui/core/styles/withStyles'
 import { isEmpty } from 'lodash'
 import * as React from 'react'
 import * as CopyToClipboard from 'react-copy-to-clipboard'
+
+const decorated = withStyle(() => ({
+  button: {
+    color: 'white',
+  },
+}))
 
 interface IInviteLinkProps {
   inviteId: string
   onCopyEventInvite(): void
 }
 
-const InviteLink = (props: IInviteLinkProps) => {
-  const { inviteId } = props
+const InviteLink = (props: IInviteLinkProps & WithStyles) => {
+  const { inviteId, classes } = props
   if (isEmpty(inviteId)) {
     return <span />
   }
@@ -22,24 +25,17 @@ const InviteLink = (props: IInviteLinkProps) => {
 
   return (
     <CopyToClipboard text={inviteLink} onCopy={props.onCopyEventInvite}>
-      <FormControl>
-        <InputLabel htmlFor="invite-link">invite Link</InputLabel>
-        <Input
-          disabled={true}
-          id="invite-link"
-          type="text"
-          value={inviteLink}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton aria-label="Copy to clipboard">
-                <FileCopy />
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-      </FormControl>
+      <Button
+        id="invite-link"
+        value={inviteLink}
+        color={'primary'}
+        variant={'raised'}
+        className={classes.button}
+      >
+        Share Event
+      </Button>
     </CopyToClipboard>
   )
 }
 
-export default InviteLink
+export default decorated(InviteLink)

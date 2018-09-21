@@ -21,8 +21,9 @@ a {
 }
 
 .Home-content {
+  height: 100%;
   flex-grow: 1;
-  padding: 20px 40px 40px 40px;
+  padding-left: 10px;
 }
 
 .Home-toolbar {
@@ -49,6 +50,7 @@ a {
 
 .Home-right-side {
   width: calc(100% - 300px);
+  min-height: 100vh;
 }
 
 .Home-logo-container {

@@ -6,21 +6,24 @@
 }
 
 .EventDetails-title-container {
-  padding: 2em;
 }
 
 .EventDetails-title {
-  padding-left: 0.8em;
+
 }
 
 .EventDetails-img {
-  max-width: 12em;
-  max-height: 12em;
-  margin-left: 1.2em;
+  max-width: 280px;
+  max-height: 280px;
+  border-radius: 5px;
 }
 
 .EventDetails-info {
 }
 
 .EventDetails-actions {
+}
+
+.event-details-container {
+  padding: 30px 30px 20px 30px;
 }

@@ -18,15 +18,15 @@ class MainAppLeftMenu extends React.Component<IMainAppLeftMenuProps> {
     const eventsList = [
       {
         text: 'Past Events',
-        link: '/events/past'
+        link: '/past-events'
       },
       {
         text: 'Upcoming Events',
-        link: '/events/upcoming'
+        link: '/upcoming-events'
       },
       {
         text: 'All Events',
-        link: '/events/all'
+        link: '/all-events'
       },
       {
         text: 'Create New Event',

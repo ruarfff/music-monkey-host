@@ -51,17 +51,17 @@ const routes = [
       {
         component: EventsContainer,
         exact: true,
-        path: '/events/all'
+        path: '/all-events'
       },
       {
         component: EventsContainer,
         exact: true,
-        path: '/events/upcoming'
+        path: '/upcoming-events'
       },
       {
         component: EventsContainer,
         exact: true,
-        path: '/events/past'
+        path: '/past-events'
       },
     ]
   },

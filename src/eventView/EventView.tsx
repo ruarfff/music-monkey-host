@@ -1,5 +1,7 @@
 import AppBar from '@material-ui/core/AppBar/AppBar'
+import { WithStyles } from '@material-ui/core/es'
 import Grid from '@material-ui/core/Grid/Grid'
+import withStyle from '@material-ui/core/styles/withStyles'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
@@ -18,7 +20,29 @@ import EventTracksView from './EventPlaylistViewContainer'
 import EventSummaryView from './EventSummaryViewContainer'
 import './EventView.css'
 import InviteCopyAlert from './InviteCopyAlert'
-import InviteLink from './InviteLink'
+
+const decorated = withStyle(() => ({
+  tabContainer: {
+    background: 'white',
+    boxShadow: 'none',
+    borderBottom: '1px solid #d6d6d6',
+    marginBottom: '10px'
+  },
+  tab: {
+  },
+  tabs: {
+    color: '#5157ab',
+    borderBottom: '1px solid #5157ab'
+  },
+  content: {
+    paddingTop: 0,
+    height: '100%',
+  }
+}))
+
+type IEventViewClasses = 'tabContainer' | 'tab' | 'tabs' | 'content'
+
+
 
 interface IEventViewState {
   tabIndex: number
@@ -39,13 +63,13 @@ interface IEventViewProps extends RouteComponentProps<any> {
 
 function TabContainer({ children, dir }: any) {
   return (
-    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+    <Typography style={{height: '100%'}} component="div" dir={dir}>
       {children}
     </Typography>
   )
 }
 
-class EventView extends React.Component<IEventViewProps, IEventViewState> {
+class EventView extends React.Component<IEventViewProps & WithStyles<IEventViewClasses>, IEventViewState> {
   public state = {
     tabIndex: 0
   }
@@ -70,7 +94,7 @@ class EventView extends React.Component<IEventViewProps, IEventViewState> {
     const shouldShowEvent: boolean = !loading && !!event
 
     return (
-      <div>
+      <div className="eventViewWrapper">
         {loading && <LoadingSpinner />}
         {loading &&
           error && <EventFetchError onTryAgain={this.handleGetEvent} />}
@@ -86,50 +110,42 @@ class EventView extends React.Component<IEventViewProps, IEventViewState> {
   }
 
   private renderEventView = () => {
-    const { event, copyEventInvite } = this.props
-    const inviteId = event && event.invites ? event.invites[0] : ''
     const { tabIndex } = this.state
+    const { classes } = this.props
+
     return (
-      <Grid container={true} spacing={16}>
-        <Grid item={true} xs={12} sm={8}>
-          <Typography
-            variant="display3"
-            noWrap={true}
-            gutterBottom={true}
-            className="EventView-title"
+      <Grid className={classes.content} container={true} spacing={16}>
+        <Grid className={classes.content} item={true} xs={12}>
+          <AppBar
+            position="static"
+            color="default"
+            className={classes.tabContainer}
           >
-            {event && event.name}
-          </Typography>
-        </Grid>
-        <Grid item={true} xs={12} sm={4}>
-          <InviteLink inviteId={inviteId} onCopyEventInvite={copyEventInvite} />
-        </Grid>
-        <Grid item={true} xs={12}>
-          <AppBar position="static" color="default">
             <Tabs
               value={tabIndex}
               onChange={this.handleTabChange}
-              indicatorColor="primary"
-              textColor="primary"
+              TabIndicatorProps={{className: classes.tabs}}
               centered={true}
+              className={classes.tabs}
+              fullWidth={true}
             >
-              <Tab label="Event Summary" />
-              <Tab label="Playlist" />
-              <Tab label="Guest List" />
+              <Tab className={classes.tab} label="Event Summary" />
+              <Tab className={classes.tab} label="Playlist" />
+              <Tab className={classes.tab} label="Guest List" />
             </Tabs>
           </AppBar>
           {tabIndex === 0 && (
-            <TabContainer dir={'x'}>
+            <TabContainer className={classes.content} dir={'x'}>
               <EventSummaryView />
             </TabContainer>
           )}
           {tabIndex === 1 && (
-            <TabContainer dir={'x'}>
+            <TabContainer className={classes.content} dir={'x'}>
               <EventTracksView />
             </TabContainer>
           )}
           {tabIndex === 2 && (
-            <TabContainer dir={'x'}>
+            <TabContainer className={classes.content} dir={'x'}>
               <EventGuests />
             </TabContainer>
           )}
@@ -165,4 +181,4 @@ class EventView extends React.Component<IEventViewProps, IEventViewState> {
   }
 }
 
-export default EventView
+export default decorated(EventView)

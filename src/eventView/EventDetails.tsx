@@ -1,15 +1,54 @@
 import { Grid } from '@material-ui/core'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormGroup from '@material-ui/core/FormGroup'
-import Paper from '@material-ui/core/Paper/Paper'
+import { WithStyles } from '@material-ui/core/styles'
+import withStyle from '@material-ui/core/styles/withStyles'
 import Switch from '@material-ui/core/Switch'
 import Typography from '@material-ui/core/Typography/Typography'
-import EditIcon from '@material-ui/icons/Edit'
 import * as React from 'react'
+import eventIcon from '../assets/date-icon.svg'
+import locationIcon from '../assets/location-marker-icon.svg'
+import MapItem from '../components/MapComponent'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import LinkButton from '../util/LinkButton'
 import './EventDetails.css'
+
+const decorated = withStyle(() => ({
+  eventName: {
+    fontSize: '34px',
+    lineHeight: '40px',
+    marginBottom: '15px',
+  },
+  imgRow: {
+    display: 'flex',
+    fontSize: '18px',
+    marginBottom: '15px',
+  },
+  img: {
+    marginRight: '10px',
+    width: '20px',
+  },
+  showOnMap: {
+    color: '#F79022',
+    cursor: 'pointer',
+    marginBottom: '10px'
+  },
+  button: {
+    color: 'white'
+  },
+  endDate: {
+
+  }
+}))
+
+type IEventDetailsClasses =
+  'eventName' |
+  'img' |
+  'imgRow' |
+  'showOnMap' |
+  'button' |
+  'endDate'
 
 interface IEventDetailsProps {
   event: IEvent
@@ -18,15 +57,18 @@ interface IEventDetailsProps {
   toggleSuggestingPlaylists(event: IEvent): IAction
 }
 
-export default class EventDetails extends React.PureComponent<
-  IEventDetailsProps
+class EventDetails extends React.PureComponent<
+  IEventDetailsProps & WithStyles<IEventDetailsClasses>
 > {
-  public render() {
-    const { event }: IEventDetailsProps = this.props
+  public state = {
+    showMap: false,
+  }
 
+  public render() {
+    const { event, classes } = this.props
     return (
-      <Paper className="EventDetails-root">
-        <Grid className="EventDetails-grid" container={true} spacing={8}>
+      <div className="event-details-container">
+        <Grid className="EventDetails-grid" container={true}>
           <Grid item={true} xs={12}>
             <Typography
               className="EventDetails-title"
@@ -45,24 +87,36 @@ export default class EventDetails extends React.PureComponent<
           </Grid>
 
           <Grid className="EventDetails-info" item={true} xs={6}>
-            <Typography variant="headline" gutterBottom={true}>
+            <Typography className={classes.eventName} variant="headline" gutterBottom={true}>
               {event.name}
             </Typography>
 
-            <Typography variant="caption" gutterBottom={true}>
-              Starting at:{' '}
-              {event.startDateTime.format('dddd, MMMM Do YYYY, h:mm:ss a')}
+            <Typography className={classes.imgRow} variant="caption" gutterBottom={true}>
+              <img src={eventIcon} className={classes.img}/>
+              {event.startDateTime ? event.startDateTime.format('Do MMMM YYYY') : ''}
+            </Typography>
+
+            {event.location && (
+              <Typography className={classes.imgRow}  variant="caption" gutterBottom={true}>
+                <img src={locationIcon} className={classes.img}/>
+                {event.location.address}<br/>
+              </Typography>
+            )}
+            <Typography
+              className={classes.showOnMap}
+              onClick={this.toggleMap}
+            >
+              Show on Map
+            </Typography>
+
+            <Typography className={classes.endDate} variant="caption" gutterBottom={true}>
+              Pre-Game closes:
+              {event.startDateTime ? event.endDateTime.format('Do MMMM YYYY') : ''}
             </Typography>
 
             {event.eventCode && (
               <Typography variant="body1" gutterBottom={true}>
                 Event Code: {event.eventCode}
-              </Typography>
-            )}
-
-            {event.location && (
-              <Typography variant="body1" gutterBottom={true}>
-                Location: {event.location.address}
               </Typography>
             )}
 
@@ -115,21 +169,24 @@ export default class EventDetails extends React.PureComponent<
                   label="Dynamic Voting"
                 />
               </FormGroup>
-            </Grid>
-            <Grid item={true}>
               <LinkButton
                 variant="raised"
                 color="primary"
                 to={location.pathname + '/edit'}
+                className={classes.button}
               >
                 Edit Event
-                <EditIcon />
               </LinkButton>
             </Grid>
+            {this.state.showMap && <MapItem coords={event.location && event.location.latLng}/>}
           </Grid>
         </Grid>
-      </Paper>
+      </div>
     )
+  }
+
+  private toggleMap = () => {
+    this.setState({showMap: !this.state.showMap})
   }
 
   private handleDynamicVotingToggled = () => {
@@ -147,3 +204,5 @@ export default class EventDetails extends React.PureComponent<
     toggleSuggestingPlaylists(event)
   }
 }
+
+export default decorated(EventDetails)
