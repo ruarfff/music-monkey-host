@@ -96,7 +96,7 @@ class EventBigCard extends React.Component<
                 GO TO EVENT
               </Button>
             </Link>
-            <a href={event.playlist ? event.playlist.external_urls.spotify : '/'} className={classes.link}>
+            <a href={event.playlist ? event.playlist.external_urls.spotify : '/'} target="_blank" className={classes.link}>
               <Button
                 color='primary'
               >
