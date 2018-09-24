@@ -21,7 +21,7 @@ const Home = ({ user, userLoading, userError, routes, history }: IHomeProps) => 
   <div className="Home-root">
     <MainAppLeftMenu path={history.location.pathname}/>
     <div className="Home-right-side">
-      <MainAppBar />
+      <MainAppBar history={history} />
       {user && (
         <main className="Home-content">
           <div className="Home-toolbar" />

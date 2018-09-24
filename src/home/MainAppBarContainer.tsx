@@ -7,7 +7,10 @@ import MainAppBar from './MainAppBar'
 
 
 
-const mapStateToProps = (state: IRootState) => ({ user: state.user.data })
+const mapStateToProps = (state: IRootState) => ({
+  user: state.user.data,
+  event: state.eventView.event,
+})
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   handleTitleClicked: () => {

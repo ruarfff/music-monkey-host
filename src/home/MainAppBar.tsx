@@ -10,9 +10,11 @@ import Toolbar from '@material-ui/core/Toolbar/Toolbar'
 import Typography from '@material-ui/core/Typography/Typography'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import NotificationsIcon from '@material-ui/icons/Notifications'
+import { History } from 'history'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import eventIcon from '../assets/event-icon.svg'
+import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import IUser from '../user/IUser'
 
@@ -70,6 +72,8 @@ const decorate = withStyles(({ transitions, zIndex }) => ({
 
 interface IMainAppBarProps {
   user: IUser
+  history: History
+  event: IEvent
   logout(): IAction
   handleTitleClicked(): void
 }
@@ -109,8 +113,26 @@ export default decorate(
       this.props.handleTitleClicked()
     }
 
+    public menuName = (history: History) => {
+      let pageName = 'Dashboard'
+
+      const { event } = this.props
+
+      console.log(history, event && event.eventId)
+
+      switch (history.location.pathname) {
+        case '/': return pageName = 'Dashboard'
+        case '/create-event': return pageName = 'Create Event'
+        case '/all-events': return pageName = 'Events'
+        case '/upcoming-events': return pageName = 'Events'
+        case '/past-events': return pageName = 'Events'
+        case `/events/${event && event.eventId}`: return pageName = event.name
+        default: return pageName =  'Dashboard'
+      }
+    }
+
     public render() {
-      const { classes, user } = this.props
+      const { classes, user, history } = this.props
       const { anchorEl } = this.state
       const open = Boolean(anchorEl)
       const userHasProfileImage = !!user && !!user.image
@@ -192,9 +214,8 @@ export default decorate(
               className={classes.title}
               onClick={this.handleTitleCLicked}
             >
-              Dashboard
+              {this.menuName(history)}
             </Typography>
-
             {profilePic}
           </Toolbar>
         </AppBar>

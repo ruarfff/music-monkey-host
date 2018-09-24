@@ -1,6 +1,10 @@
-import { Avatar, Chip, ListItem, ListItemText } from '@material-ui/core'
+import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
+import { WithStyles } from '@material-ui/core/es'
 import Grid from '@material-ui/core/Grid/Grid'
-import List from '@material-ui/core/List/List'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import withStyle from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import * as React from 'react'
@@ -8,15 +12,55 @@ import IEvent from '../event/IEvent'
 import IEventGuest from '../event/IEventGuest'
 import './EventSuggestions.css'
 
+const decorated = withStyle(() => ({
+  filter: {
+    marginTop: '20px',
+    padding: '0 30px',
+  },
+  guestsContainer: {
+    padding: '30px',
+  },
+  guestWrapper: {
+    width: '130px',
+    height: '160px',
+    borderRadius: '4px',
+    border: '3px solid #F79022',
+    marginRight: '20px',
+  },
+  noAvatar: {
+    fontSize: '40px',
+  },
+  pending: {
+    width: '130px',
+    height: '160px',
+    borderRadius: '4px',
+    border: '3px solid #49cdd8',
+    marginRight: '20px',
+  }
+}))
+
 interface IEventGuestsProps {
   event: IEvent
 }
 
-export default class EventGuests extends React.PureComponent<
-  IEventGuestsProps
+class EventGuests extends React.PureComponent<
+  IEventGuestsProps & WithStyles
 > {
+  public state = {
+    anchorEl: null,
+  };
+
+  public handleClick = (event: any) => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  public handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
   public render() {
-    const { event } = this.props
+    const { anchorEl } = this.state
+    const { event, classes } = this.props
     if (!event || !event.guests || event.guests.length < 1) {
       return (
         <Typography align="center" variant="subheading">
@@ -26,33 +70,65 @@ export default class EventGuests extends React.PureComponent<
     }
     return (
       <div className="EventSuggestions-root">
-        <Grid container={true} spacing={24}>
-          <Grid item={true} sm={12}>
-            <List>
-              {event.guests.map(eventGuest =>
-                this.renderEventGuest(eventGuest)
-              )}
-            </List>
-          </Grid>
+        <Grid
+          container={true}
+          className={classes.filter}
+          justify={'flex-end'}
+          spacing={24}
+        >
+          <Button
+            aria-owns={anchorEl ? 'simple-menu' : ''}
+            aria-haspopup="true"
+            onClick={this.handleClick}
+          >
+            filter
+          </Button>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={this.handleClose}
+          >
+            <MenuItem onClick={this.handleClose}>Accepted</MenuItem>
+            <MenuItem onClick={this.handleClose}>Maybe</MenuItem>
+            <MenuItem onClick={this.handleClose}>Not Attended</MenuItem>
+          </Menu>
+        </Grid>
+        <Grid container={true} className={classes.guestsContainer} spacing={24}>
+            {event.guests.map(eventGuest =>
+              this.renderEventGuest(eventGuest, classes)
+            )}
         </Grid>
       </div>
     )
   }
 
-  private renderEventGuest = (eventGuest: IEventGuest) => {
+  private renderEventGuest = (eventGuest: IEventGuest, classes: any) => {
     const { user, rsvp } = eventGuest
     const name = !user.displayName
       ? user.isGuest
         ? 'Logged in as guest'
         : 'Anonymous'
       : user.displayName
+    console.log(name, rsvp)
     return (
-      <ListItem key={user.userId} dense={true}>
+      <Grid
+        key={user.userId}
+        className={classes.guestWrapper}
+        item={true}
+        container={true}
+        justify={'center'}
+      >
         {user.image && <Avatar alt={user.displayName} src={user.image} />}
-        {!user.image && <AccountCircle />}
-        <ListItemText primary={name} />
-        <Chip label={rsvp.status} />
-      </ListItem>
+        {!user.image && <AccountCircle className={classes.noAvatar} />}
+        <Typography
+          align={'center'}
+        >
+          {name}
+        </Typography>
+      </Grid>
     )
   }
 }
+
+export default decorated(EventGuests)
