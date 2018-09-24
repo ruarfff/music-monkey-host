@@ -29,6 +29,15 @@ export const SELECT_EXISTING_PLAYLIST_CLOSED = 'SELECT_EXISTING_PLAYLIST_CLOSED'
 export const CREATE_PLAYLIST_SELECTED = 'CREATE_PLAYLIST_SELECTED'
 export const CREATE_PLAYLIST_CLOSED = 'CREATE_PLAYLIST_CLOSED'
 
+export const EVENT_EDIT_REQUEST = 'EVENT_EDIT_REQUEST'
+export const EVENT_EDIT_SUCCESS = 'EVENT_EDIT_SUCCESS'
+export const EVENT_EDIT_FAILURE = 'EVENT_EDIT_FAILURE'
+
+export const editEventRequest = (event: IEvent): Action => ({
+  payload: event,
+  type: EVENT_EDIT_REQUEST
+})
+
 export const locationChanged = (address: string): Action => ({
   payload: address,
   type: EVENT_LOCATION_CHANGED

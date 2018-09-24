@@ -100,7 +100,7 @@ export default decorate(
       const size = event.guests && (event.guests.length > 2 ? 3 : event.guests.length)
 
       return (
-        <Card className={classes.card}>
+        <Card key={event.eventId} className={classes.card}>
           <Link to={'/events/' + event.eventId} className={classes.link}>
             <Typography className={classes.timeTitle}>
               <img src={eventIcon} alt="" className="eventCardIcon"/>

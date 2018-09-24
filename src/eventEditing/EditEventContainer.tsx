@@ -2,16 +2,34 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { push } from 'react-router-redux'
 import { bindActionCreators, Dispatch } from 'redux'
-import { getEventById } from '../eventView/eventViewActions'
+import {
+  closeCreatePlaylist,
+  closeExistingPlaylist,
+  createEventPlaylist,
+  editEventRequest,
+  eventContentUpdated,
+  eventImageUploaded,
+  eventImageUploadError,
+  locationChanged,
+  locationSelected,
+  selectCreatePlaylist,
+  selectExistingPlaylist,
+} from '../event/eventActions'
 import {
   deleteEvent,
+  getEventById,
   onEventDeleteClosed,
-  onEventDeleteSelected
+  onEventDeleteSelected,
 } from '../eventView/eventViewActions'
+import { fetchPlaylists } from '../playlist/playlistActions'
 import IRootState from '../rootState'
 import EditEvent from './EditEvent'
 
 const mapStateToProps = (state: IRootState) => ({
+  user: state.user.data,
+  playlistInput: state.event.playlistInput,
+  playlists: state.playlist.data,
+  eventEdit: state.event.savingEvent,
   event: state.eventView.event,
   deleteSelected: state.eventView.deleteSelected,
   deleteSuccess: state.eventView.deleteSucceeded,
@@ -27,7 +45,19 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
       getEventById,
       deleteEvent,
       onEventDeleteSelected,
-      onEventDeleteClosed
+      onEventDeleteClosed,
+      locationSelected,
+      locationChanged,
+      selectExistingPlaylist,
+      closeExistingPlaylist,
+      selectCreatePlaylist,
+      closeCreatePlaylist,
+      createEventPlaylist,
+      eventImageUploaded,
+      eventImageUploadError,
+      eventContentUpdated,
+      fetchPlaylists,
+      editEventRequest,
     },
     dispatch
   )

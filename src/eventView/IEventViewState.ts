@@ -8,6 +8,8 @@ export default interface IEventViewState {
   deleteSelected: boolean
   deleteSucceeded: boolean
   deleteFailed: boolean
+  updateSucceeded: boolean
+  updateFailed: boolean
   copiedToClipboard: boolean
   pendingSuggestions: IDecoratedSuggestion[]
   rejectedSuggestions: IDecoratedSuggestion[]

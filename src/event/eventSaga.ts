@@ -6,6 +6,9 @@ import { createPlaylist } from '../playlist/playlistClient'
 import {
   EVENT_CONTENT_UPDATED,
   EVENT_CREATE_PLAYLIST_INITIATED,
+  EVENT_EDIT_FAILURE,
+  EVENT_EDIT_REQUEST,
+  EVENT_EDIT_SUCCESS,
   EVENT_LOCATION_ERROR,
   EVENT_LOCATION_POPULATED,
   EVENT_LOCATION_SELECTED,
@@ -18,7 +21,7 @@ import {
   EVENTS_FETCH_INITIATED,
   EVENTS_FETCHED
 } from './eventActions'
-import { createEvent, getEvents } from './eventClient'
+import { createEvent, getEvents, updateEvent } from './eventClient'
 import IEvent from './IEvent'
 
 const { geocodeByAddress, getLatLng } = require('react-places-autocomplete')
@@ -80,6 +83,20 @@ function* saveEventFlow(action: IAction) {
   }
 }
 
+function* updateEventFlow(action: IAction) {
+  const event: IEvent = action.payload
+
+  try {
+    const editedEvent = yield call(updateEvent, event)
+    yield put({
+      payload: editedEvent,
+      type: EVENT_EDIT_SUCCESS
+    })
+  } catch (err) {
+    yield put({ type: EVENT_EDIT_FAILURE, payload: err })
+  }
+}
+
 function* fetchEventsFlow() {
   try {
     const events = yield call(getEvents)
@@ -107,4 +124,8 @@ export function* watchCreateEvent() {
 
 export function* watchFetchEvents() {
   yield takeEvery(EVENTS_FETCH_INITIATED, fetchEventsFlow)
+}
+
+export function* watchUpdateEvent() {
+  yield takeEvery(EVENT_EDIT_REQUEST, updateEventFlow)
 }

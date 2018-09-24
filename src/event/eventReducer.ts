@@ -1,10 +1,16 @@
 import * as moment from 'moment'
+import {
+  EVENT_FETCHED_BY_ID
+} from '../eventView/eventViewActions'
 import Action from '../IAction'
 import {
   CREATE_PLAYLIST_CLOSED,
   CREATE_PLAYLIST_SELECTED,
   EVENT_CONTENT_UPDATED,
   EVENT_CREATE_FORM_INITIALIZED,
+  EVENT_EDIT_FAILURE,
+  EVENT_EDIT_REQUEST,
+  EVENT_EDIT_SUCCESS,
   EVENT_IMAGE_UPLOAD_ERROR,
   EVENT_IMAGE_UPLOADED,
   EVENT_LOCATION_CHANGED,
@@ -18,7 +24,7 @@ import {
   EVENTS_FETCH_INITIATED,
   EVENTS_FETCHED,
   SELECT_EXISTING_PLAYLIST_CLOSED,
-  SELECT_EXISTING_PLAYLIST_SELECTED
+  SELECT_EXISTING_PLAYLIST_SELECTED,
 } from './eventActions'
 import initialState from './eventInitialState'
 import IEvent from './IEvent'
@@ -29,6 +35,21 @@ export default function event(
   { type, payload }: Action
 ) {
   switch (type) {
+    case EVENT_EDIT_REQUEST:
+      return state
+
+    case EVENT_EDIT_FAILURE:
+      return state
+
+    case EVENT_EDIT_SUCCESS:
+      return state
+
+    case EVENT_FETCHED_BY_ID:
+      return {
+        ...state,
+        savingEvent: payload,
+      }
+
     case EVENT_LOCATION_CHANGED:
       return {
         ...state,

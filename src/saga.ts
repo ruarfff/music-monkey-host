@@ -10,7 +10,8 @@ import {
   watchCreateEventPlaylist,
   watchEventPlaylistCreated,
   watchFetchEvents,
-  watchUpdateLocationAutoComplete
+  watchUpdateLocationAutoComplete,
+  watchUpdateEvent
 } from './event/eventSaga'
 import {
   watchMoveItemInEventPlaylist,
@@ -57,6 +58,7 @@ export default function* saga() {
     watchToggleDynamicVoting(),
     watchFetchEventByIdNoLoading(),
     watchToggleAutoAcceptSuggestions(),
-    watchToggleSuggestingPlaylists()
+    watchToggleSuggestingPlaylists(),
+    watchUpdateEvent()
   ])
 }
