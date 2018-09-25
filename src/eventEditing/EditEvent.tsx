@@ -2,7 +2,6 @@ import Button from '@material-ui/core/Button/Button'
 import Grid from '@material-ui/core/Grid'
 import { WithStyles } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
-import DeleteIcon from '@material-ui/icons/Delete'
 import { History } from 'history'
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router'
@@ -28,6 +27,10 @@ const decorate = withStyles(() => ({
   imagePickContainer: {
     marginTop: '30px'
   },
+  button: {
+    color: 'white',
+    marginLeft: '10px'
+  }
 }))
 
 interface IEditEventProps extends RouteComponentProps<any> {
@@ -180,12 +183,12 @@ class EditEvent extends React.PureComponent<
           onClick={this.handleDeleteSelected}
         >
           Delete
-          <DeleteIcon />
         </Button>
         <Button
           variant="raised"
           color="primary"
           onClick={this.handleSave}
+          className={classes.button}
         >
           Save
         </Button>
