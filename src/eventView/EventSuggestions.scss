@@ -1,10 +1,12 @@
 .EventSuggestions-root {
   width: 100%;
+  text-align: right;
+  padding: 10px;
 }
 
 .EventSuggestions-trackImage {
   max-width: 4.5em;
-  max-height: 4, 5em;
+  max-height: 4.5em;
 }
 
 .EventSuggestions-leftIcon {
@@ -16,7 +18,7 @@
 }
 
 .EventSuggestions-iconSmall {
-  font-size: 20;
+  font-size: 20px;
 }
 
 .EventSuggestions-acceptedTracks {

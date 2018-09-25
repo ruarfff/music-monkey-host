@@ -118,8 +118,6 @@ export default decorate(
 
       const { event } = this.props
 
-      console.log(history, event && event.eventId)
-
       switch (history.location.pathname) {
         case '/': return pageName = 'Dashboard'
         case '/create-event': return pageName = 'Create Event'

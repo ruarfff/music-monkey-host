@@ -10,7 +10,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import * as React from 'react'
 import IEvent from '../event/IEvent'
 import IEventGuest from '../event/IEventGuest'
+import IAction from '../IAction'
 import './EventSuggestions.css'
+import InviteLink from './InviteLink'
 
 const decorated = withStyle(() => ({
   filter: {
@@ -41,6 +43,7 @@ const decorated = withStyle(() => ({
 
 interface IEventGuestsProps {
   event: IEvent
+  copyEventInvite(): IAction
 }
 
 class EventGuests extends React.PureComponent<
@@ -48,19 +51,31 @@ class EventGuests extends React.PureComponent<
 > {
   public state = {
     anchorEl: null,
+    filter: 'all',
   };
 
   public handleClick = (event: any) => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
+  public handleClickMenuItem = (event: any) => {
+
+    this.setState({ filter: event.target.textContent.toLowerCase()})
+
+    this.setState({ anchorEl: event.currentTarget });
+
+    this.handleClose();
+  }
+
   public handleClose = () => {
     this.setState({ anchorEl: null });
   };
 
   public render() {
+
     const { anchorEl } = this.state
-    const { event, classes } = this.props
+    const { event, classes, copyEventInvite } = this.props
+
     if (!event || !event.guests || event.guests.length < 1) {
       return (
         <Typography align="center" variant="subheading">
@@ -68,6 +83,14 @@ class EventGuests extends React.PureComponent<
         </Typography>
       )
     }
+
+    const inviteId = event && event.invites ? event.invites[0] : ''
+
+    const filteredGuests = this.state.filter !== 'all' ?
+      event.guests.filter(guest =>
+        guest.rsvp.status.toLocaleLowerCase() === this.state.filter) :
+      event.guests
+
     return (
       <div className="EventSuggestions-root">
         <Grid
@@ -89,16 +112,20 @@ class EventGuests extends React.PureComponent<
             open={Boolean(anchorEl)}
             onClose={this.handleClose}
           >
-            <MenuItem onClick={this.handleClose}>Accepted</MenuItem>
-            <MenuItem onClick={this.handleClose}>Maybe</MenuItem>
-            <MenuItem onClick={this.handleClose}>Not Attended</MenuItem>
+            <MenuItem onClick={this.handleClickMenuItem}>All</MenuItem>
+            <MenuItem onClick={this.handleClickMenuItem}>Pending</MenuItem>
+            <MenuItem onClick={this.handleClickMenuItem}>Going</MenuItem>
+            <MenuItem onClick={this.handleClickMenuItem}>Not Going</MenuItem>
+            <MenuItem onClick={this.handleClickMenuItem}>Maybe</MenuItem>
           </Menu>
         </Grid>
         <Grid container={true} className={classes.guestsContainer} spacing={24}>
-            {event.guests.map(eventGuest =>
-              this.renderEventGuest(eventGuest, classes)
-            )}
+            {filteredGuests.map((eventGuest) => this.renderEventGuest(eventGuest, classes))}
         </Grid>
+        <InviteLink
+          inviteId={inviteId}
+          onCopyEventInvite={copyEventInvite}
+        />
       </div>
     )
   }
@@ -110,11 +137,10 @@ class EventGuests extends React.PureComponent<
         ? 'Logged in as guest'
         : 'Anonymous'
       : user.displayName
-    console.log(name, rsvp)
     return (
       <Grid
         key={user.userId}
-        className={classes.guestWrapper}
+        className={rsvp.status === 'going' ? classes.guestWrapper : classes.pending}
         item={true}
         container={true}
         justify={'center'}

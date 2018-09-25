@@ -69,7 +69,6 @@ class PlaylistSelection extends React.Component<
   public selectExistingSelected = () => {
     this.handleClose()
     this.props.selectExistingPlaylist()
-    console.log(this.props.selectExistingPlaylist())
   }
 
   public createPlaylistSelected = () => {
