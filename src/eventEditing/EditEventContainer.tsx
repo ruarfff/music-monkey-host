@@ -6,14 +6,18 @@ import {
   closeCreatePlaylist,
   closeExistingPlaylist,
   createEventPlaylist,
+  editEventClose,
+  editEventFailure,
   editEventRequest,
+  editEventSuccess,
   eventContentUpdated,
   eventImageUploaded,
   eventImageUploadError,
+  eventSavingReset,
   locationChanged,
   locationSelected,
   selectCreatePlaylist,
-  selectExistingPlaylist,
+  selectExistingPlaylist
 } from '../event/eventActions'
 import {
   deleteEvent,
@@ -33,7 +37,9 @@ const mapStateToProps = (state: IRootState) => ({
   event: state.eventView.event,
   deleteSelected: state.eventView.deleteSelected,
   deleteSuccess: state.eventView.deleteSucceeded,
-  deleteFailed: state.eventView.deleteFailed
+  deleteFailed: state.eventView.deleteFailed,
+  editSuccess: state.eventView.editSuccess,
+  editFailure: state.eventView.editFailure
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -58,6 +64,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
       eventContentUpdated,
       fetchPlaylists,
       editEventRequest,
+      editEventClose,
+      editEventFailure,
+      editEventSuccess,
+      eventSavingReset
     },
     dispatch
   )

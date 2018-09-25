@@ -32,6 +32,19 @@ export const CREATE_PLAYLIST_CLOSED = 'CREATE_PLAYLIST_CLOSED'
 export const EVENT_EDIT_REQUEST = 'EVENT_EDIT_REQUEST'
 export const EVENT_EDIT_SUCCESS = 'EVENT_EDIT_SUCCESS'
 export const EVENT_EDIT_FAILURE = 'EVENT_EDIT_FAILURE'
+export const EVENT_EDIT_CLOSE = 'EVENT_EDIT_CLOSE'
+
+export const editEventSuccess = (): Action => ({
+  type: EVENT_EDIT_SUCCESS
+})
+
+export const editEventFailure = (): Action => ({
+  type: EVENT_EDIT_FAILURE
+})
+
+export const editEventClose = (): Action => ({
+  type: EVENT_EDIT_CLOSE
+})
 
 export const editEventRequest = (event: IEvent): Action => ({
   payload: event,
@@ -70,11 +83,6 @@ export const saveEvent = (event: IEvent): Action => ({
 
 export const eventSavingReset = (): Action => ({
   type: EVENT_SAVING_RESET
-})
-
-export const eventSaved = (event: IEvent): Action => ({
-  payload: event,
-  type: EVENT_SAVED
 })
 
 export const selectExistingPlaylist = (): Action => ({

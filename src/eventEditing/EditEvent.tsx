@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import { WithStyles } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import DeleteIcon from '@material-ui/icons/Delete'
+import { History } from 'history'
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router'
 import Swal from 'sweetalert2'
@@ -36,8 +37,11 @@ interface IEditEventProps extends RouteComponentProps<any> {
   deleteSelected: boolean
   deleteSuccess: boolean
   deleteFailed: boolean
+  editSuccess: boolean
+  editFailure: boolean
   playlists: IPlaylist[]
   playlistInput: IPlaylistInput
+  history: History
   getEventById(eventId: string): IAction
   onEventDeleteSelected(): IAction
   onEventDeleteClosed(): IAction
@@ -55,6 +59,10 @@ interface IEditEventProps extends RouteComponentProps<any> {
   closeExistingPlaylist(): IAction
   createEventPlaylist(playlist: IPlaylistDetails): IAction
   editEventRequest(event: IEvent): IAction
+  editEventSuccess(): IAction
+  editEventFailure(): IAction
+  editEventClose(): IAction
+  eventSavingReset(): IAction
 }
 
 const SweetAlert = withReactContent(Swal) as any
@@ -68,6 +76,8 @@ class EditEvent extends React.PureComponent<
       user,
       deleteFailed,
       deleteSuccess,
+      editFailure,
+      editSuccess,
       eventImageUploaded,
       eventImageUploadError,
       fetchPlaylists,
@@ -82,7 +92,6 @@ class EditEvent extends React.PureComponent<
       createEventPlaylist,
       classes,
     } = this.props
-
     return (
       <Grid className={classes.editContainer} container={true} spacing={24}>
         <Grid container={true} spacing={24}>
@@ -182,12 +191,35 @@ class EditEvent extends React.PureComponent<
         </Button>
         {deleteFailed && this.showDeleteFailed()}
         {deleteSuccess && this.showDeleteSuccess()}
+        {editSuccess && this.showEditFalure()}
+        {editFailure && this.showEditResult()}
       </Grid>
     )
   }
 
   public componentDidMount() {
     this.props.getEventById(this.props.match.params.eventId)
+  }
+
+  private showEditResult = () => {
+    SweetAlert.fire({
+      title: 'Event Edited',
+      type: 'success'
+    }).then(() => {
+      this.props.editEventSuccess()
+      this.props.editEventClose()
+      this.props.eventSavingReset()
+      this.props.history.goBack()
+    })
+  }
+
+  private showEditFalure = () => {
+    SweetAlert.fire({
+      title: 'Sorry. An error occurred when trying to edit this Event.',
+      type: 'Error'
+    }).then(() => {
+      this.props.editEventFailure()
+    })
   }
 
   private showDeleteSuccess = () => {

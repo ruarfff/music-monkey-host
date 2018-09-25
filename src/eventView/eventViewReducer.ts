@@ -1,3 +1,8 @@
+import {
+  EVENT_EDIT_CLOSE,
+  EVENT_EDIT_FAILURE,
+  EVENT_EDIT_SUCCESS
+} from '../event/eventActions'
 import IEventSettings from '../event/IEventSettings'
 import IAction from '../IAction'
 import {
@@ -15,7 +20,7 @@ import {
   TOGGLE_DYNAMIC_VOTING,
   TOGGLE_DYNAMIC_VOTING_ERROR,
   TOGGLE_SUGGESTING_PLAYLISTS,
-  TOGGLE_SUGGESTING_PLAYLISTS_ERROR
+  TOGGLE_SUGGESTING_PLAYLISTS_ERROR,
 } from './eventViewActions'
 import initialState from './eventViewInitialState'
 import IEventViewState from './IEventViewState'
@@ -25,6 +30,22 @@ export default function eventView(
   { type, payload }: IAction
 ) {
   switch (type) {
+    case EVENT_EDIT_SUCCESS:
+      return {
+        ...state,
+        editSuccess: true
+      }
+    case EVENT_EDIT_FAILURE:
+      return {
+        ...state,
+        editFailure: true
+      }
+    case EVENT_EDIT_CLOSE:
+      return {
+        ...state,
+        editSuccess: false,
+        editFailure: false
+      }
     case EVENT_FETCH_BY_ID_INITIATED:
       return {
         ...state,
