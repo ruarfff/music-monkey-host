@@ -76,8 +76,8 @@ class CreateEvent extends React.PureComponent<
   }
 
   public componentDidMount() {
-    this.props.initializeCreateForm(this.props.event, this.props.user)
     this.props.eventSavingReset()
+    this.props.initializeCreateForm(this.props.event, this.props.user)
   }
 
   public prevStep = () => {
