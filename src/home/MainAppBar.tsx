@@ -78,146 +78,126 @@ interface IMainAppBarProps {
   handleTitleClicked(): void
 }
 
-type MainAppBarClasses =
-  'root' |
-  'appBar' |
-  'hide' |
-  'menuButton' |
-  'profile' |
-  'title' |
-  'addEventBtn' |
-  'notification' |
-  'userName' |
-  'imageInButton'
+class MainAppBar extends React.Component<
+  IMainAppBarProps & WithStyles> {
+  public state = {
+    anchorEl: undefined
+  }
 
-export default decorate(
-  class MainAppBar extends React.Component<
-    IMainAppBarProps &
-      WithStyles<
-        MainAppBarClasses
-      >
-  > {
-    public state = {
-      anchorEl: undefined
-    }
+  public handleMenu = (event: any) => {
+    this.setState({ anchorEl: event.currentTarget })
+  }
 
-    public handleMenu = (event: any) => {
-      this.setState({ anchorEl: event.currentTarget })
-    }
+  public handleClose = () => {
+    this.setState({ anchorEl: undefined })
+  }
 
-    public handleClose = () => {
-      this.setState({ anchorEl: undefined })
-    }
+  public menuName = (history: History) => {
+    let pageName = 'Dashboard'
 
-    public handleTitleCLicked = () => {
-      this.props.handleTitleClicked()
-    }
+    const { event } = this.props
 
-    public menuName = (history: History) => {
-      let pageName = 'Dashboard'
-
-      const { event } = this.props
-
-      switch (history.location.pathname) {
-        case '/': return pageName = 'Dashboard'
-        case '/create-event': return pageName = 'Create Event'
-        case '/all-events': return pageName = 'Events'
-        case '/upcoming-events': return pageName = 'Events'
-        case '/past-events': return pageName = 'Events'
-        case `/events/${event && event.eventId}`: return pageName = event.name
-        default: return pageName =  'Dashboard'
-      }
-    }
-
-    public render() {
-      const { classes, user, history } = this.props
-      const { anchorEl } = this.state
-      const open = Boolean(anchorEl)
-      const userHasProfileImage = !!user && !!user.image
-      const userHasName = !!user && !!user.displayName
-
-      const profilePic = (
-        <div className={classes.profile}>
-          <Link to="/create-event" className="Home-create-event-link">
-            <Button
-              variant="contained"
-              size="small"
-              className={classes.addEventBtn}
-            >
-              <img className={classes.imageInButton} src={eventIcon} alt=""/>
-              Create new event
-            </Button>
-          </Link>
-          <IconButton color="inherit">
-            <Badge
-              className={classes.notification}
-              badgeContent={17}
-              color="secondary"
-            >
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton
-            aria-owns={open ? 'menu-appbar' : undefined}
-            aria-haspopup="true"
-            onClick={this.handleMenu}
-            color="inherit"
-          >
-            {userHasProfileImage ? (
-              <Avatar alt="user profile" src={user.image} />
-            ) : (
-              <AccountCircle />
-            )}
-          </IconButton>
-          {userHasName ? (
-            <Typography
-              className={classes.userName}
-              onClick={this.handleTitleCLicked}
-            >
-              {user.displayName}
-            </Typography>
-          ) : (
-            <Typography
-              className={classes.userName}
-              onClick={this.handleTitleCLicked}
-            >
-              Name
-            </Typography>
-          )}
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              horizontal: 'right',
-              vertical: 'top'
-            }}
-            transformOrigin={{
-              horizontal: 'right',
-              vertical: 'top'
-            }}
-            open={open}
-            onClose={this.handleClose}
-          >
-            <MenuItem onClick={this.props.logout}>Logout</MenuItem>
-          </Menu>
-        </div>
-      )
-
-      return (
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <Typography
-              variant="title"
-              color="inherit"
-              className={classes.title}
-              onClick={this.handleTitleCLicked}
-            >
-              {this.menuName(history)}
-            </Typography>
-            {profilePic}
-          </Toolbar>
-        </AppBar>
-      )
+    switch (history.location.pathname) {
+      case '/': return pageName = 'Dashboard'
+      case '/create-event': return pageName = 'Create Event'
+      case '/all-events': return pageName = 'Events'
+      case '/upcoming-events': return pageName = 'Events'
+      case '/past-events': return pageName = 'Events'
+      case `/events/${event && event.eventId}`: return pageName = event.name
+      default: return pageName =  'Dashboard'
     }
   }
-)
+
+  public render() {
+    const { classes, user, history, handleTitleClicked } = this.props
+    const { anchorEl } = this.state
+    const open = Boolean(anchorEl)
+    const userHasProfileImage = !!user && !!user.image
+    const userHasName = !!user && !!user.displayName
+
+    const profilePic = (
+      <div className={classes.profile}>
+        <Link to="/create-event" className="Home-create-event-link">
+          <Button
+            variant="contained"
+            size="small"
+            className={classes.addEventBtn}
+          >
+            <img className={classes.imageInButton} src={eventIcon} alt=""/>
+            Create new event
+          </Button>
+        </Link>
+        <IconButton color="inherit">
+          <Badge
+            className={classes.notification}
+            badgeContent={17}
+            color="secondary"
+          >
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <IconButton
+          aria-owns={open ? 'menu-appbar' : undefined}
+          aria-haspopup="true"
+          onClick={this.handleMenu}
+          color="inherit"
+        >
+          {userHasProfileImage ? (
+            <Avatar alt="user profile" src={user.image} />
+          ) : (
+            <AccountCircle />
+          )}
+        </IconButton>
+        {userHasName ? (
+          <Typography
+            className={classes.userName}
+            onClick={handleTitleClicked}
+          >
+            {user.displayName}
+          </Typography>
+        ) : (
+          <Typography
+            className={classes.userName}
+            onClick={handleTitleClicked}
+          >
+            Name
+          </Typography>
+        )}
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            horizontal: 'right',
+            vertical: 'top'
+          }}
+          transformOrigin={{
+            horizontal: 'right',
+            vertical: 'top'
+          }}
+          open={open}
+          onClose={this.handleClose}
+        >
+          <MenuItem onClick={this.props.logout}>Logout</MenuItem>
+        </Menu>
+      </div>
+    )
+
+    return (
+      <AppBar className={classes.appBar}>
+        <Toolbar>
+          <Typography
+            variant="title"
+            color="inherit"
+            className={classes.title}
+            onClick={handleTitleClicked}
+          >
+            {this.menuName(history)}
+          </Typography>
+          {profilePic}
+        </Toolbar>
+      </AppBar>
+    )
+  }
+}
+
+export default decorate(MainAppBar)
