@@ -1,4 +1,3 @@
-import { History } from 'history'
 import * as React from 'react'
 import { Route, RouteComponentProps } from 'react-router'
 import MainAppLeftMenu from '../components/LeftMenu/MainAppLeftMenu'
@@ -14,14 +13,14 @@ interface IHomeProps extends RouteComponentProps<any> {
   user: IUser
   userLoading: boolean
   userError: Error
-  history: History
+  locationPath: string
 }
 
-const Home = ({ user, userLoading, userError, routes, history }: IHomeProps) => (
+const Home = ({ user, userLoading, userError, locationPath, routes }: IHomeProps) => (
   <div className="Home-root">
-    <MainAppLeftMenu path={history.location.pathname}/>
+    <MainAppLeftMenu path={locationPath}/>
     <div className="Home-right-side">
-      <MainAppBar history={history} />
+      <MainAppBar />
       {user && (
         <main className="Home-content">
           <div className="Home-toolbar" />

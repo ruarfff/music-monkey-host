@@ -1,3 +1,4 @@
+import { LOCATION_CHANGE } from 'react-router-redux'
 import Action from '../IAction'
 import {
   AVATAR_MENU_CLOSED,
@@ -7,8 +8,13 @@ import {
 } from './homeActions'
 import initialState from './homeInitialState'
 
-export default function home(state = initialState, { type }: Action) {
-  switch (type) {
+export default function home(state = initialState, action : Action) {
+  switch (action.type) {
+    case LOCATION_CHANGE:
+      return {
+        ...initialState,
+        location: action.payload.pathname,
+      }
     case SIDEBAR_OPENED:
       return { ...initialState, sidebarIsOpen: true }
     case SIDEBAR_CLOSED:

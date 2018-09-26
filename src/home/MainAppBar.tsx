@@ -10,7 +10,6 @@ import Toolbar from '@material-ui/core/Toolbar/Toolbar'
 import Typography from '@material-ui/core/Typography/Typography'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import NotificationsIcon from '@material-ui/icons/Notifications'
-import { History } from 'history'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import eventIcon from '../assets/event-icon.svg'
@@ -72,7 +71,7 @@ const decorate = withStyles(({ transitions, zIndex }) => ({
 
 interface IMainAppBarProps {
   user: IUser
-  history: History
+  location: string
   event: IEvent
   logout(): IAction
   handleTitleClicked(): void
@@ -92,12 +91,12 @@ class MainAppBar extends React.Component<
     this.setState({ anchorEl: undefined })
   }
 
-  public menuName = (history: History) => {
+  public menuName = (history: string) => {
     let pageName = 'Dashboard'
 
     const { event } = this.props
 
-    switch (history.location.pathname) {
+    switch (history) {
       case '/': return pageName = 'Dashboard'
       case '/create-event': return pageName = 'Create Event'
       case '/all-events': return pageName = 'Events'
@@ -109,7 +108,7 @@ class MainAppBar extends React.Component<
   }
 
   public render() {
-    const { classes, user, history, handleTitleClicked } = this.props
+    const { classes, user, location, handleTitleClicked } = this.props
     const { anchorEl } = this.state
     const open = Boolean(anchorEl)
     const userHasProfileImage = !!user && !!user.image
@@ -191,7 +190,7 @@ class MainAppBar extends React.Component<
             className={classes.title}
             onClick={handleTitleClicked}
           >
-            {this.menuName(history)}
+            {this.menuName(location)}
           </Typography>
           {profilePic}
         </Toolbar>

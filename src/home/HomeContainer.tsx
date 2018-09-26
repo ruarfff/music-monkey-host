@@ -6,7 +6,8 @@ import Home from './Home'
 const mapStateToProps = (state: IRootState) => ({
   user: state.user.data,
   userLoading: state.user.isLoading,
-  userError: state.user.error
+  userError: state.user.error,
+  locationPath: state.home.location
 })
 
 const mapDispatchToProps = {}
