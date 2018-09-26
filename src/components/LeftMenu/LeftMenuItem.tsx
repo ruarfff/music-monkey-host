@@ -9,7 +9,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-import SubMenuIcon from '../assets/submenu-icon.svg'
+import SubMenuIcon from '../../assets/submenu-icon.svg'
 
 const decorate = withStyles(({}) => ({
   listItemText: {

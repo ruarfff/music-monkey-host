@@ -7,6 +7,7 @@ import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router'
+import InviteCopyAlert from '../components/InviteLink/InviteCopyAlert'
 import EventFetchError from '../event/EventFetchError'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
@@ -19,7 +20,6 @@ import EventGuests from './EventGuestsContainer'
 import EventTracksView from './EventPlaylistViewContainer'
 import EventSummaryView from './EventSummaryViewContainer'
 import './EventView.css'
-import InviteCopyAlert from './InviteCopyAlert'
 
 const decorated = withStyle(() => ({
   tabContainer: {

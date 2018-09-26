@@ -1,13 +1,13 @@
 import { History } from 'history'
 import * as React from 'react'
 import { Route, RouteComponentProps } from 'react-router'
+import MainAppLeftMenu from '../components/LeftMenu/MainAppLeftMenu'
 import Events from '../event/EventsContainer'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import { RouteWithSubRoutes } from '../routes'
 import IUser from '../user/IUser'
 import LoginError from './LoginError'
 import MainAppBar from './MainAppBarContainer'
-import MainAppLeftMenu from './MainAppLeftMenu'
 
 interface IHomeProps extends RouteComponentProps<any> {
   routes: Route[]
