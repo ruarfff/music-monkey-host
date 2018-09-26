@@ -89,15 +89,10 @@ class EventRejectedSuggestions extends React.PureComponent<
     decoratedSuggestion: IDecoratedSuggestion
   ) => () => {
     const { track, suggestion } = decoratedSuggestion
-    const editedSuggestion = {
-      ...suggestion,
-      rejected: false,
-      accepted: true
-    }
     this.setState({ tracksBeingRemoved: track })
     setTimeout(() => {
       this.setState({ tracksBeingRemoved: {} as ITrack })
-      this.props.stageSuggestion(editedSuggestion)
+      this.props.stageSuggestion(suggestion)
     }, 700)
   }
 
