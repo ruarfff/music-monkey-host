@@ -61,7 +61,9 @@ class EventRejectedSuggestions extends React.PureComponent<
 
   public render() {
     const { suggestions } = this.props
-    if (!suggestions || suggestions.length < 1) {
+    const filteredSuggestions = suggestions.filter(suggest => !suggest.suggestion.accepted)
+    console.log(filteredSuggestions)
+    if (!filteredSuggestions || filteredSuggestions.length < 1) {
       return (
         <Typography align="center" variant="subheading">
           Currently no Rejected Suggestions
@@ -73,7 +75,7 @@ class EventRejectedSuggestions extends React.PureComponent<
         <Grid container={true} spacing={24}>
           <Grid item={true} sm={12}>
             <List>
-              {suggestions.map(decoratedSuggestion =>
+              {filteredSuggestions.map(decoratedSuggestion =>
                 this.renderSuggestion(decoratedSuggestion)
               )}
             </List>
