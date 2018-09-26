@@ -1,6 +1,8 @@
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid/Grid'
 import Hidden from '@material-ui/core/Hidden/Hidden'
+import { WithStyles } from '@material-ui/core/styles'
+import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import { History } from 'history'
 import { map, sortBy } from 'lodash'
@@ -15,6 +17,15 @@ import LoadingSpinner from '../loading/LoadingSpinner'
 import IUserState from '../user/IUserState'
 import EventBigCard from './EventBigCard'
 
+const decorate = withStyles(() => ({
+  buttonGray: {
+    color: '#979797'
+  },
+  buttonOrange: {
+    color: '#F79022'
+  }
+}))
+
 interface IEventsProps {
   events: IEventState
   user: IUserState
@@ -22,7 +33,7 @@ interface IEventsProps {
   getEvents(): IAction
 }
 
-class EventsView extends React.Component<IEventsProps> {
+class EventsView extends React.Component<IEventsProps & WithStyles> {
   public componentDidMount() {
     if (this.props.user) {
       this.props.getEvents()
@@ -54,7 +65,7 @@ class EventsView extends React.Component<IEventsProps> {
   )
 
   public render() {
-    const { history } = this.props
+    const { history, classes } = this.props
     const { events, eventsLoading } = this.props.events
     const currentPath = history.location.pathname
 
@@ -86,7 +97,7 @@ class EventsView extends React.Component<IEventsProps> {
                   <Link to='/all-events'>
                     <Button
                       variant='text'
-                      color={currentPath === '/all-events' ? 'primary' : 'secondary'}
+                      className={currentPath === '/all-events' ? classes.buttonOrange : classes.button}
                     >
                       ALL
                     </Button>
@@ -94,7 +105,7 @@ class EventsView extends React.Component<IEventsProps> {
                   <Link to='/past-events'>
                     <Button
                       variant='text'
-                      color={currentPath === '/past-events' ? 'primary' : 'secondary'}
+                      className={currentPath === '/past-events' ? classes.buttonOrange : classes.button}
                     >
                       PAST EVENTS
                     </Button>
@@ -102,7 +113,7 @@ class EventsView extends React.Component<IEventsProps> {
                   <Link to='/upcoming-events'>
                     <Button
                       variant='text'
-                      color={currentPath === '/upcoming-events' ? 'primary' : 'secondary'}
+                      className={currentPath === '/upcoming-events' ? classes.buttonOrange : classes.button}
                     >
                       UPCOMING EVENTS
                     </Button>
@@ -122,4 +133,4 @@ class EventsView extends React.Component<IEventsProps> {
   }
 }
 
-export default EventsView
+export default decorate(EventsView)

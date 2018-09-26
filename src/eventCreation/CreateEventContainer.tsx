@@ -14,7 +14,7 @@ import {
   locationSelected,
   saveEvent,
   selectCreatePlaylist,
-  selectExistingPlaylist
+  selectExistingPlaylist,
 } from '../event/eventActions'
 import {
   copyEventInvite,
@@ -51,6 +51,7 @@ const mapDispatchToProps = (dispatch: any) => ({
       selectCreatePlaylist,
       selectExistingPlaylist,
       fetchPlaylists,
+      eventSavingReset,
       copyEventInvite
     },
     dispatch

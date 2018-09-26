@@ -56,6 +56,7 @@ interface ICreateEventProps {
   selectExistingPlaylist(): IAction
   fetchPlaylists(user: IUser): IAction
   copyEventInvite(): IAction
+  eventSavingReset(): IAction
 }
 
 const showSavedDialogue = () => {
@@ -76,6 +77,7 @@ class CreateEvent extends React.PureComponent<
 
   public componentDidMount() {
     this.props.initializeCreateForm(this.props.event, this.props.user)
+    this.props.eventSavingReset()
   }
 
   public prevStep = () => {
