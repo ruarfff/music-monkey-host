@@ -131,7 +131,7 @@ class EventSummaryPlaylist extends React.PureComponent<
           <Typography className={classes.recentlyTitle} variant='caption'>
             Recently Requested Tracks
           </Typography>
-          {suggestion && suggestion.slice(0, size).map((suggest, i) => (
+          {suggestion && suggestion.reverse().slice(0, size).map((suggest, i) => (
             <div className={classes.suggestionRow} key={i}>
               <img className={classes.suggestionImg} src={suggest.track.album.images[0].url}/>
               <div>
