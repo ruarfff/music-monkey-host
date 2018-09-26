@@ -45,10 +45,11 @@ export default function suggestion(
         fetchingSuggestionsError: payload
       } as ISuggestionState
     case STAGE_SUGGESTION: {
-      const suggestionToAccept = state.pendingSuggestions.find(
+      let suggestionToAccept = state.pendingSuggestions.find(
         s => s.suggestion.suggestionId === payload.suggestionId
       )
-      const stagedSuggestions = !!suggestionToAccept
+
+      let stagedSuggestions = !!suggestionToAccept
         ? [
             ...state.stagedSuggestions,
             {
@@ -57,16 +58,38 @@ export default function suggestion(
             }
           ]
         : state.stagedSuggestions
+
       const pendingSuggestions = !!suggestionToAccept
         ? state.pendingSuggestions.filter(
             s => s.suggestion.suggestionId !== payload.suggestionId
           )
         : state.pendingSuggestions
 
+      if (!suggestionToAccept) {
+        suggestionToAccept = state.rejectedSuggestions.find(
+          s => s.suggestion.suggestionId === payload.suggestionId
+        )
+        stagedSuggestions = !!suggestionToAccept
+          ? [
+            ...state.stagedSuggestions,
+            {
+              ...suggestionToAccept,
+              suggestion: { ...suggestionToAccept.suggestion, staged: true }
+            }
+          ]
+          : state.stagedSuggestions
+      }
+
+      const rejectedSuggestions = !!suggestionToAccept
+        ? state.rejectedSuggestions.filter(
+          s => s.suggestion.suggestionId !== payload.suggestionId
+        )
+        : state.rejectedSuggestions
       return {
         ...state,
         stagedSuggestions,
-        pendingSuggestions
+        pendingSuggestions,
+        rejectedSuggestions
       }
     }
     case STAGE_MULTIPLE_SUGGESTIONS: {

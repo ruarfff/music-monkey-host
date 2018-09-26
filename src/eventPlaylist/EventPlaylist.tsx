@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid/Grid'
 import List from '@material-ui/core/List/List'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
+import Typography from '@material-ui/core/Typography'
 import DoneAll from '@material-ui/icons/DoneAll'
 import Undo from '@material-ui/icons/Undo'
 import * as classNames from 'classnames'
@@ -81,10 +82,13 @@ export default class EventPlaylist extends React.Component<
         {saving && <LoadingSpinner />}
         {!saving && (
           <Grid container={true} spacing={8}>
-            <Grid item={true} sm={6}>
+            <Grid item={true} sm={12} container={true} justify={'space-between'} alignItems={'center'}>
+              <Typography>
+                Tracks
+              </Typography>
+
               {hasStagedTrack && this.renderSaveButtons(hasStagedTrack)}
-            </Grid>
-            <Grid item={true} sm={6}>
+
               <div>
                 <Button
                   aria-owns={anchorEl ? 'simple-menu' : undefined}

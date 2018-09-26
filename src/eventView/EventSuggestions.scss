@@ -5,6 +5,7 @@
 }
 
 .EventSuggestions-trackImage {
+  border-radius: 4px;
   max-width: 4.5em;
   max-height: 4.5em;
 }
@@ -24,6 +25,10 @@
 .EventSuggestions-acceptedTracks {
   border: 2px solid #dadada;
   border-radius: 7px;
+}
+
+[data-react-beautiful-dnd-drag-handle="0"]:last-child div {
+  border-bottom: none!important;
 }
 
 .EventSuggestions-audio {

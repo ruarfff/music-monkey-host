@@ -1,11 +1,10 @@
 import AppBar from '@material-ui/core/AppBar/AppBar'
-import Badge from '@material-ui/core/Badge/Badge'
 import Grid from '@material-ui/core/Grid/Grid'
+import { WithStyles } from '@material-ui/core/styles'
+import withStyles from '@material-ui/core/styles/withStyles'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
-import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay'
-import SubscriptionIcon from '@material-ui/icons/Subscriptions'
 import * as React from 'react'
 import IEvent from '../event/IEvent'
 import EventPlaylist from '../eventPlaylist/EventPlaylistContainer'
@@ -14,6 +13,12 @@ import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import './EventPlaylistView.css'
 import EventRejectedSuggestions from './EventRejectedSuggestionsContainer'
 import EventSuggestions from './EventSuggestionsContainer'
+
+const decorate = withStyles(() => ({
+  tabsWrapper: {
+    padding: '25px!important'
+  }
+}))
 
 interface IEventPlaylistViewState {
   tabIndex: number
@@ -28,14 +33,14 @@ interface IEventPlaylistViewProps {
 
 function TabContainer({ children, dir }: any) {
   return (
-    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+    <Typography component="div" dir={dir}>
       {children}
     </Typography>
   )
 }
 
 class EventPlaylistView extends React.Component<
-  IEventPlaylistViewProps,
+  IEventPlaylistViewProps & WithStyles,
   IEventPlaylistViewState
 > {
   public state = {
@@ -44,25 +49,24 @@ class EventPlaylistView extends React.Component<
 
   public render() {
     const { tabIndex } = this.state
+    const { classes } = this.props
     return (
       <Grid container={true} spacing={24}>
         <Grid item={true} sm={12}>
           <EventPlaylistSummary />
         </Grid>
-        <Grid item={true} sm={12}>
+        <Grid className={classes.tabsWrapper} item={true} sm={12}>
           <AppBar position="static" color="default">
             <Tabs
               value={tabIndex}
               onChange={this.handleTabChange}
               indicatorColor="primary"
               textColor="primary"
-              centered={true}
             >
               <Tab
                 label="Event Playlist"
-                icon={this.renderEventPlaylistIcon()}
               />
-              <Tab label="Suggested" icon={this.renderSuggestionsIcon()} />
+              <Tab label="Suggested"/>
               <Tab label="Rejected" />
             </Tabs>
           </AppBar>
@@ -89,40 +93,6 @@ class EventPlaylistView extends React.Component<
   private handleTabChange = (event: any, index: number) => {
     this.setState({ tabIndex: index })
   }
-
-  private renderEventPlaylistIcon = () => {
-    const { stagedSuggestions } = this.props
-    const numAcceptedTracks = stagedSuggestions ? stagedSuggestions.length : 0
-    if (numAcceptedTracks > 0) {
-      return (
-        <Badge
-          className="EventPlaylistView-badge"
-          badgeContent={numAcceptedTracks}
-          color="primary"
-        >
-          <PlaylistPlayIcon />
-        </Badge>
-      )
-    }
-    return <PlaylistPlayIcon />
-  }
-
-  private renderSuggestionsIcon = () => {
-    const { pendingSuggestions } = this.props
-    const numSuggestions = pendingSuggestions ? pendingSuggestions.length : 0
-    if (numSuggestions > 0) {
-      return (
-        <Badge
-          className="EventPlaylistView-badge"
-          badgeContent={numSuggestions}
-          color="primary"
-        >
-          <SubscriptionIcon />
-        </Badge>
-      )
-    }
-    return <SubscriptionIcon />
-  }
 }
 
-export default EventPlaylistView
+export default decorate(EventPlaylistView)
