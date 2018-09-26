@@ -1,6 +1,5 @@
 import * as React from 'react'
-import logoText from '../assets/logo-text.svg'
-import logo from '../assets/logo.svg'
+import logo from '../assets/logo-home.svg'
 import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import ErrorNotification from '../util/ErrorNotification'
@@ -36,7 +35,6 @@ class Login extends React.Component<ILoginProps, {}> {
           <div className="Login">
             <div className="Login-logo-section">
               <img className="Login-logo" src={logo} alt="logo"/>
-              <img className="Login-logo-text" src={logoText} alt="music monkey"/>
             </div>
             <div className="Login-text-section">
               <h1 className="Login-title">
