@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography/Typography'
 import { map, sortBy } from 'lodash'
 import * as moment from 'moment'
+import Carousel from 'nuka-carousel';
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import arrowLeft from '../assets/arrow-left.svg'
@@ -23,30 +24,6 @@ interface IEventsProps {
   user: IUserState
   getEvents(): IAction
 }
-
-const renderEventsList = (events: IEvent[], noEventsMessage: string) => (
-  <React.Fragment>
-    {events.length < 1 && (
-      <Typography
-        className="eventsListCaption"
-        align="center"
-        variant="body2"
-        gutterBottom={true}
-      >
-        {noEventsMessage}
-      </Typography>
-    )}
-
-    <div className="eventsList">
-      {map(
-        sortBy(events, (event: IEvent) => event.startDateTime).reverse(),
-        (event: IEvent) => (
-          <EventCard key={event.eventId} event={event} />
-        )
-      )}
-    </div>
-  </React.Fragment>
-)
 
 class Events extends React.Component<IEventsProps> {
   public componentDidMount() {
@@ -93,10 +70,6 @@ class Events extends React.Component<IEventsProps> {
                 </Hidden>
 
                 <Grid item={true} xs={12} className="eventsRow">
-                  <IconButton>
-                    <img src={arrowLeft} alt="left"/>
-                  </IconButton>
-
                   <Hidden smUp={true}>
                     <Typography
                       className="eventsListCaption"
@@ -106,10 +79,38 @@ class Events extends React.Component<IEventsProps> {
                       Upcoming Events
                     </Typography>
                   </Hidden>
-                  {renderEventsList(upcomingEvents, 'No Upcoming Events')}
-                  <IconButton>
-                    <img src={arrowRight} alt="right"/>
-                  </IconButton>
+                  <div className="eventsList">
+                    <Carousel
+                      slidesToShow={4}
+                      slidesToScroll={1}
+                      renderCenterLeftControls={({ previousSlide }: any) => (
+                        <IconButton onClick={previousSlide}>
+                          <img src={arrowLeft} alt="left"/>
+                        </IconButton>
+                      )}
+                      renderCenterRightControls={({ nextSlide }: any) => (
+                        <IconButton onClick={nextSlide}>
+                          <img src={arrowRight} alt="right"/>
+                        </IconButton>
+                      )}
+                    >
+                      {upcomingEvents.length > 0 ? map(
+                        sortBy(upcomingEvents, (event: IEvent) => event.startDateTime).reverse(),
+                        (event: IEvent) => (
+                          <EventCard key={event.eventId} event={event} />
+                        )
+                        ) :
+                        <Typography
+                          className="eventsListCaption"
+                          align="center"
+                          variant="body2"
+                          gutterBottom={true}
+                        >
+                          No Upcoming Events
+                        </Typography>
+                      }
+                    </Carousel>
+                  </div>
                 </Grid>
 
                 <Hidden xsDown={true}>
@@ -129,9 +130,6 @@ class Events extends React.Component<IEventsProps> {
                 </Hidden>
 
                 <Grid item={true} xs={12} className="eventsRow">
-                  <IconButton>
-                    <img src={arrowLeft} alt="left"/>
-                  </IconButton>
                   <Hidden smUp={true}>
                     <Divider />
                     <Typography
@@ -142,10 +140,36 @@ class Events extends React.Component<IEventsProps> {
                       Past Events
                     </Typography>
                   </Hidden>
-                  {renderEventsList(pastEvents, 'No Past Events Yet')}
-                  <IconButton>
-                    <img src={arrowRight} alt="right"/>
-                  </IconButton>
+                  <Carousel
+                    slidesToShow={4}
+                    slidesToScroll={1}
+                    renderCenterLeftControls={({ previousSlide }: any) => (
+                      <IconButton onClick={previousSlide}>
+                        <img src={arrowLeft} alt="left"/>
+                      </IconButton>
+                    )}
+                    renderCenterRightControls={({ nextSlide }: any) => (
+                      <IconButton onClick={nextSlide}>
+                        <img src={arrowRight} alt="right"/>
+                      </IconButton>
+                    )}
+                  >
+                    {pastEvents.length > 0 ? map(
+                      sortBy(pastEvents, (event: IEvent) => event.startDateTime).reverse(),
+                      (event: IEvent) => (
+                        <EventCard key={event.eventId} event={event} />
+                      )
+                    ) :
+                      <Typography
+                        className="eventsListCaption"
+                        align="center"
+                        variant="body2"
+                        gutterBottom={true}
+                      >
+                        No Past Events
+                      </Typography>
+                    }
+                  </Carousel>
                 </Grid>
               </Grid>
             </React.Fragment>

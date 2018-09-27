@@ -3,7 +3,7 @@
 exports[`<EventInput /> should render 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <WithStyles(Component)
+  Symbol(enzyme.__unrendered__): <WithStyles(EventInput)
     label=""
     onChange={[MockFunction]}
     value=""
@@ -18,12 +18,12 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "function",
+    "nodeType": "class",
     "props": Object {
       "classes": Object {
-        "input": "Component-input-01",
-        "label": "Component-label-02",
-        "textArea": "Component-textArea-03",
+        "input": "EventInput-input-01",
+        "label": "EventInput-label-02",
+        "textArea": "EventInput-textArea-03",
       },
       "label": "",
       "onChange": [MockFunction],
@@ -37,12 +37,12 @@ ShallowWrapper {
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "function",
+      "nodeType": "class",
       "props": Object {
         "classes": Object {
-          "input": "Component-input-01",
-          "label": "Component-label-02",
-          "textArea": "Component-textArea-03",
+          "input": "EventInput-input-01",
+          "label": "EventInput-label-02",
+          "textArea": "EventInput-textArea-03",
         },
         "label": "",
         "onChange": [MockFunction],

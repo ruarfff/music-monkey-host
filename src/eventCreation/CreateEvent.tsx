@@ -261,9 +261,9 @@ class CreateEvent extends React.PureComponent<
             disabled={
               !event.name ||
               !event.organizer ||
+              !event.description ||
               !event.playlistUrl ||
-              !event.venue ||
-              !event.playlist
+              !event.venue
             }
             variant="raised"
             color="primary"
