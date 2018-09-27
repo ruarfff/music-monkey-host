@@ -32,6 +32,41 @@ class Events extends React.Component<IEventsProps> {
     }
   }
 
+  public renderCarousel = (events:IEvent[], message: string) => {
+    return (
+      <Carousel
+        slidesToShow={4}
+        slidesToScroll={1}
+        renderCenterLeftControls={({ previousSlide }: any) => (
+          <IconButton onClick={previousSlide}>
+            <img src={arrowLeft} alt="left"/>
+          </IconButton>
+        )}
+        renderCenterRightControls={({ nextSlide }: any) => (
+          <IconButton onClick={nextSlide}>
+            <img src={arrowRight} alt="right"/>
+          </IconButton>
+        )}
+      >
+        {events.length > 0 ? map(
+          sortBy(events, (event: IEvent) => event.startDateTime).reverse(),
+          (event: IEvent) => (
+            <EventCard key={event.eventId} event={event} />
+          )
+          ) :
+          <Typography
+            className="eventsListCaption"
+            align="center"
+            variant="body2"
+            gutterBottom={true}
+          >
+            {message}
+          </Typography>
+        }
+      </Carousel>
+    )
+  }
+
   public render() {
     const { events, eventsLoading } = this.props.events
     const now = moment()
@@ -80,36 +115,7 @@ class Events extends React.Component<IEventsProps> {
                     </Typography>
                   </Hidden>
                   <div className="eventsList">
-                    <Carousel
-                      slidesToShow={4}
-                      slidesToScroll={1}
-                      renderCenterLeftControls={({ previousSlide }: any) => (
-                        <IconButton onClick={previousSlide}>
-                          <img src={arrowLeft} alt="left"/>
-                        </IconButton>
-                      )}
-                      renderCenterRightControls={({ nextSlide }: any) => (
-                        <IconButton onClick={nextSlide}>
-                          <img src={arrowRight} alt="right"/>
-                        </IconButton>
-                      )}
-                    >
-                      {upcomingEvents.length > 0 ? map(
-                        sortBy(upcomingEvents, (event: IEvent) => event.startDateTime).reverse(),
-                        (event: IEvent) => (
-                          <EventCard key={event.eventId} event={event} />
-                        )
-                        ) :
-                        <Typography
-                          className="eventsListCaption"
-                          align="center"
-                          variant="body2"
-                          gutterBottom={true}
-                        >
-                          No Upcoming Events
-                        </Typography>
-                      }
-                    </Carousel>
+                    {this.renderCarousel(upcomingEvents, 'No Upcoming events')}
                   </div>
                 </Grid>
 
@@ -140,36 +146,7 @@ class Events extends React.Component<IEventsProps> {
                       Past Events
                     </Typography>
                   </Hidden>
-                  <Carousel
-                    slidesToShow={4}
-                    slidesToScroll={1}
-                    renderCenterLeftControls={({ previousSlide }: any) => (
-                      <IconButton onClick={previousSlide}>
-                        <img src={arrowLeft} alt="left"/>
-                      </IconButton>
-                    )}
-                    renderCenterRightControls={({ nextSlide }: any) => (
-                      <IconButton onClick={nextSlide}>
-                        <img src={arrowRight} alt="right"/>
-                      </IconButton>
-                    )}
-                  >
-                    {pastEvents.length > 0 ? map(
-                      sortBy(pastEvents, (event: IEvent) => event.startDateTime).reverse(),
-                      (event: IEvent) => (
-                        <EventCard key={event.eventId} event={event} />
-                      )
-                    ) :
-                      <Typography
-                        className="eventsListCaption"
-                        align="center"
-                        variant="body2"
-                        gutterBottom={true}
-                      >
-                        No Past Events
-                      </Typography>
-                    }
-                  </Carousel>
+                  {this.renderCarousel(pastEvents, 'No Past events')}
                 </Grid>
               </Grid>
             </React.Fragment>
