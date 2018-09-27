@@ -7,6 +7,21 @@ a {
   text-decoration: none!important;
 }
 
+.swal2-popup .swal2-styled.swal2-confirm {
+  &:focus {
+    box-shadow: none;
+  }
+  background: #F79022!important;
+}
+
+.swal2-icon.swal2-success .swal2-success-ring {
+  border: 0.25em solid #5159a6!important;
+}
+
+.swal2-icon.swal2-success [class^='swal2-success-line'] {
+  background-color: #5159a6!important;
+}
+
 .Home-root {
   display: flex;
   flex-grow: 1;

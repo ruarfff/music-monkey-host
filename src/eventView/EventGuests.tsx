@@ -46,9 +46,7 @@ interface IEventGuestsProps {
   copyEventInvite(): IAction
 }
 
-class EventGuests extends React.PureComponent<
-  IEventGuestsProps & WithStyles
-> {
+class EventGuests extends React.PureComponent<IEventGuestsProps & WithStyles> {
   public state = {
     anchorEl: null,
     filter: 'all',

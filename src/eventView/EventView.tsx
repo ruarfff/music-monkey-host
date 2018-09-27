@@ -40,10 +40,6 @@ const decorated = withStyle(() => ({
   }
 }))
 
-type IEventViewClasses = 'tabContainer' | 'tab' | 'tabs' | 'content'
-
-
-
 interface IEventViewState {
   tabIndex: number
 }
@@ -69,14 +65,14 @@ function TabContainer({ children, dir }: any) {
   )
 }
 
-class EventView extends React.Component<IEventViewProps & WithStyles<IEventViewClasses>, IEventViewState> {
+class EventView extends React.Component<IEventViewProps & WithStyles, IEventViewState> {
   public state = {
     tabIndex: 0
   }
 
   public componentDidMount() {
     const eventId = this.props.match.params.eventId
-    this.props.getEventById(this.props.match.params.eventId)
+    this.props.getEventById(eventId)
     this.props.getEventSuggestions(eventId)
     subscribeToSuggestionsAccepted(eventId, this.handleSuggestionNotification)
     this.props.fetchEventVotes(eventId)

@@ -24,19 +24,13 @@ const decorated = withStyle(() => ({
   }
 }))
 
-type IEventGuestsRightSideViewClasses =
-  'noAvatar' |
-  'inviteLink' |
-  'guestListTitle'
-
 interface IEventGuestsRightSideViewProps {
   event: IEvent
   copyEventInvite(): IAction
 }
 
 class EventGuestsRightSideView extends React.PureComponent<
-  IEventGuestsRightSideViewProps & WithStyles<IEventGuestsRightSideViewClasses>
-  > {
+  IEventGuestsRightSideViewProps & WithStyles> {
   public render() {
     const { event, copyEventInvite, classes } = this.props
     if (!event || !event.guests || event.guests.length < 1) {

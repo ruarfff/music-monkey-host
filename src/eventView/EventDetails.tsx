@@ -42,14 +42,6 @@ const decorated = withStyle(() => ({
   }
 }))
 
-type IEventDetailsClasses =
-  'eventName' |
-  'img' |
-  'imgRow' |
-  'showOnMap' |
-  'button' |
-  'endDate'
-
 interface IEventDetailsProps {
   event: IEvent
   toggleDynamicVoting(event: IEvent): IAction
@@ -57,9 +49,7 @@ interface IEventDetailsProps {
   toggleSuggestingPlaylists(event: IEvent): IAction
 }
 
-class EventDetails extends React.PureComponent<
-  IEventDetailsProps & WithStyles<IEventDetailsClasses>
-> {
+class EventDetails extends React.PureComponent<IEventDetailsProps & WithStyles> {
   public state = {
     showMap: false,
   }

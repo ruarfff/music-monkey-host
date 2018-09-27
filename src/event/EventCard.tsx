@@ -70,65 +70,49 @@ const decorate = withStyles((theme: Theme) => ({
   }
 }))
 
-type IEventCardClasses =
-  'actions' |
-  'card' |
-  'media' |
-  'title' |
-  'link' |
-  'timeTitle' |
-  'timeTitleBig' |
-  'eventName' |
-  'eventDescription' |
-  'avatar' |
-  'noAvatar'
-
 interface IEventCardProps {
   event: IEvent,
 }
 
-export default decorate(
-  class EventCard extends React.Component<
-    IEventCardProps &
-    WithStyles<
-      IEventCardClasses
-      >
-    > {
-    public render() {
-      const {event, classes} = this.props
 
-      const size = event.guests && (event.guests.length > 2 ? 3 : event.guests.length)
+class EventCard extends React.Component<IEventCardProps & WithStyles> {
+  public render() {
+    const {event, classes} = this.props
 
-      return (
-        <Card key={event.eventId} className={classes.card}>
-          <Link to={'/events/' + event.eventId} className={classes.link}>
-            <Typography className={classes.timeTitle}>
-              <img src={eventIcon} alt="" className="eventCardIcon"/>
-              {event.startDateTime ? event.startDateTime.format('LT') : ''}
-            </Typography>
-            <Typography className={classes.timeTitleBig}>
-              {event.startDateTime ? event.startDateTime.format('dddd, MMMM Do') : ''}
-            </Typography>
-            <Typography className={classes.eventName}>
-              {event.name && event.name}
-            </Typography>
+    const size = event.guests && (event.guests.length > 2 ? 3 : event.guests.length)
 
-            <Typography noWrap={true} className={classes.eventDescription}>
-              {event.location && event.location.address}
-            </Typography>
-            <Grid container={true} justify={'flex-start'}>
-              {event.guests && event.guests.slice(0, size).map((guest) => (
-                <React.Fragment>
-                  {!guest.user.image ? <AccountCircle className={classes.noAvatar} /> :
-                    <Avatar src={guest.user.image} className={classes.avatar}/>}
-                </React.Fragment>
-              ))}
-              <Avatar className={classes.avatar}>
-                +{event.guests && (size === 3 ? event.guests.length - 3 : 0)}
-              </Avatar>
-            </Grid>
-          </Link>
-        </Card>
-      )
-    }
-  })
+    return (
+      <Card key={event.eventId} className={classes.card}>
+        <Link to={'/events/' + event.eventId} className={classes.link}>
+          <Typography className={classes.timeTitle}>
+            <img src={eventIcon} alt="" className="eventCardIcon"/>
+            {event.startDateTime ? event.startDateTime.format('LT') : ''}
+          </Typography>
+          <Typography className={classes.timeTitleBig}>
+            {event.startDateTime ? event.startDateTime.format('dddd, MMMM Do') : ''}
+          </Typography>
+          <Typography className={classes.eventName}>
+            {event.name && event.name}
+          </Typography>
+
+          <Typography noWrap={true} className={classes.eventDescription}>
+            {event.location && event.location.address}
+          </Typography>
+          <Grid container={true} justify={'flex-start'}>
+            {event.guests && event.guests.slice(0, size).map((guest, i) => (
+              <React.Fragment key={i}>
+                {!guest.user.image ? <AccountCircle className={classes.noAvatar} /> :
+                  <Avatar src={guest.user.image} className={classes.avatar}/>}
+              </React.Fragment>
+            ))}
+            <Avatar className={classes.avatar}>
+              +{event.guests && (size === 3 ? event.guests.length - 3 : 0)}
+            </Avatar>
+          </Grid>
+        </Link>
+      </Card>
+    )
+  }
+}
+
+export default decorate(EventCard)

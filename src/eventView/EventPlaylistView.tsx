@@ -20,10 +20,6 @@ const decorate = withStyles(() => ({
   }
 }))
 
-interface IEventPlaylistViewState {
-  tabIndex: number
-}
-
 interface IEventPlaylistViewProps {
   event: IEvent
   acceptedSuggestions: IDecoratedSuggestion[]
@@ -40,8 +36,7 @@ function TabContainer({ children, dir }: any) {
 }
 
 class EventPlaylistView extends React.Component<
-  IEventPlaylistViewProps & WithStyles,
-  IEventPlaylistViewState
+  IEventPlaylistViewProps & WithStyles
 > {
   public state = {
     tabIndex: 0

@@ -1,4 +1,3 @@
-import * as _ from 'lodash'
 import IAction from '../IAction'
 import arrayMove from '../util/arrayMove'
 import {

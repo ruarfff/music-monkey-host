@@ -37,22 +37,13 @@ const decorated = withStyle(() => ({
   }
 }))
 
-type IEventSummaryPlaylistClasses =
-  'playlistWrapper' |
-  'spotifyLink' |
-  'playlistContainer' |
-  'suggestionImg' |
-  'suggestionRow' |
-  'recentlyTitle'
-
 interface IEventSummaryPlaylistProps {
   playlist: IPlaylist
   suggestion: IDecoratedSuggestion[]
 }
 
 class EventSummaryPlaylist extends React.PureComponent<
-  IEventSummaryPlaylistProps & WithStyles<IEventSummaryPlaylistClasses>
-> {
+  IEventSummaryPlaylistProps & WithStyles> {
   public render() {
     const { playlist, classes, suggestion } = this.props
 
@@ -106,11 +97,11 @@ class EventSummaryPlaylist extends React.PureComponent<
                   justify={'space-between'}
                   className={classes.playlistContainer}
                 >
-                  <Typography>
+                  <div>
                     <Typography gutterBottom={true}>{playlist.name}</Typography>
                     <Typography color="textSecondary">{numTracks} Tracks</Typography>
                     <Typography color="textSecondary">{formattedDuration}</Typography>
-                  </Typography>
+                  </div>
                   <div>
                     <Typography color="textSecondary">Mode: Play to Play</Typography>
                     <Typography color="textSecondary">Genre: All</Typography>
