@@ -117,11 +117,15 @@ class CreateEvent extends React.PureComponent<
             placeholder={'Provide a name for your event'}
             value={event.name}
             onChange={this.handleContentUpdated('name')}
+            error={!event.name}
+            errorLabel={'Required'}
           />
           <EventInput
             label={'Event description'}
             maxRows={11}
             value={event.description || ''}
+            error={!event.description}
+            errorLabel={'Required'}
             onChange={this.handleContentUpdated('description')}
           />
         </Grid>
@@ -138,6 +142,8 @@ class CreateEvent extends React.PureComponent<
             label={'Organizer'}
             placeholder={'Who is organising this event?'}
             value={event.organizer}
+            error={!event.organizer}
+            errorLabel={'Required'}
             onChange={this.handleContentUpdated('organizer')}
           />
         </Grid>
@@ -185,6 +191,9 @@ class CreateEvent extends React.PureComponent<
         <Grid item={true} xs={12} sm={6}>
           <EventInput
             label={'Venue'}
+            placeholder={''}
+            error={!event.venue}
+            errorLabel={'Required'}
             value={event.venue || ''}
             onChange={this.handleContentUpdated('venue')}
           />
@@ -249,7 +258,13 @@ class CreateEvent extends React.PureComponent<
             <span className="control-btn-text-primary">Prev</span>
           </Button>
           <Button
-            disabled={!event.name || !event.organizer || !event.playlistUrl}
+            disabled={
+              !event.name ||
+              !event.organizer ||
+              !event.playlistUrl ||
+              !event.venue ||
+              !event.playlist
+            }
             variant="raised"
             color="primary"
             onClick={this.handleSaveEvent}
