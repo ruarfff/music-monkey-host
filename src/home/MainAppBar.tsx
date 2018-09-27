@@ -116,7 +116,7 @@ class MainAppBar extends React.Component<
 
     const profilePic = (
       <div className={classes.profile}>
-        <Link to="/create-event" className="Home-create-event-link">
+        {location !== '/create-event'&& <Link to="/create-event" className="Home-create-event-link">
           <Button
             variant="contained"
             size="small"
@@ -125,7 +125,7 @@ class MainAppBar extends React.Component<
             <img className={classes.imageInButton} src={eventIcon} alt=""/>
             Create new event
           </Button>
-        </Link>
+        </Link>}
         <IconButton color="inherit">
           <Badge
             className={classes.notification}

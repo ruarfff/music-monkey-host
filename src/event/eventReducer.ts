@@ -1,4 +1,5 @@
 import * as moment from 'moment'
+import { LOCATION_CHANGE } from 'react-router-redux'
 import {
   EVENT_FETCHED_BY_ID
 } from '../eventView/eventViewActions'
@@ -107,6 +108,14 @@ export default function event(
         }
       }
     case EVENT_SAVING_RESET:
+      return {
+        ...state,
+        savingEvent: {
+          ...initialState.savingEvent
+        },
+        showSavedDialogue: false
+      }
+    case LOCATION_CHANGE:
       return {
         ...state,
         savingEvent: {
