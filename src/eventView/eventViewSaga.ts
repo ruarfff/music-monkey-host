@@ -1,3 +1,4 @@
+import { omit } from 'lodash'
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { deleteEvent, getEventById, updateEvent } from '../event/eventClient'
 import IEventSettings from '../event/IEventSettings'
@@ -24,11 +25,10 @@ function* fetchEventByIdFlow(action: IAction) {
   try {
     const event = yield call(getEventById, eventId)
     const playlist = event.playlist
-    delete event.playlist
     if (!event.settings) {
       event.settings = {} as IEventSettings
     }
-    yield put({ type: EVENT_FETCHED_BY_ID, payload: event })
+    yield put({ type: EVENT_FETCHED_BY_ID, payload: omit(event, ['playlist']) })
     yield put({ type: EVENT_PLAYLIST_FETCHED, payload: playlist })
   } catch (err) {
     yield put({ type: EVENT_FETCH_BY_ID_ERROR, payload: err })

@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash'
 import IAction from '../IAction'
 import IDecoratedSuggestion from './IDecoratedSuggestion'
 import ISuggestion from './ISuggestion'
@@ -22,21 +23,24 @@ export default function suggestion(
     case FETCH_SUGGESTIONS_INITIATED:
       return { ...state, fetchingSuggestions: true } as ISuggestionState
     case FETCH_SUGGESTIONS_SUCCESS: {
-      const suggestions = payload
+      const suggestions = cloneDeep(payload)
+
+      const pendingSuggestions = suggestions.filter(
+        (s: IDecoratedSuggestion) => !s.suggestion.accepted && !s.suggestion.rejected)
+
+      const rejectedSuggestions = suggestions.filter(
+        (s: IDecoratedSuggestion) => s.suggestion.rejected)
+
+      const acceptedSuggestions = suggestions.filter(
+        (s: IDecoratedSuggestion) => s.suggestion.accepted)
+
       return {
         ...state,
         fetchingSuggestions: false,
-        pendingSuggestions: suggestions.filter(
-          (s: IDecoratedSuggestion) =>
-            !s.suggestion.accepted && !s.suggestion.rejected
-        ),
-        rejectedSuggestions: suggestions.filter(
-          (s: IDecoratedSuggestion) => s.suggestion.rejected
-        ),
-        acceptedSuggestions: suggestions.filter(
-          (s: IDecoratedSuggestion) => s.suggestion.accepted
-        )
-      } as ISuggestionState
+        pendingSuggestions,
+        rejectedSuggestions,
+        acceptedSuggestions,
+      }
     }
     case FETCH_SUGGESTIONS_FAILED:
       return {

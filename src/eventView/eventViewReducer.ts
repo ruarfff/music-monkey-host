@@ -1,3 +1,4 @@
+import { LOCATION_CHANGE } from 'react-router-redux'
 import {
   EVENT_EDIT_CLOSE,
   EVENT_EDIT_FAILURE,
@@ -30,6 +31,10 @@ export default function eventView(
   { type, payload }: IAction
 ) {
   switch (type) {
+    case LOCATION_CHANGE:
+      return {
+        ...initialState
+      }
     case EVENT_EDIT_SUCCESS:
       return {
         ...state,
