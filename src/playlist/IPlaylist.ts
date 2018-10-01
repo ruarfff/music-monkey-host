@@ -9,6 +9,7 @@ export default interface IPlaylist {
   external_urls: IExternalUrls
   href: string
   id: string
+  description?: string
   images: IPlaylistImage[]
   name: string
   owner: IPlaylistOwner

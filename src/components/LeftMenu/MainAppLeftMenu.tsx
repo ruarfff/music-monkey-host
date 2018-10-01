@@ -3,8 +3,11 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 import EventIcon from '../../assets/event-icon.svg'
 import HomeIcon from '../../assets/home-icon.svg'
+import settingsIcon from '../../assets/gear-icon.svg'
+import insightsIcon from '../../assets/insights-icon.svg'
 import logo from '../../assets/logo-home.svg'
 import LeftMenuItem from './LeftMenuItem'
+import playlistIcon from '../../assets/playlist-icon.svg'
 
 interface IMainAppLeftMenuProps {
   path: string
@@ -34,6 +37,25 @@ class MainAppLeftMenu extends React.Component<IMainAppLeftMenuProps> {
       },
     ]
 
+    const playlist = [
+      {
+        text: 'All Playlists',
+        link: '/all-playlists'
+      },
+      {
+        text: 'Past Playlists',
+        link: '/past-playlists'
+      },
+      {
+        text: 'Upcoming Playlists',
+        link: '/upcoming-playlists'
+      },
+      {
+        text: 'Create New Playlist',
+        link: '/crate-playlist'
+      },
+    ]
+
     return (
       <div className="Home-left-menu-wrapper">
         <div className="Home-left-menu">
@@ -57,7 +79,32 @@ class MainAppLeftMenu extends React.Component<IMainAppLeftMenuProps> {
               collapsed={true}
               collapsedList={eventsList}
             />
+            <LeftMenuItem
+              text={'Playlists'}
+              currentPath={path}
+              icon={playlistIcon}
+              collapsed={true}
+              collapsedList={playlist}
+            />
           </List>
+          <Link to={'/account'}>
+            <LeftMenuItem
+              text={'Account'}
+              pathName={'/account'}
+              currentPath={path}
+              icon={settingsIcon}
+              collapsed={false}
+            />
+          </Link>
+          <Link to={'/insights'}>
+            <LeftMenuItem
+              text={'Insights'}
+              pathName={'/insights'}
+              currentPath={path}
+              icon={insightsIcon}
+              collapsed={false}
+            />
+          </Link>
         </div>
       </div>
     )

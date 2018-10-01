@@ -11,6 +11,7 @@ import EventView from './eventView/EventViewContainer'
 import Home from './home/HomeContainer'
 import IRootState from './rootState'
 import EventsContainer from './eventsView/EventsViewContainer'
+import PlaylistsContainer from './playlistsView/PlaylistsViewContainer'
 
 const locationHelper = locationHelperBuilder({})
 
@@ -63,6 +64,21 @@ const routes = [
         exact: true,
         path: '/past-events'
       },
+      {
+        component: PlaylistsContainer,
+        exact: true,
+        path: '/all-playlists'
+      },
+      {
+        component: PlaylistsContainer,
+        exact: true,
+        path: '/upcoming-playlists'
+      },
+      {
+        component: PlaylistsContainer,
+        exact: true,
+        path: '/past-playlists'
+      }
     ]
   },
   {
