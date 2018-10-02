@@ -177,6 +177,9 @@ class MainAppBar extends React.Component<
           open={open}
           onClose={this.handleClose}
         >
+          <Link to={'/account'}>
+            <MenuItem onClick={this.handleClose}>My Account</MenuItem>
+          </Link>
           <MenuItem onClick={this.props.logout}>Logout</MenuItem>
         </Menu>
       </div>
