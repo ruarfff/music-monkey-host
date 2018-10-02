@@ -37,7 +37,10 @@ export const decorate = withStyles(() => ({
     '&:after': {
       content: 'none',
     }
+  },
+  formControl: {
+    margin: 0,
   }
 }))
 
-export type IInputClasses = 'input' | 'label' | 'textArea'
+export type IInputClasses = 'input' | 'label' | 'textArea' | 'formControl'

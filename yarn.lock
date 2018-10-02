@@ -190,6 +190,12 @@
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/@types/query-string/-/query-string-5.1.0.tgz#7f40cdea49ddafa0ea4f3db35fb6c24d3bfd4dcc"
 
+"@types/react-avatar-editor@^10.3.2":
+  version "10.3.2"
+  resolved "https://registry.yarnpkg.com/@types/react-avatar-editor/-/react-avatar-editor-10.3.2.tgz#4356e64dfafe5053047a108313d6ebd4b9c26d10"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-beautiful-dnd@^7.1.1":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@types/react-beautiful-dnd/-/react-beautiful-dnd-7.1.1.tgz#f0e2360ca9ccfed94461d52cccb67f72675e4706"
@@ -7898,6 +7904,12 @@ react-app-rewired@^1.6.2:
   dependencies:
     cross-spawn "^5.1.0"
     dotenv "^4.0.0"
+
+react-avatar-editor@^11.0.4:
+  version "11.0.4"
+  resolved "https://registry.yarnpkg.com/react-avatar-editor/-/react-avatar-editor-11.0.4.tgz#a32e2e10f1edc8480b1b852f3ab287c7b56c7ced"
+  dependencies:
+    prop-types "^15.5.8"
 
 react-beautiful-dnd@^9.0.1:
   version "9.0.1"

@@ -86,25 +86,25 @@ class MainAppLeftMenu extends React.Component<IMainAppLeftMenuProps> {
               collapsed={true}
               collapsedList={playlist}
             />
+            <Link to={'/account'}>
+              <LeftMenuItem
+                text={'Account'}
+                pathName={'/account'}
+                currentPath={path}
+                icon={settingsIcon}
+                collapsed={false}
+              />
+            </Link>
+            <Link to={'/insights'}>
+              <LeftMenuItem
+                text={'Insights'}
+                pathName={'/insights'}
+                currentPath={path}
+                icon={insightsIcon}
+                collapsed={false}
+              />
+            </Link>
           </List>
-          <Link to={'/account'}>
-            <LeftMenuItem
-              text={'Account'}
-              pathName={'/account'}
-              currentPath={path}
-              icon={settingsIcon}
-              collapsed={false}
-            />
-          </Link>
-          <Link to={'/insights'}>
-            <LeftMenuItem
-              text={'Insights'}
-              pathName={'/insights'}
-              currentPath={path}
-              icon={insightsIcon}
-              collapsed={false}
-            />
-          </Link>
         </div>
       </div>
     )

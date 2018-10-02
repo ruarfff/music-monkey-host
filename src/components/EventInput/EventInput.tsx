@@ -5,7 +5,7 @@ import {decorate, IInputClasses} from '../../globalStyles/Input'
 
 interface IEventInputProps {
   value: string
-  label: string
+  label?: string
   placeholder?: string
   maxRows?: number
   error?: boolean
@@ -55,6 +55,7 @@ class EventInput extends React.Component<IEventInputProps & WithStyles> {
         multiline={!!maxRows}
         value={value}
         onChange={this.handleChange}
+        className={classes.formControl}
         InputProps={maxRows ? {className: classes.textArea} : {className: classes.input}}
         InputLabelProps={{className: classes.label}}
       />
