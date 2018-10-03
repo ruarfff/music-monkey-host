@@ -36,7 +36,7 @@
     "query-string": "^6.1.0",
     "react": "^16.5.0",
     "react-avatar-editor": "^11.0.4",
-    "react-beautiful-dnd": "^9.0.1",
+    "react-beautiful-dnd": "^9.0.2",
     "react-cookie": "^2.2.0",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.4.1",
