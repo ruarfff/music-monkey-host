@@ -4,10 +4,11 @@ import Grid from '@material-ui/core/Grid'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { WithStyles } from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
-import { Email, Phone } from '@material-ui/icons'
 import * as React from 'react'
+import emailIcon from '../assets/email-icon.svg'
 import facebookIcon from '../assets/facebook.svg'
 import instagramIcon from '../assets/instagram-icom.svg'
+import phoneIcon from '../assets/phone-icon.svg'
 import twitterIcon from '../assets/twitter.svg'
 import EventInput from '../components/EventInput/EventInput'
 import IAction from '../IAction'
@@ -123,7 +124,7 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
               className={classes.itemRow}
             >
               <Grid className={classes.iconWrapper}>
-                <Email/>
+                <img src={emailIcon}/>
               </Grid>
               <Grid className={classes.input}>
                 {!isEdit ? user.email :
@@ -142,7 +143,7 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
               className={classes.itemRow}
             >
               <Grid className={classes.iconWrapper}>
-                <Phone/>
+                <img src={phoneIcon}/>
               </Grid>
               <Grid className={classes.input}>
                 {!isEdit ? this.state.phone :
