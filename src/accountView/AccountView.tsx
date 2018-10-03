@@ -6,7 +6,7 @@ import IAction from '../IAction'
 // import IAction from '../IAction'
 import IUser from '../user/IUser'
 // import Typography from '@material-ui/core/Typography'
-import AccountDetails from './AccountDetails'
+// import AccountDetails from './AccountDetails'
 // import AppBar from '@material-ui/core/AppBar'
 // import Tabs from '@material-ui/core/Tabs'
 // import Tab from '@material-ui/core/Tab'
@@ -58,7 +58,7 @@ class AccountView extends React.Component<IAccountViewProps & WithStyles> {
 
   public render() {
     // const { tabIndex } = this.state
-    const { user, classes, saveAccountChanges, uploadAvatar } = this.props
+    const { classes } = this.props
     return (
       <Grid className={classes.accountWrapper} container={true} spacing={24}>
         <Grid
@@ -67,11 +67,11 @@ class AccountView extends React.Component<IAccountViewProps & WithStyles> {
           md={12}
           className={classes.accountLeftSide}
         >
-          <AccountDetails
-            user={user}
-            saveAccountChanges={saveAccountChanges}
-            uploadAvatar={uploadAvatar}
-          />
+          {/*<AccountDetails*/}
+            {/*user={user}*/}
+            {/*saveAccountChanges={saveAccountChanges}*/}
+            {/*uploadAvatar={uploadAvatar}*/}
+          {/*/>*/}
         </Grid>
         {/*<Grid*/}
           {/*container={true}*/}

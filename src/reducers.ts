@@ -8,6 +8,7 @@ import playlist from './playlist/playlistReducer'
 import suggestion from './suggestion/suggestionReducer'
 import user from './user/userReducer'
 import vote from './vote/voteReducer'
+import account from './accountView/accountReducer'
 
 const reducers = combineReducers({
   auth,
@@ -18,7 +19,8 @@ const reducers = combineReducers({
   playlist,
   suggestion,
   user,
-  vote
+  vote,
+  account
 })
 
 export default reducers
