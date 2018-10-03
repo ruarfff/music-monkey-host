@@ -13,6 +13,7 @@ import IRootState from './rootState'
 import EventsContainer from './eventsView/EventsViewContainer'
 import PlaylistsContainer from './playlistsView/PlaylistsViewContainer'
 import AccountViewContainer from './accountView/AccountViewContainer'
+import InsightsContainer from './insights/InsightsContainer'
 
 const locationHelper = locationHelperBuilder({})
 
@@ -81,9 +82,14 @@ const routes = [
         path: '/past-playlists'
       },
       {
-        component:AccountViewContainer,
+        component: AccountViewContainer,
         exact: true,
         path: '/account'
+      },
+      {
+        component: InsightsContainer,
+        exact: true,
+        path: '/insights'
       }
     ]
   },

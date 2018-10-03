@@ -86,8 +86,8 @@ class EventSuggestions extends React.Component<
           </Grid>
           <Grid item={true} sm={12}>
             <List>
-              {suggestions.map(decoratedSuggestion =>
-                this.renderSuggestion(decoratedSuggestion)
+              {suggestions.map((decoratedSuggestion, index) =>
+                this.renderSuggestion(decoratedSuggestion, index)
               )}
             </List>
           </Grid>
@@ -96,7 +96,7 @@ class EventSuggestions extends React.Component<
     )
   }
 
-  private renderSuggestion = (decoratedSuggestion: IDecoratedSuggestion) => {
+  private renderSuggestion = (decoratedSuggestion: IDecoratedSuggestion, index: number) => {
     const { track, user } = decoratedSuggestion
     const { classes } = this.props
     let trackImage = <span />
@@ -126,7 +126,7 @@ class EventSuggestions extends React.Component<
 
     return (
       <Slide
-        key={track.uri}
+        key={index}
         in={track.uri !== this.state.tracksBeingRemoved.uri}
         direction="right"
         mountOnEnter={true}

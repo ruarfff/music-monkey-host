@@ -104,6 +104,7 @@ class MainAppBar extends React.Component<
       case '/past-events': return pageName = 'Events'
       case `/events/${event && event.eventId}`: return pageName = event.name
       case '/account': return pageName = 'Account Settings'
+      case '/insights': return pageName = 'Insights'
       default: return pageName =  'Dashboard'
     }
   }
