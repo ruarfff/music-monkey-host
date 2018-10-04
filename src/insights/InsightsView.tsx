@@ -69,9 +69,9 @@ class InsightsView extends React.Component<IInsightsViewProps & WithStyles>{
             <MenuItem onClick={this.handleClose('all')}>
               All
             </MenuItem>
-            {events.map((event) => (
+            {events.map((event, i) => (
                 event.eventId &&
-                <MenuItem onClick={this.handleClose(event.eventId)}>
+                <MenuItem key={i} onClick={this.handleClose(event.eventId)}>
                   {event.name}
                 </MenuItem>
               ))}
