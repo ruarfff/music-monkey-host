@@ -9,7 +9,7 @@ import {
 } from './accountConstants'
 import initialState from './accountInitialState'
 
-export default function home(state = initialState, action : Action) {
+export default function account(state = initialState, action : Action) {
   switch (action.type) {
     case UPLOAD_AVATAR_FAILURE:
       return state

@@ -42,9 +42,7 @@ interface IEventPlaylistProps {
   ): IAction
 }
 
-export default class EventPlaylist extends React.Component<
-  IEventPlaylistProps
-> {
+export default class EventPlaylist extends React.Component<IEventPlaylistProps> {
   public state = {
     anchorEl: null
   }

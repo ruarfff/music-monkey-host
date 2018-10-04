@@ -1,8 +1,13 @@
+import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles'
 import * as _ from 'lodash'
 import * as React from 'react'
+import LineChartWidget from '../components/Charts/LineChartWidget'
 import PieChartWidget from '../components/Charts/PieChart'
+import MostPopularTracks from '../components/TraksStatistic/MostPopularTracks'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import IRsvp from '../rsvp/IRsvp'
@@ -15,29 +20,84 @@ const decorate = withStyles(() => {
 interface IInsightsViewProps {
   user: IUser
   events: IEvent[]
+  pickedEvent: string
   getEvents(): IAction
+  filterByEventPick(id: any): IAction
 }
 
 class InsightsView extends React.Component<IInsightsViewProps & WithStyles>{
+  public state = {
+    anchorEl: null,
+  }
+
   public componentDidMount() {
     this.props.getEvents()
   }
 
-  public render() {
+  public handleClick = (event: any) => {
+    this.setState({ anchorEl: event.currentTarget })
+  }
 
-    const pieChartData = this.guestsStatistic()
+  public handleClose = (id: string) => () => {
+    this.setState({ anchorEl: null })
+    this.props.filterByEventPick(id)
+  }
+
+  public render() {
+    const { anchorEl } = this.state
+
+    const { events, pickedEvent } = this.props
+
+    const pieChartData = this.guestsPieData(pickedEvent)
 
     return (
-      <Grid container={true} spacing={24}>
-        <PieChartWidget data={pieChartData} />
-      </Grid>
+      <div className='insightsContainer'>
+        <div>
+          <Button
+            aria-owns={anchorEl ? 'simple-menu' : undefined}
+            aria-haspopup="true"
+            onClick={this.handleClick}
+          >
+            Sort
+          </Button>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={this.handleClose('all')}
+          >
+            <MenuItem onClick={this.handleClose('all')}>
+              All
+            </MenuItem>
+            {events.map((event) => (
+                event.eventId &&
+                <MenuItem onClick={this.handleClose(event.eventId)}>
+                  {event.name}
+                </MenuItem>
+              ))}
+          </Menu>
+        </div>
+
+        <Grid container={true} spacing={24}>
+          <Grid item={true} md={6}>
+            <PieChartWidget data={pieChartData} />
+          </Grid>
+          <Grid item={true} md={6}>
+            <LineChartWidget />
+          </Grid>
+          <Grid item={true} md={6}>
+            <MostPopularTracks events={events}/>
+          </Grid>
+        </Grid>
+      </div>
     )
   }
 
-  private guestsStatistic = () => {
+  private guestsPieData = (eventId: string) => {
     const { events } = this.props
+    const selectedEvent = eventId !== 'all' ? events.filter((event) => event.eventId === eventId) : events
 
-    const allGuests = _.flattenDeep(events.filter((event) => event.guests && event.guests.length > 0)
+    const allGuests = _.flattenDeep(selectedEvent.filter((event) => event.guests && event.guests.length > 0)
       .map((event) => event.guests && event.guests.map(guest => guest.rsvp)))
 
     const pendingGuest = allGuests.filter((guest: IRsvp) => guest && guest.status === 'Pending')
