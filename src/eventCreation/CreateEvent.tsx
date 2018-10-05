@@ -1,5 +1,8 @@
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid/Grid'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
 import { Theme, WithStyles } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import * as React from 'react'
@@ -27,11 +30,11 @@ const decorate = withStyles((theme: Theme) => ({
     '&:last-child': {
       marginRight: 0,
     }
+  },
+  addCoHost: {
+    marginTop: '10px'
   }
 }))
-
-type ICreateEventClasses =
-  'button'
 
 const SweetAlert = withReactContent(Swal) as any
 
@@ -67,12 +70,12 @@ const showSavedDialogue = () => {
   }).then()
 }
 
-class CreateEvent extends React.PureComponent<
-  ICreateEventProps & WithStyles<ICreateEventClasses>
-  > {
+class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
 
   public state = {
     currentStep: 0,
+    anchorCoHost: null,
+    eventType: 'public'
   }
 
   public componentDidMount() {
@@ -94,6 +97,19 @@ class CreateEvent extends React.PureComponent<
     }
   }
 
+
+  public handleClick = ( event: any ) => {
+    this.setState({ anchorCoHost: event.currentTarget })
+  }
+
+  public handleClose = () => {
+    this.setState({ anchorCoHost: null })
+  }
+
+  public handleEventType = ( event: any ) => {
+    this.setState({ [event.target.name]: event.target.value })
+  }
+
   public renderMap = (coords: any) => {
     return (
       <MapComponent
@@ -103,6 +119,8 @@ class CreateEvent extends React.PureComponent<
   }
 
   public renderFirstStep = () =>  {
+    const { anchorCoHost } = this.state
+
     const {
       event,
       eventImageUploaded,
@@ -135,6 +153,24 @@ class CreateEvent extends React.PureComponent<
             onUpload={eventImageUploaded}
             onUploadError={eventImageUploadError}
           />
+          <Button
+            className={classes.addCoHost}
+            variant="raised"
+            color="secondary"
+            aria-owns={anchorCoHost ? 'simple-menu' : ''}
+            aria-haspopup="true"
+            onClick={this.handleClick}
+          >
+            ADD CO-HOST
+          </Button>
+          <Menu
+            anchorEl={anchorCoHost}
+            open={Boolean(anchorCoHost)}
+            onClose={this.handleClose}
+          >
+            <MenuItem onClick={this.handleClose}>Select from friends</MenuItem>
+            <MenuItem onClick={this.handleClose}>Email link</MenuItem>
+          </Menu>
         </Grid>
 
         <Grid item={true} xs={12} sm={6}>
@@ -146,6 +182,14 @@ class CreateEvent extends React.PureComponent<
             errorLabel={'Required'}
             onChange={this.handleContentUpdated('organizer')}
           />
+          <Select
+            value={this.state.eventType}
+            onChange={this.handleEventType}
+            inputProps={{name: 'eventType'}}
+          >
+            <MenuItem value={'public'}>Public</MenuItem>
+            <MenuItem value={'private'}>Private</MenuItem>
+          </Select>
         </Grid>
         <div className="control-btn-row">
           <Button

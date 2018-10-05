@@ -5,14 +5,19 @@
 .EventPlaylistSummary-container {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   align-content: center;
   width: 100%;
+  height: 140px;
+  padding: 10px;
 }
 
 .EventPlaylistSummary-item {
-  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 100%;
 }
 
 .EventPlaylistSummary-content {
@@ -28,9 +33,26 @@
 
 .EventPlaylistSummary-controls {
   display: flex;
-  align-items: center;
-  padding-left: 0.5em;
+  justify-content: center;
   padding-bottom: 0.5em;
+  padding-top: 0.5em;
+  background: #979797;
+  margin: 0 20px;
+}
+
+.EventPlaylist-name {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.EventPlaylist-spotifyLink a {
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #F79022;
+}
+
+.EventPlaylist-cohost {
+  margin-right: 10px;
 }
 
 .EventPlaylistSummary-playIcon {
@@ -38,12 +60,11 @@
   width: 2em;
 }
 
-.EventPlaylistSummary-status {
-  padding-left: 2em;
-  padding-bottom: 0.5em;
-}
+.EventPlaylistSummary-status, .EventPlaylistSummary-time {
+  font-size: 20px;
+  margin-right: 10px;
 
-.EventPlaylistSummary-time {
-  padding-left: 2em;
-  padding-bottom: 0.5em;
+  &:last-child {
+    color: #979797;
+  }
 }

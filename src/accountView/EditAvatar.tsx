@@ -70,7 +70,6 @@ class EditAvatar extends React.Component<IEditAvatarProps & WithStyles> {
 
   private setFile = (event: any) => {
     const fr = new FileReader()
-    console.log(fr)
     fr.onload = (e: any) => {
       this.setState({newUrl: e.target.result})
     }
