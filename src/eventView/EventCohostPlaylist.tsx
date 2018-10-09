@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography/Typography'
 import * as moment from 'moment'
 import * as React from 'react'
 import club from '../assets/club.png'
+import EventInput from '../components/EventInput/EventInput'
 import IAction from '../IAction'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import ISuggestion from '../suggestion/ISuggestion'
@@ -40,6 +41,18 @@ const decorate = withStyles(() => ({
     width: '150px',
     height: '100px',
     borderRadius: '5px 5px 0 0'
+  },
+  playlistTitle: {
+    fontSize: '16px',
+  },
+  playlistCardWrapper: {
+    marginBottom: '10px',
+  },
+  playlistCard: {
+    marginBottom: '10px',
+  },
+  playlistCardContent: {
+    paddingLeft: '5px',
   }
 }))
 
@@ -53,7 +66,8 @@ class EventCohostPlaylist extends React.PureComponent<
   > {
 
   public state = {
-    tracksBeingRemoved: {}
+    tracksBeingRemoved: {},
+    search: ''
   }
 
   public render() {
@@ -77,26 +91,53 @@ class EventCohostPlaylist extends React.PureComponent<
             </List>
           </Grid>
           <Grid item={true} md={4}>
-            <input type="search"/>
-            <Typography>
+            <EventInput
+              label={'Search'}
+              value={this.state.search}
+              onChange={this.handleSearch('search')}
+            />
+
+            <Typography className={classes.playlistTitle}>
               Playlists
             </Typography>
+
             <Grid container={true} spacing={24}>
-              <Grid item={true} className={classes.playlistCard}>
-                <Paper >
+              <Grid item={true} className={classes.playlistCardWrapper}>
+                <Paper className={classes.playlistCard}>
                   <img className={classes.img} src={club}/>
-                  <Typography>
-                    test name
-                  </Typography>
-                  <Button  color={'primary'}>
-                    view
-                  </Button>
+                  <Grid className={classes.playlistCardContent}>
+                    <Typography>
+                      test name
+                    </Typography>
+                    <Button color={'primary'}>
+                      view
+                    </Button>
+                  </Grid>
                 </Paper>
                 <Button className={classes.accept}>
                   add
                 </Button>
               </Grid>
+
+              <Grid item={true} className={classes.playlistCardWrapper}>
+                <Paper className={classes.playlistCard}>
+                  <img className={classes.img} src={club}/>
+                  <Grid className={classes.playlistCardContent}>
+                    <Typography>
+                      test name
+                    </Typography>
+                    <Button color={'primary'}>
+                      view
+                    </Button>
+                  </Grid>
+                </Paper>
+                <Button className={classes.accept}>
+                  add
+                </Button>
+              </Grid>
+
             </Grid>
+
           </Grid>
         </Grid>
       </div>
@@ -122,7 +163,12 @@ class EventCohostPlaylist extends React.PureComponent<
     return duration
   }
 
-  private renderSuggestion = (decoratedSuggestion: IDecoratedSuggestion, i: number) => {
+  private handleSearch = (key: string) => (content: any) => {
+    this.setState({[key]: content})
+  }
+
+
+private renderSuggestion = (decoratedSuggestion: IDecoratedSuggestion, i: number) => {
     const { classes } = this.props
     const { track } = decoratedSuggestion
     let trackImage = <span />
