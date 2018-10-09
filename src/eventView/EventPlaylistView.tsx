@@ -45,6 +45,7 @@ class EventPlaylistView extends React.Component<
   public render() {
     const { tabIndex } = this.state
     const { classes } = this.props
+    const cohost = true
     return (
       <Grid container={true} spacing={24}>
         <Grid item={true} sm={12}>
@@ -57,12 +58,14 @@ class EventPlaylistView extends React.Component<
               onChange={this.handleTabChange}
               indicatorColor="primary"
               textColor="primary"
+              fullWidth={true}
             >
-              <Tab
-                label="Event Playlist"
-              />
+              <Tab label="Event Playlist"/>
               <Tab label="Suggested"/>
               <Tab label="Rejected" />
+              <Tab label="Maybe" />
+              <Tab label="My tracks" />
+              {cohost && <Tab label="My tracks" />}
             </Tabs>
           </AppBar>
           {tabIndex === 0 && (
@@ -76,6 +79,21 @@ class EventPlaylistView extends React.Component<
             </TabContainer>
           )}
           {tabIndex === 2 && (
+            <TabContainer dir={'x'}>
+              <EventRejectedSuggestions />
+            </TabContainer>
+          )}
+          {tabIndex === 3 && (
+            <TabContainer dir={'x'}>
+              <EventRejectedSuggestions />
+            </TabContainer>
+          )}
+          {tabIndex === 4 && (
+            <TabContainer dir={'x'}>
+              <EventRejectedSuggestions />
+            </TabContainer>
+          )}
+          {(tabIndex === 5 && cohost) && (
             <TabContainer dir={'x'}>
               <EventRejectedSuggestions />
             </TabContainer>

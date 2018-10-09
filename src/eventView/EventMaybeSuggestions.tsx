@@ -19,12 +19,12 @@ import ITrack from '../track/ITrack'
 import './EventSuggestions.css'
 
 const decorate = withStyles(() => ({
-  accept: {
-    background: '#27AE60',
+  reject: {
+    background: '#EB5757',
     color: 'white'
   },
-  maybe: {
-    background: '#56CCF2',
+  accept: {
+    background: '#27AE60',
     color: 'white'
   },
   trackBand: {
@@ -49,7 +49,7 @@ interface IEventRejectedSuggestionsProps {
 
 class EventRejectedSuggestions extends React.PureComponent<
   IEventRejectedSuggestionsProps & WithStyles
-> {
+  > {
 
   public state = {
     tracksBeingRemoved: {}
@@ -161,11 +161,11 @@ class EventRejectedSuggestions extends React.PureComponent<
             ACCEPT
           </Button>
           <Button
-            className={classes.maybe}
+            className={classes.reject}
             variant="raised"
             onClick={this.handleSuggestionAccepted(decoratedSuggestion)}
           >
-            MAYBE
+            REJECT
           </Button>
         </ListItemSecondaryAction>
       </ListItem>

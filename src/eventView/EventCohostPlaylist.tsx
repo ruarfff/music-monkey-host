@@ -19,12 +19,12 @@ import ITrack from '../track/ITrack'
 import './EventSuggestions.css'
 
 const decorate = withStyles(() => ({
-  accept: {
-    background: '#27AE60',
+  reject: {
+    background: '#EB5757',
     color: 'white'
   },
-  maybe: {
-    background: '#56CCF2',
+  accept: {
+    background: '#27AE60',
     color: 'white'
   },
   trackBand: {
@@ -49,7 +49,7 @@ interface IEventRejectedSuggestionsProps {
 
 class EventRejectedSuggestions extends React.PureComponent<
   IEventRejectedSuggestionsProps & WithStyles
-> {
+  > {
 
   public state = {
     tracksBeingRemoved: {}
@@ -129,46 +129,43 @@ class EventRejectedSuggestions extends React.PureComponent<
     }
 
     return (
-      <ListItem className={classes.listItem} dense={true} button={true} key={track.uri}>
-        {trackImage}
-        <Grid className={classes.listItemContent} container={true} spacing={24}>
-          <Grid item={true} md={4} container={true} direction={'row'} alignItems={'flex-end'}>
-            <Grid container={true} direction={'column'} justify={'center'} md={4} item={true}>
-              <ListItemText className={classes.trackBand} primary={track.album.artists[0].name} />
-              <ListItemText className={classes.trackName} primary={track.name} />
-            </Grid>
-            <ListItemText primary={this.formatDuration(track.duration_ms)}/>
-          </Grid>
+      <React.Fragment>
+        <Grid item={true} md={8}>
+          <ListItem className={classes.listItem} dense={true} button={true} key={track.uri}>
+            {trackImage}
+            <Grid className={classes.listItemContent} container={true} spacing={24}>
+              <Grid item={true} md={4} container={true} direction={'row'} alignItems={'flex-end'}>
+                <Grid container={true} direction={'column'} justify={'center'} md={4} item={true}>
+                  <ListItemText className={classes.trackBand} primary={track.album.artists[0].name} />
+                  <ListItemText className={classes.trackName} primary={track.name} />
+                </Grid>
+                <ListItemText primary={this.formatDuration(track.duration_ms)}/>
+              </Grid>
 
-          <Grid item={true} md={4}>
-            {track.preview_url && (
-              <audio
-                src={track.preview_url}
-                controls={true}
-                className="EventSuggestions-audio"
-                preload="none"
-              />
-            )}
-          </Grid>
+              <Grid item={true} md={4}>
+                {track.preview_url && (
+                  <audio
+                    src={track.preview_url}
+                    controls={true}
+                    className="EventSuggestions-audio"
+                    preload="none"
+                  />
+                )}
+              </Grid>
+            </Grid>
+            {userAccountIcon}
+            <ListItemSecondaryAction>
+              <Button
+                className={classes.accept}
+                variant="raised"
+                onClick={this.handleSuggestionAccepted(decoratedSuggestion)}
+              >
+                ACCEPT
+              </Button>
+            </ListItemSecondaryAction>
+          </ListItem>
         </Grid>
-        {userAccountIcon}
-        <ListItemSecondaryAction>
-          <Button
-            className={classes.accept}
-            variant="raised"
-            onClick={this.handleSuggestionAccepted(decoratedSuggestion)}
-          >
-            ACCEPT
-          </Button>
-          <Button
-            className={classes.maybe}
-            variant="raised"
-            onClick={this.handleSuggestionAccepted(decoratedSuggestion)}
-          >
-            MAYBE
-          </Button>
-        </ListItemSecondaryAction>
-      </ListItem>
+      </React.Fragment>
     )
   }
 }

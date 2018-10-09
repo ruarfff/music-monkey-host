@@ -20,15 +20,11 @@ const decorated = withStyle(() => ({
   }
 }))
 
-type IEventSummaryViewClasses = 'leftSideContent' | 'content'
-
 interface IEventSummaryViewProps {
   event: IEvent
 }
 
-class EventSummaryView extends React.PureComponent<
-  IEventSummaryViewProps & WithStyles<IEventSummaryViewClasses>
-> {
+class EventSummaryView extends React.PureComponent<IEventSummaryViewProps & WithStyles> {
   public render() {
     const { classes } = this.props
     return (
