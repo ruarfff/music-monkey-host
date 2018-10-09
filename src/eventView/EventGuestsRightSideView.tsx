@@ -33,15 +33,25 @@ class EventGuestsRightSideView extends React.PureComponent<
   IEventGuestsRightSideViewProps & WithStyles> {
   public render() {
     const { event, copyEventInvite, classes } = this.props
-    if (!event || !event.guests || event.guests.length < 1) {
-      return (
-        <Typography align="center" variant="subheading">
-          No guests have opened their invite yet.
-        </Typography>
-      )
-    }
 
     const inviteId = event && event.invites ? event.invites[0] : ''
+
+    if (!event || !event.guests || event.guests.length < 1) {
+      return (
+        <Grid container={true} justify={'center'} spacing={24}>
+          <Typography align="center" variant="subheading">
+            No guests have opened their invite yet.
+          </Typography>
+          <Grid className={classes.inviteLink} item={true}>
+            <InviteLink
+              inviteId={inviteId}
+              onCopyEventInvite={copyEventInvite}
+            />
+          </Grid>
+        </Grid>
+      )
+
+    }
 
     return (
       <div className="EventSuggestions-root">
