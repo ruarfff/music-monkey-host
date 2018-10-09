@@ -74,15 +74,21 @@ class EventGuests extends React.PureComponent<IEventGuestsProps & WithStyles> {
     const { anchorEl } = this.state
     const { event, classes, copyEventInvite } = this.props
 
+    const inviteId = event && event.invites ? event.invites[0] : ''
+
     if (!event || !event.guests || event.guests.length < 1) {
       return (
-        <Typography align="center" variant="subheading">
-          No guests have opened their invite yet.
-        </Typography>
+        <Grid container={true} justify={'center'}>
+          <Typography align="center" variant="subheading">
+            No guests have opened their invite yet.
+          </Typography>
+          <InviteLink
+            inviteId={inviteId}
+            onCopyEventInvite={copyEventInvite}
+          />
+        </Grid>
       )
     }
-
-    const inviteId = event && event.invites ? event.invites[0] : ''
 
     const filteredGuests = this.state.filter !== 'all' ?
       event.guests.filter(guest =>
