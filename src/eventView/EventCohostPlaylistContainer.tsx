@@ -3,7 +3,7 @@ import IRootState from '../rootState'
 import {
   stageSuggestion
 } from '../suggestion/suggestionActions'
-import EventRejectedSuggestions from './EventRejectedSuggestions'
+import EventCohostPlaylist from './EventCohostPlaylist'
 
 const mapStateToProps = (state: IRootState) => ({
   suggestions: state.suggestion.rejectedSuggestions
@@ -13,9 +13,9 @@ const mapDispatchToProps = {
   stageSuggestion,
 }
 
-const EventRejectedSuggestionsContainer = connect(
+const EventCohostPlaylistContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(EventRejectedSuggestions)
+)(EventCohostPlaylist)
 
-export default EventRejectedSuggestionsContainer
+export default EventCohostPlaylistContainer

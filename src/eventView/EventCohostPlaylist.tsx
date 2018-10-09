@@ -1,17 +1,17 @@
 import { ListItemIcon } from '@material-ui/core'
-import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid/Grid'
 import List from '@material-ui/core/List/List'
 import ListItem from '@material-ui/core/ListItem/ListItem'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import ListItemText from '@material-ui/core/ListItemText/ListItemText'
+import Paper from '@material-ui/core/Paper'
 import { WithStyles } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
-import AccountCircle from '@material-ui/icons/AccountCircle'
 import * as moment from 'moment'
 import * as React from 'react'
+import club from '../assets/club.png'
 import IAction from '../IAction'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import ISuggestion from '../suggestion/ISuggestion'
@@ -19,10 +19,6 @@ import ITrack from '../track/ITrack'
 import './EventSuggestions.css'
 
 const decorate = withStyles(() => ({
-  reject: {
-    background: '#EB5757',
-    color: 'white'
-  },
   accept: {
     background: '#27AE60',
     color: 'white'
@@ -39,6 +35,11 @@ const decorate = withStyles(() => ({
   },
   listItemContent: {
     maxWidth: '700px'
+  },
+  img: {
+    width: '150px',
+    height: '100px',
+    borderRadius: '5px 5px 0 0'
   }
 }))
 
@@ -47,7 +48,7 @@ interface IEventRejectedSuggestionsProps {
   stageSuggestion(suggestion: ISuggestion): IAction
 }
 
-class EventRejectedSuggestions extends React.PureComponent<
+class EventCohostPlaylist extends React.PureComponent<
   IEventRejectedSuggestionsProps & WithStyles
   > {
 
@@ -56,9 +57,8 @@ class EventRejectedSuggestions extends React.PureComponent<
   }
 
   public render() {
-    const { suggestions } = this.props
+    const { suggestions, classes } = this.props
     const filteredSuggestions = suggestions.filter(suggest => !suggest.suggestion.accepted)
-    console.log(filteredSuggestions)
     if (!filteredSuggestions || filteredSuggestions.length < 1) {
       return (
         <Typography align="center" variant="subheading">
@@ -67,14 +67,36 @@ class EventRejectedSuggestions extends React.PureComponent<
       )
     }
     return (
-      <div className="EventSuggestions-root">
+      <div>
         <Grid container={true} spacing={24}>
-          <Grid item={true} sm={12}>
+          <Grid item={true} md={8}>
             <List>
-              {filteredSuggestions.map(decoratedSuggestion =>
-                this.renderSuggestion(decoratedSuggestion)
+              {filteredSuggestions.map((decoratedSuggestion, i) =>
+                this.renderSuggestion(decoratedSuggestion, i)
               )}
             </List>
+          </Grid>
+          <Grid item={true} md={4}>
+            <input type="search"/>
+            <Typography>
+              Playlists
+            </Typography>
+            <Grid container={true} spacing={24}>
+              <Grid item={true} className={classes.playlistCard}>
+                <Paper >
+                  <img className={classes.img} src={club}/>
+                  <Typography>
+                    test name
+                  </Typography>
+                  <Button  color={'primary'}>
+                    view
+                  </Button>
+                </Paper>
+                <Button className={classes.accept}>
+                  add
+                </Button>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </div>
@@ -100,13 +122,13 @@ class EventRejectedSuggestions extends React.PureComponent<
     return duration
   }
 
-  private renderSuggestion = (decoratedSuggestion: IDecoratedSuggestion) => {
+  private renderSuggestion = (decoratedSuggestion: IDecoratedSuggestion, i: number) => {
     const { classes } = this.props
-    const { track, user } = decoratedSuggestion
+    const { track } = decoratedSuggestion
     let trackImage = <span />
     if (track.album && track.album.images && track.album.images.length > 0) {
       trackImage = (
-        <ListItemIcon>
+        <ListItemIcon >
           <img
             className="EventSuggestions-trackImage"
             src={track.album.images[track.album.images.length - 1].url}
@@ -115,59 +137,33 @@ class EventRejectedSuggestions extends React.PureComponent<
         </ListItemIcon>
       )
     }
-    let userAccountIcon = (
-      <AccountCircle className="EventSuggestions-avatar-small" />
-    )
-    if (user.image) {
-      userAccountIcon = (
-        <Avatar
-          alt={user.displayName}
-          src={user.image}
-          className="EventSuggestions-avatar"
-        />
-      )
-    }
 
     return (
-      <React.Fragment>
-        <Grid item={true} md={8}>
+      <React.Fragment key={i}>
           <ListItem className={classes.listItem} dense={true} button={true} key={track.uri}>
             {trackImage}
             <Grid className={classes.listItemContent} container={true} spacing={24}>
-              <Grid item={true} md={4} container={true} direction={'row'} alignItems={'flex-end'}>
-                <Grid container={true} direction={'column'} justify={'center'} md={4} item={true}>
+              <Grid item={true} md={12} container={true} direction={'row'} alignItems={'flex-end'}>
+                <Grid container={true} direction={'column'} justify={'center'} md={6} item={true}>
                   <ListItemText className={classes.trackBand} primary={track.album.artists[0].name} />
                   <ListItemText className={classes.trackName} primary={track.name} />
                 </Grid>
                 <ListItemText primary={this.formatDuration(track.duration_ms)}/>
               </Grid>
-
-              <Grid item={true} md={4}>
-                {track.preview_url && (
-                  <audio
-                    src={track.preview_url}
-                    controls={true}
-                    className="EventSuggestions-audio"
-                    preload="none"
-                  />
-                )}
-              </Grid>
             </Grid>
-            {userAccountIcon}
             <ListItemSecondaryAction>
               <Button
                 className={classes.accept}
                 variant="raised"
                 onClick={this.handleSuggestionAccepted(decoratedSuggestion)}
               >
-                ACCEPT
+                ADD
               </Button>
             </ListItemSecondaryAction>
           </ListItem>
-        </Grid>
       </React.Fragment>
     )
   }
 }
 
-export default decorate(EventRejectedSuggestions)
+export default decorate(EventCohostPlaylist)

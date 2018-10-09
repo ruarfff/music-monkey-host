@@ -100,8 +100,6 @@ function sortPlaylistByVotesDescending(
   votes: Map<string, ITrackVoteStatus>
 ) {
   const playlistItems = [...playlist.tracks.items]
-  console.log('VOTES', votes)
-  console.log('playlistItems', playlistItems)
   playlistItems.sort((a: any, b: any) => {
     let numA = 0
     let numB = 0

@@ -82,10 +82,12 @@ class EventGuests extends React.PureComponent<IEventGuestsProps & WithStyles> {
           <Typography align="center" variant="subheading">
             No guests have opened their invite yet.
           </Typography>
-          <InviteLink
-            inviteId={inviteId}
-            onCopyEventInvite={copyEventInvite}
-          />
+          <Grid>
+            <InviteLink
+              inviteId={inviteId}
+              onCopyEventInvite={copyEventInvite}
+            />
+          </Grid>
         </Grid>
       )
     }

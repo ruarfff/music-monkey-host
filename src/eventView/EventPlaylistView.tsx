@@ -10,6 +10,8 @@ import IEvent from '../event/IEvent'
 import EventPlaylist from '../eventPlaylist/EventPlaylistContainer'
 import EventPlaylistSummary from '../eventPlaylist/EventPlaylistSummaryContainer'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
+import EventCohostPlaylist from './EventCohostPlaylistContainer'
+import EventMaybeSuggestions from './EventMaybeSuggestionsContainer'
 import './EventPlaylistView.css'
 import EventRejectedSuggestions from './EventRejectedSuggestionsContainer'
 import EventSuggestions from './EventSuggestionsContainer'
@@ -17,7 +19,7 @@ import EventSuggestions from './EventSuggestionsContainer'
 const decorate = withStyles(() => ({
   tabsWrapper: {
     padding: '25px!important'
-  }
+  },
 }))
 
 interface IEventPlaylistViewProps {
@@ -29,7 +31,10 @@ interface IEventPlaylistViewProps {
 
 function TabContainer({ children, dir }: any) {
   return (
-    <Typography component="div" dir={dir}>
+    <Typography
+      component="div"
+      dir={dir}
+    >
       {children}
     </Typography>
   )
@@ -65,7 +70,7 @@ class EventPlaylistView extends React.Component<
               <Tab label="Rejected" />
               <Tab label="Maybe" />
               <Tab label="My tracks" />
-              {cohost && <Tab label="My tracks" />}
+              {cohost && <Tab label="Cohost tracks" />}
             </Tabs>
           </AppBar>
           {tabIndex === 0 && (
@@ -85,7 +90,7 @@ class EventPlaylistView extends React.Component<
           )}
           {tabIndex === 3 && (
             <TabContainer dir={'x'}>
-              <EventRejectedSuggestions />
+              <EventMaybeSuggestions />
             </TabContainer>
           )}
           {tabIndex === 4 && (
@@ -95,7 +100,7 @@ class EventPlaylistView extends React.Component<
           )}
           {(tabIndex === 5 && cohost) && (
             <TabContainer dir={'x'}>
-              <EventRejectedSuggestions />
+              <EventCohostPlaylist />
             </TabContainer>
           )}
         </Grid>

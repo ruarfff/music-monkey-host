@@ -47,7 +47,7 @@ interface IEventRejectedSuggestionsProps {
   stageSuggestion(suggestion: ISuggestion): IAction
 }
 
-class EventRejectedSuggestions extends React.PureComponent<
+class EventMaybeSuggestions extends React.PureComponent<
   IEventRejectedSuggestionsProps & WithStyles
   > {
 
@@ -58,7 +58,6 @@ class EventRejectedSuggestions extends React.PureComponent<
   public render() {
     const { suggestions } = this.props
     const filteredSuggestions = suggestions.filter(suggest => !suggest.suggestion.accepted)
-    console.log(filteredSuggestions)
     if (!filteredSuggestions || filteredSuggestions.length < 1) {
       return (
         <Typography align="center" variant="subheading">
@@ -71,8 +70,8 @@ class EventRejectedSuggestions extends React.PureComponent<
         <Grid container={true} spacing={24}>
           <Grid item={true} sm={12}>
             <List>
-              {filteredSuggestions.map(decoratedSuggestion =>
-                this.renderSuggestion(decoratedSuggestion)
+              {filteredSuggestions.map((decoratedSuggestion, i)=>
+                this.renderSuggestion(decoratedSuggestion, i)
               )}
             </List>
           </Grid>
@@ -100,7 +99,7 @@ class EventRejectedSuggestions extends React.PureComponent<
     return duration
   }
 
-  private renderSuggestion = (decoratedSuggestion: IDecoratedSuggestion) => {
+  private renderSuggestion = (decoratedSuggestion: IDecoratedSuggestion, index: number) => {
     const { classes } = this.props
     const { track, user } = decoratedSuggestion
     let trackImage = <span />
@@ -129,7 +128,7 @@ class EventRejectedSuggestions extends React.PureComponent<
     }
 
     return (
-      <ListItem className={classes.listItem} dense={true} button={true} key={track.uri}>
+      <ListItem className={classes.listItem} dense={true} button={true} key={index}>
         {trackImage}
         <Grid className={classes.listItemContent} container={true} spacing={24}>
           <Grid item={true} md={4} container={true} direction={'row'} alignItems={'flex-end'}>
@@ -173,4 +172,4 @@ class EventRejectedSuggestions extends React.PureComponent<
   }
 }
 
-export default decorate(EventRejectedSuggestions)
+export default decorate(EventMaybeSuggestions)

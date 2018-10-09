@@ -256,7 +256,6 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
     const accountPart = {}
     accountPart[key] = content
     this.setState({[key]: content})
-    console.log(accountPart)
   }
 }
 
