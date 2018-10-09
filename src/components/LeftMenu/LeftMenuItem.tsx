@@ -10,6 +10,8 @@ import ExpandMore from '@material-ui/icons/ExpandMore'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import SubMenuIcon from '../../assets/submenu-icon.svg'
+import SubMenuIconHighlighted from '../../assets/subitem-highlighted.svg'
+
 
 const decorate = withStyles(({}) => ({
   listItemText: {
@@ -21,6 +23,7 @@ const decorate = withStyles(({}) => ({
     color: 'white',
   },
   highlightedListItem: {
+    color: 'white',
     '&:before': {
       content: '""',
       background: '#49cdd8',
@@ -57,16 +60,7 @@ interface ILeftMenuItemProps {
   currentPath?: string
 }
 
-class LeftMenuItem extends React.Component<ILeftMenuItemProps &
-  WithStyles<
-    'listItemText' |
-    'listItem' |
-    'subItemText' |
-    'subListItem' |
-    'highlightedListItem' |
-    'collapse'
-    >
-  > {
+class LeftMenuItem extends React.Component<ILeftMenuItemProps & WithStyles> {
 
   public state = {
     isOpen: false,
@@ -76,13 +70,13 @@ class LeftMenuItem extends React.Component<ILeftMenuItemProps &
     this.setState({isOpen: !this.state.isOpen})
   }
 
-  public renderSubMenuItem = (text: string) => {
-    const { classes } = this.props
+  public renderSubMenuItem = (text: string, link: string) => {
+    const { classes, currentPath } = this.props
 
     return (
       <ListItem className={classes.subListItem} button={true}>
         <ListItemIcon>
-          <img src={SubMenuIcon}/>
+          <img src={link !== currentPath ? SubMenuIcon : SubMenuIconHighlighted}/>
         </ListItemIcon>
         <ListItemText inset={true} primary={
           <Typography className={classes.subItemText}>
@@ -93,14 +87,24 @@ class LeftMenuItem extends React.Component<ILeftMenuItemProps &
     )
   }
 
+  public shouldHighlightList = () => {
+    const { collapsedList, currentPath } = this.props
+
+    const shouldHighlight = collapsedList ? collapsedList.filter((item) => item.link === currentPath).length > 0 : false
+
+    return shouldHighlight
+  }
+
   public render() {
     const { classes, pathName, currentPath, text, icon, collapsed, collapsedList } = this.props
     const { isOpen } = this.state
 
+    const highlihgtSub = this.shouldHighlightList()
+
     return (
       <React.Fragment>
         <ListItem
-          className={pathName === currentPath ? classes.highlightedListItem : classes.listItem}
+          className={pathName === currentPath || highlihgtSub ? classes.highlightedListItem : classes.listItem}
           button={true}
           onClick={this.handleToggleDropdown}
           selected={pathName === currentPath && true}
@@ -131,10 +135,10 @@ class LeftMenuItem extends React.Component<ILeftMenuItemProps &
               unmountOnExit={true}
               className={classes.collapse}
             >
-              <List component="div" disablePadding={true}>
+              <List className={highlihgtSub ? classes.highlightedListItem : ''} component="div" disablePadding={true}>
                 {collapsedList && collapsedList.map((item, i) =>
                   <Link key={i} to={item.link}>
-                    {this.renderSubMenuItem(item.text)}
+                    {this.renderSubMenuItem(item.text, item.link)}
                   </Link>
                 )}
               </List>
