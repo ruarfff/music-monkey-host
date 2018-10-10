@@ -28,7 +28,7 @@ const decorate = withStyles(() => ({
     padding: '20px'
   },
   imagePickContainer: {
-    marginTop: '30px'
+    marginTop: '16px'
   },
   button: {
     color: 'white',
