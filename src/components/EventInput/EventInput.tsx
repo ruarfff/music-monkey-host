@@ -1,7 +1,7 @@
 import { WithStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField/TextField'
 import * as React from 'react'
-import {decorate, IInputClasses} from '../../globalStyles/Input'
+import { decorate, IInputClasses } from '../../globalStyles/Input'
 
 interface IEventInputProps {
   value: string

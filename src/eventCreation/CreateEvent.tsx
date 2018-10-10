@@ -33,6 +33,29 @@ const decorate = withStyles((theme: Theme) => ({
   },
   addCoHost: {
     marginTop: '10px'
+  },
+  dropDown: {
+    display: 'inline-block',
+    marginTop: '20px',
+    borderRadius: '4px',
+    border: '1px solid #979797',
+    paddingLeft: '16px',
+    minHeight: '40px',
+    // position: 'relative',
+    marginRight: '20px',
+    top: '8px',
+    '&:hover:not($disabled):before': {
+      borderBottom: '1px solid #979797!important',
+    },
+    '&:before': {
+      content: 'none',
+    },
+    '&:after': {
+      content: 'none',
+    }
+  },
+  codeInput: {
+    display: 'inline-block',
   }
 }))
 
@@ -75,7 +98,8 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
   public state = {
     currentStep: 0,
     anchorCoHost: null,
-    eventType: 'public'
+    eventType: 'public',
+    eventCode: '',
   }
 
   public componentDidMount() {
@@ -172,7 +196,6 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             <MenuItem onClick={this.handleClose}>Email link</MenuItem>
           </Menu>
         </Grid>
-
         <Grid item={true} xs={12} sm={6}>
           <EventInput
             label={'Organizer'}
@@ -183,6 +206,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             onChange={this.handleContentUpdated('organizer')}
           />
           <Select
+            className={classes.dropDown}
             value={this.state.eventType}
             onChange={this.handleEventType}
             inputProps={{name: 'eventType'}}
@@ -190,6 +214,15 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             <MenuItem value={'public'}>Public</MenuItem>
             <MenuItem value={'private'}>Private</MenuItem>
           </Select>
+          <div className={classes.codeInput}>
+            <EventInput
+              value={this.state.eventCode}
+              placeholder={'set password'}
+              label={'event code'}
+              onChange={this.handleContentUpdated('eventCode')}
+            />
+          </div>
+
         </Grid>
         <div className="control-btn-row">
           <Button
