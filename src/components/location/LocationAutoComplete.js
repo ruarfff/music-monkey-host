@@ -47,6 +47,9 @@ const styles = theme => ({
       borderBottom: 'none!important',
     },
     paddingTop: '4px'
+  },
+  formControl: {
+    margin: 0,
   }
 })
 
@@ -63,6 +66,7 @@ function renderInput(inputProps, classes) {
       label="Location"
       fullWidth
       margin="normal"
+      className={classes.formControl}
       onChange={onChange}
       onBlur={onBlur}
       onKeyDown={onKeyDown}

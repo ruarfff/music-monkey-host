@@ -99,7 +99,6 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
     currentStep: 0,
     anchorCoHost: null,
     eventType: 'public',
-    eventCode: '',
   }
 
   public componentDidMount() {
@@ -216,7 +215,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
           </Select>
           <div className={classes.codeInput}>
             <EventInput
-              value={this.state.eventCode}
+              value={event.eventCode ? event.eventCode : ''}
               placeholder={'set password'}
               label={'event code'}
               onChange={this.handleContentUpdated('eventCode')}
