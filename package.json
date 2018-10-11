@@ -83,7 +83,7 @@
     "@types/react-dom": "^16.0.7",
     "@types/react-places-autocomplete": "^6.1.1",
     "@types/react-redux": "^5.0.19",
-    "@types/react-router": "^4.0.24",
+    "@types/react-router": "^4.0.32",
     "@types/react-router-dom": "^4.3.1",
     "@types/react-router-redux": "^5.0.13",
     "@types/react-swipeable-views": "^0.12.1",
