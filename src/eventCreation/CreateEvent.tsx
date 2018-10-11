@@ -1,8 +1,8 @@
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid/Grid'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import Select from '@material-ui/core/Select'
+// import Menu from '@material-ui/core/Menu'
+// import MenuItem from '@material-ui/core/MenuItem'
+// import Select from '@material-ui/core/Select'
 import { Theme, WithStyles } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import * as React from 'react'
@@ -142,7 +142,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
   }
 
   public renderFirstStep = () =>  {
-    const { anchorCoHost } = this.state
+    // const { anchorCoHost } = this.state
 
     const {
       event,
@@ -176,24 +176,24 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             onUpload={eventImageUploaded}
             onUploadError={eventImageUploadError}
           />
-          <Button
-            className={classes.addCoHost}
-            variant="raised"
-            color="secondary"
-            aria-owns={anchorCoHost ? 'simple-menu' : ''}
-            aria-haspopup="true"
-            onClick={this.handleClick}
-          >
-            ADD CO-HOST
-          </Button>
-          <Menu
-            anchorEl={anchorCoHost}
-            open={Boolean(anchorCoHost)}
-            onClose={this.handleClose}
-          >
-            <MenuItem onClick={this.handleClose}>Select from friends</MenuItem>
-            <MenuItem onClick={this.handleClose}>Email link</MenuItem>
-          </Menu>
+          {/*<Button*/}
+            {/*className={classes.addCoHost}*/}
+            {/*variant="raised"*/}
+            {/*color="secondary"*/}
+            {/*aria-owns={anchorCoHost ? 'simple-menu' : ''}*/}
+            {/*aria-haspopup="true"*/}
+            {/*onClick={this.handleClick}*/}
+          {/*>*/}
+            {/*ADD CO-HOST*/}
+          {/*</Button>*/}
+          {/*<Menu*/}
+            {/*anchorEl={anchorCoHost}*/}
+            {/*open={Boolean(anchorCoHost)}*/}
+            {/*onClose={this.handleClose}*/}
+          {/*>*/}
+            {/*<MenuItem onClick={this.handleClose}>Select from friends</MenuItem>*/}
+            {/*<MenuItem onClick={this.handleClose}>Email link</MenuItem>*/}
+          {/*</Menu>*/}
         </Grid>
         <Grid item={true} xs={12} sm={6}>
           <EventInput
@@ -204,15 +204,15 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             errorLabel={'Required'}
             onChange={this.handleContentUpdated('organizer')}
           />
-          <Select
-            className={classes.dropDown}
-            value={this.state.eventType}
-            onChange={this.handleEventType}
-            inputProps={{name: 'eventType'}}
-          >
-            <MenuItem value={'public'}>Public</MenuItem>
-            <MenuItem value={'private'}>Private</MenuItem>
-          </Select>
+          {/*<Select*/}
+            {/*className={classes.dropDown}*/}
+            {/*value={this.state.eventType}*/}
+            {/*onChange={this.handleEventType}*/}
+            {/*inputProps={{name: 'eventType'}}*/}
+          {/*>*/}
+            {/*<MenuItem value={'public'}>Public</MenuItem>*/}
+            {/*<MenuItem value={'private'}>Private</MenuItem>*/}
+          {/*</Select>*/}
           <div className={classes.codeInput}>
             <EventInput
               value={event.eventCode ? event.eventCode : ''}

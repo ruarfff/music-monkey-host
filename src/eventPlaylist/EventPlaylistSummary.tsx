@@ -1,4 +1,4 @@
-import Button from '@material-ui/core/Button'
+// import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
@@ -40,13 +40,13 @@ class EventPlaylistSummary extends React.PureComponent<
                 </span>
               </div>
               <div>
-                <span className="EventPlaylist-cohost">Pass the Aux:</span>
-                <Button
-                  color={'secondary'}
-                  variant={'raised'}
-                >
-                  CHOOSE CO-HOST
-                </Button>
+                {/*<span className="EventPlaylist-cohost">Pass the Aux:</span>*/}
+                {/*<Button*/}
+                  {/*color={'secondary'}*/}
+                  {/*variant={'raised'}*/}
+                {/*>*/}
+                  {/*CHOOSE CO-HOST*/}
+                {/*</Button>*/}
               </div>
             </div>
 

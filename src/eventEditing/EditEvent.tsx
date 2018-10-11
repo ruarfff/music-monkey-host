@@ -1,8 +1,8 @@
 import Button from '@material-ui/core/Button/Button'
 import Grid from '@material-ui/core/Grid'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import Select from '@material-ui/core/Select'
+// import Menu from '@material-ui/core/Menu'
+// import MenuItem from '@material-ui/core/MenuItem'
+// import Select from '@material-ui/core/Select'
 import { WithStyles } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { History } from 'history'
@@ -97,7 +97,7 @@ const SweetAlert = withReactContent(Swal) as any
 class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
 
   public state = {
-    anchorCoHost: null,
+    // anchorCoHost: null,
     eventType: 'public',
   }
 
@@ -146,24 +146,24 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
               onUpload={eventImageUploaded}
               onUploadError={eventImageUploadError}
             />
-            <Button
-              className={classes.addCoHost}
-              variant="raised"
-              color="secondary"
-              aria-owns={this.state.anchorCoHost ? 'simple-menu' : ''}
-              aria-haspopup="true"
-              onClick={this.handleClick}
-            >
-              ADD CO-HOST
-            </Button>
-            <Menu
-              anchorEl={this.state.anchorCoHost}
-              open={Boolean(this.state.anchorCoHost)}
-              onClose={this.handleClose}
-            >
-              <MenuItem onClick={this.handleClose}>Select from friends</MenuItem>
-              <MenuItem onClick={this.handleClose}>Email link</MenuItem>
-            </Menu>
+            {/*<Button*/}
+              {/*className={classes.addCoHost}*/}
+              {/*variant="raised"*/}
+              {/*color="secondary"*/}
+              {/*aria-owns={this.state.anchorCoHost ? 'simple-menu' : ''}*/}
+              {/*aria-haspopup="true"*/}
+              {/*onClick={this.handleClick}*/}
+            {/*>*/}
+              {/*ADD CO-HOST*/}
+            {/*</Button>*/}
+            {/*<Menu*/}
+              {/*anchorEl={this.state.anchorCoHost}*/}
+              {/*open={Boolean(this.state.anchorCoHost)}*/}
+              {/*onClose={this.handleClose}*/}
+            {/*>*/}
+              {/*<MenuItem onClick={this.handleClose}>Select from friends</MenuItem>*/}
+              {/*<MenuItem onClick={this.handleClose}>Email link</MenuItem>*/}
+            {/*</Menu>*/}
           </Grid>
         </Grid>
 
@@ -217,15 +217,15 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
           </Grid>
 
           <Grid item={true} xs={12} sm={6}>
-            <Select
-              className={classes.dropDown}
-              value={this.state.eventType}
-              onChange={this.handleEventType}
-              inputProps={{name: 'eventType'}}
-            >
-              <MenuItem value={'public'}>Public</MenuItem>
-              <MenuItem value={'private'}>Private</MenuItem>
-            </Select>
+            {/*<Select*/}
+              {/*className={classes.dropDown}*/}
+              {/*value={this.state.eventType}*/}
+              {/*onChange={this.handleEventType}*/}
+              {/*inputProps={{name: 'eventType'}}*/}
+            {/*>*/}
+              {/*<MenuItem value={'public'}>Public</MenuItem>*/}
+              {/*<MenuItem value={'private'}>Private</MenuItem>*/}
+            {/*</Select>*/}
           </Grid>
         </Grid>
 
@@ -272,17 +272,17 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
     this.props.getEventById(this.props.match.params.eventId)
   }
 
-  private handleClick = ( event: any ) => {
-    this.setState({ anchorCoHost: event.currentTarget })
-  }
+  // private handleClick = ( event: any ) => {
+  //   this.setState({ anchorCoHost: event.currentTarget })
+  // }
+  //
+  // private handleClose = () => {
+  //   this.setState({ anchorCoHost: null })
+  // }
 
-  private handleClose = () => {
-    this.setState({ anchorCoHost: null })
-  }
-
-  private handleEventType = ( event: any ) => {
-    this.setState({ [event.target.name]: event.target.value })
-  }
+  // private handleEventType = ( event: any ) => {
+  //   this.setState({ [event.target.name]: event.target.value })
+  // }
 
   private showEditResult = () => {
     SweetAlert.fire({

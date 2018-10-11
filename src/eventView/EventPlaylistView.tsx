@@ -10,7 +10,7 @@ import IEvent from '../event/IEvent'
 import EventPlaylist from '../eventPlaylist/EventPlaylistContainer'
 import EventPlaylistSummary from '../eventPlaylist/EventPlaylistSummaryContainer'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
-import EventCohostPlaylist from './EventCohostPlaylistContainer'
+// import EventCohostPlaylist from './EventCohostPlaylistContainer'
 import EventMaybeSuggestions from './EventMaybeSuggestionsContainer'
 import './EventPlaylistView.css'
 import EventRejectedSuggestions from './EventRejectedSuggestionsContainer'
@@ -50,7 +50,7 @@ class EventPlaylistView extends React.Component<
   public render() {
     const { tabIndex } = this.state
     const { classes } = this.props
-    const cohost = true
+    // const cohost = true
     return (
       <Grid container={true} spacing={24}>
         <Grid item={true} sm={12}>
@@ -70,7 +70,7 @@ class EventPlaylistView extends React.Component<
               <Tab label="Rejected" />
               <Tab label="Maybe" />
               <Tab label="My tracks" />
-              {cohost && <Tab label="Cohost tracks" />}
+              {/*{cohost && <Tab label="Cohost tracks" />}*/}
             </Tabs>
           </AppBar>
           {tabIndex === 0 && (
@@ -98,11 +98,11 @@ class EventPlaylistView extends React.Component<
               <EventRejectedSuggestions />
             </TabContainer>
           )}
-          {(tabIndex === 5 && cohost) && (
-            <TabContainer dir={'x'}>
-              <EventCohostPlaylist />
-            </TabContainer>
-          )}
+          {/*{(tabIndex === 5 && cohost) && (*/}
+            {/*<TabContainer dir={'x'}>*/}
+              {/*<EventCohostPlaylist />*/}
+            {/*</TabContainer>*/}
+          {/*)}*/}
         </Grid>
       </Grid>
     )
