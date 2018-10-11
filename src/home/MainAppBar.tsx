@@ -1,6 +1,6 @@
 import AppBar from '@material-ui/core/AppBar/AppBar'
 import Avatar from '@material-ui/core/Avatar/Avatar'
-import Badge from '@material-ui/core/Badge'
+// import Badge from '@material-ui/core/Badge'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton/IconButton'
 import Menu from '@material-ui/core/Menu/Menu'
@@ -9,7 +9,7 @@ import { withStyles, WithStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar/Toolbar'
 import Typography from '@material-ui/core/Typography/Typography'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import NotificationsIcon from '@material-ui/icons/Notifications'
+// import NotificationsIcon from '@material-ui/icons/Notifications'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import eventIcon from '../assets/event-icon.svg'
@@ -128,15 +128,15 @@ class MainAppBar extends React.Component<
             Create new event
           </Button>
         </Link>}
-        <IconButton color="inherit">
-          <Badge
-            className={classes.notification}
-            badgeContent={17}
-            color="secondary"
-          >
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
+        {/*<IconButton color="inherit">*/}
+          {/*<Badge*/}
+            {/*className={classes.notification}*/}
+            {/*badgeContent={17}*/}
+            {/*color="secondary"*/}
+          {/*>*/}
+            {/*<NotificationsIcon />*/}
+          {/*</Badge>*/}
+        {/*</IconButton>*/}
         <IconButton
           aria-owns={open ? 'menu-appbar' : undefined}
           aria-haspopup="true"
