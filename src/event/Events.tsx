@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid/Grid'
 import Hidden from '@material-ui/core/Hidden/Hidden'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography/Typography'
+import * as _ from 'lodash'
 import { map, sortBy } from 'lodash'
 import * as moment from 'moment'
 import Carousel from 'nuka-carousel';
@@ -18,6 +19,7 @@ import './Events.css'
 import IEvent from './IEvent'
 import IEventState from './IEventState'
 import NoEvents from './NoEvents'
+import PlaylistCard from './PlaylistCardSmall'
 
 interface IEventsProps {
   events: IEventState
@@ -32,7 +34,15 @@ class Events extends React.Component<IEventsProps> {
     }
   }
 
-  public renderCarousel = (events:IEvent[], message: string) => {
+  public renderCarousel = (events:IEvent[], message: string, playlist: boolean) => {
+    const now = moment()
+
+    let upcomingPlaylists: any[] = []
+
+    if (!!events && playlist) {
+      upcomingPlaylists = _.uniqBy(events.filter(event => event.startDateTime.isAfter(now)).map(event => event.playlist), 'id')
+    }
+
     return (
       <Carousel
         slidesToShow={4}
@@ -48,12 +58,18 @@ class Events extends React.Component<IEventsProps> {
           </IconButton>
         )}
       >
-        {events.length > 0 ? map(
+        {(events.length > 0 && !playlist) && map(
           sortBy(events, (event: IEvent) => event.startDateTime).reverse(),
           (event: IEvent) => (
             <EventCard key={event.eventId} event={event} />
-          )
-          ) :
+          ))
+        }
+        {
+          playlist && upcomingPlaylists.map((playlist, index) => (
+            <PlaylistCard key={index} playlist={playlist}/>
+          ))
+        }
+        {!events &&
           <Typography
             className="eventsListCaption"
             align="center"
@@ -70,10 +86,8 @@ class Events extends React.Component<IEventsProps> {
   public render() {
     const { events, eventsLoading } = this.props.events
     const now = moment()
-    let pastEvents: IEvent[] = []
     let upcomingEvents: IEvent[] = []
     if (!!events) {
-      pastEvents = events.filter(event => event.startDateTime.isBefore(now))
       upcomingEvents = events.filter(event => event.startDateTime.isAfter(now))
     }
 
@@ -115,7 +129,7 @@ class Events extends React.Component<IEventsProps> {
                     </Typography>
                   </Hidden>
                   <div className="eventsList">
-                    {this.renderCarousel(upcomingEvents, 'No Upcoming events')}
+                    {this.renderCarousel(upcomingEvents, 'No Upcoming events', false)}
                   </div>
                 </Grid>
 
@@ -146,7 +160,7 @@ class Events extends React.Component<IEventsProps> {
                       Past Events
                     </Typography>
                   </Hidden>
-                  {this.renderCarousel(pastEvents, 'No Past events')}
+                  {this.renderCarousel(upcomingEvents, 'No Upcoming Playlists', true)}
                 </Grid>
               </Grid>
             </React.Fragment>
