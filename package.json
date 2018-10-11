@@ -67,7 +67,7 @@
     "@types/autosuggest-highlight": "^3.1.0",
     "@types/classnames": "^2.2.3",
     "@types/dropzone": "^5.0.2",
-    "@types/enzyme": "^3.1.13",
+    "@types/enzyme": "^3.1.14",
     "@types/enzyme-adapter-react-16": "^1.0.2",
     "@types/history": "^4.6.2",
     "@types/jest": "22.2.3",
