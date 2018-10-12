@@ -16,9 +16,9 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@babel/runtime-corejs2@7.0.0-beta.56":
-  version "7.0.0-beta.56"
-  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.0.0-beta.56.tgz#6df5fbaa78e4bfdc22dfc5b36493ef238d55a027"
+"@babel/runtime-corejs2@^7.0.0":
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.1.2.tgz#8695811a3fd8091f54f274b9320334e5e8c62200"
   dependencies:
     core-js "^2.5.7"
     regenerator-runtime "^0.12.0"
@@ -128,9 +128,9 @@
   dependencies:
     "@types/enzyme" "*"
 
-"@types/enzyme@*", "@types/enzyme@^3.1.13":
-  version "3.1.13"
-  resolved "https://registry.yarnpkg.com/@types/enzyme/-/enzyme-3.1.13.tgz#4bbc5c81fa40c9fc7efee25c4a23cb37119a33ea"
+"@types/enzyme@*", "@types/enzyme@^3.1.14":
+  version "3.1.14"
+  resolved "https://registry.yarnpkg.com/@types/enzyme/-/enzyme-3.1.14.tgz#379c26205f6e0e272f3a51d6bbdd50071a9d03a6"
   dependencies:
     "@types/cheerio" "*"
     "@types/react" "*"
@@ -149,9 +149,9 @@
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.0.tgz#2fac51050c68f7d6f96c5aafc631132522f4aa3f"
 
-"@types/jest@22.2.3":
-  version "22.2.3"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-22.2.3.tgz#0157c0316dc3722c43a7b71de3fdf3acbccef10d"
+"@types/jest@23.3.2":
+  version "23.3.2"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.2.tgz#07b90f6adf75d42c34230c026a2529e56c249dbb"
 
 "@types/jquery@*", "@types/jquery@^3.3.5":
   version "3.3.6"
@@ -239,9 +239,9 @@
     "@types/react" "*"
     redux "^3.6.0"
 
-"@types/react-router-dom@^4.2.6":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-4.3.0.tgz#c91796d02deb3a5b24bc1c5db4a255df0d18b8b5"
+"@types/react-router-dom@^4.3.1":
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-4.3.1.tgz#71fe2918f8f60474a891520def40a63997dafe04"
   dependencies:
     "@types/history" "*"
     "@types/react" "*"
@@ -4264,9 +4264,9 @@ globule@^1.0.0:
     lodash "~4.17.10"
     minimatch "~3.0.2"
 
-google-map-react@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/google-map-react/-/google-map-react-1.0.6.tgz#79e4ad0ef442cb8607f479e9cc504d08760287a2"
+google-map-react@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/google-map-react/-/google-map-react-1.0.9.tgz#059c546d237d222ac97c4c2462b12a0b8352666b"
   dependencies:
     "@mapbox/point-geometry" "^0.1.0"
     eventemitter3 "^1.1.0"
@@ -4603,9 +4603,9 @@ https@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/https/-/https-1.0.0.tgz#3c37c7ae1a8eeb966904a2ad1e975a194b7ed3a4"
 
-husky@^1.0.0-rc.14:
-  version "1.0.0-rc.14"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-1.0.0-rc.14.tgz#e1380575fe4cf17e1ca98791395c1baafa8064c7"
+husky@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-1.0.1.tgz#749bc6b3a14bdc9cab73d8cc827b92fcd691fac6"
   dependencies:
     cosmiconfig "^5.0.6"
     execa "^0.9.0"
@@ -7980,11 +7980,11 @@ react-avatar-editor@^11.0.4:
   dependencies:
     prop-types "^15.5.8"
 
-react-beautiful-dnd@^9.0.1:
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/react-beautiful-dnd/-/react-beautiful-dnd-9.0.1.tgz#64fc29d40d0302379d1531c12974cc5a833588e4"
+react-beautiful-dnd@^9.0.2:
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/react-beautiful-dnd/-/react-beautiful-dnd-9.0.2.tgz#9785a96c1f1385620aed840f0bc774c7455b3fd4"
   dependencies:
-    "@babel/runtime-corejs2" "7.0.0-beta.56"
+    "@babel/runtime-corejs2" "^7.0.0"
     css-box-model "^1.0.0"
     memoize-one "^4.0.0"
     prop-types "^15.6.1"
