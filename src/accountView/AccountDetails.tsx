@@ -252,10 +252,7 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
     if (this.state.isEdit) {
       const updatedUser = {
         ...this.props.user,
-        facebookId: this.state.facebookId,
-        instagramId: this.state.instagramId,
-        twitterId: this.state.twitterId,
-        phone: this.state.phone,
+        ..._.omit(this.state, ['isEdit', 'showAvatarEditor']),
       }
 
       this.props.updateUserRequest(updatedUser)
