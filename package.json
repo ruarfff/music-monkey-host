@@ -55,7 +55,7 @@
     "redux": "^4.0.0",
     "redux-auth-wrapper": "^2.0.2",
     "redux-logger": "^3.0.6",
-    "redux-saga": "^0.16.0",
+    "redux-saga": "^0.16.2",
     "spotify-uri": "^1.0.0",
     "spotify-web-api-js": "^1.1.0",
     "sweetalert2": "^7.26.28",
