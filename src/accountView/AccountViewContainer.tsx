@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import IRootState from '../rootState'
-import { saveAccountChanges, uploadAvatar} from './accountAction'
+import { updateUserRequest } from '../user/userActions'
 import './accountStyles.css'
 import AccountView from './AccountView'
 
@@ -9,8 +9,7 @@ const mapStateToProps = (state: IRootState) => ({
 })
 
 const mapDispatchToProps = {
-  uploadAvatar,
-  saveAccountChanges,
+  updateUserRequest
 }
 
 const AccountViewContainer = connect(

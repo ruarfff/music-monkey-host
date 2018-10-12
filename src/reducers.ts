@@ -8,7 +8,6 @@ import playlist from './playlist/playlistReducer'
 import suggestion from './suggestion/suggestionReducer'
 import user from './user/userReducer'
 import vote from './vote/voteReducer'
-import account from './accountView/accountReducer'
 import insights from './insights/insightsReducer'
 
 const reducers = combineReducers({
@@ -21,7 +20,6 @@ const reducers = combineReducers({
   suggestion,
   user,
   vote,
-  account,
   insights
 })
 

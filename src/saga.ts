@@ -33,6 +33,7 @@ import {
   watchRejectSuggestion
 } from './suggestion/suggestionSaga'
 import { watchFetchEventVotes } from './vote/voteSaga'
+import { watchupdateUserFlow } from './user/userSaga'
 
 export default function* saga() {
   yield all([
@@ -59,6 +60,7 @@ export default function* saga() {
     watchFetchEventByIdNoLoading(),
     watchToggleAutoAcceptSuggestions(),
     watchToggleSuggestingPlaylists(),
-    watchUpdateEvent()
+    watchUpdateEvent(),
+    watchupdateUserFlow(),
   ])
 }

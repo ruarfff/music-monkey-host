@@ -35,8 +35,7 @@ const decorate = withStyles(() => ({
 
 interface IAccountViewProps {
   user: IUser
-  saveAccountChanges(): IAction
-  uploadAvatar(): IAction
+  updateUserRequest(user: IUser): IAction
 }
 
 // function TabContainer({ children, dir }: any) {
@@ -58,7 +57,7 @@ class AccountView extends React.Component<IAccountViewProps & WithStyles> {
 
   public render() {
     // const { tabIndex } = this.state
-    const { user, classes, saveAccountChanges, uploadAvatar } = this.props
+    const { user, classes, updateUserRequest} = this.props
     return (
       <Grid className={classes.accountWrapper} container={true} spacing={24}>
         <Grid
@@ -69,8 +68,7 @@ class AccountView extends React.Component<IAccountViewProps & WithStyles> {
         >
           <AccountDetails
             user={user}
-            saveAccountChanges={saveAccountChanges}
-            uploadAvatar={uploadAvatar}
+            updateUserRequest={updateUserRequest}
           />
         </Grid>
         {/*<Grid*/}

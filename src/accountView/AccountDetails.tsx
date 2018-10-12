@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { WithStyles } from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
+import * as _ from 'lodash'
 import * as React from 'react'
 import emailIcon from '../assets/email-icon.svg'
 import facebookIcon from '../assets/facebook.svg'
@@ -54,20 +55,19 @@ const decorate = withStyles(() => ({
 
 interface IAccountDetailsProps {
   user: IUser
-  saveAccountChanges(): IAction
-  uploadAvatar(): IAction
+  updateUserRequest(user: IUser): IAction
 }
 
 class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> {
 
   public state = {
     isEdit: false,
-    email: this.props.user.email,
-    phone: '087 1234567',
-    facebook: 'test',
-    twitter: 'test',
-    instagram: 'test',
     showAvatarEditor: false,
+    email: this.props.user.email,
+    phone: this.props.user.phone,
+    facebookId: this.props.user.facebookId,
+    twitterId: this.props.user.twitterId,
+    instagramId: this.props.user.instagramId,
   }
 
   public toggleEditAvatarModal = () => {
@@ -76,11 +76,11 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
 
   public render() {
     const { isEdit, showAvatarEditor } = this.state
-    const { user, classes, uploadAvatar } = this.props
+    const { user, classes } = this.props
     return (
       <React.Fragment>
         {showAvatarEditor && <EditAvatar
-          uploadAvatar={uploadAvatar}
+          // uploadAvatar={uploadAvatar}
           toggleEditAvatarModal={this.toggleEditAvatarModal}
           url={user.image}
         />}
@@ -146,7 +146,7 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
                 <img src={phoneIcon}/>
               </Grid>
               <Grid className={classes.input}>
-                {!isEdit ? this.state.phone :
+                {!isEdit ? user.phone :
                   <EventInput
                     value={this.state.phone}
                     onChange={this.handleEdit('phone')}
@@ -177,10 +177,10 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
               <img src={instagramIcon} alt=""/>
             </Grid>
             <Grid className={classes.input}>
-              {!isEdit ? this.state.instagram :
+              {!isEdit ? this.state.instagramId :
                 <EventInput
-                  value={this.state.instagram}
-                  onChange={this.handleEdit('instagram')}
+                  value={this.state.instagramId}
+                  onChange={this.handleEdit('instagramId')}
                 />
               }
             </Grid>
@@ -196,10 +196,10 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
               <img src={facebookIcon} alt=""/>
             </Grid>
             <Grid className={classes.input}>
-              {!isEdit ? this.state.facebook :
+              {!isEdit ? this.state.facebookId :
                 <EventInput
-                  value={this.state.facebook}
-                  onChange={this.handleEdit('facebook')}
+                  value={this.state.facebookId}
+                  onChange={this.handleEdit('facebookId')}
                 />
               }
             </Grid>
@@ -215,10 +215,10 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
               <img src={twitterIcon} alt=""/>
             </Grid>
             <Grid className={classes.input}>
-              {!isEdit ? this.state.twitter :
+              {!isEdit ? this.state.twitterId :
                 <EventInput
-                  value={this.state.twitter}
-                  onChange={this.handleEdit('twitter')}
+                  value={this.state.twitterId}
+                  onChange={this.handleEdit('twitterId')}
                 />
               }
             </Grid>
@@ -249,6 +249,18 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
   }
 
   private editDetails = () => {
+    if (this.state.isEdit) {
+      const updatedUser = {
+        ...this.props.user,
+        facebookId: this.state.facebookId,
+        instagramId: this.state.instagramId,
+        twitterId: this.state.twitterId,
+        phone: this.state.phone,
+      }
+
+      this.props.updateUserRequest(updatedUser)
+    }
+
     this.setState({isEdit: !this.state.isEdit})
   }
 

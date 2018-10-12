@@ -3,7 +3,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import { WithStyles } from '@material-ui/core/styles/withStyles'
 import * as React from 'react'
 import AvatarEditor from 'react-avatar-editor'
-import IAction from '../IAction'
+// import IAction from '../IAction'
 
 const decorate = withStyles(() => ({
 
@@ -11,7 +11,7 @@ const decorate = withStyles(() => ({
 
 interface IEditAvatarProps {
   url: string,
-  uploadAvatar(payload: any): IAction
+  // uploadAvatar(payload: any): IAction
   toggleEditAvatarModal(): void
 }
 
@@ -62,7 +62,7 @@ class EditAvatar extends React.Component<IEditAvatarProps & WithStyles> {
   private onClickSave = () => {
     if (this.props.url !== this.state.newUrl) {
       this.editorRef.getImage().toBlob((blob: any) => {
-        this.props.uploadAvatar(blob)
+        // this.props.uploadAvatar(blob)
         this.props.toggleEditAvatarModal()
       })
     }
