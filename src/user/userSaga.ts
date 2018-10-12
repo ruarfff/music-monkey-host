@@ -1,12 +1,12 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import IAction from '../IAction'
+import IUser from './IUser'
 import {
-  UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILURE,
-  UPDATE_USER_REQUEST
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS
 } from './userActions'
 import { updateUserById } from './userClient'
-import IUser from './IUser'
 
 function* updateUserFlow(action: IAction) {
   const user: IUser = action.payload
