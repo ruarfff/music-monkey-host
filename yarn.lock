@@ -180,9 +180,9 @@
   version "10.0.3"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.0.3.tgz#1f89840c7aac2406cc43a2ecad98fc02a8e130e4"
 
-"@types/nuka-carousel@^4.2.3":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/@types/nuka-carousel/-/nuka-carousel-4.2.3.tgz#5625be8b36edeed68c48fdac5320cd00f6d5b23b"
+"@types/nuka-carousel@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@types/nuka-carousel/-/nuka-carousel-4.3.0.tgz#e068766e4168f33142e7cbd229ef62be0dd34b17"
   dependencies:
     "@types/react" "*"
 
