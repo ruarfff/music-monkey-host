@@ -8,6 +8,7 @@
     "build": "NODE_ENV='production' react-scripts-ts build",
     "lint": "tslint --fix src/**/*.ts{,x}",
     "test": "react-scripts-ts  test --env=jsdom",
+    "update-snapshot": "react-scripts-ts  test --env=jsdom --updateSnapshot",
     "eject": "react-scripts-ts eject"
   },
   "dependencies": {

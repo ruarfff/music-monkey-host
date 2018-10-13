@@ -12,6 +12,7 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
+    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -21,10 +22,10 @@ ShallowWrapper {
     "nodeType": "class",
     "props": Object {
       "classes": Object {
-        "formControl": "EventInput-formControl-04",
-        "input": "EventInput-input-01",
-        "label": "EventInput-label-02",
-        "textArea": "EventInput-textArea-03",
+        "formControl": "EventInput-formControl-4",
+        "input": "EventInput-input-1",
+        "label": "EventInput-label-2",
+        "textArea": "EventInput-textArea-3",
       },
       "label": "",
       "onChange": [MockFunction],
@@ -41,10 +42,10 @@ ShallowWrapper {
       "nodeType": "class",
       "props": Object {
         "classes": Object {
-          "formControl": "EventInput-formControl-04",
-          "input": "EventInput-input-01",
-          "label": "EventInput-label-02",
-          "textArea": "EventInput-textArea-03",
+          "formControl": "EventInput-formControl-4",
+          "input": "EventInput-input-1",
+          "label": "EventInput-label-2",
+          "textArea": "EventInput-textArea-3",
         },
         "label": "",
         "onChange": [MockFunction],
@@ -71,8 +72,6 @@ ShallowWrapper {
         },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;
