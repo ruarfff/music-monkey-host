@@ -12,7 +12,7 @@ import InviteLink from '../components/InviteLink/InviteLink'
 import IEvent from '../event/IEvent'
 import IEventGuest from '../event/IEventGuest'
 import IAction from '../IAction'
-import './EventSuggestions.css'
+import './EventSuggestions.scss'
 
 const decorated = withStyle(() => ({
   filter: {

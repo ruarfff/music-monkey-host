@@ -7,7 +7,7 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious'
 import * as React from 'react'
 import IEvent from '../event/IEvent'
 import IPlaylist from '../playlist/IPlaylist'
-import './EventPlaylistSummary.css'
+import './EventPlaylistSummary.scss'
 
 interface IEventPlaylistSummaryProps {
   event: IEvent

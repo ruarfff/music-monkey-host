@@ -17,7 +17,7 @@ import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import ITrack from '../track/ITrack'
 import TrackList from '../track/TrackList'
 import ITrackVoteStatus from '../vote/ITrackVoteStatus'
-import './EventPlaylist.css'
+import './EventPlaylist.scss'
 
 interface IEventPlaylistProps {
   event: IEvent

@@ -13,7 +13,7 @@ import EventPlaylistSummary from '../eventPlaylist/EventPlaylistSummaryContainer
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 // import EventCohostPlaylist from './EventCohostPlaylistContainer'
 import EventMaybeSuggestions from './EventMaybeSuggestionsContainer'
-import './EventPlaylistView.css'
+import './EventPlaylistView.scss'
 import EventRejectedSuggestions from './EventRejectedSuggestionsContainer'
 import EventSuggestions from './EventSuggestionsContainer'
 

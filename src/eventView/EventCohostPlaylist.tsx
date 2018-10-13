@@ -17,7 +17,7 @@ import IAction from '../IAction'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import ISuggestion from '../suggestion/ISuggestion'
 import ITrack from '../track/ITrack'
-import './EventSuggestions.css'
+import './EventSuggestions.scss'
 
 const decorate = withStyles(() => ({
   accept: {

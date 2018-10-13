@@ -1,7 +1,7 @@
 import Typography from '@material-ui/core/Typography/Typography'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-import './Home.css'
+import './Home.scss'
 
 const LoginError = () => (
   <div className="Home-error-message">

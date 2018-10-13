@@ -6,7 +6,7 @@ import IEvent from '../event/IEvent'
 import EventDetails from './EventDetailsContainer'
 import EventGuestsRightSideView from './EventGuestsRightSideViewContainer'
 import EventSummaryPlaylist from './EventSummaryPlaylistContainer'
-import './EventSummaryView.css'
+import './EventSummaryView.scss'
 
 const decorated = withStyle(() => ({
   content: {

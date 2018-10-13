@@ -1,6 +1,6 @@
 import * as React from 'react'
 import ReactLoading from 'react-loading'
-import './LoadingSpinner.css'
+import './LoadingSpinner.scss'
 
 const LoadingSpinner = () => (
   <div className="LoadingSpinner">

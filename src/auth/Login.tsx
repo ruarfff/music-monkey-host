@@ -4,7 +4,7 @@ import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import ErrorNotification from '../util/ErrorNotification'
 import IAuthState from './IAuthState'
-import './Login.css'
+import './Login.scss'
 import spotifyLoginButtonImage from './spotify-login.svg'
 
 const serviceUrl = process.env.REACT_APP_MM_API_URL
@@ -34,14 +34,13 @@ class Login extends React.Component<ILoginProps, {}> {
         <div className="Login-overlay">
           <div className="Login">
             <div className="Login-logo-section">
-              <img className="Login-logo" src={logo} alt="logo"/>
+              <img className="Login-logo" src={logo} alt="logo" />
             </div>
             <div className="Login-text-section">
-              <h1 className="Login-title">
-                Playlist for Everyone
-              </h1>
+              <h1 className="Login-title">Playlist for Everyone</h1>
               <h2 className="Login-subtitle">
-                Get started today, login or sign<br/>
+                Get started today, login or sign
+                <br />
                 up with your spotify account.
               </h2>
             </div>
@@ -57,15 +56,15 @@ class Login extends React.Component<ILoginProps, {}> {
               </div>
 
               {authError &&
-              authError.errorContext === 'host-login' && (
-                <ErrorNotification
-                  message={
-                    (authError.response && authError.response.data) ||
-                    authError.message
-                  }
-                  onClose={this.handleErrorAcknowledged}
-                />
-              )}
+                authError.errorContext === 'host-login' && (
+                  <ErrorNotification
+                    message={
+                      (authError.response && authError.response.data) ||
+                      authError.message
+                    }
+                    onClose={this.handleErrorAcknowledged}
+                  />
+                )}
             </div>
           </div>
         </div>

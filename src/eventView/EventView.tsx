@@ -19,7 +19,7 @@ import {
 import EventGuests from './EventGuestsContainer'
 import EventTracksView from './EventPlaylistViewContainer'
 import EventSummaryView from './EventSummaryViewContainer'
-import './EventView.css'
+import './EventView.scss'
 
 const decorated = withStyle(() => ({
   tabContainer: {

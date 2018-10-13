@@ -12,7 +12,7 @@ import MapItem from '../components/MapComponent'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import LinkButton from '../util/LinkButton'
-import './EventDetails.css'
+import './EventDetails.scss'
 
 const decorated = withStyle(() => ({
   eventName: {

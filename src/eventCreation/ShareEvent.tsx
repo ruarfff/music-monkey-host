@@ -11,7 +11,7 @@ import InviteLink from '../components/InviteLink/InviteLink'
 import MapComponent from '../components/MapComponent'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
-import './CreateEvent.css'
+import './CreateEvent.scss'
 
 const decorate = withStyles((theme: Theme) => ({
   button: {

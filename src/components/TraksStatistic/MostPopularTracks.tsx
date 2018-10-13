@@ -3,7 +3,7 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import IEvent from '../../event/IEvent'
 import ITrack from '../../track/ITrack'
-import './MostPopularTracks.css'
+import './MostPopularTracks.scss'
 
 interface IMostPopularTracksProps {
   events: IEvent[]

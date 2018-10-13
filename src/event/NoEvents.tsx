@@ -3,7 +3,7 @@ import Tooltip from '@material-ui/core/Tooltip/Tooltip'
 import AddIcon from '@material-ui/icons/Add'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-import './NoEvent.css'
+import './NoEvent.scss'
 
 
 const NoEvents: React.SFC = () => (

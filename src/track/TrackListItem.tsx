@@ -9,7 +9,7 @@ import FavouriteIcon from '@material-ui/icons/FavoriteBorder'
 import * as moment from 'moment'
 import * as React from 'react'
 import ITrack from './ITrack'
-import './TrackListItem.css'
+import './TrackListItem.scss'
 
 // TODO:  use this: https://codepen.io/dmarcus/pen/vKdWxW
 // Also this for styles: https://codepen.io/ArnaudBalland/pen/vGZKLr

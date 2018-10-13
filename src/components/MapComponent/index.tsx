@@ -1,7 +1,7 @@
 import GoogleMapReact from 'google-map-react'
 import * as React from 'react'
 import { ILatLng } from '../location/ILocation'
-import './MapComponent.css'
+import './MapComponent.scss'
 
 interface IMapComponentProps {
   coords?: ILatLng

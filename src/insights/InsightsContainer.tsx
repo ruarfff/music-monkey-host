@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { getEvents } from '../event/eventActions'
 import IRootState from '../rootState'
 import { filterByEventPick } from './insightsActions'
-import './InsightsStyles.css'
+import './InsightsStyles.scss'
 import InsightsView from './InsightsView'
 
 const mapStateToProps = (state: IRootState) => ({

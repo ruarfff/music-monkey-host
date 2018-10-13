@@ -1,6 +1,6 @@
 import Button, { ButtonProps } from '@material-ui/core/Button/Button'
 import * as React from 'react'
-import './PulsingButton.css'
+import './PulsingButton.scss'
 
 const PulsingButton: React.SFC<ButtonProps> = (props: any) => (
   <div className="PulsingButton-container">
