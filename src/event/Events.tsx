@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography/Typography'
 import * as _ from 'lodash'
 import { map, sortBy } from 'lodash'
 import * as moment from 'moment'
-import Carousel from 'nuka-carousel';
+import Carousel from 'nuka-carousel'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import arrowLeft from '../assets/arrow-left.svg'
@@ -34,42 +34,54 @@ class Events extends React.Component<IEventsProps> {
     }
   }
 
-  public renderCarousel = (events:IEvent[], message: string, playlist: boolean) => {
+  public renderCarousel = (
+    events: IEvent[],
+    message: string,
+    playlist: boolean
+  ) => {
     const now = moment()
 
     let upcomingPlaylists: any[] = []
 
     if (!!events && playlist) {
-      upcomingPlaylists = _.uniqBy(events.filter(event => event.startDateTime.isAfter(now)).map(event => event.playlist), 'id')
+      upcomingPlaylists = _.uniqBy(
+        events
+          .filter(event => event.startDateTime.isAfter(now))
+          .map(event => event.playlist),
+        'id'
+      )
     }
+
+    const leftControl = ({ previousSlide }: any) => (
+      <IconButton onClick={previousSlide}>
+        <img src={arrowLeft} alt="left" />
+      </IconButton>
+    )
+
+    const rightControls = ({ nextSlide }: any) => (
+      <IconButton onClick={nextSlide}>
+        <img src={arrowRight} alt="right" />
+      </IconButton>
+    )
 
     return (
       <Carousel
         slidesToShow={4}
         slidesToScroll={1}
-        renderCenterLeftControls={({ previousSlide }: any) => (
-          <IconButton onClick={previousSlide}>
-            <img src={arrowLeft} alt="left"/>
-          </IconButton>
-        )}
-        renderCenterRightControls={({ nextSlide }: any) => (
-          <IconButton onClick={nextSlide}>
-            <img src={arrowRight} alt="right"/>
-          </IconButton>
-        )}
+        renderCenterLeftControls={leftControl}
+        renderCenterRightControls={rightControls}
       >
-        {(events.length > 0 && !playlist) && map(
-          sortBy(events, (event: IEvent) => event.startDateTime).reverse(),
-          (event: IEvent) => (
-            <EventCard key={event.eventId} event={event} />
-          ))
-        }
-        {
-          playlist && upcomingPlaylists.map((playlist, index) => (
-            <PlaylistCard key={index} playlist={playlist}/>
-          ))
-        }
-        {!events &&
+        {events.length > 0 &&
+          !playlist &&
+          map(
+            sortBy(events, (event: IEvent) => event.startDateTime).reverse(),
+            (event: IEvent) => <EventCard key={event.eventId} event={event} />
+          )}
+        {playlist &&
+          upcomingPlaylists.map((upcomingPlaylist, index) => (
+            <PlaylistCard key={index} playlist={upcomingPlaylist} />
+          ))}
+        {!events && (
           <Typography
             className="eventsListCaption"
             align="center"
@@ -78,7 +90,7 @@ class Events extends React.Component<IEventsProps> {
           >
             {message}
           </Typography>
-        }
+        )}
       </Carousel>
     )
   }
@@ -104,15 +116,8 @@ class Events extends React.Component<IEventsProps> {
               <Grid container={true} spacing={24} direction="row">
                 <Hidden xsDown={true}>
                   <Grid item={true} sm={12}>
-                    <span
-                      className="eventListTitle"
-                    >
-                      Upcoming Events
-                    </span>
-                    <Link
-                      to={'/all-events'}
-                      className="eventListShowAll"
-                    >
+                    <span className="eventListTitle">Upcoming Events</span>
+                    <Link to={'/all-events'} className="eventListShowAll">
                       View all events
                     </Link>
                   </Grid>
@@ -129,21 +134,18 @@ class Events extends React.Component<IEventsProps> {
                     </Typography>
                   </Hidden>
                   <div className="eventsList">
-                    {this.renderCarousel(upcomingEvents, 'No Upcoming events', false)}
+                    {this.renderCarousel(
+                      upcomingEvents,
+                      'No Upcoming events',
+                      false
+                    )}
                   </div>
                 </Grid>
 
                 <Hidden xsDown={true}>
                   <Grid item={true} sm={12}>
-                    <span
-                      className="eventListTitle"
-                    >
-                      Past Events
-                    </span>
-                    <Link
-                      to={'/all-events'}
-                      className="eventListShowAll"
-                    >
+                    <span className="eventListTitle">Past Events</span>
+                    <Link to={'/all-events'} className="eventListShowAll">
                       View all events
                     </Link>
                   </Grid>
@@ -160,7 +162,11 @@ class Events extends React.Component<IEventsProps> {
                       Past Events
                     </Typography>
                   </Hidden>
-                  {this.renderCarousel(upcomingEvents, 'No Upcoming Playlists', true)}
+                  {this.renderCarousel(
+                    upcomingEvents,
+                    'No Upcoming Playlists',
+                    true
+                  )}
                 </Grid>
               </Grid>
             </React.Fragment>

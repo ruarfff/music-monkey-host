@@ -1,14 +1,13 @@
 import GoogleMapReact from 'google-map-react'
 import * as React from 'react'
-import './MapComponent.css'
 import { ILatLng } from '../location/ILocation'
+import './MapComponent.css'
 
 interface IMapComponentProps {
   coords?: ILatLng
 }
 
 const MapComponent: React.SFC<IMapComponentProps> = props => {
-
   const { coords } = props
   return (
     <div className="map-wrapper">

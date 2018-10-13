@@ -1,6 +1,5 @@
 import IAction from '../IAction'
 import ITrackVoteStatus from './ITrackVoteStatus'
-import IVote from './IVote'
 import { FETCH_EVENT_VOTES_SUCCESS } from './voteActions'
 import initialState from './voteInitialState'
 import vote from './voteReducer'

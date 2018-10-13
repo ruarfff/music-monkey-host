@@ -10,8 +10,8 @@ import {
   watchCreateEventPlaylist,
   watchEventPlaylistCreated,
   watchFetchEvents,
-  watchUpdateLocationAutoComplete,
-  watchUpdateEvent
+  watchUpdateEvent,
+  watchUpdateLocationAutoComplete
 } from './event/eventSaga'
 import {
   watchMoveItemInEventPlaylist,
@@ -32,8 +32,8 @@ import {
   watchFetchSuggestions,
   watchRejectSuggestion
 } from './suggestion/suggestionSaga'
-import { watchFetchEventVotes } from './vote/voteSaga'
 import { watchupdateUserFlow } from './user/userSaga'
+import { watchFetchEventVotes } from './vote/voteSaga'
 
 export default function* saga() {
   yield all([
@@ -61,6 +61,6 @@ export default function* saga() {
     watchToggleAutoAcceptSuggestions(),
     watchToggleSuggestingPlaylists(),
     watchUpdateEvent(),
-    watchupdateUserFlow(),
+    watchupdateUserFlow()
   ])
 }

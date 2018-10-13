@@ -1,11 +1,9 @@
-import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import IPlaylist from '../playlist/IPlaylist'
 import IPlaylistItem from '../playlist/IPlaylistItem'
 import IPlaylistTracks from '../playlist/IPlaylistTracks'
 import {
   EVENT_PLAYLIST_FETCHED,
-  MOVE_ITEM_IN_EVENT_PLAYLIST,
   moveItemInEventPlaylist,
   SAVE_EVENT_PLAYLIST,
   SAVE_EVENT_PLAYLIST_ERROR,

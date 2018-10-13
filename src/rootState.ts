@@ -3,11 +3,11 @@ import IEventState from './event/IEventState'
 import IEventPlaylistState from './eventPlaylist/IEventPlaylistState'
 import IEventViewState from './eventView/IEventViewState'
 import { IHomeState } from './home/IHomeState'
+import { IInsightsInitialState } from './insights/insightsInitialState'
 import IPlaylistState from './playlist/IPlaylistState'
 import ISuggestionState from './suggestion/ISuggestionState'
 import IUserState from './user/IUserState'
 import IVoteState from './vote/IVoteState'
-import { IInsightsInitialState } from  './insights/insightsInitialState'
 
 export default interface IRootState {
   auth: IAuthState

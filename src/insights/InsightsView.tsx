@@ -2,7 +2,6 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles'
 import * as _ from 'lodash'
 import * as React from 'react'
 import LineChartWidget from '../components/Charts/LineChartWidget'
@@ -13,10 +12,6 @@ import IAction from '../IAction'
 import IRsvp from '../rsvp/IRsvp'
 import IUser from '../user/IUser'
 
-const decorate = withStyles(() => {
-
-})
-
 interface IInsightsViewProps {
   user: IUser
   events: IEvent[]
@@ -25,9 +20,9 @@ interface IInsightsViewProps {
   filterByEventPick(id: any): IAction
 }
 
-class InsightsView extends React.Component<IInsightsViewProps & WithStyles>{
+class InsightsView extends React.Component<IInsightsViewProps> {
   public state = {
-    anchorEl: null,
+    anchorEl: null
   }
 
   public componentDidMount() {
@@ -51,7 +46,7 @@ class InsightsView extends React.Component<IInsightsViewProps & WithStyles>{
     const pieChartData = this.guestsPieData(pickedEvent)
 
     return (
-      <div className='insightsContainer'>
+      <div className="insightsContainer">
         <div>
           <Button
             aria-owns={anchorEl ? 'simple-menu' : undefined}
@@ -66,15 +61,15 @@ class InsightsView extends React.Component<IInsightsViewProps & WithStyles>{
             open={Boolean(anchorEl)}
             onClose={this.handleClose('all')}
           >
-            <MenuItem onClick={this.handleClose('all')}>
-              All
-            </MenuItem>
-            {events.map((event, i) => (
-                event.eventId &&
-                <MenuItem key={i} onClick={this.handleClose(event.eventId)}>
-                  {event.name}
-                </MenuItem>
-              ))}
+            <MenuItem onClick={this.handleClose('all')}>All</MenuItem>
+            {events.map(
+              (event, i) =>
+                event.eventId && (
+                  <MenuItem key={i} onClick={this.handleClose(event.eventId)}>
+                    {event.name}
+                  </MenuItem>
+                )
+            )}
           </Menu>
         </div>
 
@@ -86,7 +81,7 @@ class InsightsView extends React.Component<IInsightsViewProps & WithStyles>{
             <LineChartWidget />
           </Grid>
           <Grid item={true} md={6}>
-            <MostPopularTracks events={events}/>
+            <MostPopularTracks events={events} />
           </Grid>
         </Grid>
       </div>
@@ -95,24 +90,38 @@ class InsightsView extends React.Component<IInsightsViewProps & WithStyles>{
 
   private guestsPieData = (eventId: string) => {
     const { events } = this.props
-    const selectedEvent = eventId !== 'all' ? events.filter((event) => event.eventId === eventId) : events
+    const selectedEvent =
+      eventId !== 'all'
+        ? events.filter(event => event.eventId === eventId)
+        : events
 
-    const allGuests = _.flattenDeep(selectedEvent.filter((event) => event.guests && event.guests.length > 0)
-      .map((event) => event.guests && event.guests.map(guest => guest.rsvp)))
+    const allGuests = _.flattenDeep(
+      selectedEvent
+        .filter(event => event.guests && event.guests.length > 0)
+        .map(event => event.guests && event.guests.map(guest => guest.rsvp))
+    )
 
-    const pendingGuest = allGuests.filter((guest: IRsvp) => guest && guest.status === 'Pending')
-    const goingGuest = allGuests.filter((guest: IRsvp) => guest && guest.status === 'Going')
-    const notGoingGuest = allGuests.filter((guest: IRsvp) => guest && guest.status === 'Not going')
-    const maybeGuest = allGuests.filter((guest: IRsvp) => guest && guest.status === 'Maybe')
+    const pendingGuest = allGuests.filter(
+      (guest: IRsvp) => guest && guest.status === 'Pending'
+    )
+    const goingGuest = allGuests.filter(
+      (guest: IRsvp) => guest && guest.status === 'Going'
+    )
+    const notGoingGuest = allGuests.filter(
+      (guest: IRsvp) => guest && guest.status === 'Not going'
+    )
+    const maybeGuest = allGuests.filter(
+      (guest: IRsvp) => guest && guest.status === 'Maybe'
+    )
 
     return [
       {
         value: pendingGuest.length,
-        name: 'Pending',
+        name: 'Pending'
       },
       {
         value: goingGuest.length,
-        name: 'Going',
+        name: 'Going'
       },
       {
         value: notGoingGuest.length,
@@ -120,10 +129,10 @@ class InsightsView extends React.Component<IInsightsViewProps & WithStyles>{
       },
       {
         value: maybeGuest.length,
-        name: 'Maybe',
+        name: 'Maybe'
       }
     ]
   }
 }
 
-export default decorate(InsightsView)
+export default InsightsView

@@ -43,7 +43,7 @@ const decorate = withStyles(({ transitions, zIndex }) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   title: {
     flex: 1,
@@ -56,16 +56,16 @@ const decorate = withStyles(({ transitions, zIndex }) => ({
     textTransform: 'uppercase',
     backgroundColor: '#F79022',
     color: 'white',
-    padding: '8px 18px',
+    padding: '8px 18px'
   },
   notification: {
-    color: '#979797',
+    color: '#979797'
   },
   userName: {
-    color: '#979797',
+    color: '#979797'
   },
   imageInButton: {
-    marginRight: '5px',
+    marginRight: '5px'
   }
 }))
 
@@ -77,8 +77,7 @@ interface IMainAppBarProps {
   handleTitleClicked(): void
 }
 
-class MainAppBar extends React.Component<
-  IMainAppBarProps & WithStyles> {
+class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
   public state = {
     anchorEl: undefined
   }
@@ -92,20 +91,27 @@ class MainAppBar extends React.Component<
   }
 
   public menuName = (history: string) => {
-    let pageName = 'Dashboard'
-
     const { event } = this.props
 
     switch (history) {
-      case '/': return pageName = 'Dashboard'
-      case '/create-event': return pageName = 'Create Event'
-      case '/all-events': return pageName = 'Events'
-      case '/upcoming-events': return pageName = 'Events'
-      case '/past-events': return pageName = 'Events'
-      case `/events/${event && event.eventId}`: return pageName = event.name
-      case '/account': return pageName = 'Account Settings'
-      case '/insights': return pageName = 'Insights'
-      default: return pageName =  'Dashboard'
+      case '/':
+        return 'Dashboard'
+      case '/create-event':
+        return 'Create Event'
+      case '/all-events':
+        return 'Events'
+      case '/upcoming-events':
+        return 'Events'
+      case '/past-events':
+        return 'Events'
+      case `/events/${event && event.eventId}`:
+        return event.name
+      case '/account':
+        return 'Account Settings'
+      case '/insights':
+        return 'Insights'
+      default:
+        return 'Dashboard'
     }
   }
 
@@ -118,24 +124,26 @@ class MainAppBar extends React.Component<
 
     const profilePic = (
       <div className={classes.profile}>
-        {location !== '/create-event'&& <Link to="/create-event" className="Home-create-event-link">
-          <Button
-            variant="contained"
-            size="small"
-            className={classes.addEventBtn}
-          >
-            <img className={classes.imageInButton} src={eventIcon} alt=""/>
-            Create new event
-          </Button>
-        </Link>}
+        {location !== '/create-event' && (
+          <Link to="/create-event" className="Home-create-event-link">
+            <Button
+              variant="contained"
+              size="small"
+              className={classes.addEventBtn}
+            >
+              <img className={classes.imageInButton} src={eventIcon} alt="" />
+              Create new event
+            </Button>
+          </Link>
+        )}
         {/*<IconButton color="inherit">*/}
-          {/*<Badge*/}
-            {/*className={classes.notification}*/}
-            {/*badgeContent={17}*/}
-            {/*color="secondary"*/}
-          {/*>*/}
-            {/*<NotificationsIcon />*/}
-          {/*</Badge>*/}
+        {/*<Badge*/}
+        {/*className={classes.notification}*/}
+        {/*badgeContent={17}*/}
+        {/*color="secondary"*/}
+        {/*>*/}
+        {/*<NotificationsIcon />*/}
+        {/*</Badge>*/}
         {/*</IconButton>*/}
         <IconButton
           aria-owns={open ? 'menu-appbar' : undefined}
@@ -150,17 +158,11 @@ class MainAppBar extends React.Component<
           )}
         </IconButton>
         {userHasName ? (
-          <Typography
-            className={classes.userName}
-            onClick={handleTitleClicked}
-          >
+          <Typography className={classes.userName} onClick={handleTitleClicked}>
             {user.displayName}
           </Typography>
         ) : (
-          <Typography
-            className={classes.userName}
-            onClick={handleTitleClicked}
-          >
+          <Typography className={classes.userName} onClick={handleTitleClicked}>
             Name
           </Typography>
         )}

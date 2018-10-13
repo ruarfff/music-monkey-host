@@ -1,0 +1,7 @@
+.TrackListItem-voting .badge {
+  right: -15px; }
+
+.TrackListItem-audio {
+  display: block;
+  max-width: 0.2em;
+  width: 20px; }

@@ -2,19 +2,18 @@ import List from '@material-ui/core/List'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import EventIcon from '../../assets/event-icon.svg'
-import HomeIcon from '../../assets/home-icon.svg'
 import settingsIcon from '../../assets/gear-icon.svg'
+import HomeIcon from '../../assets/home-icon.svg'
 import insightsIcon from '../../assets/insights-icon.svg'
 import logo from '../../assets/logo-home.svg'
-import LeftMenuItem from './LeftMenuItem'
 import playlistIcon from '../../assets/playlist-icon.svg'
+import LeftMenuItem from './LeftMenuItem'
 
 interface IMainAppLeftMenuProps {
   path: string
 }
 
 class MainAppLeftMenu extends React.Component<IMainAppLeftMenuProps> {
-
   public render() {
     const { path } = this.props
 
@@ -34,7 +33,7 @@ class MainAppLeftMenu extends React.Component<IMainAppLeftMenuProps> {
       {
         text: 'Create New Event',
         link: '/create-event'
-      },
+      }
     ]
 
     const playlist = [
@@ -53,14 +52,14 @@ class MainAppLeftMenu extends React.Component<IMainAppLeftMenuProps> {
       {
         text: 'Create New Playlist',
         link: '/crate-playlist'
-      },
+      }
     ]
 
     return (
       <div className="Home-left-menu-wrapper">
         <div className="Home-left-menu">
           <div className="Home-logo-container">
-            <img src={logo} alt=""/>
+            <img src={logo} alt="" />
           </div>
           <List>
             <Link to={'/'}>

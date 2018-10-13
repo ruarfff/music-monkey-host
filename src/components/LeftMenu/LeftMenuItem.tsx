@@ -9,9 +9,8 @@ import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-import SubMenuIcon from '../../assets/submenu-icon.svg'
 import SubMenuIconHighlighted from '../../assets/subitem-highlighted.svg'
-
+import SubMenuIcon from '../../assets/submenu-icon.svg'
 
 const decorate = withStyles(({}) => ({
   listItemText: {
@@ -20,7 +19,7 @@ const decorate = withStyles(({}) => ({
     fontSize: '14px'
   },
   listItem: {
-    color: 'white',
+    color: 'white'
   },
   highlightedListItem: {
     color: 'white',
@@ -30,8 +29,8 @@ const decorate = withStyles(({}) => ({
       position: 'absolute',
       padding: '2px',
       height: '100%',
-      left: 0,
-    },
+      left: 0
+    }
   },
   subItemText: {
     color: 'white',
@@ -39,10 +38,10 @@ const decorate = withStyles(({}) => ({
     fontSize: '12px'
   },
   subListItem: {
-    paddingLeft: '78px',
+    paddingLeft: '78px'
   },
   collapse: {
-    background: '#363b77',
+    background: '#363b77'
   }
 }))
 
@@ -61,13 +60,12 @@ interface ILeftMenuItemProps {
 }
 
 class LeftMenuItem extends React.Component<ILeftMenuItemProps & WithStyles> {
-
   public state = {
-    isOpen: false,
+    isOpen: false
   }
 
   public handleToggleDropdown = () => {
-    this.setState({isOpen: !this.state.isOpen})
+    this.setState({ isOpen: !this.state.isOpen })
   }
 
   public renderSubMenuItem = (text: string, link: string) => {
@@ -76,13 +74,16 @@ class LeftMenuItem extends React.Component<ILeftMenuItemProps & WithStyles> {
     return (
       <ListItem className={classes.subListItem} button={true}>
         <ListItemIcon>
-          <img src={link !== currentPath ? SubMenuIcon : SubMenuIconHighlighted}/>
+          <img
+            src={link !== currentPath ? SubMenuIcon : SubMenuIconHighlighted}
+          />
         </ListItemIcon>
-        <ListItemText inset={true} primary={
-          <Typography className={classes.subItemText}>
-            {text}
-          </Typography>
-        }/>
+        <ListItemText
+          inset={true}
+          primary={
+            <Typography className={classes.subItemText}>{text}</Typography>
+          }
+        />
       </ListItem>
     )
   }
@@ -90,13 +91,23 @@ class LeftMenuItem extends React.Component<ILeftMenuItemProps & WithStyles> {
   public shouldHighlightList = () => {
     const { collapsedList, currentPath } = this.props
 
-    const shouldHighlight = collapsedList ? collapsedList.filter((item) => item.link === currentPath).length > 0 : false
+    const shouldHighlight = collapsedList
+      ? collapsedList.filter(item => item.link === currentPath).length > 0
+      : false
 
     return shouldHighlight
   }
 
   public render() {
-    const { classes, pathName, currentPath, text, icon, collapsed, collapsedList } = this.props
+    const {
+      classes,
+      pathName,
+      currentPath,
+      text,
+      icon,
+      collapsed,
+      collapsedList
+    } = this.props
     const { isOpen } = this.state
 
     const highlihgtSub = this.shouldHighlightList()
@@ -104,46 +115,58 @@ class LeftMenuItem extends React.Component<ILeftMenuItemProps & WithStyles> {
     return (
       <React.Fragment>
         <ListItem
-          className={pathName === currentPath || highlihgtSub ? classes.highlightedListItem : classes.listItem}
+          className={
+            pathName === currentPath || highlihgtSub
+              ? classes.highlightedListItem
+              : classes.listItem
+          }
           button={true}
           onClick={this.handleToggleDropdown}
           selected={pathName === currentPath && true}
         >
           <ListItemIcon>
-            <img src={icon}/>
+            <img src={icon} />
           </ListItemIcon>
           <ListItemText
             inset={true}
             disableTypography={true}
             primary={
-              <Typography className={classes.listItemText}>
-                {text}
-              </Typography>
+              <Typography className={classes.listItemText}>{text}</Typography>
             }
           />
-          {
-            collapsed ? (isOpen ?
-              <ExpandLess color="inherit" /> :
-              <ExpandMore color="inherit" />) : ''
-          }
+          {collapsed ? (
+            isOpen ? (
+              <ExpandLess color="inherit" />
+            ) : (
+              <ExpandMore color="inherit" />
+            )
+          ) : (
+            ''
+          )}
         </ListItem>
-        {
-          collapsed ?
-            <Collapse
-              in={isOpen}
-              timeout="auto"
-              unmountOnExit={true}
-              className={classes.collapse}
+        {collapsed ? (
+          <Collapse
+            in={isOpen}
+            timeout="auto"
+            unmountOnExit={true}
+            className={classes.collapse}
+          >
+            <List
+              className={highlihgtSub ? classes.highlightedListItem : ''}
+              component="div"
+              disablePadding={true}
             >
-              <List className={highlihgtSub ? classes.highlightedListItem : ''} component="div" disablePadding={true}>
-                {collapsedList && collapsedList.map((item, i) =>
+              {collapsedList &&
+                collapsedList.map((item, i) => (
                   <Link key={i} to={item.link}>
                     {this.renderSubMenuItem(item.text, item.link)}
                   </Link>
-                )}
-              </List>
-            </Collapse> : ''
-        }
+                ))}
+            </List>
+          </Collapse>
+        ) : (
+          ''
+        )}
       </React.Fragment>
     )
   }

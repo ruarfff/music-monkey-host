@@ -18,16 +18,16 @@ const decorated = withStyle(() => ({
   eventName: {
     fontSize: '34px',
     lineHeight: '40px',
-    marginBottom: '15px',
+    marginBottom: '15px'
   },
   imgRow: {
     display: 'flex',
     fontSize: '18px',
-    marginBottom: '15px',
+    marginBottom: '15px'
   },
   img: {
     marginRight: '10px',
-    width: '20px',
+    width: '20px'
   },
   showOnMap: {
     color: '#F79022',
@@ -37,9 +37,7 @@ const decorated = withStyle(() => ({
   button: {
     color: 'white'
   },
-  endDate: {
-
-  }
+  endDate: {}
 }))
 
 interface IEventDetailsProps {
@@ -49,9 +47,11 @@ interface IEventDetailsProps {
   toggleSuggestingPlaylists(event: IEvent): IAction
 }
 
-class EventDetails extends React.PureComponent<IEventDetailsProps & WithStyles> {
+class EventDetails extends React.PureComponent<
+  IEventDetailsProps & WithStyles
+> {
   public state = {
-    showMap: false,
+    showMap: false
   }
 
   public render() {
@@ -77,41 +77,59 @@ class EventDetails extends React.PureComponent<IEventDetailsProps & WithStyles> 
           </Grid>
 
           <Grid className="EventDetails-info" item={true} xs={6}>
-            <Typography className={classes.eventName} variant="headline" gutterBottom={true}>
+            <Typography
+              className={classes.eventName}
+              variant="headline"
+              gutterBottom={true}
+            >
               {event.name}
             </Typography>
 
-            <Typography className={classes.imgRow} variant="caption" gutterBottom={true}>
-              <img src={eventIcon} className={classes.img}/>
-              {event.startDateTime ? event.startDateTime.format('Do MMMM YYYY') : ''}
+            <Typography
+              className={classes.imgRow}
+              variant="caption"
+              gutterBottom={true}
+            >
+              <img src={eventIcon} className={classes.img} />
+              {event.startDateTime
+                ? event.startDateTime.format('Do MMMM YYYY')
+                : ''}
             </Typography>
 
             {event.location && (
-              <Typography className={classes.imgRow}  variant="caption" gutterBottom={true}>
-                <img src={locationIcon} className={classes.img}/>
-                {event.location.address}<br/>
+              <Typography
+                className={classes.imgRow}
+                variant="caption"
+                gutterBottom={true}
+              >
+                <img src={locationIcon} className={classes.img} />
+                {event.location.address}
+                <br />
               </Typography>
             )}
-            <Typography
-              className={classes.showOnMap}
-              onClick={this.toggleMap}
-            >
+            <Typography className={classes.showOnMap} onClick={this.toggleMap}>
               Show on Map
             </Typography>
 
-            <Typography className={classes.endDate} variant="caption" gutterBottom={true}>
+            <Typography
+              className={classes.endDate}
+              variant="caption"
+              gutterBottom={true}
+            >
               Pre-Game closes:
-              {event.startDateTime ? event.endDateTime.format('Do MMMM YYYY') : ''}
+              {event.startDateTime
+                ? event.endDateTime.format('Do MMMM YYYY')
+                : ''}
             </Typography>
 
             {event.eventCode && (
-              <Typography variant="body1" gutterBottom={true}>
+              <Typography variant="body2" gutterBottom={true}>
                 Event Code: {event.eventCode}
               </Typography>
             )}
 
             {event.venue && (
-              <Typography variant="body1" gutterBottom={true}>
+              <Typography variant="body2" gutterBottom={true}>
                 Venue: {event.venue}
               </Typography>
             )}
@@ -168,7 +186,9 @@ class EventDetails extends React.PureComponent<IEventDetailsProps & WithStyles> 
                 Edit Event
               </LinkButton>
             </Grid>
-            {this.state.showMap && <MapItem coords={event.location && event.location.latLng}/>}
+            {this.state.showMap && (
+              <MapItem coords={event.location && event.location.latLng} />
+            )}
           </Grid>
         </Grid>
       </div>
@@ -176,7 +196,7 @@ class EventDetails extends React.PureComponent<IEventDetailsProps & WithStyles> 
   }
 
   private toggleMap = () => {
-    this.setState({showMap: !this.state.showMap})
+    this.setState({ showMap: !this.state.showMap })
   }
 
   private handleDynamicVotingToggled = () => {

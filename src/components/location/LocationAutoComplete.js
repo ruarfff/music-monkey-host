@@ -27,40 +27,34 @@ const styles = theme => ({
     zIndex: 1
   },
   input: {
-    borderRadius: '4px',
-    border: '1px solid #979797',
-    paddingLeft: '16px',
-    minHeight: '40px',
-    '&:hover:not($disabled):before': {
-      borderBottom: '1px solid #979797!important',
+    '&:after': {
+      content: 'none'
     },
     '&:before': {
-      content: 'none',
+      content: 'none'
     },
-    '&:after': {
-      content: 'none',
-    }
+    '&:hover:not($disabled):before': {
+      borderBottom: '1px solid #979797!important'
+    },
+    border: '1px solid #979797',
+    borderRadius: '4px',
+    minHeight: '40px',
+    paddingLeft: '16px'
   },
   label: {
     paddingLeft: '16px',
     '&:hover:not($disabled):before': {
-      borderBottom: 'none!important',
+      borderBottom: 'none!important'
     },
     paddingTop: '4px'
   },
   formControl: {
-    margin: 0,
+    margin: 0
   }
 })
 
 function renderInput(inputProps, classes) {
-  const {
-    onChange,
-    onBlur,
-    onKeyDown,
-    placeholder,
-    value,
-  } = inputProps
+  const { onChange, onBlur, onKeyDown, placeholder, value } = inputProps
   return (
     <TextField
       label="Location"
@@ -72,8 +66,8 @@ function renderInput(inputProps, classes) {
       onKeyDown={onKeyDown}
       placeholder={placeholder}
       value={value}
-      InputProps={{className: classes.input}}
-      InputLabelProps={{className: classes.label}}
+      InputProps={{ className: classes.input }}
+      InputLabelProps={{ className: classes.label }}
     />
   )
 }
@@ -130,12 +124,15 @@ const LocationAutoComplete = ({
     <PlacesAutocomplete onChange={onChange} onSelect={onSelect} value={value}>
       {({ getInputProps, suggestions, getSuggestionItemProps }) => (
         <div>
-          {renderInput({
-            ...getInputProps({
-              formClass,
-              placeholder,
-            })
-          }, classes)}
+          {renderInput(
+            {
+              ...getInputProps({
+                formClass,
+                placeholder
+              })
+            },
+            classes
+          )}
 
           {renderSuggestionsContainer({
             children: suggestions.map(suggestion =>

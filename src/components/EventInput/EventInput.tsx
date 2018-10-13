@@ -1,7 +1,7 @@
 import { WithStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField/TextField'
 import * as React from 'react'
-import { decorate, IInputClasses } from '../../globalStyles/Input'
+import { decorate } from '../../globalStyles/Input'
 
 interface IEventInputProps {
   value: string
@@ -10,22 +10,13 @@ interface IEventInputProps {
   maxRows?: number
   error?: boolean
   errorLabel?: string
+  classes: any
   onChange(value: string): void
-  classes: IInputClasses
 }
 
 class EventInput extends React.Component<IEventInputProps & WithStyles> {
-
   public state = {
     touched: false
-  }
-
-  private handleChange = (event: any) => {
-    this.props.onChange(event.target.value)
-  }
-
-  private handleClick = () => {
-    this.setState({touched: true})
   }
 
   public render() {
@@ -56,12 +47,23 @@ class EventInput extends React.Component<IEventInputProps & WithStyles> {
         value={value}
         onChange={this.handleChange}
         className={classes.formControl}
-        InputProps={maxRows ? {className: classes.textArea} : {className: classes.input}}
-        InputLabelProps={{className: classes.label}}
+        InputProps={
+          maxRows
+            ? { className: classes.textArea }
+            : { className: classes.input }
+        }
+        InputLabelProps={{ className: classes.label }}
       />
     )
   }
 
+  private handleChange = (event: any) => {
+    this.props.onChange(event.target.value)
+  }
+
+  private handleClick = () => {
+    this.setState({ touched: true })
+  }
 }
 
 export default decorate(EventInput)
