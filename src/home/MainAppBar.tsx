@@ -92,6 +92,13 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
     this.setState({ anchorEl: undefined })
   }
 
+  public componentDidMount() {
+    const { user } = this.props
+    if (user) {
+      onRsvpSaved(user.userId, this.handleNotifications)
+    }
+  }
+
   public menuName = (history: string) => {
     const { event } = this.props
 
@@ -124,9 +131,6 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
   public render() {
     const { classes, user, location, handleTitleClicked } = this.props
 
-    if (user) {
-      onRsvpSaved(user.userId, this.handleNotifications)
-    }
     const { anchorEl } = this.state
     const open = Boolean(anchorEl)
     const userHasProfileImage = !!user && !!user.image
