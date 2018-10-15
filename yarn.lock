@@ -9504,10 +9504,10 @@ react-dropzone-component@^3.2.0:
     dropzone "^5.4.0"
     extend "^3.0.1"
 
-react-dropzone@^5.1.0:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-5.1.1.tgz#b05613ea22f1ab71aa1f7cf5367df7b19468a2f3"
-  integrity sha512-C9kXI3D95rVXbLLg9DvzCnmjplKwpfj/2F/MwvGVM05kDwWMzKVKZnmgZHZUebmiVj4mFOmBs2ObLiKvAxunGw==
+react-dropzone@^6.2.2:
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-6.2.2.tgz#fa9779d9f5d9e78c6ed282c71f380cffd6376a1c"
+  integrity sha512-rfzMk3d4d+oKHbF3/EWYESpc3nfVXU2dLxnJIgE8bqMnoPPkrIvAuR6gY1NpjdbPgQAg6HeqS/N0JG9tQhQqSA==
   dependencies:
     attr-accept "^1.1.3"
     prop-types "^15.6.2"
