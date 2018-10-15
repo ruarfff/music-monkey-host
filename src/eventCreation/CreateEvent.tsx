@@ -225,7 +225,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
         </Grid>
         <div className="control-btn-row">
           <Button
-            variant="raised"
+            variant="contained"
             color="secondary"
             onClick={this.handleCancel}
             className={classes.button}
@@ -235,7 +235,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
           <Button
             onClick={this.nextStep}
             color="primary"
-            variant="raised"
+            variant="contained"
             className={classes.button}
           >
             <span className="control-btn-text-secondary">Next</span>
@@ -318,7 +318,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
         </Grid>
         <div className='control-btn-row'>
           <Button
-            variant="raised"
+            variant="contained"
             color="secondary"
             onClick={this.handleCancel}
             className={classes.button}
@@ -326,7 +326,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             <span className="control-btn-text-primary">Cancel</span>
           </Button>
           <Button
-            variant="raised"
+            variant="contained"
             color="secondary"
             onClick={this.prevStep}
             className={classes.button}
@@ -341,7 +341,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
               !event.playlistUrl ||
               !event.venue
             }
-            variant="raised"
+            variant="contained"
             color="primary"
             onClick={this.handleSaveEvent}
             className={classes.button}

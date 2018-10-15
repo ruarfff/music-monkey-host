@@ -246,14 +246,14 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
         </Grid>
 
         <Button
-          variant="raised"
+          variant="contained"
           color="secondary"
           onClick={this.handleDeleteSelected}
         >
           Delete
         </Button>
         <Button
-          variant="raised"
+          variant="contained"
           color="primary"
           onClick={this.handleSave}
           className={classes.button}

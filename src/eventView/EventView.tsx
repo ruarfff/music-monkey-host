@@ -14,7 +14,8 @@ import IAction from '../IAction'
 import LoadingSpinner from '../loading/LoadingSpinner'
 import {
   subscribeToSuggestionsAccepted,
-  subscribeToVotesModified
+  subscribeToVotesModified,
+  onGuestUpdate
 } from '../notification'
 import EventGuests from './EventGuestsContainer'
 import EventTracksView from './EventPlaylistViewContainer'
@@ -77,6 +78,7 @@ class EventView extends React.Component<IEventViewProps & WithStyles, IEventView
     subscribeToSuggestionsAccepted(eventId, this.handleSuggestionNotification)
     this.props.fetchEventVotes(eventId)
     subscribeToVotesModified(eventId, this.handleEventVotesModified)
+    onGuestUpdate(eventId, () => alert('test'))
   }
 
   public render() {
@@ -157,6 +159,13 @@ class EventView extends React.Component<IEventViewProps & WithStyles, IEventView
   private handleTabChange = (event: any, index: number) => {
     this.setState({ tabIndex: index })
   }
+
+  // private handleUpdateGuests = () => {
+  //   const eventId = this.props.match.params.eventId
+  //   if (eventId) {
+  //     this.props.getEventById(eventId)
+  //   }
+  // }
 
   private handleSuggestionNotification = () => {
     const eventId = this.props.match.params.eventId

@@ -29,7 +29,7 @@ const InviteLink = (props: IInviteLinkProps & WithStyles) => {
         id="invite-link"
         value={inviteLink}
         color={'primary'}
-        variant={'raised'}
+        variant={'contained'}
         className={classes.button}
       >
         Share Event

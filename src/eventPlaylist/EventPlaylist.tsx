@@ -138,7 +138,7 @@ export default class EventPlaylist extends React.Component<IEventPlaylistProps> 
       <div className="EventPlaylist-playlist-actions">
         <div className="EventPlaylist-playlist-action">
           <Button
-            variant="raised"
+            variant="contained"
             color="primary"
             disabled={!hasStagedTrack}
             onClick={this.handleSavePlaylist}
@@ -154,7 +154,7 @@ export default class EventPlaylist extends React.Component<IEventPlaylistProps> 
         </div>
         <div className="EventPlaylist-playlist-action">
           <Button
-            variant="raised"
+            variant="contained"
             color="secondary"
             disabled={!hasStagedTrack}
             onClick={this.props.resetStagedSuggestions}

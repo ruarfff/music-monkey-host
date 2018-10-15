@@ -1,6 +1,6 @@
 import AppBar from '@material-ui/core/AppBar/AppBar'
 import Avatar from '@material-ui/core/Avatar/Avatar'
-// import Badge from '@material-ui/core/Badge'
+import Badge from '@material-ui/core/Badge'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton/IconButton'
 import Menu from '@material-ui/core/Menu/Menu'
@@ -9,12 +9,13 @@ import { withStyles, WithStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar/Toolbar'
 import Typography from '@material-ui/core/Typography/Typography'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-// import NotificationsIcon from '@material-ui/icons/Notifications'
+import NotificationsIcon from '@material-ui/icons/Notifications'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import eventIcon from '../assets/event-icon.svg'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
+import { onRsvpSaved } from '../notification'
 import IUser from '../user/IUser'
 
 const decorate = withStyles(({ transitions, zIndex }) => ({
@@ -79,7 +80,8 @@ interface IMainAppBarProps {
 
 class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
   public state = {
-    anchorEl: undefined
+    anchorEl: undefined,
+    notifications: 0
   }
 
   public handleMenu = (event: any) => {
@@ -115,8 +117,16 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
     }
   }
 
+  public handleNotifications = () => {
+    this.setState({notifications: this.state.notifications++})
+  }
+
   public render() {
     const { classes, user, location, handleTitleClicked } = this.props
+
+    if (user) {
+      onRsvpSaved(user.userId, this.handleNotifications)
+    }
     const { anchorEl } = this.state
     const open = Boolean(anchorEl)
     const userHasProfileImage = !!user && !!user.image
@@ -136,15 +146,15 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
             </Button>
           </Link>
         )}
-        {/*<IconButton color="inherit">*/}
-        {/*<Badge*/}
-        {/*className={classes.notification}*/}
-        {/*badgeContent={17}*/}
-        {/*color="secondary"*/}
-        {/*>*/}
-        {/*<NotificationsIcon />*/}
-        {/*</Badge>*/}
-        {/*</IconButton>*/}
+        <IconButton color="inherit">
+        <Badge
+        className={classes.notification}
+        badgeContent={this.state.notifications}
+        color="secondary"
+        >
+        <NotificationsIcon />
+        </Badge>
+        </IconButton>
         <IconButton
           aria-owns={open ? 'menu-appbar' : undefined}
           aria-haspopup="true"

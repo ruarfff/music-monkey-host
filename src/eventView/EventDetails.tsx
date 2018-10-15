@@ -178,7 +178,7 @@ class EventDetails extends React.PureComponent<
                 />
               </FormGroup>
               <LinkButton
-                variant="raised"
+                variant="contained"
                 color="primary"
                 to={location.pathname + '/edit'}
                 className={classes.button}

@@ -226,7 +226,7 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
 
           {!this.state.isEdit ?
             <Button
-              variant="raised"
+              variant="contained"
               color="primary"
               className={classes.editButton}
               onClick={this.editDetails}
@@ -234,7 +234,7 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
               EDIT CONTACT DETAILS
             </Button> :
             <Button
-              variant="raised"
+              variant="contained"
               color="primary"
               className={classes.editButton}
               onClick={this.editDetails}

@@ -154,14 +154,14 @@ class EventMaybeSuggestions extends React.PureComponent<
         <ListItemSecondaryAction>
           <Button
             className={classes.accept}
-            variant="raised"
+            variant="contained"
             onClick={this.handleSuggestionAccepted(decoratedSuggestion)}
           >
             ACCEPT
           </Button>
           <Button
             className={classes.reject}
-            variant="raised"
+            variant="contained"
             onClick={this.handleSuggestionAccepted(decoratedSuggestion)}
           >
             REJECT

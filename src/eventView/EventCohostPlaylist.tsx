@@ -200,7 +200,7 @@ private renderSuggestion = (decoratedSuggestion: IDecoratedSuggestion, i: number
             <ListItemSecondaryAction>
               <Button
                 className={classes.accept}
-                variant="raised"
+                variant="contained"
                 onClick={this.handleSuggestionAccepted(decoratedSuggestion)}
               >
                 ADD

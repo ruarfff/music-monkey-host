@@ -10,9 +10,6 @@ const theme = createMuiTheme({
       main: '#F79022'
     }
   } as PaletteOptions,
-  typography: {
-    useNextVariants: true
-  }
 })
 
 export default theme

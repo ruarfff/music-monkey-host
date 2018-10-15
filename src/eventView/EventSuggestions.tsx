@@ -160,21 +160,21 @@ class EventSuggestions extends React.Component<
           <ListItemSecondaryAction>
             <Button
               className={classes.reject}
-              variant="raised"
+              variant="contained"
               onClick={this.handleSuggestionRejected(decoratedSuggestion)}
             >
               REJECT
             </Button>
             <Button
               className={classes.accept}
-              variant="raised"
+              variant="contained"
               onClick={this.handleSuggestionAccepted(decoratedSuggestion)}
             >
               ACCEPT
             </Button>
             <Button
               className={classes.maybe}
-              variant="raised"
+              variant="contained"
               onClick={this.handleSuggestionAccepted(decoratedSuggestion)}
             >
               MAYBE
@@ -216,7 +216,7 @@ class EventSuggestions extends React.Component<
       <div>
         <Button
           className="EventSuggestions-button"
-          variant="raised"
+          variant="contained"
           color="primary"
           onClick={this.handleAcceptAllClicked}
         >

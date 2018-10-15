@@ -126,7 +126,7 @@ class ShareEvent extends React.PureComponent<IShareEventProps & WithStyles> {
             />
             <a className={classes.link} href={event.playlistUrl}>
               <Button
-                variant="raised"
+                variant="contained"
                 color='secondary'
               >
                 GO TO PLAYLIST
@@ -134,7 +134,7 @@ class ShareEvent extends React.PureComponent<IShareEventProps & WithStyles> {
             </a>
             <Link className={classes.link} to={'/events/' + event.eventId}>
               <Button
-                variant="raised"
+                variant="contained"
                 color='secondary'
               >
                 GO TO EVENT
