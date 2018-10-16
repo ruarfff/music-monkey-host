@@ -92,7 +92,7 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
     this.setState({ anchorEl: undefined })
   }
 
-  public componentDidMount() {
+  public componentWillUpdate() {
     const { user } = this.props
     if (user) {
       onRsvpSaved(user.userId, this.handleNotifications)
@@ -125,7 +125,7 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
   }
 
   public handleNotifications = () => {
-    this.setState({notifications: this.state.notifications++})
+    this.setState({notifications: this.state.notifications + 1})
   }
 
   public render() {

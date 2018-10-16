@@ -35,7 +35,6 @@ export const subscribeToVotesModified = (eventId: string, callback: any) => {
 
 export const onGuestUpdate = (eventId: string, callback: any) => {
   if (!subscribedToGuestUpdate) {
-    console.log(eventId)
     const channel = pusher.subscribe('mm-rsvps-' + eventId)
     channel.bind('rsvp-saved', callback)
     subscribedToGuestUpdate = true
