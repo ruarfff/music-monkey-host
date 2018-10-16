@@ -78,7 +78,7 @@ class EventView extends React.Component<IEventViewProps & WithStyles, IEventView
     subscribeToSuggestionsAccepted(eventId, this.handleSuggestionNotification)
     this.props.fetchEventVotes(eventId)
     subscribeToVotesModified(eventId, this.handleEventVotesModified)
-    onGuestUpdate(eventId, () => alert('test'))
+    onGuestUpdate(eventId, this.handleUpdateGuests)
   }
 
   public render() {
@@ -95,7 +95,7 @@ class EventView extends React.Component<IEventViewProps & WithStyles, IEventView
       <div className="eventViewWrapper">
         {loading && <LoadingSpinner />}
         {loading &&
-          error && <EventFetchError onTryAgain={this.handleGetEvent} />}
+        error && <EventFetchError onTryAgain={this.handleGetEvent} />}
         {shouldShowEvent && this.renderEventView()}
         {copiedToClipboard && (
           <InviteCopyAlert
@@ -160,12 +160,12 @@ class EventView extends React.Component<IEventViewProps & WithStyles, IEventView
     this.setState({ tabIndex: index })
   }
 
-  // private handleUpdateGuests = () => {
-  //   const eventId = this.props.match.params.eventId
-  //   if (eventId) {
-  //     this.props.getEventById(eventId)
-  //   }
-  // }
+  private handleUpdateGuests = () => {
+    const eventId = this.props.match.params.eventId
+    if (eventId) {
+      this.props.getEventById(eventId)
+    }
+  }
 
   private handleSuggestionNotification = () => {
     const eventId = this.props.match.params.eventId

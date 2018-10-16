@@ -9,9 +9,11 @@ import {fetchUsersPlaylists} from './playlistClient'
 
 function* fetchPlaylistsFlow(action: IAction) {
   try {
+    console.log('testPlaylist')
     const playlists = yield call(fetchUsersPlaylists, action.payload)
     yield put({ type: FETCH_PLAYLISTS_SUCCESS, payload: playlists })
   } catch (error) {
+    console.log('testPlaylist error')
     yield put({ type: FETCH_PLAYLISTS_ERROR, payload: error })
   }
 }
