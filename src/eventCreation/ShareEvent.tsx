@@ -2,7 +2,7 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import { Theme, WithStyles } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
-import AccountCircle from '@material-ui/icons/AccountCircle'
+// import AccountCircle from '@material-ui/icons/AccountCircle'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import dateIcon from '../assets/date-icon.svg'
@@ -108,10 +108,10 @@ class ShareEvent extends React.PureComponent<IShareEventProps & WithStyles> {
               View on Map
             </span>
           </div>
-          <div className={classes.descriptionItem}>
-            <span>Co-Hosts</span>
-            <AccountCircle/>
-          </div>
+          {/*<div className={classes.descriptionItem}>*/}
+            {/*<span>Co-Hosts</span>*/}
+            {/*<AccountCircle/>*/}
+          {/*</div>*/}
         </Grid>
         <Grid item={true} md={4}>
           <Grid

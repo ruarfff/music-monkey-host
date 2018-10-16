@@ -59,7 +59,7 @@ class PlaylistCard extends React.Component<
     const { classes, playlist } = this.props
 
     const image =
-      playlist.images && playlist.images.length ? playlist.images[0].url : '/img/partycover-sm.png'
+      (playlist.images && playlist.images.length > 0) ? playlist.images[0].url : '/img/partycover-sm.png'
 
     return (
       <Card className={classes.card}>

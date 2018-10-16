@@ -71,9 +71,9 @@ class EventPlaylistView extends React.Component<
             >
               <Tab label="Event Playlist"/>
               <Tab label={
-                <Badge badgeContent={pendingSuggestions.length} color={'primary'} className={classes.suggestions}>
+                pendingSuggestions.length ? <Badge badgeContent={pendingSuggestions.length} color={'primary'} className={classes.suggestions}>
                   Suggested
-                </Badge>
+                </Badge> : 'Suggested'
               }/>
               <Tab label="Rejected" />
               <Tab label="Maybe"/>
