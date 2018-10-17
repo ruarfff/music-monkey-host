@@ -13,6 +13,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import eventIcon from '../assets/event-icon.svg'
+import NotificationPopup from '../components/NotificationPopup/NotificationPopup'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import { onRsvpSaved } from '../notification'
@@ -81,7 +82,8 @@ interface IMainAppBarProps {
 class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
   public state = {
     anchorEl: undefined,
-    notifications: 0
+    notifications: 0,
+    showNotification: false,
   }
 
   public handleMenu = (event: any) => {
@@ -128,6 +130,10 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
     this.setState({notifications: this.state.notifications + 1})
   }
 
+  public toggleNotification = () => {
+    this.setState({showNotification: !this.state.showNotification})
+  }
+
   public render() {
     const { classes, user, location, handleTitleClicked } = this.props
 
@@ -151,14 +157,16 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
           </Link>
         )}
         <IconButton color="inherit">
-        <Badge
-        className={classes.notification}
-        badgeContent={this.state.notifications}
-        color="secondary"
-        >
-        <NotificationsIcon />
-        </Badge>
+          <Badge
+            className={classes.notification}
+            badgeContent={this.state.notifications}
+            color="secondary"
+            onClick={this.toggleNotification}
+          >
+            <NotificationsIcon />
+          </Badge>
         </IconButton>
+        {this.state.showNotification && <NotificationPopup />}
         <IconButton
           aria-owns={open ? 'menu-appbar' : undefined}
           aria-haspopup="true"
