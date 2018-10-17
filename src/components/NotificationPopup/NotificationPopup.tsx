@@ -1,7 +1,7 @@
 import * as React from 'react'
 import './NotificationPopupStyles.scss'
 
-interface NotificationPopupProps {
+interface INotificationPopupProps {
 
 }
 
@@ -32,7 +32,7 @@ const data = [
   }
 ]
 
-class NotificationPopup extends React.Component<NotificationPopupProps> {
+class NotificationPopup extends React.Component<INotificationPopupProps> {
   public render() {
     return (
       <div className='notificationWrapper'>
