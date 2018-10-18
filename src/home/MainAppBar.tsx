@@ -80,6 +80,8 @@ interface IMainAppBarProps {
   logout(): IAction
   getNotifications(id: string): IAction
   handleTitleClicked(): void
+  actionedNotification(index: number): IAction
+  readNotification(index: number): IAction
 }
 
 class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
@@ -131,7 +133,6 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
 
   public handleNotifications = () => {
     this.setState({notifications: this.state.notifications + 1})
-
   }
 
   public toggleNotification = () => {
@@ -143,7 +144,15 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
   }
 
   public render() {
-    const { classes, user, location, handleTitleClicked, notification } = this.props
+    const {
+      classes,
+      user,
+      location,
+      handleTitleClicked,
+      notification,
+      readNotification,
+      actionedNotification,
+    } = this.props
     const { anchorEl } = this.state
     const open = Boolean(anchorEl)
     const userHasProfileImage = !!user && !!user.image
@@ -173,7 +182,12 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        {this.state.showNotification && <NotificationPopup notifications={notification.notifications}/>}
+        {this.state.showNotification &&
+        <NotificationPopup
+          notifications={notification.notifications}
+          actionedNotification={actionedNotification}
+          readNotification={readNotification}
+        />}
         <IconButton
           aria-owns={open ? 'menu-appbar' : undefined}
           aria-haspopup="true"

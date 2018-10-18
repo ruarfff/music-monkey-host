@@ -1,22 +1,31 @@
 import * as React from 'react'
 import './NotificationPopupStyles.scss'
 import { INotification } from '../../notification/notificationInitialState'
+import IAction from '../../IAction'
 
 interface INotificationPopupProps {
   notifications: INotification[]
+  actionedNotification(index: number): IAction
+  readNotification(index: number): IAction
 }
 
 class NotificationPopup extends React.Component<INotificationPopupProps> {
   public render() {
     const { notifications } = this.props
+    const filteredNotifications = notifications.filter(n => n.status !== 'Actioned')
+    console.log(filteredNotifications)
     return (
       <div className='notificationWrapper'>
         {
-          notifications ? notifications.map((notification: INotification) => (
+          filteredNotifications.length > 0 ? filteredNotifications.map((notification: INotification, index: number) => (
             <div
-              className='notificationItemWrapper'
-              onClick={this.handleClickNotification}
-              onMouseEnter={this.handleHoverNotification}
+              key={index}
+              className={notification.status === 'Read' ?
+                'notificationItemWrapper notificationItemWrapperHighlighted' :
+                'notificationItemWrapper'
+              }
+              onClick={() => this.handleClickNotification(index)}
+              onMouseEnter={() => this.handleHoverNotification(index, notification.status)}
             >
               <span className='notificationItemText'>
                 {notification.text}
@@ -28,8 +37,6 @@ class NotificationPopup extends React.Component<INotificationPopupProps> {
           )) :
           <div
             className='notificationItemWrapper'
-            onClick={this.handleClickNotification}
-            onMouseEnter={this.handleHoverNotification}
           >
             <span className='notificationItemText'>
               No notifications
@@ -40,12 +47,15 @@ class NotificationPopup extends React.Component<INotificationPopupProps> {
     )
   }
 
-  private handleHoverNotification = (e: any) => {
-    e.target.classList.add('notificationItemWrapperHighlighted')
+  private handleHoverNotification = (index: number, status: string) => {
+    if (status !== 'Read') {
+      this.props.readNotification(index)
+    }
   }
 
-  private handleClickNotification = (e: any) => {
-    e.target.style.display = 'none'
+  private handleClickNotification = (index: number) => {
+    console.log(index)
+    this.props.actionedNotification(index)
   }
 }
 

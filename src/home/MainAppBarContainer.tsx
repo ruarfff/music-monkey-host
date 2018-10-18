@@ -2,7 +2,11 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import { logout } from '../auth/authActions'
-import { getNotifications } from '../notification/notificationActions'
+import {
+  getNotifications,
+  readNotification,
+  actionedNotification
+} from '../notification/notificationActions'
 import IRootState from '../rootState'
 import MainAppBar from './MainAppBar'
 
@@ -22,6 +26,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   ...bindActionCreators({
     logout,
     getNotifications,
+    readNotification,
+    actionedNotification,
   }, dispatch),
 })
 
