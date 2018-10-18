@@ -1,10 +1,10 @@
-import Action from '../IAction'
 import * as _ from 'lodash'
+import Action from '../IAction'
 import {
+  ACTIONED_NOTIFICATION,
   NOTIFICATION_FETCH_FAILURE,
   NOTIFICATION_FETCH_REQUEST,
   NOTIFICATION_FETCH_SUCCESS,
-  ACTIONED_NOTIFICATION,
   READ_NOTIFICATION
 } from './notificationActions'
 import initialState, {INotificationState} from './notificationInitialState'

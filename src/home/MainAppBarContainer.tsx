@@ -3,9 +3,9 @@ import { push } from 'react-router-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import { logout } from '../auth/authActions'
 import {
+  actionedNotification,
   getNotifications,
-  readNotification,
-  actionedNotification
+  readNotification
 } from '../notification/notificationActions'
 import IRootState from '../rootState'
 import MainAppBar from './MainAppBar'
