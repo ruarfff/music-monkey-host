@@ -1,10 +1,10 @@
-import { put, takeLatest } from 'redux-saga/effects'
 import IAction from '../IAction'
 import {
-  getNotificationsFailure,
-  getNotificationsSuccess,
-  NOTIFICATION_FETCH_REQUEST,
+getNotificationsFailure,
+getNotificationsSuccess,
+NOTIFICATION_FETCH_REQUEST,
 } from './notificationActions'
+import { put, takeLatest } from 'redux-saga/effects'
 // import { getNotifications } from './notificationClient'
 
 function* fetchNotificationsByUserId({ payload }: IAction) {
