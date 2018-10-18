@@ -34,6 +34,7 @@ import {
 } from './suggestion/suggestionSaga'
 import { watchupdateUserFlow } from './user/userSaga'
 import { watchFetchEventVotes } from './vote/voteSaga'
+import { watchFetchNotificationsByUserId } from './notification/notificationSaga'
 
 export default function* saga() {
   yield all([
@@ -61,6 +62,7 @@ export default function* saga() {
     watchToggleAutoAcceptSuggestions(),
     watchToggleSuggestingPlaylists(),
     watchUpdateEvent(),
-    watchupdateUserFlow()
+    watchupdateUserFlow(),
+    watchFetchNotificationsByUserId(),
   ])
 }

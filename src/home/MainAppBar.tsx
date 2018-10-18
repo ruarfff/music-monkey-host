@@ -17,6 +17,7 @@ import NotificationPopup from '../components/NotificationPopup/NotificationPopup
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import { onRsvpSaved } from '../notification'
+import { INotificationState } from '../notification/notificationInitialState'
 import IUser from '../user/IUser'
 
 const decorate = withStyles(({ transitions, zIndex }) => ({
@@ -75,7 +76,9 @@ interface IMainAppBarProps {
   user: IUser
   location: string
   event: IEvent
+  notification: INotificationState
   logout(): IAction
+  getNotifications(id: string): IAction
   handleTitleClicked(): void
 }
 
@@ -128,15 +131,19 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
 
   public handleNotifications = () => {
     this.setState({notifications: this.state.notifications + 1})
+
   }
 
   public toggleNotification = () => {
     this.setState({showNotification: !this.state.showNotification})
+    if (!this.props.notification.loading) {
+
+      this.props.getNotifications(this.props.user.userId)
+    }
   }
 
   public render() {
-    const { classes, user, location, handleTitleClicked } = this.props
-
+    const { classes, user, location, handleTitleClicked, notification } = this.props
     const { anchorEl } = this.state
     const open = Boolean(anchorEl)
     const userHasProfileImage = !!user && !!user.image
@@ -166,7 +173,7 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        {this.state.showNotification && <NotificationPopup />}
+        {this.state.showNotification && <NotificationPopup notifications={notification.notifications}/>}
         <IconButton
           aria-owns={open ? 'menu-appbar' : undefined}
           aria-haspopup="true"

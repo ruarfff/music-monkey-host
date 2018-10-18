@@ -77,8 +77,7 @@ class PlaylistSelection extends React.Component<
   }
 
   public handleChange = (selected: any) => {
-    this.setState({ selected });
-    console.log(`Option selected:`, selected);
+    this.setState({ selected })
   }
 
   public render() {

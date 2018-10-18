@@ -8,6 +8,7 @@ import IPlaylistState from './playlist/IPlaylistState'
 import ISuggestionState from './suggestion/ISuggestionState'
 import IUserState from './user/IUserState'
 import IVoteState from './vote/IVoteState'
+import { INotificationState } from './notification/notificationInitialState'
 
 export default interface IRootState {
   auth: IAuthState
@@ -20,4 +21,5 @@ export default interface IRootState {
   suggestion: ISuggestionState
   vote: IVoteState
   insights: IInsightsInitialState
+  notification: INotificationState
 }

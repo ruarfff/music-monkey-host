@@ -17,7 +17,6 @@ export const subscribeToSuggestionsAccepted = (
   callback: any
 ) => {
   if (!subscribedToSuggestions) {
-    console.log('mm-suggestions-' + eventId)
     const channel = pusher.subscribe('mm-suggestions-' + eventId)
     channel.bind('suggestion-saved', callback)
     subscribedToSuggestions = true
@@ -43,7 +42,6 @@ export const onGuestUpdate = (eventId: string, callback: any) => {
 
 export const onRsvpSaved = (userId: string, callback: any) => {
   if (!subscribedToRsvp) {
-    console.log(userId)
     const channel = pusher.subscribe('mm-user-notifications-' + userId)
     channel.bind('notifications-saved', callback)
     subscribedToRsvp = true

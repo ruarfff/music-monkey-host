@@ -9,6 +9,7 @@ import playlist from './playlist/playlistReducer'
 import suggestion from './suggestion/suggestionReducer'
 import user from './user/userReducer'
 import vote from './vote/voteReducer'
+import notification from './notification/notificationReducer'
 
 const reducers = combineReducers({
   auth,
@@ -20,7 +21,8 @@ const reducers = combineReducers({
   suggestion,
   user,
   vote,
-  insights
+  insights,
+  notification
 })
 
 export default reducers

@@ -23,7 +23,6 @@ export const getCurrentUser = () => {
 }
 
 export const updateUserById = (user: IUser) => {
-  console.log(user)
   return axios
     .put(serviceUrl + '/users/' + user.userId, user, {
         withCredentials: true,

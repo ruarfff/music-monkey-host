@@ -1,43 +1,18 @@
 import * as React from 'react'
 import './NotificationPopupStyles.scss'
+import { INotification } from '../../notification/notificationInitialState'
 
-// interface INotificationPopupProps {
-//
-// }
+interface INotificationPopupProps {
+  notifications: INotification[]
+}
 
-const data = [
-  {
-    userId: 'host-userId',
-    type: 'rsvp',
-    context: 'event',
-    contextId: 'eventId',
-    text: 'Some Person is going to Event X.',
-    status: 'Unread'
-  },
-  {
-    userId: 'host-userId',
-    type: 'rsvp',
-    context: 'event',
-    contextId: 'eventId',
-    text: 'Some Person is going to Event X.',
-    status: 'Unread'
-  },
-  {
-    userId: 'host-userId',
-    type: 'rsvp',
-    context: 'event',
-    contextId: 'eventId',
-    text: 'Some Person is going to Event X.',
-    status: 'Unread'
-  }
-]
-
-class NotificationPopup extends React.Component {
+class NotificationPopup extends React.Component<INotificationPopupProps> {
   public render() {
+    const { notifications } = this.props
     return (
       <div className='notificationWrapper'>
         {
-          data ? data.map(notification => (
+          notifications ? notifications.map((notification: INotification) => (
             <div
               className='notificationItemWrapper'
               onClick={this.handleClickNotification}
