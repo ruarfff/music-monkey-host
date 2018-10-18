@@ -27,14 +27,14 @@ import {
   watchToggleDynamicVoting,
   watchToggleSuggestingPlaylists
 } from './eventView/eventViewSaga'
+import { watchFetchNotificationsByUserId } from './notification/notificationSaga'
 import { watchFetchPlaylists } from './playlist/playlistSaga'
 import {
-  watchFetchSuggestions,
-  watchRejectSuggestion
+watchFetchSuggestions,
+watchRejectSuggestion
 } from './suggestion/suggestionSaga'
 import { watchupdateUserFlow } from './user/userSaga'
 import { watchFetchEventVotes } from './vote/voteSaga'
-import { watchFetchNotificationsByUserId } from './notification/notificationSaga'
 
 export default function* saga() {
   yield all([

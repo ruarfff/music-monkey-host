@@ -1,7 +1,7 @@
 import * as React from 'react'
-import './NotificationPopupStyles.scss'
-import { INotification } from '../../notification/notificationInitialState'
 import IAction from '../../IAction'
+import { INotification } from '../../notification/notificationInitialState'
+import './NotificationPopupStyles.scss'
 
 interface INotificationPopupProps {
   notifications: INotification[]
