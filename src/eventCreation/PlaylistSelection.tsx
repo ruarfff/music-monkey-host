@@ -17,7 +17,7 @@ const decorate = withStyles(({}) => ({
     paddingTop: '1.5em'
   },
   button: {
-    color: '#F79022',
+    color: '#FFB000',
   },
   selectSpotify: {
 
@@ -109,7 +109,7 @@ class PlaylistSelection extends React.Component<
         <Grid item={true} className={classes.menuIcon} md={3}>
           {value && (
             <a href={value} target="_blank">
-              <OpenInNew fill="#F79022" />
+              <OpenInNew fill="#FFB000" />
             </a>
           )}
           <Button onClick={this.createPlaylistSelected}>

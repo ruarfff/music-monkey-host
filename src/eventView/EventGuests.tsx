@@ -26,7 +26,7 @@ const decorated = withStyle(() => ({
     width: '130px',
     height: '160px',
     borderRadius: '4px',
-    border: '3px solid #F79022',
+    border: '3px solid #FFB000',
     marginRight: '20px',
   },
   noAvatar: {
@@ -36,7 +36,7 @@ const decorated = withStyle(() => ({
     width: '130px',
     height: '160px',
     borderRadius: '4px',
-    border: '3px solid #49cdd8',
+    border: '3px solid #3AABD1',
     marginRight: '20px',
   }
 }))

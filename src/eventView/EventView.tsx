@@ -32,8 +32,8 @@ const decorated = withStyle(() => ({
   tab: {
   },
   tabs: {
-    color: '#5157ab',
-    borderBottom: '1px solid #5157ab'
+    color: '#AF00FF',
+    borderBottom: '1px solid #AF00FF'
   },
   content: {
     paddingTop: 0,

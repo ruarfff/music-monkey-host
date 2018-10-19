@@ -15,7 +15,7 @@ const decorated = withStyle(() => ({
     height: '100%',
   },
   spotifyLink: {
-    color: '#F79022'
+    color: '#FFB000'
   },
   playlistContainer: {
 

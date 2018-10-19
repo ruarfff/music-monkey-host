@@ -13,7 +13,7 @@ const decorated = withStyle(() => ({
     height: '100%',
   },
   leftSideContent: {
-    borderRight: '1px solid #5157ab',
+    borderRight: '1px solid #AF00FF',
     padding: '0!important',
     margin: '0!important',
     width: '100%',

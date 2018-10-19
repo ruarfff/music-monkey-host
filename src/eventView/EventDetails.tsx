@@ -30,7 +30,7 @@ const decorated = withStyle(() => ({
     width: '20px'
   },
   showOnMap: {
-    color: '#F79022',
+    color: '#FFB000',
     cursor: 'pointer',
     marginBottom: '10px'
   },

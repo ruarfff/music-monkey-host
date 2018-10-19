@@ -23,9 +23,10 @@ const decorate = withStyles(({}) => ({
   },
   highlightedListItem: {
     color: 'white',
+    background: '#8300bf',
     '&:before': {
       content: '""',
-      background: '#49cdd8',
+      background: '#3AABD1',
       position: 'absolute',
       padding: '2px',
       height: '100%',
@@ -41,7 +42,7 @@ const decorate = withStyles(({}) => ({
     paddingLeft: '78px'
   },
   collapse: {
-    background: '#363b77'
+    background: '#8300bf'
   }
 }))
 

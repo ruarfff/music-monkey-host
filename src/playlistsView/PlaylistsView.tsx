@@ -24,7 +24,7 @@ const decorate = withStyles(() => ({
     color: '#979797'
   },
   buttonOrange: {
-    color: '#F79022'
+    color: '#FFB000'
   }
 }))
 

@@ -57,7 +57,7 @@ const decorate = withStyles(({ transitions, zIndex }) => ({
   },
   addEventBtn: {
     textTransform: 'uppercase',
-    backgroundColor: '#F79022',
+    backgroundColor: '#FFB000',
     color: 'white',
     padding: '8px 18px'
   },

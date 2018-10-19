@@ -4,7 +4,7 @@ import './LoadingSpinner.scss'
 
 const LoadingSpinner = () => (
   <div className="LoadingSpinner">
-    <ReactLoading type="cylon" color="#5159a6" height={400} width={400} />
+    <ReactLoading type="cylon" color="#AF00FF" height={400} width={400} />
   </div>
 )
 

@@ -14,7 +14,7 @@ const decorate = withStyles((theme: Theme) => ({
     padding: '20px 35px'
   },
   highlight: {
-    color: '#F79022',
+    color: '#FFB000',
   }
 }))
 

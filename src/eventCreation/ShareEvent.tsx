@@ -42,7 +42,7 @@ const decorate = withStyles((theme: Theme) => ({
     width: '25px'
   },
   viewOnMap: {
-    color: '#F79022',
+    color: '#FFB000',
     paddingLeft: '30px',
     cursor: 'pointer',
   },

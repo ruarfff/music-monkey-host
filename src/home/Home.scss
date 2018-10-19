@@ -11,15 +11,15 @@ a {
   &:focus {
     box-shadow: none;
   }
-  background: #F79022!important;
+  background: #FFB000!important;
 }
 
 .swal2-icon.swal2-success .swal2-success-ring {
-  border: 0.25em solid #5159a6!important;
+  border: 0.25em solid #AF00FF!important;
 }
 
 .swal2-icon.swal2-success [class^='swal2-success-line'] {
-  background-color: #5159a6!important;
+  background-color: #AF00FF!important;
 }
 
 .Home-root {
@@ -55,7 +55,7 @@ a {
 .Home-left-menu {
   width: 300px;
   position: fixed;
-  background-color: #5159a6;
+  background-color: #AF00FF;
   height: 100%;
   z-index: 10;
   box-shadow:
