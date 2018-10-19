@@ -13,7 +13,6 @@ class NotificationPopup extends React.Component<INotificationPopupProps> {
   public render() {
     const { notifications } = this.props
     const filteredNotifications = notifications.filter(n => n.status !== 'Actioned')
-    console.log(filteredNotifications)
     return (
       <div className='notificationWrapper'>
         {
@@ -54,7 +53,6 @@ class NotificationPopup extends React.Component<INotificationPopupProps> {
   }
 
   private handleClickNotification = (index: number) => {
-    console.log(index)
     this.props.actionedNotification(index)
   }
 }
