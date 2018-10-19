@@ -23,8 +23,8 @@ class NotificationPopup extends React.Component<INotificationPopupProps> {
                 'notificationItemWrapper notificationItemWrapperHighlighted' :
                 'notificationItemWrapper'
               }
-              onClick={() => this.handleClickNotification(index)}
-              onMouseEnter={() => this.handleHoverNotification(index, notification.status)}
+              onClick={this.handleClickNotification(index)}
+              onMouseEnter={this.handleHoverNotification(index, notification.status)}
             >
               <span className='notificationItemText'>
                 {notification.text}
@@ -46,13 +46,13 @@ class NotificationPopup extends React.Component<INotificationPopupProps> {
     )
   }
 
-  private handleHoverNotification = (index: number, status: string) => {
+  private handleHoverNotification = (index: number, status: string) => () => {
     if (status !== 'Read') {
       this.props.readNotification(index)
     }
   }
 
-  private handleClickNotification = (index: number) => {
+  private handleClickNotification = (index: number) => () => {
     this.props.actionedNotification(index)
   }
 }
