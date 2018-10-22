@@ -71,11 +71,11 @@ class EventBigCard extends React.Component<
     const {event, classes} = this.props
     return (
       <Card className={classes.card}>
-        <div className={classes.imgContainer}>
-          <Link to={'/events/' + event.eventId} className={classes.link}>
+        <Link to={'/events/' + event.eventId} className={classes.link}>
+          <div className={classes.imgContainer}>
             <img className={classes.img} src={event.imageUrl} alt=""/>
-          </Link>
-        </div>
+          </div>
+        </Link>
         <Grid container={true} direction='column' justify='space-between' className={classes.cardContent}>
           <Typography className={classes.title}>
             {event.name}
