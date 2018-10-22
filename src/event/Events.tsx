@@ -144,7 +144,7 @@ class Events extends React.Component<IEventsProps> {
 
                 <Hidden xsDown={true}>
                   <Grid item={true} sm={12}>
-                    <span className="eventListTitle">Past Events</span>
+                    <span className="eventListTitle">Upcoming Playlists</span>
                     <Link to={'/all-events'} className="eventListShowAll">
                       View all events
                     </Link>
@@ -159,7 +159,7 @@ class Events extends React.Component<IEventsProps> {
                       variant="display1"
                       gutterBottom={true}
                     >
-                      Past Events
+                      Upcoming Playlists
                     </Typography>
                   </Hidden>
                   {this.renderCarousel(
