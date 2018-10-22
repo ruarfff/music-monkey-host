@@ -36,8 +36,8 @@ class Events extends React.Component<IEventsProps> {
 
   public renderCarousel = (
     events: IEvent[],
-    message: string,
-    playlist: boolean
+    playlist: boolean,
+    message?: string,
   ) => {
     const now = moment()
 
@@ -65,23 +65,9 @@ class Events extends React.Component<IEventsProps> {
     )
 
     return (
-      <Carousel
-        slidesToShow={4}
-        slidesToScroll={1}
-        renderCenterLeftControls={leftControl}
-        renderCenterRightControls={rightControls}
-      >
-        {events.length > 0 &&
-          !playlist &&
-          map(
-            sortBy(events, (event: IEvent) => event.startDateTime).reverse(),
-            (event: IEvent) => <EventCard key={event.eventId} event={event} />
-          )}
-        {playlist &&
-          upcomingPlaylists.map((upcomingPlaylist, index) => (
-            <PlaylistCard key={index} playlist={upcomingPlaylist} />
-          ))}
-        {!events && (
+      <React.Fragment>
+        {(!playlist && events.length === 0) && <NoEvents />}
+        {(playlist && events.length === 0) && (
           <Typography
             className="eventsListCaption"
             align="center"
@@ -91,7 +77,26 @@ class Events extends React.Component<IEventsProps> {
             {message}
           </Typography>
         )}
-      </Carousel>
+        {events.length > 0 &&
+          <Carousel
+            slidesToShow={4}
+            slidesToScroll={1}
+            renderCenterLeftControls={leftControl}
+            renderCenterRightControls={rightControls}
+          >
+            {events.length > 0 &&
+            !playlist &&
+            map(
+              sortBy(events, (event: IEvent) => event.startDateTime).reverse(),
+              (event: IEvent) => <EventCard key={event.eventId} event={event} />
+            )}
+            {playlist &&
+            upcomingPlaylists.map((upcomingPlaylist, index) => (
+              <PlaylistCard key={index} playlist={upcomingPlaylist} />
+            ))}
+          </Carousel>
+        }
+      </React.Fragment>
     )
   }
 
@@ -136,8 +141,7 @@ class Events extends React.Component<IEventsProps> {
                   <div className="eventsList">
                     {this.renderCarousel(
                       upcomingEvents,
-                      'No Upcoming events',
-                      false
+                      false,
                     )}
                   </div>
                 </Grid>
@@ -164,8 +168,8 @@ class Events extends React.Component<IEventsProps> {
                   </Hidden>
                   {this.renderCarousel(
                     upcomingEvents,
+                    true,
                     'No Upcoming Playlists',
-                    true
                   )}
                 </Grid>
               </Grid>
