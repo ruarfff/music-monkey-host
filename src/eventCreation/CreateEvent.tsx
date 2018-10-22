@@ -167,8 +167,6 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             label={'Event description'}
             maxRows={11}
             value={event.description || ''}
-            error={!event.description}
-            errorLabel={'Required'}
             onChange={this.handleContentUpdated('description')}
           />
         </Grid>
@@ -215,14 +213,14 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             {/*<MenuItem value={'public'}>Public</MenuItem>*/}
             {/*<MenuItem value={'private'}>Private</MenuItem>*/}
           {/*</Select>*/}
-          <div className={classes.codeInput}>
-            <EventInput
-              value={event.eventCode ? event.eventCode : ''}
-              placeholder={'set password'}
-              label={'event code'}
-              onChange={this.handleContentUpdated('eventCode')}
-            />
-          </div>
+          {/*<div className={classes.codeInput}>*/}
+            {/*<EventInput*/}
+              {/*value={event.eventCode ? event.eventCode : ''}*/}
+              {/*placeholder={'set password'}*/}
+              {/*label={'event code'}*/}
+              {/*onChange={this.handleContentUpdated('eventCode')}*/}
+            {/*/>*/}
+          {/*</div>*/}
 
         </Grid>
         <div className="control-btn-row">
@@ -235,6 +233,10 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             <span className="control-btn-text-primary">Cancel</span>
           </Button>
           <Button
+            disabled={
+              !event.name ||
+              !event.organizer
+            }
             onClick={this.nextStep}
             color="primary"
             variant="contained"
@@ -339,7 +341,6 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             disabled={
               !event.name ||
               !event.organizer ||
-              !event.description ||
               !event.playlistUrl ||
               !event.venue
             }
