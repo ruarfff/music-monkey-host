@@ -206,17 +206,17 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
           </Grid>
         </Grid>
 
-        <Grid container={true} spacing={24}>
-          <Grid item={true} xs={12} sm={6}>
-            <EventInput
-              value={eventEdit.eventCode ? eventEdit.eventCode : ''}
-              placeholder={'set password'}
-              label={'event code'}
-              onChange={this.handleContentEdit('eventCode')}
-            />
-          </Grid>
+        {/*<Grid container={true} spacing={24}>*/}
+          {/*<Grid item={true} xs={12} sm={6}>*/}
+            {/*<EventInput*/}
+              {/*value={eventEdit.eventCode ? eventEdit.eventCode : ''}*/}
+              {/*placeholder={'set password'}*/}
+              {/*label={'event code'}*/}
+              {/*onChange={this.handleContentEdit('eventCode')}*/}
+            {/*/>*/}
+          {/*</Grid>*/}
 
-          <Grid item={true} xs={12} sm={6}>
+          {/*<Grid item={true} xs={12} sm={6}>*/}
             {/*<Select*/}
               {/*className={classes.dropDown}*/}
               {/*value={this.state.eventType}*/}
@@ -226,8 +226,8 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
               {/*<MenuItem value={'public'}>Public</MenuItem>*/}
               {/*<MenuItem value={'private'}>Private</MenuItem>*/}
             {/*</Select>*/}
-          </Grid>
-        </Grid>
+          {/*</Grid>*/}
+        {/*</Grid>*/}
 
         <Grid item={true} xs={12} sm={12}>
           {user && <PlaylistSelection
