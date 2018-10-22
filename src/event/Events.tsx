@@ -146,7 +146,7 @@ class Events extends React.Component<IEventsProps> {
                   <Grid item={true} sm={12}>
                     <span className="eventListTitle">Upcoming Playlists</span>
                     <Link to={'/all-playlists'} className="eventListShowAll">
-                      View all events
+                      View all playlists
                     </Link>
                   </Grid>
                 </Hidden>
