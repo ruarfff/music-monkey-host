@@ -7,6 +7,7 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 import dateIcon from '../assets/date-icon.svg'
 import locationIcon from '../assets/location-marker-icon.svg'
+import InviteCopyAlert from '../components/InviteLink/InviteCopyAlert'
 import InviteLink from '../components/InviteLink/InviteLink'
 import MapComponent from '../components/MapComponent'
 import IEvent from '../event/IEvent'
@@ -14,11 +15,8 @@ import IAction from '../IAction'
 import './CreateEvent.scss'
 
 const decorate = withStyles((theme: Theme) => ({
-  button: {
-    marginRight: '30px',
-    '&:last-child': {
-      marginRight: 0,
-    }
+  btn: {
+    width: '100%'
   },
   img: {
     width: '100%',
@@ -56,8 +54,10 @@ const decorate = withStyles((theme: Theme) => ({
 }))
 
 interface IShareEventProps {
-  event: IEvent,
-  copyEventInvite(): IAction,
+  event: IEvent
+  copiedToClipboard: boolean
+  copyEventInvite(): IAction
+  acknowledgeEventInviteCopied(): IAction
 }
 
 class ShareEvent extends React.PureComponent<IShareEventProps & WithStyles> {
@@ -79,9 +79,22 @@ class ShareEvent extends React.PureComponent<IShareEventProps & WithStyles> {
   }
 
   public render() {
-    const { classes, event, copyEventInvite } = this.props
+    const {
+      classes,
+      event,
+      copyEventInvite,
+      acknowledgeEventInviteCopied,
+      copiedToClipboard,
+    } = this.props
+
     return (
       <React.Fragment>
+        {copiedToClipboard &&
+          <InviteCopyAlert
+            message="Copied to Clipboard"
+            onClose={acknowledgeEventInviteCopied}
+          />
+        }
         <Grid item={true} md={8}>
           <div>
             <img
@@ -128,6 +141,7 @@ class ShareEvent extends React.PureComponent<IShareEventProps & WithStyles> {
               <Button
                 variant="contained"
                 color='secondary'
+                className={classes.btn}
               >
                 GO TO PLAYLIST
               </Button>
@@ -136,6 +150,7 @@ class ShareEvent extends React.PureComponent<IShareEventProps & WithStyles> {
               <Button
                 variant="contained"
                 color='secondary'
+                className={classes.btn}
               >
                 GO TO EVENT
               </Button>

@@ -17,6 +17,7 @@ import {
   selectExistingPlaylist,
 } from '../event/eventActions'
 import {
+  acknowledgeEventInviteCopied,
   copyEventInvite,
 } from '../eventView/eventViewActions'
 import { fetchPlaylists } from '../playlist/playlistActions'
@@ -26,9 +27,9 @@ import CreateEvent from './CreateEvent'
 const mapStateToProps = (state: IRootState) => ({
   user: state.user.data,
   event: state.event.savingEvent,
-  shouldShowSavedDialogue: state.event.showSavedDialogue,
   playlistInput: state.event.playlistInput,
-  playlists: state.playlist.data
+  playlists: state.playlist.data,
+  copiedToClipboard: state.eventView.copiedToClipboard
 })
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -52,7 +53,8 @@ const mapDispatchToProps = (dispatch: any) => ({
       selectExistingPlaylist,
       fetchPlaylists,
       eventSavingReset,
-      copyEventInvite
+      copyEventInvite,
+      acknowledgeEventInviteCopied,
     },
     dispatch
   )

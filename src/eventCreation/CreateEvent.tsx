@@ -64,9 +64,9 @@ const SweetAlert = withReactContent(Swal) as any
 interface ICreateEventProps {
   user: IUser
   event: IEvent
-  shouldShowSavedDialogue: boolean
   playlistInput: IPlaylistInput
   playlists: IPlaylist[]
+  copiedToClipboard: boolean
   cancel(): void
   closeCreatePlaylist(): IAction
   closeExistingPlaylist(): IAction
@@ -83,14 +83,7 @@ interface ICreateEventProps {
   fetchPlaylists(user: IUser): IAction
   copyEventInvite(): IAction
   eventSavingReset(): IAction
-}
-
-const showSavedDialogue = () => {
-  SweetAlert.fire({
-    confirmButtonColor: '#00838F',
-    title: 'Event Saved!',
-    type: 'success'
-  }).then()
+  acknowledgeEventInviteCopied(): IAction
 }
 
 class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
@@ -99,6 +92,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
     currentStep: 0,
     anchorCoHost: null,
     eventType: 'public',
+    showSaveDialog: true
   }
 
   public componentDidMount() {
@@ -120,6 +114,14 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
     }
   }
 
+  public showSavedDialogue = () => {
+    this.setState({showSaveDialog: false})
+    SweetAlert.fire({
+      confirmButtonColor: '#00838F',
+      title: 'Event Saved!',
+      type: 'success'
+    }).then()
+  }
 
   public handleClick = ( event: any ) => {
     this.setState({ anchorCoHost: event.currentTarget })
@@ -259,7 +261,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
       closeExistingPlaylist,
       closeCreatePlaylist,
       createEventPlaylist,
-      classes
+      classes,
     } = this.props
 
     return (
@@ -354,23 +356,28 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
   }
 
   public renderThirdStep = () => {
-    const { event, copyEventInvite } = this.props
+    const {
+      event,
+      copyEventInvite,
+      acknowledgeEventInviteCopied,
+      copiedToClipboard,
+    } = this.props
+
+    if (this.state.currentStep === 2 && this.state.showSaveDialog) {
+      this.showSavedDialogue()
+    }
     return (
       <React.Fragment>
-        <ShareEvent copyEventInvite={copyEventInvite} event={event}/>
+        <ShareEvent
+          copiedToClipboard={copiedToClipboard}
+          acknowledgeEventInviteCopied={acknowledgeEventInviteCopied}
+          copyEventInvite={copyEventInvite} event={event}
+        />
       </React.Fragment>
     )
   }
 
   public render() {
-    const {
-      shouldShowSavedDialogue,
-    } = this.props
-
-    if (shouldShowSavedDialogue) {
-      showSavedDialogue()
-    }
-
     return (
       <React.Fragment>
         <CreateEventSteps step={this.state.currentStep} />
