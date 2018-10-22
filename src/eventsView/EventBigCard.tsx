@@ -72,7 +72,9 @@ class EventBigCard extends React.Component<
     return (
       <Card className={classes.card}>
         <div className={classes.imgContainer}>
-          <img className={classes.img} src={event.imageUrl} alt=""/>
+          <Link to={'/events/' + event.eventId} className={classes.link}>
+            <img className={classes.img} src={event.imageUrl} alt=""/>
+          </Link>
         </div>
         <Grid container={true} direction='column' justify='space-between' className={classes.cardContent}>
           <Typography className={classes.title}>
@@ -84,9 +86,7 @@ class EventBigCard extends React.Component<
               {event.startDateTime ? event.startDateTime.format('Do MMMM YYYY') : ''}
             </Typography>
             <Typography noWrap={true} className={classes.eventDescription}>
-              <Link to={'/events/' + event.eventId} className={classes.link}>
                 <img src={locationIcon}/>
-              </Link>
               {event.location && event.location.address}
             </Typography>
           </div>
