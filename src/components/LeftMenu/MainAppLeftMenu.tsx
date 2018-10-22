@@ -48,10 +48,6 @@ class MainAppLeftMenu extends React.Component<IMainAppLeftMenuProps> {
       {
         text: 'Upcoming Playlists',
         link: '/upcoming-playlists'
-      },
-      {
-        text: 'Create New Playlist',
-        link: '/crate-playlist'
       }
     ]
 
