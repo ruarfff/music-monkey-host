@@ -84,7 +84,9 @@ class EventBigCard extends React.Component<
               {event.startDateTime ? event.startDateTime.format('Do MMMM YYYY') : ''}
             </Typography>
             <Typography noWrap={true} className={classes.eventDescription}>
-              <img src={locationIcon}/>
+              <Link to={'/events/' + event.eventId} className={classes.link}>
+                <img src={locationIcon}/>
+              </Link>
               {event.location && event.location.address}
             </Typography>
           </div>
