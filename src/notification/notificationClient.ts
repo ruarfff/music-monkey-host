@@ -8,6 +8,6 @@ export const getNotifications = (userId: string) => {
       withCredentials: true
     })
     .then(response =>
-      console.log(response)
+      response
     )
 }

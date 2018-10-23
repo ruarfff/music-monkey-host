@@ -31,7 +31,7 @@ export default function notification(
       return {
         ...state,
         loading: false,
-        notifications: payload
+        notifications: payload.data
       }
     case READ_NOTIFICATION:
       let modifiedNotifications = state.notifications.map((n, index) => {
