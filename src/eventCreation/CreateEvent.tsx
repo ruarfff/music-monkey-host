@@ -291,6 +291,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
 
         <Grid item={true} xs={12} sm={6}>
           <EventDateTimePicker
+            disablePast={true}
             value={event.startDateTime}
             onChange={this.handleContentUpdated('startDateTime')}
             label={"Starting At"}
@@ -299,6 +300,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
 
         <Grid item={true} xs={12} sm={6}>
           <EventDateTimePicker
+            disablePast={true}
             value={event.endDateTime}
             onChange={this.handleContentUpdated('endDateTime')}
             label={"Finishing At"}

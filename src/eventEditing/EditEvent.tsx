@@ -191,6 +191,7 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
         <Grid container={true} spacing={24}>
           <Grid item={true} xs={12} sm={6}>
             <EventDateTimePicker
+              disablePast={false}
               value={eventEdit && eventEdit.startDateTime}
               onChange={this.handleContentEdit('startDateTime')}
               label={"Starting At"}
@@ -199,6 +200,7 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
 
           <Grid item={true} xs={12} sm={6}>
             <EventDateTimePicker
+              disablePast={false}
               value={eventEdit && eventEdit.endDateTime}
               onChange={this.handleContentEdit('endDateTime')}
               label={"Finishing At"}

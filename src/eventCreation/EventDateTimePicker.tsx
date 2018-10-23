@@ -6,6 +6,7 @@ import { decorate, IInputClasses } from '../globalStyles/Input'
 interface IEventDateTimePickerProps {
   value: any
   label: string
+  disablePast?: boolean
   onChange(value: string): void
 }
 
@@ -15,10 +16,11 @@ const EventDateTimePicker: React.SFC<
   const handleChange = (event: any) => {
     props.onChange(event)
   }
-  const { value } = props
+  const { value, disablePast } = props
+
   return (
     <DateTimePicker
-      disablePast={true}
+      disablePast={disablePast}
       autoOk={true}
       ampm={false}
       value={value}
