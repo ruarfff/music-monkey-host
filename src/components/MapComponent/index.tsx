@@ -21,8 +21,7 @@ const MapComponent: React.SFC<IMapComponentProps> = props => {
           <Marker
             lat={coords.lat}
             lng={coords.lng}
-          >
-          </Marker>
+          />
         }
       </GoogleMapReact>
     </div>

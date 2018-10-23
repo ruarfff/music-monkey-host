@@ -1,6 +1,6 @@
 import * as React from 'react'
-import './MapComponent.scss'
 import mapMarker from '../../assets/location-marker-icon.svg'
+import './MapComponent.scss'
 
 interface IMapComponentProps {
   lat: number,
