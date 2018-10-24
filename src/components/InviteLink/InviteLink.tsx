@@ -12,12 +12,13 @@ const decorated = withStyle(() => ({
 }))
 
 interface IInviteLinkProps {
+  togglePopup?(e: any): void
   inviteId: string
   onCopyEventInvite(): void
 }
 
 const InviteLink = (props: IInviteLinkProps & WithStyles) => {
-  const { inviteId, classes } = props
+  const { inviteId, classes,togglePopup } = props
   if (isEmpty(inviteId)) {
     return <span />
   }
@@ -31,8 +32,9 @@ const InviteLink = (props: IInviteLinkProps & WithStyles) => {
         color={'primary'}
         variant={'contained'}
         className={classes.button}
+        onClick={togglePopup}
       >
-        Share Event
+        Copy Link
       </Button>
     </CopyToClipboard>
   )

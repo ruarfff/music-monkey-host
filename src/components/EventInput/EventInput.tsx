@@ -10,7 +10,7 @@ interface IEventInputProps {
   maxRows?: number
   error?: boolean
   errorLabel?: string
-  classes: any
+  classes?: any
   onChange(value: string): void
 }
 
