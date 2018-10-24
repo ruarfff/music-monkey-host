@@ -1011,10 +1011,10 @@
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.7.tgz#77f9a4332ccf8db680a31818ade3ee454c831a79"
   integrity sha512-N0p6mHrS0RHC3A9hHN4QH1RM2fGSb2E8rt6ONEK5xKSnyKtn/JAhr1VritkCn6cdyDBephVB80THqJGWzK8FAw==
 
-"@types/jquery@*", "@types/jquery@^3.3.20":
-  version "3.3.20"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.20.tgz#cd9133448ed9824c8869dd23254e01a9cc112bc7"
-  integrity sha512-KhSivq+f6wlxFW5sW+894kJtUe7xlmRCSRkDGpvnP2u/a5ppVIlwxZdMqsr8mqSoFGANbtj8yZgDwau5/Keg3Q==
+"@types/jquery@*", "@types/jquery@^3.3.22":
+  version "3.3.22"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.22.tgz#cde55dc8f83207dffd16205b05f97ce824581735"
+  integrity sha512-a4JDcIhJhHYnoWCkG3xT2CZxXZeA92JeREESorg0DMQ3ZsjuKF48h7XK4l5Gl2GRa/ItGRpKMT0pyK88yRgqXQ==
   dependencies:
     "@types/sizzle" "*"
 
