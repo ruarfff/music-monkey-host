@@ -12,8 +12,8 @@ const decorated = withStyle(() => ({
 }))
 
 interface IInviteLinkProps {
-  togglePopup?(e: any): void
   inviteId: string
+  togglePopup?(e: any): void
   onCopyEventInvite(): void
 }
 

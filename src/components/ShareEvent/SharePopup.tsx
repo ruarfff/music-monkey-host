@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button'
 import * as React from 'react'
-import ShareEventByEmail from './ShareEventByEmailContainer'
 import InviteLink from '../InviteLink/InviteLink'
+import ShareEventByEmail from './ShareEventByEmailContainer'
 import './SharePopup.scss'
 
 interface ISharePopupProps {
