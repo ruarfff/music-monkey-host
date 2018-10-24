@@ -33,6 +33,16 @@ class SharePopup extends React.PureComponent<ISharePopupProps> {
                 inviteId={inviteId}
                 onCopyEventInvite={onCopyEventInvite}
               />
+              <a
+                id='fbLink'
+                href={'https://www.facebook.com/sharer/sharer.php?u=guests.musicmonkey.io/invite/' + inviteId}
+                target="_blank"
+              >
+                <Button onClick={this.togglePopup}>
+                  SHARE ON FACEBOOK
+                </Button>
+              </a>
+
             </div>
           </div>
         }
@@ -45,7 +55,7 @@ class SharePopup extends React.PureComponent<ISharePopupProps> {
   }
 
   private closePopup = (e: any) => {
-    if (e.target.classList.contains('ShareEmailWrapper')) {
+    if (e.target.classList.contains('SharePopupWrapper')) {
       this.setState({showPopup: false})
     }
   }
