@@ -1,32 +1,26 @@
-import axios from 'axios'
-const serviceUrl = process.env.REACT_APP_MM_API_URL
+import http from '../http'
 
-export const loginWithCookie = () => {
-  return axios
-    .get(serviceUrl + '/auth/verify', {
-      withCredentials: true
-    })
-    .then(response => response.data)
+export const loginWithCookie = async () => {
+  const response = await http.get('/auth/verify', {
+    withCredentials: true
+  })
+  return response.data
 }
 
-export const refreshToken = () => {
-  return axios
-    .post(
-      serviceUrl + '/auth/refresh',
-      {},
-      {
-        withCredentials: true
-      }
-    )
-    .then(response => response.data)
+export const refreshToken = async () => {
+  const response = await http.post(
+    '/auth/refresh',
+    {},
+    {
+      withCredentials: true
+    }
+  )
+  return response.data
 }
 
-export const logout = () => {
-  return axios
-    .get(serviceUrl + '/auth/logout', {
-      withCredentials: true
-    })
-    .then(res => {
-      console.log('Logout res', res)
-    })
+export const logout = async () => {
+  const res = await http.get('/auth/logout', {
+    withCredentials: true
+  })
+  console.log('Logout res', res)
 }

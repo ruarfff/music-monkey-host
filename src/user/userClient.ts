@@ -1,31 +1,23 @@
-import axios from 'axios'
+import http from '../http'
 import IUser from './IUser'
 
-const serviceUrl = process.env.REACT_APP_MM_API_URL
-
-export const getUserById = (userId: string) => {
-  return axios
-    .get(serviceUrl + '/users/' + userId, {
-      withCredentials: true
-    })
-    .then(response => response)
+export const getUserById = async (userId: string) => {
+  const response = await http.get('/users/' + userId, {
+    withCredentials: true
+  })
+  return response
 }
 
-export const getCurrentUser = () => {
-  return axios
-    .post(
-      serviceUrl + '/users/me',
-      {
-        withCredentials: true
-      }
-    )
-    .then(response => response)
+export const getCurrentUser = async () => {
+  const response = await http.post('/users/me', {
+    withCredentials: true
+  })
+  return response
 }
 
-export const updateUserById = (user: IUser) => {
-  return axios
-    .put(serviceUrl + '/users/' + user.userId, user, {
-        withCredentials: true,
-      })
-    .then(res => res)
+export const updateUserById = async (user: IUser) => {
+  const res = await http.put('/users/' + user.userId, user, {
+    withCredentials: true
+  })
+  return res
 }

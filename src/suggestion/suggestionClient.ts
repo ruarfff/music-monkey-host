@@ -1,29 +1,25 @@
-import axios from 'axios'
+import http from '../http'
 import ISuggestion from './ISuggestion'
-const serviceUrl = process.env.REACT_APP_MM_API_URL
 
-export const getEventSuggestions = (eventId: string) => {
-  return axios
-    .get(serviceUrl + '/suggestions?eventId=' + eventId, {
-      withCredentials: true
-    })
-    .then(response => response.data)
+export const getEventSuggestions = async (eventId: string) => {
+  const response = await http.get('/suggestions?eventId=' + eventId, {
+    withCredentials: true
+  })
+  return response.data
 }
 
 export const acceptSuggestions = (
   eventId: string,
   suggestions: ISuggestion[]
 ) => {
-  return axios.post(
-    serviceUrl + '/suggestions/' + eventId + '/accept',
-    suggestions,
-    { withCredentials: true }
-  )
+  return http.post('/suggestions/' + eventId + '/accept', suggestions, {
+    withCredentials: true
+  })
 }
 
 export const rejectSuggestion = (suggestion: ISuggestion) => {
-  return axios.post(
-    serviceUrl + '/suggestions/' + suggestion.suggestionId + '/reject',
+  return http.post(
+    '/suggestions/' + suggestion.suggestionId + '/reject',
     {},
     { withCredentials: true }
   )

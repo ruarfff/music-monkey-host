@@ -1,8 +1,7 @@
 import * as SpotifyWebApi from 'spotify-web-api-js'
 import { accessTokenKey } from '../auth/authConstants'
 import localStorage from '../storage/localStorage'
-import axios from 'axios/index'
-const serviceUrl = process.env.REACT_APP_MM_API_URL
+import http from '../http'
 
 export const addTracksToPlaylist = (playlistId, trackUris) => {
   const spotifyApi = getSpotifyApi()
@@ -27,42 +26,12 @@ export const fetchPlaylist = playlistId => {
   return spotifyApi.getPlaylist(playlistId)
 }
 
-export const fetchUsersPlaylists = user => {
-  return axios
-    .get(serviceUrl + '/users/' + user.userId + '/playlists', {
-      withCredentials: true
-    })
-    .then(res => res.data)
+export const fetchUsersPlaylists = async user => {
+  const res = await http.get('/users/' + user.userId + '/playlists', {
+    withCredentials: true
+  })
+  return res.data
 }
-
-// export const fetchUsersPlaylists = user => {
-//   const spotifyApi = getSpotifyApi()
-//   return new Promise((resolve, reject) => {
-//     spotifyApi.getUserPlaylists().then(response => {
-//       const playlists = response.items.filter(
-//         playlist => playlist.owner.id === user.spotifyId
-//       )
-//
-//       const playlistsWithTracks = Promise.all(
-//         playlists.map(
-//           playlist =>
-//             new Promise((r, rej) => {
-//               spotifyApi
-//                 .getPlaylistTracks(playlist.id)
-//                 .then(tracks => {
-//                   r({
-//                     ...playlist,
-//                     tracks: { ...playlist.tracks, items: tracks.items }
-//                   })
-//                 })
-//                 .catch(rej)
-//             })
-//         )
-//       )
-//       playlistsWithTracks.then(resolve).catch(reject)
-//     })
-//   })
-// }
 
 export const createPlaylist = (userId, name, description) => {
   const spotifyApi = getSpotifyApi()

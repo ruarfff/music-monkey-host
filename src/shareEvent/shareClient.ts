@@ -1,14 +1,10 @@
-import axios from 'axios'
+import http from '../http'
 
-const serviceUrl = process.env.REACT_APP_MM_API_URL
-
-export const sendEmails = (emails: string[]) => {
-  return axios
-    .post(serviceUrl + '/share/email',
-      { emails },
-      { withCredentials: true }
-    )
-    .then(response =>
-      response
-    )
+export const sendEmails = async (emails: string[]) => {
+  const response = await http.post(
+    '/share/email',
+    { emails },
+    { withCredentials: true }
+  )
+  return response
 }

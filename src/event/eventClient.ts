@@ -1,66 +1,58 @@
-import axios from 'axios'
 import * as moment from 'moment'
+import http from '../http'
 import IEvent from './IEvent'
 
-const serviceUrl = process.env.REACT_APP_MM_API_URL
-
-export const getEvents = () => {
-  return axios
-    .get(serviceUrl + '/events', {
-      withCredentials: true
-    })
-    .then(response =>
-      response.data.map((event: IEvent) => ({
-        ...event,
-        endDateTime: moment(event.endDateTime),
-        startDateTime: moment(event.startDateTime)
-      }))
-    )
+export const getEvents = async () => {
+  const response = await http.get('/events', {
+    withCredentials: true
+  })
+  return response.data.map((event: IEvent) => ({
+    ...event,
+    endDateTime: moment(event.endDateTime),
+    startDateTime: moment(event.startDateTime)
+  }))
 }
 
-export const getEventById = (eventId: string) => {
-  return axios
-    .get(serviceUrl + '/events/' + eventId, {
-      withCredentials: true
-    })
-    .then(parseEventResponse)
+export const getEventById = async (eventId: string) => {
+  const response = await http.get('/events/' + eventId, {
+    withCredentials: true
+  })
+  return parseEventResponse(response)
 }
 
 export const deleteEvent = (eventId: string) => {
-  return axios.delete(serviceUrl + '/events/' + eventId, {
+  return http.delete('/events/' + eventId, {
     withCredentials: true
   })
 }
 
-export const createEvent = (event: IEvent) => {
+export const createEvent = async (event: IEvent) => {
   const address =
     event.location && event.location.address
       ? event.location.address
       : 'Nowhere'
-  return axios
-    .post(
-      serviceUrl + '/events',
-      {
-        ...event,
-        invites: undefined,
-        endDateTime: event.endDateTime.toISOString(),
-        location: {
-          ...event.location,
-          address
-        },
-        startDateTime: event.startDateTime.toISOString()
+  const response = await http.post(
+    '/events',
+    {
+      ...event,
+      invites: undefined,
+      endDateTime: event.endDateTime.toISOString(),
+      location: {
+        ...event.location,
+        address
       },
-      { withCredentials: true }
-    )
-    .then(parseEventResponse)
+      startDateTime: event.startDateTime.toISOString()
+    },
+    { withCredentials: true }
+  )
+  return parseEventResponse(response)
 }
 
-export const updateEvent = (event: IEvent) => {
-  return axios
-    .put(serviceUrl + '/events/' + event.eventId, event, {
-      withCredentials: true
-    })
-    .then(parseEventResponse)
+export const updateEvent = async (event: IEvent) => {
+  const response = await http.put('/events/' + event.eventId, event, {
+    withCredentials: true
+  })
+  return parseEventResponse(response)
 }
 
 function parseEventResponse(response: any) {
