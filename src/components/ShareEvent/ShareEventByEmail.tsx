@@ -22,7 +22,7 @@ class ShareEventByEmail extends React.PureComponent<IShareEventByEmailProps> {
           value={emails}
           maxRows={2}
           label={'Email Input'}
-          placeholder={'Enter emails for share'}
+          placeholder={'Somemail@gmail.com, example@gmail.com'}
           onChange={this.handleEmailChange('emails')}
         />
         <Button

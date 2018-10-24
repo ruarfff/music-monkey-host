@@ -29,6 +29,7 @@ import {
 } from './eventView/eventViewSaga'
 import { watchFetchNotificationsByUserId } from './notification/notificationSaga'
 import { watchFetchPlaylists } from './playlist/playlistSaga'
+import { watchfetchShareEmail } from './shareEvent/shareSaga'
 import {
 watchFetchSuggestions,
 watchRejectSuggestion
@@ -64,5 +65,6 @@ export default function* saga() {
     watchUpdateEvent(),
     watchupdateUserFlow(),
     watchFetchNotificationsByUserId(),
+    watchfetchShareEmail(),
   ])
 }
