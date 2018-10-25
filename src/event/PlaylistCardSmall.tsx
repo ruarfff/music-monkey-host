@@ -52,14 +52,13 @@ interface IEventBigCardProps {
   playlist: IPlaylist
 }
 
-class PlaylistCard extends React.Component<
-  IEventBigCardProps & WithStyles> {
+class PlaylistCard extends React.Component<IEventBigCardProps & WithStyles> {
 
   public render() {
     const { classes, playlist } = this.props
 
     const image =
-      (playlist.images && playlist.images.length > 0) ? playlist.images[0].url : '/img/partycover-sm.png'
+      (playlist && playlist.images && playlist.images.length > 0) ? playlist.images[0].url : '/img/partycover-sm.png'
 
     return (
       <Card className={classes.card}>
@@ -68,7 +67,7 @@ class PlaylistCard extends React.Component<
         </div>
 
         <Typography className={classes.title}>
-          {playlist.name}
+          {playlist && playlist.name}
         </Typography>
         <div>
           <a href={playlist ? playlist.external_urls.spotify : '/'} target="_blank" className={classes.link}>

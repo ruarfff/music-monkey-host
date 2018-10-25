@@ -21,6 +21,8 @@ class SharePopup extends React.PureComponent<ISharePopupProps> {
       <React.Fragment>
         <Button
           onClick={this.togglePopup}
+          color='primary'
+          variant='contained'
         >
           SHARE EVENT
         </Button>
@@ -38,7 +40,10 @@ class SharePopup extends React.PureComponent<ISharePopupProps> {
                 href={'https://www.facebook.com/sharer/sharer.php?u=guests.musicmonkey.io/invite/' + inviteId}
                 target="_blank"
               >
-                <Button onClick={this.togglePopup}>
+                <Button
+                  onClick={this.togglePopup}
+                  variant='contained'
+                >
                   SHARE ON FACEBOOK
                 </Button>
               </a>
