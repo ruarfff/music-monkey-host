@@ -2,7 +2,6 @@ import Button from '@material-ui/core/Button'
 import * as React from 'react'
 import EventInput from '../EventInput/EventInput'
 
-
 interface IShareEventByEmailProps {
   shareByEmails(emails: string[]): void
   togglePopup(): void

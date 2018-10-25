@@ -43,7 +43,9 @@ const decorated = withStyle(() => ({
 
 interface IEventGuestsProps {
   event: IEvent
+  message: string
   copyEventInvite(): IAction
+  clearMessage(): IAction
 }
 
 class EventGuests extends React.PureComponent<IEventGuestsProps & WithStyles> {
@@ -84,6 +86,8 @@ class EventGuests extends React.PureComponent<IEventGuestsProps & WithStyles> {
           </Typography>
           <Grid>
             <SharePopup
+              clearMessage={this.props.clearMessage}
+              message={this.props.message}
               inviteId={inviteId}
               onCopyEventInvite={copyEventInvite}
             />
@@ -129,6 +133,8 @@ class EventGuests extends React.PureComponent<IEventGuestsProps & WithStyles> {
             {filteredGuests.map((eventGuest) => this.renderEventGuest(eventGuest, classes))}
         </Grid>
         <SharePopup
+          clearMessage={this.props.clearMessage}
+          message={this.props.message}
           inviteId={inviteId}
           onCopyEventInvite={copyEventInvite}
         />

@@ -1,24 +1,53 @@
 import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import Snackbar from '@material-ui/core/Snackbar'
+import CloseIcon from '@material-ui/icons/Close'
 import * as React from 'react'
+import IAction from '../../IAction'
 import InviteLink from '../InviteLink/InviteLink'
 import ShareEventByEmail from './ShareEventByEmailContainer'
 import './SharePopup.scss'
 
 interface ISharePopupProps {
+  message: string
   inviteId: string
   onCopyEventInvite(): void
+  clearMessage(): IAction
 }
 
 class SharePopup extends React.PureComponent<ISharePopupProps> {
   public state = {
-    showPopup: false
+    showPopup: false,
+    showMessage: this.props.message !== ''
+  }
+
+  public componentDidUpdate() {
+    this.setState({showMessage: this.props.message !== ''})
   }
 
   public render() {
-    const { inviteId, onCopyEventInvite} = this.props
-    const { showPopup } = this.state
+    const { inviteId, onCopyEventInvite } = this.props
+    const { showPopup, showMessage } = this.state
     return (
       <React.Fragment>
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={showMessage}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{this.props.message}</span>}
+          action={
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.handleClose}
+            >
+              <CloseIcon />
+            </IconButton>
+          }
+        />
         <Button
           onClick={this.togglePopup}
           color='primary'
@@ -53,6 +82,10 @@ class SharePopup extends React.PureComponent<ISharePopupProps> {
         }
       </React.Fragment>
     )
+  }
+
+  private handleClose = () => {
+    this.props.clearMessage()
   }
 
   private togglePopup = () => {

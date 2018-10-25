@@ -34,5 +34,6 @@ export default {
     settings: {} as IEventSettings
   },
   eventsLoading: false,
-  showSavedDialogue: false
+  showSavedDialogue: false,
+  shareEventMessage: ''
 } as IEventState

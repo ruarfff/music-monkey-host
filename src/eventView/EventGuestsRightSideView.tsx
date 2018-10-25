@@ -25,8 +25,10 @@ const decorated = withStyle(() => ({
 }))
 
 interface IEventGuestsRightSideViewProps {
+  message: string
   event: IEvent
   copyEventInvite(): IAction
+  clearMessage(): IAction
 }
 
 class EventGuestsRightSideView extends React.PureComponent<
@@ -44,6 +46,8 @@ class EventGuestsRightSideView extends React.PureComponent<
           </Typography>
           <Grid className={classes.inviteLink} item={true}>
             <SharePopup
+              clearMessage={this.props.clearMessage}
+              message={this.props.message}
               inviteId={inviteId}
               onCopyEventInvite={copyEventInvite}
             />
@@ -68,6 +72,8 @@ class EventGuestsRightSideView extends React.PureComponent<
           </Grid>
           <Grid className={classes.inviteLink} item={true}>
             <SharePopup
+              clearMessage={this.props.clearMessage}
+              message={this.props.message}
               inviteId={inviteId}
               onCopyEventInvite={copyEventInvite}
             />

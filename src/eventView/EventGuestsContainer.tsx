@@ -1,16 +1,18 @@
 import { connect } from 'react-redux'
 import IRootState from '../rootState'
+import { clearMessage } from '../shareEvent/shareActions'
 import EventGuests from './EventGuests'
 import { copyEventInvite } from './eventViewActions'
 
 const mapStateToProps = (state: IRootState) => ({
-  event: state.eventView.event
+  event: state.eventView.event,
+  message: state.event.shareEventMessage
 })
 
 const mapDispatchToProps = {
   copyEventInvite,
+  clearMessage,
 }
-
 
 const EventGuestsContainer = connect(
   mapStateToProps,

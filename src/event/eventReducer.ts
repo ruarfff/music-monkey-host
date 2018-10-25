@@ -5,6 +5,11 @@ import {
 } from '../eventView/eventViewActions'
 import Action from '../IAction'
 import {
+  CLEAR_MESSAGE,
+  SHARE_EMAIL_FAILURE,
+  SHARE_EMAIL_SUCCESS
+} from '../shareEvent/shareActions'
+import {
   CREATE_PLAYLIST_CLOSED,
   CREATE_PLAYLIST_SELECTED,
   EVENT_CONTENT_UPDATED,
@@ -36,6 +41,21 @@ export default function event(
   { type, payload }: Action
 ) {
   switch (type) {
+    case CLEAR_MESSAGE:
+      return {
+        ...state,
+        shareEventMessage: ''
+      }
+    case SHARE_EMAIL_SUCCESS:
+      return {
+        ...state,
+        shareEventMessage: payload.data
+      }
+    case SHARE_EMAIL_FAILURE:
+      return {
+        ...state,
+        shareEventMessage: payload.data
+      }
     case EVENT_EDIT_REQUEST:
       return state
 

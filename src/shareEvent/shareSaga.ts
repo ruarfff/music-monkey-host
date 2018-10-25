@@ -10,10 +10,10 @@ import { sendEmails } from './shareClient'
 
 function* fetchShareEmail({ payload }: IAction) {
   try {
-    yield call(sendEmails, payload)
-    yield put(shareByEmailsSuccess())
+    const res = yield call(sendEmails, payload)
+    yield put(shareByEmailsSuccess(res))
   } catch (e) {
-    yield put(shareByEmailsFailure())
+    yield put(shareByEmailsFailure(e))
   }
 }
 

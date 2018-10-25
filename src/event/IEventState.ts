@@ -9,4 +9,5 @@ export default interface IEventState {
   savingEvent: IEvent
   eventsLoading: boolean
   showSavedDialogue: boolean
+  shareEventMessage: string
 }
