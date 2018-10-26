@@ -39,7 +39,7 @@
     "react-loading": "^2.0.2",
     "react-places-autocomplete": "^7.0.1",
     "react-pure-lifecycle": "^3.0.0",
-    "react-redux": "^5.0.7",
+    "react-redux": "^5.1.0",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
     "react-swipeable-views": "^0.13.0",
