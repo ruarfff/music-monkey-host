@@ -24,7 +24,7 @@ const middleware = isDevBuild
   : rootMidlelwares
 
 if (isDevBuild) {
-  ;(Map.prototype as any).toJSON = function() {
+  (Map.prototype as any).toJSON = function() {
     return JSON.parse(JSON.stringify([...this]))
   }
 }
