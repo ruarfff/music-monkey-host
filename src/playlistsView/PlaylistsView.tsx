@@ -6,8 +6,8 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import { History } from 'history'
 import { map, sortBy } from 'lodash'
-import * as _ from 'lodash'
-import * as moment from 'moment'
+import _ from 'lodash'
+import moment from 'moment'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import IEventState from '../event/IEventState'
@@ -36,7 +36,6 @@ interface IEventsProps {
   getEvents(): IAction
   fetchPlaylists(user: IUser): IAction
 }
-
 
 class PlatlistsView extends React.Component<IEventsProps & WithStyles> {
   public componentDidMount() {
@@ -82,8 +81,18 @@ class PlatlistsView extends React.Component<IEventsProps & WithStyles> {
     let upcomingPlaylists: any[] = []
 
     if (!!events) {
-      pastPlaylists = _.uniqBy(events.filter(event => event.startDateTime.isBefore(now)).map(event => event.playlist), 'id')
-      upcomingPlaylists = _.uniqBy(events.filter(event => event.startDateTime.isAfter(now)).map(event => event.playlist), 'id')
+      pastPlaylists = _.uniqBy(
+        events
+          .filter(event => event.startDateTime.isBefore(now))
+          .map(event => event.playlist),
+        'id'
+      )
+      upcomingPlaylists = _.uniqBy(
+        events
+          .filter(event => event.startDateTime.isAfter(now))
+          .map(event => event.playlist),
+        'id'
+      )
     }
 
     return (
@@ -93,46 +102,62 @@ class PlatlistsView extends React.Component<IEventsProps & WithStyles> {
         {!eventsLoading && (!events || events.length < 1) && <NoEvents />}
 
         {!eventsLoading &&
-        !!events &&
-        playlists && playlists.length > 0 && (
-          <React.Fragment>
-            <Grid container={true} spacing={24} direction="row">
-              <Hidden xsDown={true}>
-                <Grid item={true} sm={12}>
-                  <Link to='/all-playlists'>
-                    <Button
-                      variant='text'
-                      className={currentPath === '/all-playlists' ? classes.buttonOrange : classes.button}
-                    >
-                      ALL
-                    </Button>
-                  </Link>
-                  <Link to='/past-playlists'>
-                    <Button
-                      variant='text'
-                      className={currentPath === '/past-playlists' ? classes.buttonOrange : classes.button}
-                    >
-                      PAST PLAYLISTS
-                    </Button>
-                  </Link>
-                  <Link to='/upcoming-playlists'>
-                    <Button
-                      variant='text'
-                      className={currentPath === '/upcoming-playlists' ? classes.buttonOrange : classes.button}
-                    >
-                      UPCOMING PLAYLISTS
-                    </Button>
-                  </Link>
+          !!events &&
+          playlists &&
+          playlists.length > 0 && (
+            <React.Fragment>
+              <Grid container={true} spacing={24} direction="row">
+                <Hidden xsDown={true}>
+                  <Grid item={true} sm={12}>
+                    <Link to="/all-playlists">
+                      <Button
+                        variant="text"
+                        className={
+                          currentPath === '/all-playlists'
+                            ? classes.buttonOrange
+                            : classes.button
+                        }
+                      >
+                        ALL
+                      </Button>
+                    </Link>
+                    <Link to="/past-playlists">
+                      <Button
+                        variant="text"
+                        className={
+                          currentPath === '/past-playlists'
+                            ? classes.buttonOrange
+                            : classes.button
+                        }
+                      >
+                        PAST PLAYLISTS
+                      </Button>
+                    </Link>
+                    <Link to="/upcoming-playlists">
+                      <Button
+                        variant="text"
+                        className={
+                          currentPath === '/upcoming-playlists'
+                            ? classes.buttonOrange
+                            : classes.button
+                        }
+                      >
+                        UPCOMING PLAYLISTS
+                      </Button>
+                    </Link>
+                  </Grid>
+                </Hidden>
+                <Grid item={true} md={12}>
+                  {currentPath === '/all-playlists' &&
+                    this.renderPlayList(allPlaylists, 'no playlists')}
+                  {currentPath === '/past-playlists' &&
+                    this.renderPlayList(pastPlaylists, 'no playlists')}
+                  {currentPath === '/upcoming-playlists' &&
+                    this.renderPlayList(upcomingPlaylists, 'no playlists')}
                 </Grid>
-              </Hidden>
-              <Grid item={true} md={12}>
-                {currentPath === '/all-playlists' && this.renderPlayList(allPlaylists, 'no playlists')}
-                {currentPath === '/past-playlists' && this.renderPlayList(pastPlaylists, 'no playlists')}
-                {currentPath === '/upcoming-playlists' && this.renderPlayList(upcomingPlaylists, 'no playlists')}
               </Grid>
-            </Grid>
-          </React.Fragment>
-        )}
+            </React.Fragment>
+          )}
       </div>
     )
   }

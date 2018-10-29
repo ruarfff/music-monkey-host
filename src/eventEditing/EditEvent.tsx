@@ -1,8 +1,5 @@
 import Button from '@material-ui/core/Button/Button'
 import Grid from '@material-ui/core/Grid'
-// import Menu from '@material-ui/core/Menu'
-// import MenuItem from '@material-ui/core/MenuItem'
-// import Select from '@material-ui/core/Select'
 import { WithStyles } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { History } from 'history'
@@ -46,15 +43,15 @@ const decorate = withStyles(() => ({
     minHeight: '40px',
     marginRight: '20px',
     '&:hover:not($disabled):before': {
-      borderBottom: '1px solid #979797!important',
+      borderBottom: '1px solid #979797!important'
     },
     '&:before': {
-      content: 'none',
+      content: 'none'
     },
     '&:after': {
-      content: 'none',
+      content: 'none'
     }
-  },
+  }
 }))
 
 interface IEditEventProps extends RouteComponentProps<any> {
@@ -73,11 +70,11 @@ interface IEditEventProps extends RouteComponentProps<any> {
   onEventDeleteSelected(): IAction
   onEventDeleteClosed(): IAction
   deleteEvent(event: IEvent): IAction
-  onDeleteAcknowledged(): IAction
-  eventImageUploaded(): IAction
-  eventImageUploadError(): IAction
-  locationChanged(): IAction
-  locationSelected(): IAction
+  onDeleteAcknowledged(): void
+  eventImageUploaded(value: any): IAction
+  eventImageUploadError(error: Error): IAction
+  locationChanged(address: string): IAction
+  locationSelected(address: string): IAction
   selectCreatePlaylist(): IAction
   selectExistingPlaylist(): IAction
   fetchPlaylists(user: IUser): IAction
@@ -95,10 +92,9 @@ interface IEditEventProps extends RouteComponentProps<any> {
 const SweetAlert = withReactContent(Swal) as any
 
 class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
-
   public state = {
     // anchorCoHost: null,
-    eventType: 'public',
+    eventType: 'public'
   }
 
   public render() {
@@ -121,7 +117,7 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
       selectCreatePlaylist,
       closeCreatePlaylist,
       createEventPlaylist,
-      classes,
+      classes
     } = this.props
     return (
       <Grid className={classes.editContainer} container={true} spacing={24}>
@@ -136,7 +132,7 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
             <EventInput
               label={'Event description'}
               maxRows={11}
-              value={eventEdit && eventEdit.description || ''}
+              value={(eventEdit && eventEdit.description) || ''}
               onChange={this.handleContentEdit('description')}
             />
           </Grid>
@@ -146,24 +142,6 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
               onUpload={eventImageUploaded}
               onUploadError={eventImageUploadError}
             />
-            {/*<Button*/}
-              {/*className={classes.addCoHost}*/}
-              {/*variant="raised"*/}
-              {/*color="secondary"*/}
-              {/*aria-owns={this.state.anchorCoHost ? 'simple-menu' : ''}*/}
-              {/*aria-haspopup="true"*/}
-              {/*onClick={this.handleClick}*/}
-            {/*>*/}
-              {/*ADD CO-HOST*/}
-            {/*</Button>*/}
-            {/*<Menu*/}
-              {/*anchorEl={this.state.anchorCoHost}*/}
-              {/*open={Boolean(this.state.anchorCoHost)}*/}
-              {/*onClose={this.handleClose}*/}
-            {/*>*/}
-              {/*<MenuItem onClick={this.handleClose}>Select from friends</MenuItem>*/}
-              {/*<MenuItem onClick={this.handleClose}>Email link</MenuItem>*/}
-            {/*</Menu>*/}
           </Grid>
         </Grid>
 
@@ -171,13 +149,17 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
           <Grid item={true} xs={12} sm={6}>
             <EventInput
               label={'Venue'}
-              value={eventEdit && eventEdit.venue || ''}
+              value={(eventEdit && eventEdit.venue) || ''}
               onChange={this.handleContentEdit('venue')}
             />
           </Grid>
           <Grid item={true} xs={12} sm={6}>
             <LocationAutoComplete
-              value={eventEdit && eventEdit.location ? eventEdit.location.address || '' : ''}
+              value={
+                eventEdit && eventEdit.location
+                  ? eventEdit.location.address || ''
+                  : ''
+              }
               onSelect={locationSelected}
               onChange={locationChanged}
               placeholder="Search for place"
@@ -186,7 +168,9 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
           </Grid>
         </Grid>
         <Grid container={true}>
-          <MapComponent coords={eventEdit.location && eventEdit.location.latLng}/>
+          <MapComponent
+            coords={eventEdit.location && eventEdit.location.latLng}
+          />
         </Grid>
         <Grid container={true} spacing={24}>
           <Grid item={true} xs={12} sm={6}>
@@ -194,7 +178,7 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
               disablePast={false}
               value={eventEdit && eventEdit.startDateTime}
               onChange={this.handleContentEdit('startDateTime')}
-              label={"Starting At"}
+              label={'Starting At'}
             />
           </Grid>
 
@@ -203,48 +187,27 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
               disablePast={false}
               value={eventEdit && eventEdit.endDateTime}
               onChange={this.handleContentEdit('endDateTime')}
-              label={"Finishing At"}
+              label={'Finishing At'}
             />
           </Grid>
         </Grid>
 
-        {/*<Grid container={true} spacing={24}>*/}
-          {/*<Grid item={true} xs={12} sm={6}>*/}
-            {/*<EventInput*/}
-              {/*value={eventEdit.eventCode ? eventEdit.eventCode : ''}*/}
-              {/*placeholder={'set password'}*/}
-              {/*label={'event code'}*/}
-              {/*onChange={this.handleContentEdit('eventCode')}*/}
-            {/*/>*/}
-          {/*</Grid>*/}
-
-          {/*<Grid item={true} xs={12} sm={6}>*/}
-            {/*<Select*/}
-              {/*className={classes.dropDown}*/}
-              {/*value={this.state.eventType}*/}
-              {/*onChange={this.handleEventType}*/}
-              {/*inputProps={{name: 'eventType'}}*/}
-            {/*>*/}
-              {/*<MenuItem value={'public'}>Public</MenuItem>*/}
-              {/*<MenuItem value={'private'}>Private</MenuItem>*/}
-            {/*</Select>*/}
-          {/*</Grid>*/}
-        {/*</Grid>*/}
-
         <Grid item={true} xs={12} sm={12}>
-          {user && <PlaylistSelection
-            playlists={playlists}
-            fetchPlaylists={fetchPlaylists}
-            user={user}
-            value={eventEdit && eventEdit.playlistUrl}
-            onPlaylistAdded={this.handleContentEdit('playlistUrl')}
-            playlistInput={playlistInput}
-            selectExistingPlaylist={selectExistingPlaylist}
-            closeExistingPlaylist={closeExistingPlaylist}
-            selectCreatePlaylist={selectCreatePlaylist}
-            closeCreatePlaylist={closeCreatePlaylist}
-            createEventPlaylist={createEventPlaylist}
-          />}
+          {user && (
+            <PlaylistSelection
+              playlists={playlists}
+              fetchPlaylists={fetchPlaylists}
+              user={user}
+              value={eventEdit && eventEdit.playlistUrl}
+              onPlaylistAdded={this.handleContentEdit('playlistUrl')}
+              playlistInput={playlistInput}
+              selectExistingPlaylist={selectExistingPlaylist}
+              closeExistingPlaylist={closeExistingPlaylist}
+              selectCreatePlaylist={selectCreatePlaylist}
+              closeCreatePlaylist={closeCreatePlaylist}
+              createEventPlaylist={createEventPlaylist}
+            />
+          )}
         </Grid>
 
         <Button
@@ -273,18 +236,6 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
   public componentDidMount() {
     this.props.getEventById(this.props.match.params.eventId)
   }
-
-  // private handleClick = ( event: any ) => {
-  //   this.setState({ anchorCoHost: event.currentTarget })
-  // }
-  //
-  // private handleClose = () => {
-  //   this.setState({ anchorCoHost: null })
-  // }
-
-  // private handleEventType = ( event: any ) => {
-  //   this.setState({ [event.target.name]: event.target.value })
-  // }
 
   private showEditResult = () => {
     SweetAlert.fire({

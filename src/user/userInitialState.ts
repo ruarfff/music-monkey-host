@@ -1,8 +1,9 @@
+import IUser from './IUser'
 import IUserState from './IUserState'
 
 export const emptyUser = {
-  data: undefined,
-  error: undefined,
+  data: {} as IUser,
+  error: {} as Error,
   isLoading: false,
-  isUpdating: false,
+  isUpdating: false
 } as IUserState

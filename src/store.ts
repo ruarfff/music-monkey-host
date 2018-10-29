@@ -1,27 +1,26 @@
-import createHistory from 'history/createBrowserHistory'
-import { routerMiddleware } from 'react-router-redux'
+import { connectRouter, routerMiddleware } from 'connected-react-router'
+import { createBrowserHistory } from 'history'
 import { applyMiddleware, compose, createStore } from 'redux'
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant'
 import { createLogger } from 'redux-logger'
 import createSagaMiddleware from 'redux-saga'
-import reducers from './reducers'
-import saga from './saga'
+import rootReducer from './rootReducer'
+import rootSaga from './rootSaga'
 
+export const history = createBrowserHistory()
 const isDevBuild = process.env.NODE_ENV !== 'production'
-export const history = createHistory()
 
-const reactRouterMiddleware = routerMiddleware(history)
 const sagaMiddleware = createSagaMiddleware()
 
 const logger = createLogger({
   duration: true
 })
 
-const rootMidlelwares = [reactRouterMiddleware, sagaMiddleware, logger]
+const rootMiddleWares = [sagaMiddleware, logger, routerMiddleware(history)]
 
 const middleware = isDevBuild
-  ? [...rootMidlelwares, reduxImmutableStateInvariant()]
-  : rootMidlelwares
+  ? [...rootMiddleWares, reduxImmutableStateInvariant()]
+  : rootMiddleWares
 
 if (isDevBuild) {
   ;(Map.prototype as any).toJSON = function() {
@@ -35,7 +34,7 @@ const composeEnhancers = isDevBuild
   : compose
 
 export const store = createStore(
-  reducers,
+  connectRouter(history)(rootReducer),
   composeEnhancers(applyMiddleware(...middleware))
 )
-sagaMiddleware.run(saga)
+sagaMiddleware.run(rootSaga)

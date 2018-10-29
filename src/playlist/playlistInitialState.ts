@@ -1,8 +1,9 @@
+import IPlaylist from './IPlaylist'
 import IPlaylistState from './IPlaylistState'
 
 export default {
-  data: undefined,
-  error: undefined,
+  data: [] as IPlaylist[],
+  error: {} as Error,
   isLoading: false,
-  selectedPlaylist: undefined
+  selectedPlaylist: {} as IPlaylist
 } as IPlaylistState

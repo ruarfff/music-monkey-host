@@ -1,6 +1,6 @@
+import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import { push } from 'react-router-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import {
   closeCreatePlaylist,
@@ -23,7 +23,7 @@ import {
   deleteEvent,
   getEventById,
   onEventDeleteClosed,
-  onEventDeleteSelected,
+  onEventDeleteSelected
 } from '../eventView/eventViewActions'
 import { fetchPlaylists } from '../playlist/playlistActions'
 import IRootState from '../rootState'
@@ -73,9 +73,11 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   )
 })
 
-const EditEventContainer = withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditEvent) as any)
+const EditEventContainer = withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(EditEvent)
+)
 
 export default EditEventContainer

@@ -1,5 +1,5 @@
+import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import {
   closeCreatePlaylist,
@@ -14,11 +14,11 @@ import {
   locationSelected,
   saveEvent,
   selectCreatePlaylist,
-  selectExistingPlaylist,
+  selectExistingPlaylist
 } from '../event/eventActions'
 import {
   acknowledgeEventInviteCopied,
-  copyEventInvite,
+  copyEventInvite
 } from '../eventView/eventViewActions'
 import { fetchPlaylists } from '../playlist/playlistActions'
 import IRootState from '../rootState'
@@ -54,14 +54,15 @@ const mapDispatchToProps = (dispatch: any) => ({
       fetchPlaylists,
       eventSavingReset,
       copyEventInvite,
-      acknowledgeEventInviteCopied,
+      acknowledgeEventInviteCopied
     },
     dispatch
   )
 })
 
-const CreateEventContainer = connect(mapStateToProps, mapDispatchToProps)(
-  CreateEvent
-)
+const CreateEventContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CreateEvent)
 
 export default CreateEventContainer

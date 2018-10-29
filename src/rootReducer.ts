@@ -11,7 +11,7 @@ import suggestion from './suggestion/suggestionReducer'
 import user from './user/userReducer'
 import vote from './vote/voteReducer'
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
   auth,
   event,
   eventPlaylist,
@@ -25,4 +25,4 @@ const reducers = combineReducers({
   notification
 })
 
-export default reducers
+export default rootReducer

@@ -1,8 +1,8 @@
-import IUser from "./IUser";
+import IUser from './IUser'
 
 export default interface IUserState {
-  data?: IUser
-  error?: Error
+  data: IUser
+  error: Error
   isLoading: boolean
   isUpdating: boolean
 }

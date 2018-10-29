@@ -1,4 +1,4 @@
-import { LOCATION_CHANGE } from 'react-router-redux'
+import { LOCATION_CHANGE } from 'connected-react-router'
 import {
   EVENT_EDIT_CLOSE,
   EVENT_EDIT_FAILURE,
@@ -21,7 +21,7 @@ import {
   TOGGLE_DYNAMIC_VOTING,
   TOGGLE_DYNAMIC_VOTING_ERROR,
   TOGGLE_SUGGESTING_PLAYLISTS,
-  TOGGLE_SUGGESTING_PLAYLISTS_ERROR,
+  TOGGLE_SUGGESTING_PLAYLISTS_ERROR
 } from './eventViewActions'
 import initialState from './eventViewInitialState'
 import IEventViewState from './IEventViewState'

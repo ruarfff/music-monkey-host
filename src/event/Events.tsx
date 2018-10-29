@@ -3,9 +3,9 @@ import Grid from '@material-ui/core/Grid/Grid'
 import Hidden from '@material-ui/core/Hidden/Hidden'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography/Typography'
-import * as _ from 'lodash'
+import _ from 'lodash'
 import { map, sortBy } from 'lodash'
-import * as moment from 'moment'
+import moment from 'moment'
 import Carousel from 'nuka-carousel'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
@@ -37,7 +37,7 @@ class Events extends React.Component<IEventsProps> {
   public renderCarousel = (
     events: IEvent[],
     playlist: boolean,
-    message?: string,
+    message?: string
   ) => {
     const now = moment()
 
@@ -66,18 +66,19 @@ class Events extends React.Component<IEventsProps> {
 
     return (
       <React.Fragment>
-        {(!playlist && events.length === 0) && <NoEvents />}
-        {(playlist && events.length === 0) && (
-          <Typography
-            className="eventsListCaption"
-            align="center"
-            variant="body2"
-            gutterBottom={true}
-          >
-            {message}
-          </Typography>
-        )}
-        {events.length > 0 &&
+        {!playlist && events.length === 0 && <NoEvents />}
+        {playlist &&
+          events.length === 0 && (
+            <Typography
+              className="eventsListCaption"
+              align="center"
+              variant="body2"
+              gutterBottom={true}
+            >
+              {message}
+            </Typography>
+          )}
+        {events.length > 0 && (
           <Carousel
             slidesToShow={4}
             slidesToScroll={1}
@@ -85,17 +86,22 @@ class Events extends React.Component<IEventsProps> {
             renderCenterRightControls={rightControls}
           >
             {events.length > 0 &&
-            !playlist &&
-            map(
-              sortBy(events, (event: IEvent) => event.startDateTime).reverse(),
-              (event: IEvent) => <EventCard key={event.eventId} event={event} />
-            )}
+              !playlist &&
+              map(
+                sortBy(
+                  events,
+                  (event: IEvent) => event.startDateTime
+                ).reverse(),
+                (event: IEvent) => (
+                  <EventCard key={event.eventId} event={event} />
+                )
+              )}
             {playlist &&
-            upcomingPlaylists.map((upcomingPlaylist, index) => (
-              <PlaylistCard key={index} playlist={upcomingPlaylist} />
-            ))}
+              upcomingPlaylists.map((upcomingPlaylist, index) => (
+                <PlaylistCard key={index} playlist={upcomingPlaylist} />
+              ))}
           </Carousel>
-        }
+        )}
       </React.Fragment>
     )
   }
@@ -139,10 +145,7 @@ class Events extends React.Component<IEventsProps> {
                     </Typography>
                   </Hidden>
                   <div className="eventsList">
-                    {this.renderCarousel(
-                      upcomingEvents,
-                      false,
-                    )}
+                    {this.renderCarousel(upcomingEvents, false)}
                   </div>
                 </Grid>
 
@@ -169,7 +172,7 @@ class Events extends React.Component<IEventsProps> {
                   {this.renderCarousel(
                     upcomingEvents,
                     true,
-                    'No Upcoming Playlists',
+                    'No Upcoming Playlists'
                   )}
                 </Grid>
               </Grid>

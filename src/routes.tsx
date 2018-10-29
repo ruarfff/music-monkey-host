@@ -1,6 +1,7 @@
+import { ConnectedRouter, routerActions } from 'connected-react-router'
+import { History } from 'history'
 import * as React from 'react'
 import { Route } from 'react-router-dom'
-import { ConnectedRouter, routerActions } from 'react-router-redux'
 import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper'
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect'
 
@@ -112,7 +113,7 @@ export const RouteWithSubRoutes = (route: any) => (
 )
 
 interface IRoutesProps {
-  history: any
+  history: History
 }
 
 export const Routes: React.SFC<IRoutesProps> = ({ history }) => (

@@ -102,16 +102,16 @@ class InsightsView extends React.Component<IInsightsViewProps> {
     )
 
     const pendingGuest = allGuests.filter(
-      (guest: IRsvp) => guest && guest.status === 'Pending'
+      (guest: IRsvp | undefined) => guest && guest.status === 'Pending'
     )
     const goingGuest = allGuests.filter(
-      (guest: IRsvp) => guest && guest.status === 'Going'
+      (guest: IRsvp | undefined) => guest && guest.status === 'Going'
     )
     const notGoingGuest = allGuests.filter(
-      (guest: IRsvp) => guest && guest.status === 'Not going'
+      (guest: IRsvp | undefined) => guest && guest.status === 'Not going'
     )
     const maybeGuest = allGuests.filter(
-      (guest: IRsvp) => guest && guest.status === 'Maybe'
+      (guest: IRsvp | undefined) => guest && guest.status === 'Maybe'
     )
 
     return [

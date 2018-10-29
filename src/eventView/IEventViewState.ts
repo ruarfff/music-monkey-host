@@ -2,9 +2,9 @@ import IEvent from '../event/IEvent'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 
 export default interface IEventViewState {
-  event?: IEvent
+  event: IEvent
   loading: boolean
-  fetchError?: Error
+  fetchError: Error
   deleteSelected: boolean
   deleteSucceeded: boolean
   deleteFailed: boolean

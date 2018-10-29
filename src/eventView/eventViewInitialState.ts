@@ -1,9 +1,10 @@
+import IEvent from 'src/event/IEvent'
 import IEventViewState from './IEventViewState'
 
 export default {
-  event: undefined,
+  event: {} as IEvent,
   loading: false,
-  fetchError: undefined,
+  fetchError: {} as Error,
   deleteSelected: false,
   copiedToClipboard: false
 } as IEventViewState

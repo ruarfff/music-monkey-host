@@ -21,10 +21,10 @@ const decorate = withStyles((theme: Theme) => ({
   title: {
     marginBottom: 24,
     fontSize: '20px',
-    lineHeight: '23px',
+    lineHeight: '23px'
   },
   link: {
-    textDecoration: 'none',
+    textDecoration: 'none'
   },
   eventDescription: {
     color: '#979797',
@@ -44,69 +44,66 @@ const decorate = withStyles((theme: Theme) => ({
     padding: '15px 25px',
     height: 'calc(100% - 194px)',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   }
 }))
 
 type IEventCardClasses =
-  'card' |
-  'title' |
-  'link' |
-  'eventDescription' |
-  'avatar' |
-  'img' |
-  'imgContainer' |
-  'cardContent'
+  | 'card'
+  | 'title'
+  | 'link'
+  | 'eventDescription'
+  | 'img'
+  | 'imgContainer'
+  | 'cardContent'
 
 interface IEventBigCardProps {
-  event: IEvent,
+  event: IEvent
 }
 
-
 class EventBigCard extends React.Component<
-  IEventBigCardProps &
-  WithStyles<IEventCardClasses>
-  > {
+  IEventBigCardProps & WithStyles<IEventCardClasses>
+> {
   public render() {
-    const {event, classes} = this.props
+    const { event, classes } = this.props
     return (
       <Card className={classes.card}>
         <Link to={'/events/' + event.eventId} className={classes.link}>
           <div className={classes.imgContainer}>
-            <img className={classes.img} src={event.imageUrl} alt=""/>
+            <img className={classes.img} src={event.imageUrl} alt="" />
           </div>
         </Link>
-        <Grid container={true} direction='column' justify='space-between' className={classes.cardContent}>
-          <Typography className={classes.title}>
-            {event.name}
-          </Typography>
+        <Grid
+          container={true}
+          direction="column"
+          justify="space-between"
+          className={classes.cardContent}
+        >
+          <Typography className={classes.title}>{event.name}</Typography>
           <div>
             <Typography className={classes.eventDescription}>
-              <img src={eventIcon}/>
-              {event.startDateTime ? event.startDateTime.format('Do MMMM YYYY') : ''}
+              <img src={eventIcon} />
+              {event.startDateTime
+                ? event.startDateTime.format('Do MMMM YYYY')
+                : ''}
             </Typography>
             <Typography noWrap={true} className={classes.eventDescription}>
-                <img src={locationIcon}/>
+              <img src={locationIcon} />
               {event.location && event.location.address}
             </Typography>
           </div>
           <div>
             <Link to={'/events/' + event.eventId} className={classes.link}>
-              <Button
-                color='primary'
-              >
-                GO TO EVENT
-              </Button>
+              <Button color="primary">GO TO EVENT</Button>
             </Link>
-            <a href={event.playlist ? event.playlist.external_urls.spotify : '/'} target="_blank" className={classes.link}>
-              <Button
-                color='primary'
-              >
-                PLAYLIST
-              </Button>
+            <a
+              href={event.playlist ? event.playlist.external_urls.spotify : '/'}
+              target="_blank"
+              className={classes.link}
+            >
+              <Button color="primary">PLAYLIST</Button>
             </a>
           </div>
-
         </Grid>
       </Card>
     )

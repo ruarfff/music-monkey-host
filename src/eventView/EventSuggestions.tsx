@@ -12,8 +12,8 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import DoneAll from '@material-ui/icons/DoneAll'
-import * as classNames from 'classnames'
-import * as moment from 'moment'
+import classNames from 'classnames'
+import moment from 'moment'
 import * as React from 'react'
 import IAction from '../IAction'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
@@ -36,10 +36,10 @@ const decorate = withStyles(() => ({
   },
   trackBand: {
     padding: 0,
-    fontWeight: 800,
+    fontWeight: 800
   },
   trackName: {
-    padding: 0,
+    padding: 0
   },
   listItem: {
     borderBottom: '1px solid #979797'
@@ -96,7 +96,10 @@ class EventSuggestions extends React.Component<
     )
   }
 
-  private renderSuggestion = (decoratedSuggestion: IDecoratedSuggestion, index: number) => {
+  private renderSuggestion = (
+    decoratedSuggestion: IDecoratedSuggestion,
+    index: number
+  ) => {
     const { track, user } = decoratedSuggestion
     const { classes } = this.props
     let trackImage = <span />
@@ -134,13 +137,35 @@ class EventSuggestions extends React.Component<
       >
         <ListItem className={classes.listItem} dense={true} button={true}>
           {trackImage}
-          <Grid className={classes.listItemContent} container={true} spacing={24}>
-            <Grid item={true} md={6} container={true} direction={'row'} alignItems={'flex-end'}>
-              <Grid container={true} direction={'column'} justify={'center'} md={3} item={true}>
-                <ListItemText className={classes.trackBand} primary={track.album.artists[0].name} />
-                <ListItemText className={classes.trackName} primary={track.name} />
+          <Grid
+            className={classes.listItemContent}
+            container={true}
+            spacing={24}
+          >
+            <Grid
+              item={true}
+              md={6}
+              container={true}
+              direction={'row'}
+              alignItems={'flex-end'}
+            >
+              <Grid
+                container={true}
+                direction={'column'}
+                justify={'center'}
+                md={3}
+                item={true}
+              >
+                <ListItemText
+                  className={classes.trackBand}
+                  primary={track.album.artists[0].name}
+                />
+                <ListItemText
+                  className={classes.trackName}
+                  primary={track.name}
+                />
               </Grid>
-                <ListItemText primary={this.formatDuration(track.duration_ms)}/>
+              <ListItemText primary={this.formatDuration(track.duration_ms)} />
             </Grid>
 
             <Grid item={true} md={6}>
@@ -153,7 +178,6 @@ class EventSuggestions extends React.Component<
                 />
               )}
             </Grid>
-
           </Grid>
 
           {userAccountIcon}
@@ -233,10 +257,17 @@ class EventSuggestions extends React.Component<
   }
 
   private formatDuration = (durationSeconds: number) => {
-    const tempTime = moment.duration(durationSeconds);
-    let duration = tempTime.hours() < 10 ? '0' + tempTime.hours()+ ':' : tempTime.hours() + ':'
-    duration += tempTime.minutes() < 10 ? '0' + tempTime.minutes()+ ':' : tempTime.minutes() + ':'
-    duration += tempTime.seconds() < 10 ? '0' + tempTime.seconds() : tempTime.seconds()
+    const tempTime = moment.duration(durationSeconds)
+    let duration =
+      tempTime.hours() < 10
+        ? '0' + tempTime.hours() + ':'
+        : tempTime.hours() + ':'
+    duration +=
+      tempTime.minutes() < 10
+        ? '0' + tempTime.minutes() + ':'
+        : tempTime.minutes() + ':'
+    duration +=
+      tempTime.seconds() < 10 ? '0' + tempTime.seconds() : tempTime.seconds()
     return duration
   }
 }

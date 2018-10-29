@@ -1,7 +1,7 @@
 import * as AWS from 'aws-sdk'
 import * as React from 'react'
 import { DropzoneComponent } from 'react-dropzone-component'
-import * as uuidv1 from 'uuid/v1'
+import uuidv1 from 'uuid/v1'
 import '../../node_modules/dropzone/dist/min/dropzone.min.css'
 import '../../node_modules/react-dropzone-component/styles/filepicker.css'
 import Action from '../IAction'
@@ -56,8 +56,8 @@ const componentConfig = {
 }
 
 interface IFileUploadProps {
-  onUpload(): Action
-  onUploadError(): Action
+  onUpload(value: any): Action
+  onUploadError(error: Error): Action
 }
 
 class FileUpload extends React.Component<IFileUploadProps, {}> {
