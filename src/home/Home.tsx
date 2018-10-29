@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash'
 import * as React from 'react'
 import { Route, RouteComponentProps } from 'react-router'
 import MainAppLeftMenu from '../components/LeftMenu/MainAppLeftMenu'
@@ -16,12 +17,18 @@ interface IHomeProps extends RouteComponentProps<any> {
   locationPath: string
 }
 
-const Home = ({ user, userLoading, userError, locationPath, routes }: IHomeProps) => (
+const Home = ({
+  user,
+  userLoading,
+  userError,
+  locationPath,
+  routes
+}: IHomeProps) => (
   <div className="Home-root">
-    <MainAppLeftMenu path={locationPath}/>
+    <MainAppLeftMenu path={locationPath} />
     <div className="Home-right-side">
       <MainAppBar />
-      {user && (
+      {!isEmpty(user) && (
         <main className="Home-content">
           <div className="Home-toolbar" />
           <Route exact={true} path="/" component={Events} />

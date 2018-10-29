@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import { WithStyles } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { History } from 'history'
+import { isEmpty } from 'lodash'
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router'
 import Swal from 'sweetalert2'
@@ -193,7 +194,7 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
         </Grid>
 
         <Grid item={true} xs={12} sm={12}>
-          {user && (
+          {!isEmpty(user) && (
             <PlaylistSelection
               playlists={playlists}
               fetchPlaylists={fetchPlaylists}
