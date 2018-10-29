@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import IRootState from '../../../rootState'
 import { clearMessage } from '../../../shareEvent/shareActions'
-import EventGuestsRightSideView from './EventGuestsRightSideView'
 import { copyEventInvite } from '../../eventViewActions'
+import EventGuestsRightSideView from './EventGuestsRightSideView'
 
 const mapStateToProps = (state: IRootState) => ({
   event: state.eventView.event,

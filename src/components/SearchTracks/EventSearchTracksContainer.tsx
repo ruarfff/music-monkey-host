@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import IRootState from '../../rootState'
 import { searchTrack } from '../../playlist/playlistActions'
+import IRootState from '../../rootState'
 import EventSearchTracks from './EventSearchTracks'
 
 const mapStateToProps = (state: IRootState) => ({

@@ -6,10 +6,10 @@ import {
   FETCH_PLAYLISTS_SUCCESS,
   REMOVE_TRACK_REQUEST,
   removeTrackError,
-  trackRemoved,
   SEARCH_TRACKS_REQUEST,
+  searchTrackFailure,
   // searchTrackSuccess,
-  searchTrackFailure
+  trackRemoved
 } from './playlistActions'
 import {
   fetchUsersPlaylists,

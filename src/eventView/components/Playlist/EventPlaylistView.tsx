@@ -7,16 +7,16 @@ import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
 import * as React from 'react'
+import EventSearchTracksContainer from '../../../components/SearchTracks/EventSearchTracksContainer'
 import IEvent from '../../../event/IEvent'
 import EventPlaylist from '../../../eventPlaylist/EventPlaylistContainer'
 import EventPlaylistSummary from '../../../eventPlaylist/EventPlaylistSummaryContainer'
 import IDecoratedSuggestion from '../../../suggestion/IDecoratedSuggestion'
-import EventSearchTracksContainer from '../../../components/SearchTracks/EventSearchTracksContainer'
 // import EventCohostPlaylist from './EventCohostPlaylistContainer'
 import EventMaybeSuggestions from './EventMaybeSuggestionsContainer'
-import './Styles/EventPlaylistView.scss'
 import EventRejectedSuggestions from './EventRejectedSuggestionsContainer'
 import EventSuggestions from './EventSuggestionsContainer'
+import './Styles/EventPlaylistView.scss'
 
 const decorate = withStyles(() => ({
   tabsWrapper: {

@@ -5,8 +5,8 @@ import {
   FETCH_PLAYLISTS_SUCCESS,
   PLAYLIST_DESELECTED,
   PLAYLIST_SELECTED,
-  SEARCH_TRACKS_SUCCESS,
   SEARCH_TRACKS_FAILURE,
+  SEARCH_TRACKS_SUCCESS,
 } from './playlistActions'
 import initialState from './playlistInitialState'
 

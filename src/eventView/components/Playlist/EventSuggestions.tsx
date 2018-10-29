@@ -13,12 +13,12 @@ import Typography from '@material-ui/core/Typography/Typography'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import DoneAll from '@material-ui/icons/DoneAll'
 import * as classNames from 'classnames'
-import { formatDuration } from '../../../util/formatDuration'
 import * as React from 'react'
 import IAction from '../../../IAction'
 import IDecoratedSuggestion from '../../../suggestion/IDecoratedSuggestion'
 import ISuggestion from '../../../suggestion/ISuggestion'
 import ITrack from '../../../track/ITrack'
+import { formatDuration } from '../../../util/formatDuration'
 import './Styles/EventSuggestions.scss'
 
 const decorate = withStyles(() => ({

@@ -1,16 +1,16 @@
-import * as React from 'react'
-import EventInput from '../EventInput/EventInput'
 import Button from '@material-ui/core/Button'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import List from '@material-ui/core/List'
 import Grid from '@material-ui/core/Grid'
-import ListItemText from '@material-ui/core/ListItemText'
+import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import ListItemText from '@material-ui/core/ListItemText'
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles'
 import Search from '@material-ui/icons/Search'
+import * as React from 'react'
 import IAction from '../../IAction'
 import { formatDuration } from '../../util/formatDuration'
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles'
+import EventInput from '../EventInput/EventInput'
 
 interface IEventSearchTracksProps {
   searchResult: any[]
@@ -125,7 +125,7 @@ class EventSearchTracks extends React.PureComponent<
   }
 
   private handleAddTrack = (track: any) => () => {
-
+    return
   }
 
   private handleSearchSubmit = () => {
