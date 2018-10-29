@@ -1,4 +1,4 @@
- import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import { WithStyles } from '@material-ui/core/es'
 import Grid from '@material-ui/core/Grid'
@@ -12,17 +12,15 @@ import './Styles/EventSummaryPlaylist.scss'
 const decorated = withStyle(() => ({
   playlistWrapper: {
     padding: '30px 30px 30px 30px',
-    height: '100%',
+    height: '100%'
   },
   spotifyLink: {
     color: '#FFB000'
   },
-  playlistContainer: {
-
-  },
+  playlistContainer: {},
   suggestionRow: {
     display: 'flex',
-    marginBottom: '15px',
+    marginBottom: '15px'
   },
   suggestionImg: {
     height: '40px',
@@ -43,7 +41,8 @@ interface IEventSummaryPlaylistProps {
 }
 
 class EventSummaryPlaylist extends React.PureComponent<
-  IEventSummaryPlaylistProps & WithStyles> {
+  IEventSummaryPlaylistProps & WithStyles
+> {
   public render() {
     const { playlist, classes, suggestion } = this.props
 
@@ -77,20 +76,21 @@ class EventSummaryPlaylist extends React.PureComponent<
         <Grid item={true} xs={6}>
           <Grid container={true} alignItems={'center'}>
             <Grid item={true} xs={12}>
-              <Typography gutterBottom={true} variant="subheading">
+              <Typography gutterBottom={true} variant="subtitle1">
                 Playlist{' '}
-                <Button color='primary'>
-                  <a className={classes.spotifyLink} href={openUrl} target="_blank">
+                <Button color="primary">
+                  <a
+                    className={classes.spotifyLink}
+                    href={openUrl}
+                    target="_blank"
+                  >
                     Open in Spotify
                   </a>
                 </Button>
               </Typography>
             </Grid>
             <Grid item={true} xs={12} container={true}>
-              <Grid
-                item={true}
-                xs={6}
-              >
+              <Grid item={true} xs={6}>
                 <Grid
                   container={true}
                   direction={'column'}
@@ -99,19 +99,29 @@ class EventSummaryPlaylist extends React.PureComponent<
                 >
                   <div>
                     <Typography gutterBottom={true}>{playlist.name}</Typography>
-                    <Typography color="textSecondary">{numTracks} Tracks</Typography>
-                    <Typography color="textSecondary">{formattedDuration}</Typography>
+                    <Typography color="textSecondary">
+                      {numTracks} Tracks
+                    </Typography>
+                    <Typography color="textSecondary">
+                      {formattedDuration}
+                    </Typography>
                   </div>
                   <div>
-                    <Typography color="textSecondary">Mode: Play to Play</Typography>
+                    <Typography color="textSecondary">
+                      Mode: Play to Play
+                    </Typography>
                     <Typography color="textSecondary">Genre: All</Typography>
                   </div>
                 </Grid>
               </Grid>
               <Grid item={true} xs={6}>
                 {image && (
-                  <ButtonBase >
-                    <img className="EventSummaryPlaylist-image" alt="complex" src={image} />
+                  <ButtonBase>
+                    <img
+                      className="EventSummaryPlaylist-image"
+                      alt="complex"
+                      src={image}
+                    />
                   </ButtonBase>
                 )}
               </Grid>
@@ -119,22 +129,27 @@ class EventSummaryPlaylist extends React.PureComponent<
           </Grid>
         </Grid>
         <Grid item={true} xs={6}>
-          <Typography className={classes.recentlyTitle} variant='caption'>
+          <Typography className={classes.recentlyTitle} variant="caption">
             Recently Requested Tracks
           </Typography>
-          {suggestion && suggestion.reverse().slice(0, size).map((suggest, i) => (
-            <div className={classes.suggestionRow} key={i}>
-              <img className={classes.suggestionImg} src={suggest.track.album.images[0].url}/>
-              <div>
-                <Typography>
-                  {suggest.track.album.artists[0].name}
-                </Typography>
-                <Typography>
-                  {suggest.track.name}
-                </Typography>
-              </div>
-            </div>
-          ))}
+          {suggestion &&
+            suggestion
+              .reverse()
+              .slice(0, size)
+              .map((suggest, i) => (
+                <div className={classes.suggestionRow} key={i}>
+                  <img
+                    className={classes.suggestionImg}
+                    src={suggest.track.album.images[0].url}
+                  />
+                  <div>
+                    <Typography>
+                      {suggest.track.album.artists[0].name}
+                    </Typography>
+                    <Typography>{suggest.track.name}</Typography>
+                  </div>
+                </div>
+              ))}
         </Grid>
       </Grid>
     )

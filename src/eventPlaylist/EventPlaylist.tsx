@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Typography from '@material-ui/core/Typography'
 import DoneAll from '@material-ui/icons/DoneAll'
 import Undo from '@material-ui/icons/Undo'
-import * as classNames from 'classnames'
+import classNames from 'classnames'
 import * as React from 'react'
 import { DropResult } from 'react-beautiful-dnd'
 import IEvent from '../event/IEvent'
@@ -43,7 +43,9 @@ interface IEventPlaylistProps {
   tryRemoveTrack(playlistId: string, uri:string): IAction
 }
 
-export default class EventPlaylist extends React.Component<IEventPlaylistProps> {
+export default class EventPlaylist extends React.Component<
+  IEventPlaylistProps
+> {
   public state = {
     anchorEl: null
   }
@@ -81,10 +83,14 @@ export default class EventPlaylist extends React.Component<IEventPlaylistProps> 
         {saving && <LoadingSpinner />}
         {!saving && (
           <Grid container={true} spacing={8}>
-            <Grid item={true} sm={12} container={true} justify={'space-between'} alignItems={'center'}>
-              <Typography>
-                Tracks
-              </Typography>
+            <Grid
+              item={true}
+              sm={12}
+              container={true}
+              justify={'space-between'}
+              alignItems={'center'}
+            >
+              <Typography>Tracks</Typography>
 
               {hasStagedTrack && this.renderSaveButtons(hasStagedTrack)}
 

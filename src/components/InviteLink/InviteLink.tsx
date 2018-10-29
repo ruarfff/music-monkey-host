@@ -3,12 +3,12 @@ import { WithStyles } from '@material-ui/core/es'
 import withStyle from '@material-ui/core/styles/withStyles'
 import { isEmpty } from 'lodash'
 import * as React from 'react'
-import * as CopyToClipboard from 'react-copy-to-clipboard'
+import CopyToClipboard from 'react-copy-to-clipboard'
 
 const decorated = withStyle(() => ({
   button: {
-    color: 'white',
-  },
+    color: 'white'
+  }
 }))
 
 interface IInviteLinkProps {
@@ -18,7 +18,7 @@ interface IInviteLinkProps {
 }
 
 const InviteLink = (props: IInviteLinkProps & WithStyles) => {
-  const { inviteId, classes,togglePopup } = props
+  const { inviteId, classes, togglePopup } = props
   if (isEmpty(inviteId)) {
     return <span />
   }

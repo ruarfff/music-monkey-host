@@ -6,7 +6,7 @@ import './Home.scss'
 const LoginError = () => (
   <div className="Home-error-message">
     <Typography
-      variant="headline"
+      variant="h5"
       gutterBottom={true}
       align="center"
       paragraph={true}

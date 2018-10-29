@@ -1,4 +1,4 @@
-import * as Pusher from 'pusher-js'
+import Pusher from 'pusher-js'
 
 const pusher = new Pusher('d7c284d8f17d26f74047', {
   cluster: 'eu',

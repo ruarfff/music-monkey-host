@@ -13,14 +13,14 @@ import '../Playlist/Styles/EventSuggestions.scss'
 
 const decorated = withStyle(() => ({
   noAvatar: {
-    fontSize: '40px',
+    fontSize: '40px'
   },
   inviteLink: {
-    marginTop: '20px',
+    marginTop: '20px'
   },
   guestListTitle: {
     fontSize: '20px',
-    marginBottom: '20px',
+    marginBottom: '20px'
   }
 }))
 
@@ -32,7 +32,8 @@ interface IEventGuestsRightSideViewProps {
 }
 
 class EventGuestsRightSideView extends React.PureComponent<
-  IEventGuestsRightSideViewProps & WithStyles> {
+  IEventGuestsRightSideViewProps & WithStyles
+> {
   public render() {
     const { event, copyEventInvite, classes } = this.props
 
@@ -41,7 +42,7 @@ class EventGuestsRightSideView extends React.PureComponent<
     if (!event || !event.guests || event.guests.length < 1) {
       return (
         <Grid container={true} justify={'center'} spacing={24}>
-          <Typography align="center" variant="subheading">
+          <Typography align="center" variant="subtitle1">
             No guests have opened their invite yet.
           </Typography>
           <Grid className={classes.inviteLink} item={true}>
@@ -54,14 +55,17 @@ class EventGuestsRightSideView extends React.PureComponent<
           </Grid>
         </Grid>
       )
-
     }
 
     return (
       <div className="EventSuggestions-root">
         <Grid container={true} justify={'center'} spacing={24}>
           <Grid item={true} sm={12}>
-            <Typography className={classes.guestListTitle} align="center" variant="subheading">
+            <Typography
+              className={classes.guestListTitle}
+              align="center"
+              variant="subtitle1"
+            >
               Guest List
             </Typography>
             <Grid container={true} justify={'space-evenly'}>
@@ -93,6 +97,5 @@ class EventGuestsRightSideView extends React.PureComponent<
     )
   }
 }
-
 
 export default decorated(EventGuestsRightSideView)

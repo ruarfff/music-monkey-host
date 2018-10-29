@@ -6,7 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import { History } from 'history'
 import { map, sortBy } from 'lodash'
-import * as moment from 'moment'
+import moment from 'moment'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import IEvent from '../event/IEvent'
@@ -88,46 +88,61 @@ class EventsView extends React.Component<IEventsProps & WithStyles> {
         {!eventsLoading && (!events || events.length < 1) && <NoEvents />}
 
         {!eventsLoading &&
-        !!events &&
-        events.length > 0 && (
-          <React.Fragment>
-            <Grid container={true} spacing={24} direction="row">
-              <Hidden xsDown={true}>
-                <Grid item={true} sm={12}>
-                  <Link to='/all-events'>
-                    <Button
-                      variant='text'
-                      className={currentPath === '/all-events' ? classes.buttonOrange : classes.button}
-                    >
-                      ALL
-                    </Button>
-                  </Link>
-                  <Link to='/past-events'>
-                    <Button
-                      variant='text'
-                      className={currentPath === '/past-events' ? classes.buttonOrange : classes.button}
-                    >
-                      PAST EVENTS
-                    </Button>
-                  </Link>
-                  <Link to='/upcoming-events'>
-                    <Button
-                      variant='text'
-                      className={currentPath === '/upcoming-events' ? classes.buttonOrange : classes.button}
-                    >
-                      UPCOMING EVENTS
-                    </Button>
-                  </Link>
+          !!events &&
+          events.length > 0 && (
+            <React.Fragment>
+              <Grid container={true} spacing={24} direction="row">
+                <Hidden xsDown={true}>
+                  <Grid item={true} sm={12}>
+                    <Link to="/all-events">
+                      <Button
+                        variant="text"
+                        className={
+                          currentPath === '/all-events'
+                            ? classes.buttonOrange
+                            : classes.button
+                        }
+                      >
+                        ALL
+                      </Button>
+                    </Link>
+                    <Link to="/past-events">
+                      <Button
+                        variant="text"
+                        className={
+                          currentPath === '/past-events'
+                            ? classes.buttonOrange
+                            : classes.button
+                        }
+                      >
+                        PAST EVENTS
+                      </Button>
+                    </Link>
+                    <Link to="/upcoming-events">
+                      <Button
+                        variant="text"
+                        className={
+                          currentPath === '/upcoming-events'
+                            ? classes.buttonOrange
+                            : classes.button
+                        }
+                      >
+                        UPCOMING EVENTS
+                      </Button>
+                    </Link>
+                  </Grid>
+                </Hidden>
+                <Grid item={true} md={12}>
+                  {currentPath === '/all-events' &&
+                    this.renderEventsList(allEvents, 'no events')}
+                  {currentPath === '/past-events' &&
+                    this.renderEventsList(pastEvents, 'no events')}
+                  {currentPath === '/upcoming-events' &&
+                    this.renderEventsList(upcomingEvents, 'no events')}
                 </Grid>
-              </Hidden>
-              <Grid item={true} md={12}>
-                {currentPath === '/all-events' && this.renderEventsList(allEvents, 'no events')}
-                {currentPath === '/past-events' && this.renderEventsList(pastEvents, 'no events')}
-                {currentPath === '/upcoming-events' && this.renderEventsList(upcomingEvents, 'no events')}
               </Grid>
-            </Grid>
-          </React.Fragment>
-        )}
+            </React.Fragment>
+          )}
       </div>
     )
   }

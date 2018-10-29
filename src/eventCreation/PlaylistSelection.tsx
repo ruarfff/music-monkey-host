@@ -1,6 +1,5 @@
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid/Grid'
-import { withStyles, WithStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField/TextField'
 import OpenInNew from '@material-ui/icons/OpenInNew'
 import * as React from 'react'
@@ -10,19 +9,7 @@ import IPlaylistDetails from '../playlist/IPlaylistDetails'
 import IUser from '../user/IUser'
 import CreatePlaylistDialog from './CreatePlaylistDialog'
 import ExistingPlaylistDialog from './ExistingPlaylistDialog'
-
-const decorate = withStyles(({}) => ({
-  root: {},
-  menuIcon: {
-    paddingTop: '1.5em'
-  },
-  button: {
-    color: '#FFB000',
-  },
-  selectSpotify: {
-
-  }
-}))
+import './PlaylistSelection.scss'
 
 interface IPlaylistSelectionProps {
   user: IUser
@@ -38,15 +25,12 @@ interface IPlaylistSelectionProps {
   fetchPlaylists(user: IUser): IAction
 }
 
-
-class PlaylistSelection extends React.Component<
-  IPlaylistSelectionProps & WithStyles<'root' | 'menuIcon' | 'button' | 'selectSpotify'>
-> {
+class PlaylistSelection extends React.Component<IPlaylistSelectionProps> {
   public state = {
     selected: {
       label: '',
-      value: '',
-    },
+      value: ''
+    }
   }
 
   public handleClose = () => {
@@ -83,13 +67,12 @@ class PlaylistSelection extends React.Component<
   public render() {
     const {
       user,
-      classes,
       value,
       playlists,
       playlistInput,
       closeExistingPlaylist,
       closeCreatePlaylist,
-      fetchPlaylists,
+      fetchPlaylists
     } = this.props
 
     return (
@@ -103,17 +86,16 @@ class PlaylistSelection extends React.Component<
             margin="normal"
             value={value}
             onClick={this.selectExistingSelected}
-            className={classes.selectSpotify}
           />
         </Grid>
-        <Grid item={true} className={classes.menuIcon} md={3}>
+        <Grid item={true} className="PlaylistSelection-menu-icon" md={3}>
           {value && (
             <a href={value} target="_blank">
               <OpenInNew fill="#FFB000" />
             </a>
           )}
           <Button onClick={this.createPlaylistSelected}>
-            <span className={classes.button}>
+            <span className="PlaylistSelection-button">
               CREATE NEW PLAYLIST
             </span>
           </Button>
@@ -138,4 +120,4 @@ class PlaylistSelection extends React.Component<
   }
 }
 
-export default decorate(PlaylistSelection)
+export default PlaylistSelection

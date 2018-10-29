@@ -29,7 +29,7 @@ export default function playlists(
     case PLAYLIST_SELECTED:
       return { ...state, selectedPlaylist: payload }
     case PLAYLIST_DESELECTED:
-      return { ...state, selectedPlaylist: undefined }
+      return { ...state, selectedPlaylist: {} }
     default:
       return state
   }

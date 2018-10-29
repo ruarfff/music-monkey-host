@@ -1,8 +1,6 @@
-import * as moment from 'moment'
-import { LOCATION_CHANGE } from 'react-router-redux'
-import {
-  EVENT_FETCHED_BY_ID
-} from '../eventView/eventViewActions'
+import { LOCATION_CHANGE } from 'connected-react-router'
+import moment from 'moment'
+import { EVENT_FETCHED_BY_ID } from '../eventView/eventViewActions'
 import Action from '../IAction'
 import {
   CLEAR_MESSAGE,
@@ -30,7 +28,7 @@ import {
   EVENTS_FETCH_INITIATED,
   EVENTS_FETCHED,
   SELECT_EXISTING_PLAYLIST_CLOSED,
-  SELECT_EXISTING_PLAYLIST_SELECTED,
+  SELECT_EXISTING_PLAYLIST_SELECTED
 } from './eventActions'
 import initialState from './eventInitialState'
 import IEvent from './IEvent'
@@ -68,7 +66,7 @@ export default function event(
     case EVENT_FETCHED_BY_ID:
       return {
         ...state,
-        savingEvent: payload,
+        savingEvent: payload
       }
 
     case EVENT_LOCATION_CHANGED:

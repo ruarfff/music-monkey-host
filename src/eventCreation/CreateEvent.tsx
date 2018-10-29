@@ -1,8 +1,5 @@
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid/Grid'
-// import Menu from '@material-ui/core/Menu'
-// import MenuItem from '@material-ui/core/MenuItem'
-// import Select from '@material-ui/core/Select'
 import { Theme, WithStyles } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import * as React from 'react'
@@ -28,7 +25,7 @@ const decorate = withStyles((theme: Theme) => ({
   button: {
     marginRight: '30px',
     '&:last-child': {
-      marginRight: 0,
+      marginRight: 0
     }
   },
   addCoHost: {
@@ -41,21 +38,20 @@ const decorate = withStyles((theme: Theme) => ({
     border: '1px solid #979797',
     paddingLeft: '16px',
     minHeight: '40px',
-    // position: 'relative',
     marginRight: '20px',
     top: '8px',
     '&:hover:not($disabled):before': {
-      borderBottom: '1px solid #979797!important',
+      borderBottom: '1px solid #979797!important'
     },
     '&:before': {
-      content: 'none',
+      content: 'none'
     },
     '&:after': {
-      content: 'none',
+      content: 'none'
     }
   },
   codeInput: {
-    display: 'inline-block',
+    display: 'inline-block'
   }
 }))
 
@@ -72,11 +68,11 @@ interface ICreateEventProps {
   closeExistingPlaylist(): IAction
   createEventPlaylist(playlist: IPlaylistDetails): IAction
   eventContentUpdated(content: any): IAction
-  eventImageUploadError(): IAction
-  eventImageUploaded(): IAction
+  eventImageUploadError(error: Error): IAction
+  eventImageUploaded(url: string): IAction
   initializeCreateForm(event: IEvent, user: IUser): IAction
-  locationChanged(): IAction
-  locationSelected(): IAction
+  locationChanged(address: string): IAction
+  locationSelected(address: string): IAction
   saveEvent(event: IEvent): IAction
   selectCreatePlaylist(): IAction
   selectExistingPlaylist(): IAction
@@ -87,7 +83,6 @@ interface ICreateEventProps {
 }
 
 class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
-
   public state = {
     currentStep: 0,
     anchorCoHost: null,
@@ -102,20 +97,20 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
 
   public prevStep = () => {
     const { currentStep } = this.state
-    if ( currentStep !== 0 ) {
-      this.setState({currentStep: currentStep - 1})
+    if (currentStep !== 0) {
+      this.setState({ currentStep: currentStep - 1 })
     }
   }
 
   public nextStep = () => {
     const { currentStep } = this.state
-    if ( currentStep !== 2 ) {
-      this.setState({currentStep: currentStep + 1})
+    if (currentStep !== 2) {
+      this.setState({ currentStep: currentStep + 1 })
     }
   }
 
   public showSavedDialogue = () => {
-    this.setState({showSaveDialog: false})
+    this.setState({ showSaveDialog: false })
     SweetAlert.fire({
       confirmButtonColor: '#00838F',
       title: 'Event Saved!',
@@ -123,7 +118,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
     }).then()
   }
 
-  public handleClick = ( event: any ) => {
+  public handleClick = (event: any) => {
     this.setState({ anchorCoHost: event.currentTarget })
   }
 
@@ -131,26 +126,20 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
     this.setState({ anchorCoHost: null })
   }
 
-  public handleEventType = ( event: any ) => {
+  public handleEventType = (event: any) => {
     this.setState({ [event.target.name]: event.target.value })
   }
 
   public renderMap = (coords: any) => {
-    return (
-      <MapComponent
-        coords={coords}
-      />
-    )
+    return <MapComponent coords={coords} />
   }
 
-  public renderFirstStep = () =>  {
-    // const { anchorCoHost } = this.state
-
+  public renderFirstStep = () => {
     const {
       event,
       eventImageUploaded,
       eventImageUploadError,
-      classes,
+      classes
     } = this.props
     return (
       <React.Fragment>
@@ -176,24 +165,6 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             onUpload={eventImageUploaded}
             onUploadError={eventImageUploadError}
           />
-          {/*<Button*/}
-            {/*className={classes.addCoHost}*/}
-            {/*variant="raised"*/}
-            {/*color="secondary"*/}
-            {/*aria-owns={anchorCoHost ? 'simple-menu' : ''}*/}
-            {/*aria-haspopup="true"*/}
-            {/*onClick={this.handleClick}*/}
-          {/*>*/}
-            {/*ADD CO-HOST*/}
-          {/*</Button>*/}
-          {/*<Menu*/}
-            {/*anchorEl={anchorCoHost}*/}
-            {/*open={Boolean(anchorCoHost)}*/}
-            {/*onClose={this.handleClose}*/}
-          {/*>*/}
-            {/*<MenuItem onClick={this.handleClose}>Select from friends</MenuItem>*/}
-            {/*<MenuItem onClick={this.handleClose}>Email link</MenuItem>*/}
-          {/*</Menu>*/}
         </Grid>
         <Grid item={true} xs={12} sm={6}>
           <EventInput
@@ -204,24 +175,6 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             errorLabel={'Required'}
             onChange={this.handleContentUpdated('organizer')}
           />
-          {/*<Select*/}
-            {/*className={classes.dropDown}*/}
-            {/*value={this.state.eventType}*/}
-            {/*onChange={this.handleEventType}*/}
-            {/*inputProps={{name: 'eventType'}}*/}
-          {/*>*/}
-            {/*<MenuItem value={'public'}>Public</MenuItem>*/}
-            {/*<MenuItem value={'private'}>Private</MenuItem>*/}
-          {/*</Select>*/}
-          {/*<div className={classes.codeInput}>*/}
-            {/*<EventInput*/}
-              {/*value={event.eventCode ? event.eventCode : ''}*/}
-              {/*placeholder={'set password'}*/}
-              {/*label={'event code'}*/}
-              {/*onChange={this.handleContentUpdated('eventCode')}*/}
-            {/*/>*/}
-          {/*</div>*/}
-
         </Grid>
         <div className="control-btn-row">
           <Button
@@ -233,10 +186,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             <span className="control-btn-text-primary">Cancel</span>
           </Button>
           <Button
-            disabled={
-              !event.name ||
-              !event.organizer
-            }
+            disabled={!event.name || !event.organizer}
             onClick={this.nextStep}
             color="primary"
             variant="contained"
@@ -263,7 +213,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
       closeExistingPlaylist,
       closeCreatePlaylist,
       createEventPlaylist,
-      classes,
+      classes
     } = this.props
 
     return (
@@ -294,7 +244,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             disablePast={true}
             value={event.startDateTime}
             onChange={this.handleContentUpdated('startDateTime')}
-            label={"Starting At"}
+            label={'Starting At'}
           />
         </Grid>
 
@@ -303,7 +253,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             disablePast={true}
             value={event.endDateTime}
             onChange={this.handleContentUpdated('endDateTime')}
-            label={"Finishing At"}
+            label={'Finishing At'}
           />
         </Grid>
         {event.location && this.renderMap(event.location.latLng)}
@@ -322,7 +272,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             createEventPlaylist={createEventPlaylist}
           />
         </Grid>
-        <div className='control-btn-row'>
+        <div className="control-btn-row">
           <Button
             variant="contained"
             color="secondary"
@@ -363,7 +313,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
       event,
       copyEventInvite,
       acknowledgeEventInviteCopied,
-      copiedToClipboard,
+      copiedToClipboard
     } = this.props
 
     if (this.state.currentStep === 2 && this.state.showSaveDialog) {
@@ -374,7 +324,8 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
         <ShareEvent
           copiedToClipboard={copiedToClipboard}
           acknowledgeEventInviteCopied={acknowledgeEventInviteCopied}
-          copyEventInvite={copyEventInvite} event={event}
+          copyEventInvite={copyEventInvite}
+          event={event}
         />
       </React.Fragment>
     )

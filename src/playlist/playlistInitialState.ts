@@ -1,9 +1,10 @@
+import IPlaylist from './IPlaylist'
 import IPlaylistState from './IPlaylistState'
 
 export default {
-  data: undefined,
-  error: undefined,
+  data: [] as IPlaylist[],
+  error: {} as Error,
   isLoading: false,
-  selectedPlaylist: undefined,
   searchResult: [],
+  selectedPlaylist: {} as IPlaylist
 } as IPlaylistState

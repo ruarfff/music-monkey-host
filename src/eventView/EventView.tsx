@@ -5,6 +5,7 @@ import withStyle from '@material-ui/core/styles/withStyles'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
+import { isEmpty } from 'lodash'
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router'
 import InviteCopyAlert from '../components/InviteLink/InviteCopyAlert'
@@ -29,15 +30,14 @@ const decorated = withStyle(() => ({
     borderBottom: '1px solid #d6d6d6',
     marginBottom: '10px'
   },
-  tab: {
-  },
+  tab: {},
   tabs: {
     color: '#AF00FF',
     borderBottom: '1px solid #AF00FF'
   },
   content: {
     paddingTop: 0,
-    height: '100%',
+    height: '100%'
   }
 }))
 
@@ -60,13 +60,16 @@ interface IEventViewProps extends RouteComponentProps<any> {
 
 function TabContainer({ children, dir }: any) {
   return (
-    <Typography style={{height: '100%'}} component="div" dir={dir}>
+    <Typography style={{ height: '100%' }} component="div" dir={dir}>
       {children}
     </Typography>
   )
 }
 
-class EventView extends React.Component<IEventViewProps & WithStyles, IEventViewState> {
+class EventView extends React.Component<
+  IEventViewProps & WithStyles,
+  IEventViewState
+> {
   public state = {
     tabIndex: 0
   }
@@ -89,13 +92,15 @@ class EventView extends React.Component<IEventViewProps & WithStyles, IEventView
       copiedToClipboard,
       acknowledgeEventInviteCopied
     } = this.props
-    const shouldShowEvent: boolean = !loading && !!event
+    const shouldShowEvent: boolean = !loading && !isEmpty(event)
 
     return (
       <div className="eventViewWrapper">
         {loading && <LoadingSpinner />}
         {loading &&
-        error && <EventFetchError onTryAgain={this.handleGetEvent} />}
+          !isEmpty(error) && (
+            <EventFetchError onTryAgain={this.handleGetEvent} />
+          )}
         {shouldShowEvent && this.renderEventView()}
         {copiedToClipboard && (
           <InviteCopyAlert
@@ -122,7 +127,7 @@ class EventView extends React.Component<IEventViewProps & WithStyles, IEventView
             <Tabs
               value={tabIndex}
               onChange={this.handleTabChange}
-              TabIndicatorProps={{className: classes.tabs}}
+              TabIndicatorProps={{ className: classes.tabs }}
               centered={true}
               className={classes.tabs}
               fullWidth={true}
@@ -180,7 +185,7 @@ class EventView extends React.Component<IEventViewProps & WithStyles, IEventView
     if (eventId) {
       this.props.fetchEventVotes(eventId)
     }
-    if (event && event.settings.dynamicVotingEnabled) {
+    if (!isEmpty(event) && event.settings.dynamicVotingEnabled) {
       this.props.getEventByIdNoLoading(eventId)
     }
   }

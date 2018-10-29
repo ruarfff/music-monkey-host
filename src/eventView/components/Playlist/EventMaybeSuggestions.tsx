@@ -29,10 +29,10 @@ const decorate = withStyles(() => ({
   },
   trackBand: {
     padding: 0,
-    fontWeight: 800,
+    fontWeight: 800
   },
   trackName: {
-    padding: 0,
+    padding: 0
   },
   listItem: {
     borderBottom: '1px solid #979797'
@@ -49,18 +49,19 @@ interface IEventRejectedSuggestionsProps {
 
 class EventMaybeSuggestions extends React.PureComponent<
   IEventRejectedSuggestionsProps & WithStyles
-  > {
-
+> {
   public state = {
     tracksBeingRemoved: {}
   }
 
   public render() {
     const { suggestions } = this.props
-    const filteredSuggestions = suggestions.filter(suggest => !suggest.suggestion.accepted)
+    const filteredSuggestions = suggestions.filter(
+      suggest => !suggest.suggestion.accepted
+    )
     if (!filteredSuggestions || filteredSuggestions.length < 1) {
       return (
-        <Typography align="center" variant="subheading">
+        <Typography align="center" variant="subtitle1">
           Currently no Rejected Suggestions
         </Typography>
       )
@@ -70,7 +71,7 @@ class EventMaybeSuggestions extends React.PureComponent<
         <Grid container={true} spacing={24}>
           <Grid item={true} sm={12}>
             <List>
-              {filteredSuggestions.map((decoratedSuggestion, i)=>
+              {filteredSuggestions.map((decoratedSuggestion, i) =>
                 this.renderSuggestion(decoratedSuggestion, i)
               )}
             </List>
@@ -120,13 +121,36 @@ class EventMaybeSuggestions extends React.PureComponent<
     }
 
     return (
-      <ListItem className={classes.listItem} dense={true} button={true} key={index}>
+      <ListItem
+        className={classes.listItem}
+        dense={true}
+        button={true}
+        key={index}
+      >
         {trackImage}
         <Grid className={classes.listItemContent} container={true} spacing={24}>
-          <Grid item={true} md={4} container={true} direction={'row'} alignItems={'flex-end'}>
-            <Grid container={true} direction={'column'} justify={'center'} md={4} item={true}>
-              <ListItemText className={classes.trackBand} primary={track.album.artists[0].name} />
-              <ListItemText className={classes.trackName} primary={track.name} />
+          <Grid
+            item={true}
+            md={4}
+            container={true}
+            direction={'row'}
+            alignItems={'flex-end'}
+          >
+            <Grid
+              container={true}
+              direction={'column'}
+              justify={'center'}
+              md={4}
+              item={true}
+            >
+              <ListItemText
+                className={classes.trackBand}
+                primary={track.album.artists[0].name}
+              />
+              <ListItemText
+                className={classes.trackName}
+                primary={track.name}
+              />
             </Grid>
             <ListItemText primary={formatDuration(track.duration_ms)}/>
           </Grid>

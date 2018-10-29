@@ -1,5 +1,5 @@
+import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import { logout } from '../auth/authActions'
 import {
@@ -9,8 +9,6 @@ import {
 } from '../notification/notificationActions'
 import IRootState from '../rootState'
 import MainAppBar from './MainAppBar'
-
-
 
 const mapStateToProps = (state: IRootState) => ({
   user: state.user.data,
@@ -23,16 +21,20 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   handleTitleClicked: () => {
     dispatch(push('/'))
   },
-  ...bindActionCreators({
-    logout,
-    getNotifications,
-    readNotification,
-    actionedNotification,
-  }, dispatch),
+  ...bindActionCreators(
+    {
+      logout,
+      getNotifications,
+      readNotification,
+      actionedNotification
+    },
+    dispatch
+  )
 })
 
-const MainAppBarContainer = connect(mapStateToProps, mapDispatchToProps)(
-  MainAppBar
-)
+const MainAppBarContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainAppBar)
 
 export default MainAppBarContainer

@@ -34,13 +34,13 @@ import {
 } from './playlist/playlistSaga'
 import { watchfetchShareEmail } from './shareEvent/shareSaga'
 import {
-watchFetchSuggestions,
-watchRejectSuggestion
+  watchFetchSuggestions,
+  watchRejectSuggestion
 } from './suggestion/suggestionSaga'
 import { watchupdateUserFlow } from './user/userSaga'
 import { watchFetchEventVotes } from './vote/voteSaga'
 
-export default function* saga() {
+export default function* rootSaga() {
   yield all([
     watchLogin(),
     watchLogout(),
@@ -68,7 +68,7 @@ export default function* saga() {
     watchUpdateEvent(),
     watchupdateUserFlow(),
     watchFetchNotificationsByUserId(),
-    watchfetchShareEmail(),
     watchFetchRemoveTrackFromPlaylist(),
+    watchfetchShareEmail(),
   ])
 }

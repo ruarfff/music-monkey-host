@@ -88,7 +88,7 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
   public state = {
     anchorEl: undefined,
     notifications: 0,
-    showNotification: false,
+    showNotification: false
   }
 
   public handleMenu = (event: any) => {
@@ -132,13 +132,12 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
   }
 
   public handleNotifications = () => {
-    this.setState({notifications: this.state.notifications + 1})
+    this.setState({ notifications: this.state.notifications + 1 })
   }
 
   public toggleNotification = () => {
-    this.setState({showNotification: !this.state.showNotification})
+    this.setState({ showNotification: !this.state.showNotification })
     if (!this.props.notification.loading) {
-
       this.props.getNotifications(this.props.user.userId)
     }
   }
@@ -151,7 +150,7 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
       handleTitleClicked,
       notification,
       readNotification,
-      actionedNotification,
+      actionedNotification
     } = this.props
     const { anchorEl } = this.state
     const open = Boolean(anchorEl)
@@ -182,12 +181,13 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        {this.state.showNotification &&
-        <NotificationPopup
-          notifications={notification.notifications}
-          actionedNotification={actionedNotification}
-          readNotification={readNotification}
-        />}
+        {this.state.showNotification && (
+          <NotificationPopup
+            notifications={notification.notifications}
+            actionedNotification={actionedNotification}
+            readNotification={readNotification}
+          />
+        )}
         <IconButton
           aria-owns={open ? 'menu-appbar' : undefined}
           aria-haspopup="true"
@@ -235,7 +235,7 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
       <AppBar className={classes.appBar}>
         <Toolbar>
           <Typography
-            variant="title"
+            variant="h6"
             color="inherit"
             className={classes.title}
             onClick={handleTitleClicked}
