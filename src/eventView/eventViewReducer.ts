@@ -54,7 +54,7 @@ export default function eventView(
     case EVENT_FETCH_BY_ID_INITIATED:
       return {
         ...state,
-        fetchError: undefined,
+        fetchError: {},
         loading: true
       }
     case EVENT_FETCHED_BY_ID:

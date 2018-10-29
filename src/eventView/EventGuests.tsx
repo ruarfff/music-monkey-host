@@ -17,27 +17,27 @@ import './EventSuggestions.scss'
 const decorated = withStyle(() => ({
   filter: {
     marginTop: '20px',
-    padding: '0 30px',
+    padding: '0 30px'
   },
   guestsContainer: {
-    padding: '30px',
+    padding: '30px'
   },
   guestWrapper: {
     width: '130px',
     height: '160px',
     borderRadius: '4px',
     border: '3px solid #FFB000',
-    marginRight: '20px',
+    marginRight: '20px'
   },
   noAvatar: {
-    fontSize: '40px',
+    fontSize: '40px'
   },
   pending: {
     width: '130px',
     height: '160px',
     borderRadius: '4px',
     border: '3px solid #3AABD1',
-    marginRight: '20px',
+    marginRight: '20px'
   }
 }))
 
@@ -49,28 +49,26 @@ interface IEventGuestsProps {
 class EventGuests extends React.PureComponent<IEventGuestsProps & WithStyles> {
   public state = {
     anchorEl: null,
-    filter: 'all',
-  };
+    filter: 'all'
+  }
 
   public handleClick = (event: any) => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
+    this.setState({ anchorEl: event.currentTarget })
+  }
 
   public handleClickMenuItem = (event: any) => {
+    this.setState({ filter: event.target.textContent.toLowerCase() })
 
-    this.setState({ filter: event.target.textContent.toLowerCase()})
+    this.setState({ anchorEl: event.currentTarget })
 
-    this.setState({ anchorEl: event.currentTarget });
-
-    this.handleClose();
+    this.handleClose()
   }
 
   public handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
+    this.setState({ anchorEl: null })
+  }
 
   public render() {
-
     const { anchorEl } = this.state
     const { event, classes, copyEventInvite } = this.props
 
@@ -79,7 +77,7 @@ class EventGuests extends React.PureComponent<IEventGuestsProps & WithStyles> {
     if (!event || !event.guests || event.guests.length < 1) {
       return (
         <Grid container={true} justify={'center'}>
-          <Typography align="center" variant="subheading">
+          <Typography align="center" variant="subtitle1">
             No guests have opened their invite yet.
           </Typography>
           <Grid>
@@ -92,10 +90,12 @@ class EventGuests extends React.PureComponent<IEventGuestsProps & WithStyles> {
       )
     }
 
-    const filteredGuests = this.state.filter !== 'all' ?
-      event.guests.filter(guest =>
-        guest.rsvp.status.toLocaleLowerCase() === this.state.filter) :
-      event.guests
+    const filteredGuests =
+      this.state.filter !== 'all'
+        ? event.guests.filter(
+            guest => guest.rsvp.status.toLocaleLowerCase() === this.state.filter
+          )
+        : event.guests
 
     return (
       <div className="EventSuggestions-root">
@@ -126,12 +126,11 @@ class EventGuests extends React.PureComponent<IEventGuestsProps & WithStyles> {
           </Menu>
         </Grid>
         <Grid container={true} className={classes.guestsContainer} spacing={24}>
-            {filteredGuests.map((eventGuest) => this.renderEventGuest(eventGuest, classes))}
+          {filteredGuests.map(eventGuest =>
+            this.renderEventGuest(eventGuest, classes)
+          )}
         </Grid>
-        <SharePopup
-          inviteId={inviteId}
-          onCopyEventInvite={copyEventInvite}
-        />
+        <SharePopup inviteId={inviteId} onCopyEventInvite={copyEventInvite} />
       </div>
     )
   }
@@ -146,18 +145,16 @@ class EventGuests extends React.PureComponent<IEventGuestsProps & WithStyles> {
     return (
       <Grid
         key={user.userId}
-        className={rsvp.status === 'going' ? classes.guestWrapper : classes.pending}
+        className={
+          rsvp.status === 'going' ? classes.guestWrapper : classes.pending
+        }
         item={true}
         container={true}
         justify={'center'}
       >
         {user.image && <Avatar alt={user.displayName} src={user.image} />}
         {!user.image && <AccountCircle className={classes.noAvatar} />}
-        <Typography
-          align={'center'}
-        >
-          {name}
-        </Typography>
+        <Typography align={'center'}>{name}</Typography>
       </Grid>
     )
   }

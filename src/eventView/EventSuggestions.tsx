@@ -73,7 +73,7 @@ class EventSuggestions extends React.Component<
     const { suggestions } = this.props
     if (!suggestions || suggestions.length < 1) {
       return (
-        <Typography align="center" variant="subheading">
+        <Typography align="center" variant="subtitle1">
           Currently no Suggestions
         </Typography>
       )

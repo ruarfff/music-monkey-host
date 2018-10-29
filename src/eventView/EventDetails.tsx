@@ -62,7 +62,7 @@ class EventDetails extends React.PureComponent<
           <Grid item={true} xs={12}>
             <Typography
               className="EventDetails-title"
-              variant="headline"
+              variant="h5"
               gutterBottom={true}
             >
               Event Details
@@ -79,7 +79,7 @@ class EventDetails extends React.PureComponent<
           <Grid className="EventDetails-info" item={true} xs={6}>
             <Typography
               className={classes.eventName}
-              variant="headline"
+              variant="h5"
               gutterBottom={true}
             >
               {event.name}

@@ -12,7 +12,7 @@ import { Provider } from 'react-redux'
 import { Store } from 'redux'
 import { Routes } from './routes'
 
-import theme from './theme'
+import theme from './theme/theme'
 
 const generateClassName = createGenerateClassName()
 const jss: any = create(jssPreset())

@@ -13,7 +13,7 @@ interface IEventFetchErrorProps {
 const EventFetchError: React.SFC<IEventFetchErrorProps> = ({ onTryAgain }) => (
   <Card>
     <CardContent>
-      <Typography gutterBottom={true} variant="headline" component="h2">
+      <Typography gutterBottom={true} variant="h5" component="h2">
         Could Not Get Event
       </Typography>
       <Typography component="p">
