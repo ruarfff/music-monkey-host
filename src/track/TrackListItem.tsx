@@ -1,4 +1,5 @@
 import Badge from '@material-ui/core/Badge'
+import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import ListItem from '@material-ui/core/ListItem/ListItem'
@@ -33,6 +34,7 @@ interface ITrackListItemProps {
   numberOfVotes: number
   onVote: ((track: ITrack) => void)
   onTrackSelected: ((track: ITrack) => void)
+  removeTrack: ((uri:string) => void)
 }
 
 const TrackListItem = ({
@@ -42,6 +44,7 @@ const TrackListItem = ({
   numberOfVotes,
   onVote,
   onTrackSelected,
+  removeTrack,
   classes
 }: ITrackListItemProps & WithStyles) => {
   if (!track) {
@@ -53,6 +56,11 @@ const TrackListItem = ({
 
   const handleTrackVote = () => {
     onVote(track)
+  }
+
+  const handleRemoveTrack = (uri: string) => () => {
+    console.log('test')
+    removeTrack(uri)
   }
 
   let trackImage = <span />
@@ -103,6 +111,9 @@ const TrackListItem = ({
               <ListItemText className={classes.trackName} primary={track.name} />
             </Grid>
             <ListItemText primary={formatDuration(track.duration_ms)}/>
+            <Button onClick={handleRemoveTrack(track.uri)}>
+              REMOVE
+            </Button>
           </Grid>
         </Grid>
           {votingButton}

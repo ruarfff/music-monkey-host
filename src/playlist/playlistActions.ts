@@ -8,6 +8,27 @@ export const FETCH_PLAYLISTS_ERROR = 'FETCH_PLAYLISTS_ERROR'
 export const PLAYLIST_SELECTED = 'PLAYLIST_SELECTED'
 export const PLAYLIST_DESELECTED = 'PLAYLIST_DESELECTED'
 
+export const REMOVE_TRACK_REQUEST = 'REMOVE_TRACK_REQUEST'
+export const REMOVE_TRACK_SUCCESS = 'REMOVE_TRACK_SUCCESS'
+export const REMOVE_TRACK_FAILURE = 'REMOVE_TRACK_FAILURE'
+
+export const tryRemoveTrack = (playlistId: string, trackUri: string): IAction => ({
+  type: REMOVE_TRACK_REQUEST,
+  payload: {
+    playlistId,
+    trackUri,
+  }
+})
+
+export const trackRemoved = (): IAction => ({
+  type: REMOVE_TRACK_SUCCESS
+})
+
+export const removeTrackError = (error: string): IAction => ({
+  type: REMOVE_TRACK_FAILURE,
+  payload: error
+})
+
 export const fetchPlaylists = (user: IUser): IAction => ({
   type: FETCH_PLAYLISTS,
   payload: user

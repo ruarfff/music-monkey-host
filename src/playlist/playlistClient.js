@@ -48,6 +48,16 @@ export const replaceTracksInPlaylist = (playlistId, trackUris) => {
   return spotifyApi.replaceTracksInPlaylist(playlistId, trackUris)
 }
 
+export const removeTrackFromPlaylist = (playlistId, trackUri) => {
+  const spotifyApi = getSpotifyApi()
+  return spotifyApi.removeTracksFromPlaylist(playlistId, [trackUri])
+}
+
+export const searchForTracks = (text) => {
+  const spotifyApi = getSpotifyApi()
+  return spotifyApi.searchTracks(text)
+}
+
 /**
  * Initialize the spotify api with an access token.
  * Better not to cache this and call in each method in case the cached token expires.

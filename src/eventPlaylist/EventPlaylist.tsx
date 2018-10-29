@@ -40,6 +40,7 @@ interface IEventPlaylistProps {
     playlist: IPlaylist,
     votes: Map<string, ITrackVoteStatus>
   ): IAction
+  tryRemoveTrack(playlistId: string, uri:string): IAction
 }
 
 export default class EventPlaylist extends React.Component<IEventPlaylistProps> {
@@ -110,7 +111,10 @@ export default class EventPlaylist extends React.Component<IEventPlaylistProps> 
             <Grid item={true} sm={12}>
               {hasStagedTrack && (
                 <List className="EventPlaylist-stagedTracks">
-                  <TrackList tracks={stagedTracks} />
+                  <TrackList
+                    removeTrack={this.handleRemoveTrack}
+                    tracks={stagedTracks}
+                  />
                 </List>
               )}
 
@@ -122,6 +126,7 @@ export default class EventPlaylist extends React.Component<IEventPlaylistProps> 
                       withVoting={true}
                       votes={votes}
                       onDragEnd={this.handlePlaylistDragDrop}
+                      removeTrack={this.handleRemoveTrack}
                     />
                   </List>
                 )}
@@ -181,6 +186,11 @@ export default class EventPlaylist extends React.Component<IEventPlaylistProps> 
       })
       saveEventPlaylist(event.eventId || '', playlist, suggestionMap)
     }
+  }
+
+  private handleRemoveTrack = (uri: string) => {
+    console.log(uri)
+    this.props.tryRemoveTrack(this.props.playlist.id, uri)
   }
 
   private handlePlaylistDragDrop = (result: DropResult) => {

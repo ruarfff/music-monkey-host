@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { tryRemoveTrack } from '../playlist/playlistActions'
 import IRootState from '../rootState'
 import { resetStagedSuggestions } from '../suggestion/suggestionActions'
 import EventPlaylist from './EventPlaylist'
@@ -20,7 +21,8 @@ const mapDispatchToProps = {
   saveEventPlaylist,
   resetStagedSuggestions,
   onPlaylistDragDrop: moveItemInEventPlaylist,
-  sortPlaylistByVotesDescending
+  sortPlaylistByVotesDescending,
+  tryRemoveTrack
 }
 
 const PreGameViewContainer = connect(
