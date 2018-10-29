@@ -4,5 +4,6 @@ export default {
   data: undefined,
   error: undefined,
   isLoading: false,
-  selectedPlaylist: undefined
+  selectedPlaylist: undefined,
+  searchResult: [],
 } as IPlaylistState

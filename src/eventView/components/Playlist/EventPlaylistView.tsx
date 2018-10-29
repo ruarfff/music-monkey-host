@@ -7,13 +7,14 @@ import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
 import * as React from 'react'
-import IEvent from '../event/IEvent'
-import EventPlaylist from '../eventPlaylist/EventPlaylistContainer'
-import EventPlaylistSummary from '../eventPlaylist/EventPlaylistSummaryContainer'
-import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
+import IEvent from '../../../event/IEvent'
+import EventPlaylist from '../../../eventPlaylist/EventPlaylistContainer'
+import EventPlaylistSummary from '../../../eventPlaylist/EventPlaylistSummaryContainer'
+import IDecoratedSuggestion from '../../../suggestion/IDecoratedSuggestion'
+import EventSearchTracksContainer from '../../../components/SearchTracks/EventSearchTracksContainer'
 // import EventCohostPlaylist from './EventCohostPlaylistContainer'
 import EventMaybeSuggestions from './EventMaybeSuggestionsContainer'
-import './EventPlaylistView.scss'
+import './Styles/EventPlaylistView.scss'
 import EventRejectedSuggestions from './EventRejectedSuggestionsContainer'
 import EventSuggestions from './EventSuggestionsContainer'
 
@@ -79,6 +80,7 @@ class EventPlaylistView extends React.Component<
               <Tab label="Maybe"/>
               <Tab label="My tracks" />
               {/*{cohost && <Tab label="Cohost tracks" />}*/}
+              <Tab label="Add track" />
             </Tabs>
           </AppBar>
           {tabIndex === 0 && (
@@ -111,6 +113,11 @@ class EventPlaylistView extends React.Component<
               {/*<EventCohostPlaylist />*/}
             {/*</TabContainer>*/}
           {/*)}*/}
+          {tabIndex === 6 && (
+            <TabContainer dir={'x'}>
+              <EventSearchTracksContainer />
+            </TabContainer>
+          )}
         </Grid>
       </Grid>
     )

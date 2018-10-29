@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import { getEventByIdNoLoading } from '../eventView/eventViewActions'
+import { getEventByIdNoLoading } from './eventViewActions'
 import IRootState from '../rootState'
 import { getEventSuggestions } from '../suggestion/suggestionActions'
 import { fetchEventVotes } from '../vote/voteActions'

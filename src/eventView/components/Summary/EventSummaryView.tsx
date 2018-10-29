@@ -2,11 +2,11 @@ import { WithStyles } from '@material-ui/core/es'
 import Grid from '@material-ui/core/Grid/Grid'
 import withStyle from '@material-ui/core/styles/withStyles'
 import * as React from 'react'
-import IEvent from '../event/IEvent'
+import IEvent from '../../../event/IEvent'
 import EventDetails from './EventDetailsContainer'
-import EventGuestsRightSideView from './EventGuestsRightSideViewContainer'
+import EventGuestsRightSideView from '../Guests/EventGuestsRightSideViewContainer'
 import EventSummaryPlaylist from './EventSummaryPlaylistContainer'
-import './EventSummaryView.scss'
+import './Styles/EventSummaryView.scss'
 
 const decorated = withStyle(() => ({
   content: {

@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper'
 import { WithStyles } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
-import * as moment from 'moment'
+import { formatDuration } from '../util/formatDuration'
 import * as React from 'react'
 import club from '../assets/club.png'
 import EventInput from '../components/EventInput/EventInput'
@@ -17,7 +17,7 @@ import IAction from '../IAction'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import ISuggestion from '../suggestion/ISuggestion'
 import ITrack from '../track/ITrack'
-import './EventSuggestions.scss'
+import './components/Playlist/Styles/EventSuggestions.scss'
 
 const decorate = withStyles(() => ({
   accept: {
@@ -155,14 +155,6 @@ class EventCohostPlaylist extends React.PureComponent<
     }, 700)
   }
 
-  private formatDuration = (durationSeconds: number) => {
-    const tempTime = moment.duration(durationSeconds);
-    let duration = tempTime.hours() < 10 ? '0' + tempTime.hours()+ ':' : tempTime.hours() + ':'
-    duration += tempTime.minutes() < 10 ? '0' + tempTime.minutes()+ ':' : tempTime.minutes() + ':'
-    duration += tempTime.seconds() < 10 ? '0' + tempTime.seconds() : tempTime.seconds()
-    return duration
-  }
-
   private handleSearch = (key: string) => (content: any) => {
     this.setState({[key]: content})
   }
@@ -194,7 +186,7 @@ private renderSuggestion = (decoratedSuggestion: IDecoratedSuggestion, i: number
                   <ListItemText className={classes.trackBand} primary={track.album.artists[0].name} />
                   <ListItemText className={classes.trackName} primary={track.name} />
                 </Grid>
-                <ListItemText primary={this.formatDuration(track.duration_ms)}/>
+                <ListItemText primary={formatDuration(track.duration_ms)}/>
               </Grid>
             </Grid>
             <ListItemSecondaryAction>

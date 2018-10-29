@@ -8,11 +8,11 @@ import withStyle from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import * as React from 'react'
-import SharePopup from '../components/ShareEvent/SharePopup'
-import IEvent from '../event/IEvent'
-import IEventGuest from '../event/IEventGuest'
-import IAction from '../IAction'
-import './EventSuggestions.scss'
+import SharePopup from '../../../components/ShareEvent/SharePopup'
+import IEvent from '../../../event/IEvent'
+import IEventGuest from '../../../event/IEventGuest'
+import IAction from '../../../IAction'
+import '../Playlist/Styles/EventSuggestions.scss'
 
 const decorated = withStyle(() => ({
   filter: {

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
-import IRootState from '../rootState'
+import IRootState from '../../../rootState'
 import EventDetails from './EventDetails'
-import { toggleAutoAcceptSuggestions, toggleDynamicVoting, toggleSuggestingPlaylists } from './eventViewActions'
+import { toggleAutoAcceptSuggestions, toggleDynamicVoting, toggleSuggestingPlaylists } from '../../eventViewActions'
 
 const mapStateToProps = (state: IRootState) => ({
   event: state.eventView.event

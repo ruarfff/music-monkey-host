@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import IRootState from '../rootState'
+import IRootState from '../../../rootState'
 import EventSummaryPlaylist from './EventSummaryPlaylist'
 
 const mapStateToProps = (state: IRootState) => ({

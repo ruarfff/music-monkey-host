@@ -5,4 +5,5 @@ export default interface IPlaylistState {
   selectedPlaylist?: IPlaylist
   error?: Error
   isLoading: boolean
+  searchResult: any[]
 }

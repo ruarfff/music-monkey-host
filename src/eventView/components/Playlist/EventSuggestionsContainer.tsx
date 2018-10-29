@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
-import IRootState from '../rootState'
+import IRootState from '../../../rootState'
 import {
   rejectSuggestion,
   stageAllSuggestions,
   stageSuggestion
-} from '../suggestion/suggestionActions'
+} from '../../../suggestion/suggestionActions'
 import EventSuggestions from './EventSuggestions'
 
 const mapStateToProps = (state: IRootState) => ({

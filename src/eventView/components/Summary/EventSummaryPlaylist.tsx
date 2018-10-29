@@ -5,9 +5,9 @@ import Grid from '@material-ui/core/Grid'
 import withStyle from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import * as React from 'react'
-import IPlaylist from '../playlist/IPlaylist'
-import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
-import './EventSummaryPlaylist.scss'
+import IPlaylist from '../../../playlist/IPlaylist'
+import IDecoratedSuggestion from '../../../suggestion/IDecoratedSuggestion'
+import './Styles/EventSummaryPlaylist.scss'
 
 const decorated = withStyle(() => ({
   playlistWrapper: {

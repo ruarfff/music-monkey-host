@@ -13,13 +13,13 @@ import Typography from '@material-ui/core/Typography/Typography'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import DoneAll from '@material-ui/icons/DoneAll'
 import * as classNames from 'classnames'
-import * as moment from 'moment'
+import { formatDuration } from '../../../util/formatDuration'
 import * as React from 'react'
-import IAction from '../IAction'
-import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
-import ISuggestion from '../suggestion/ISuggestion'
-import ITrack from '../track/ITrack'
-import './EventSuggestions.scss'
+import IAction from '../../../IAction'
+import IDecoratedSuggestion from '../../../suggestion/IDecoratedSuggestion'
+import ISuggestion from '../../../suggestion/ISuggestion'
+import ITrack from '../../../track/ITrack'
+import './Styles/EventSuggestions.scss'
 
 const decorate = withStyles(() => ({
   reject: {
@@ -140,7 +140,7 @@ class EventSuggestions extends React.Component<
                 <ListItemText className={classes.trackBand} primary={track.album.artists[0].name} />
                 <ListItemText className={classes.trackName} primary={track.name} />
               </Grid>
-                <ListItemText primary={this.formatDuration(track.duration_ms)}/>
+                <ListItemText primary={formatDuration(track.duration_ms)}/>
             </Grid>
 
             <Grid item={true} md={6}>
@@ -230,14 +230,6 @@ class EventSuggestions extends React.Component<
         </Button>
       </div>
     )
-  }
-
-  private formatDuration = (durationSeconds: number) => {
-    const tempTime = moment.duration(durationSeconds);
-    let duration = tempTime.hours() < 10 ? '0' + tempTime.hours()+ ':' : tempTime.hours() + ':'
-    duration += tempTime.minutes() < 10 ? '0' + tempTime.minutes()+ ':' : tempTime.minutes() + ':'
-    duration += tempTime.seconds() < 10 ? '0' + tempTime.seconds() : tempTime.seconds()
-    return duration
   }
 }
 

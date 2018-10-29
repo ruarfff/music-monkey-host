@@ -4,7 +4,9 @@ import {
   FETCH_PLAYLISTS_ERROR,
   FETCH_PLAYLISTS_SUCCESS,
   PLAYLIST_DESELECTED,
-  PLAYLIST_SELECTED
+  PLAYLIST_SELECTED,
+  SEARCH_TRACKS_SUCCESS,
+  SEARCH_TRACKS_FAILURE,
 } from './playlistActions'
 import initialState from './playlistInitialState'
 
@@ -13,6 +15,11 @@ export default function playlists(
   { type, payload }: Action
 ) {
   switch (type) {
+    case SEARCH_TRACKS_SUCCESS:
+      return { ...state, searchResult: payload }
+    case SEARCH_TRACKS_FAILURE:
+      console.log(payload)
+      return state
     case FETCH_PLAYLISTS:
       return { ...state, isLoading: true }
     case FETCH_PLAYLISTS_SUCCESS:

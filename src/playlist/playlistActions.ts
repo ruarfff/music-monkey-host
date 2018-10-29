@@ -12,6 +12,10 @@ export const REMOVE_TRACK_REQUEST = 'REMOVE_TRACK_REQUEST'
 export const REMOVE_TRACK_SUCCESS = 'REMOVE_TRACK_SUCCESS'
 export const REMOVE_TRACK_FAILURE = 'REMOVE_TRACK_FAILURE'
 
+export const SEARCH_TRACKS_REQUEST = 'SEARCH_TRACKS_REQUEST'
+export const SEARCH_TRACKS_SUCCESS = 'SEARCH_TRACKS_SUCCESS'
+export const SEARCH_TRACKS_FAILURE = 'SEARCH_TRACKS_FAILURE'
+
 export const tryRemoveTrack = (playlistId: string, trackUri: string): IAction => ({
   type: REMOVE_TRACK_REQUEST,
   payload: {
@@ -42,6 +46,21 @@ export const fetchPlaylistsSuccess = (data: IPlaylist): IAction => ({
 export const fetchPlaylistsError = (error: Error): IAction => ({
   payload: error,
   type: FETCH_PLAYLISTS_ERROR
+})
+
+export const searchTrack = (text: string): IAction => ({
+  type: SEARCH_TRACKS_REQUEST,
+  payload: text,
+})
+
+export const searchTrackSuccess = (res: any): IAction => ({
+  type: SEARCH_TRACKS_REQUEST,
+  payload: res,
+})
+
+export const searchTrackFailure = (error: string): IAction => ({
+  type: SEARCH_TRACKS_REQUEST,
+  payload: error,
 })
 
 export const onPlaylistSelected = (playlist: IPlaylist): IAction => ({

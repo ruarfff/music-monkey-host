@@ -10,21 +10,21 @@ import { WithStyles } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import * as moment from 'moment'
+import { formatDuration } from '../../../util/formatDuration'
 import * as React from 'react'
-import IAction from '../IAction'
-import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
-import ISuggestion from '../suggestion/ISuggestion'
-import ITrack from '../track/ITrack'
-import './EventSuggestions.scss'
+import IAction from '../../../IAction'
+import IDecoratedSuggestion from '../../../suggestion/IDecoratedSuggestion'
+import ISuggestion from '../../../suggestion/ISuggestion'
+import ITrack from '../../../track/ITrack'
+import './Styles/EventSuggestions.scss'
 
 const decorate = withStyles(() => ({
-  accept: {
-    background: '#27AE60',
+  reject: {
+    background: '#EB5757',
     color: 'white'
   },
-  maybe: {
-    background: '#56CCF2',
+  accept: {
+    background: '#27AE60',
     color: 'white'
   },
   trackBand: {
@@ -47,9 +47,9 @@ interface IEventRejectedSuggestionsProps {
   stageSuggestion(suggestion: ISuggestion): IAction
 }
 
-class EventRejectedSuggestions extends React.PureComponent<
+class EventMaybeSuggestions extends React.PureComponent<
   IEventRejectedSuggestionsProps & WithStyles
-> {
+  > {
 
   public state = {
     tracksBeingRemoved: {}
@@ -70,7 +70,7 @@ class EventRejectedSuggestions extends React.PureComponent<
         <Grid container={true} spacing={24}>
           <Grid item={true} sm={12}>
             <List>
-              {filteredSuggestions.map((decoratedSuggestion, i) =>
+              {filteredSuggestions.map((decoratedSuggestion, i)=>
                 this.renderSuggestion(decoratedSuggestion, i)
               )}
             </List>
@@ -89,14 +89,6 @@ class EventRejectedSuggestions extends React.PureComponent<
       this.setState({ tracksBeingRemoved: {} as ITrack })
       this.props.stageSuggestion(suggestion)
     }, 700)
-  }
-
-  private formatDuration = (durationSeconds: number) => {
-    const tempTime = moment.duration(durationSeconds);
-    let duration = tempTime.hours() < 10 ? '0' + tempTime.hours()+ ':' : tempTime.hours() + ':'
-    duration += tempTime.minutes() < 10 ? '0' + tempTime.minutes()+ ':' : tempTime.minutes() + ':'
-    duration += tempTime.seconds() < 10 ? '0' + tempTime.seconds() : tempTime.seconds()
-    return duration
   }
 
   private renderSuggestion = (decoratedSuggestion: IDecoratedSuggestion, index: number) => {
@@ -128,7 +120,7 @@ class EventRejectedSuggestions extends React.PureComponent<
     }
 
     return (
-      <ListItem key={index} className={classes.listItem} dense={true} button={true}>
+      <ListItem className={classes.listItem} dense={true} button={true} key={index}>
         {trackImage}
         <Grid className={classes.listItemContent} container={true} spacing={24}>
           <Grid item={true} md={4} container={true} direction={'row'} alignItems={'flex-end'}>
@@ -136,7 +128,7 @@ class EventRejectedSuggestions extends React.PureComponent<
               <ListItemText className={classes.trackBand} primary={track.album.artists[0].name} />
               <ListItemText className={classes.trackName} primary={track.name} />
             </Grid>
-            <ListItemText primary={this.formatDuration(track.duration_ms)}/>
+            <ListItemText primary={formatDuration(track.duration_ms)}/>
           </Grid>
 
           <Grid item={true} md={4}>
@@ -160,11 +152,11 @@ class EventRejectedSuggestions extends React.PureComponent<
             ACCEPT
           </Button>
           <Button
-            className={classes.maybe}
+            className={classes.reject}
             variant="contained"
             onClick={this.handleSuggestionAccepted(decoratedSuggestion)}
           >
-            MAYBE
+            REJECT
           </Button>
         </ListItemSecondaryAction>
       </ListItem>
@@ -172,4 +164,4 @@ class EventRejectedSuggestions extends React.PureComponent<
   }
 }
 
-export default decorate(EventRejectedSuggestions)
+export default decorate(EventMaybeSuggestions)

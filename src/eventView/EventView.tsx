@@ -17,9 +17,9 @@ import {
   subscribeToSuggestionsAccepted,
   subscribeToVotesModified
 } from '../notification'
-import EventGuests from './EventGuestsContainer'
-import EventTracksView from './EventPlaylistViewContainer'
-import EventSummaryView from './EventSummaryViewContainer'
+import EventGuests from './components/Guests/EventGuestsContainer'
+import EventTracksView from './components/Playlist/EventPlaylistViewContainer'
+import EventSummaryView from './components/Summary/EventSummaryViewContainer'
 import './EventView.scss'
 
 const decorated = withStyle(() => ({
