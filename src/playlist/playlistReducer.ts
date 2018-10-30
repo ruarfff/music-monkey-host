@@ -16,9 +16,8 @@ export default function playlists(
 ) {
   switch (type) {
     case SEARCH_TRACKS_SUCCESS:
-      return { ...state, searchResult: payload }
+      return { ...state, searchResult: payload.tracks }
     case SEARCH_TRACKS_FAILURE:
-      console.log(payload)
       return state
     case FETCH_PLAYLISTS:
       return { ...state, isLoading: true }

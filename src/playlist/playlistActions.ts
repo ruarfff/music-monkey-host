@@ -54,12 +54,12 @@ export const searchTrack = (text: string): IAction => ({
 })
 
 export const searchTrackSuccess = (res: any): IAction => ({
-  type: SEARCH_TRACKS_REQUEST,
+  type: SEARCH_TRACKS_SUCCESS,
   payload: res,
 })
 
 export const searchTrackFailure = (error: string): IAction => ({
-  type: SEARCH_TRACKS_REQUEST,
+  type: SEARCH_TRACKS_FAILURE,
   payload: error,
 })
 

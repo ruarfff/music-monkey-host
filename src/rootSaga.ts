@@ -31,6 +31,7 @@ import { watchFetchNotificationsByUserId } from './notification/notificationSaga
 import {
   watchFetchPlaylists,
   watchFetchRemoveTrackFromPlaylist,
+  watchFetchSearchTracks,
 } from './playlist/playlistSaga'
 import { watchfetchShareEmail } from './shareEvent/shareSaga'
 import {
@@ -70,5 +71,6 @@ export default function* rootSaga() {
     watchFetchNotificationsByUserId(),
     watchFetchRemoveTrackFromPlaylist(),
     watchfetchShareEmail(),
+    watchFetchSearchTracks(),
   ])
 }

@@ -38,10 +38,9 @@ function* fetchRemoveTrackFromPlaylist(action: IAction) {
 }
 
 function* fetchSearchedTracks(action: IAction) {
-  const { text } = action.payload
 
   try {
-    const res = yield call(searchForTracks, text)
+    const res = yield call(searchForTracks, action.payload)
     yield put(searchTrackSuccess(res))
   } catch (e) {
     yield put(searchTrackFailure(e.message))

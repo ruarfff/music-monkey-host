@@ -53,9 +53,14 @@ export const removeTrackFromPlaylist = (playlistId, trackUri) => {
   return spotifyApi.removeTracksFromPlaylist(playlistId, [trackUri])
 }
 
-export const searchForTracks = (text) => {
-  const spotifyApi = getSpotifyApi()
-  return spotifyApi.searchTracks(text)
+export const searchForTracks = async (searchTerm) => {
+  const response = await http.get(
+    '/search?q=' + encodeURIComponent(searchTerm) + '&type=track',
+    {
+      withCredentials: true
+    }
+  )
+  return response.data
 }
 
 /**
