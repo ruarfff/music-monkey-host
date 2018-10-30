@@ -79,8 +79,8 @@ class EventPlaylistView extends React.Component<
               <Tab label="Rejected" />
               <Tab label="Maybe"/>
               <Tab label="My tracks" />
-              {/*{cohost && <Tab label="Cohost tracks" />}*/}
               <Tab label="Add track" />
+              {/*{cohost && <Tab label="Cohost tracks" />}*/}
             </Tabs>
           </AppBar>
           {tabIndex === 0 && (
@@ -108,16 +108,16 @@ class EventPlaylistView extends React.Component<
               <EventRejectedSuggestions />
             </TabContainer>
           )}
-          {/*{(tabIndex === 5 && cohost) && (*/}
-            {/*<TabContainer dir={'x'}>*/}
-              {/*<EventCohostPlaylist />*/}
-            {/*</TabContainer>*/}
-          {/*)}*/}
-          {tabIndex === 6 && (
+          {tabIndex === 5 && (
             <TabContainer dir={'x'}>
               <EventSearchTracksContainer />
             </TabContainer>
           )}
+          {/*{(tabIndex === 6 && cohost) && (*/}
+          {/*<TabContainer dir={'x'}>*/}
+          {/*<EventCohostPlaylist />*/}
+          {/*</TabContainer>*/}
+          {/*)}*/}
         </Grid>
       </Grid>
     )

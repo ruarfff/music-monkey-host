@@ -13,7 +13,7 @@ export default function home(state = initialState, action: Action) {
     case LOCATION_CHANGE:
       return {
         ...initialState,
-        location: action.payload.pathname
+        location: action.payload.location.pathname
       }
     case SIDEBAR_OPENED:
       return { ...initialState, sidebarIsOpen: true }
