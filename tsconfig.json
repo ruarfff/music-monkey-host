@@ -13,10 +13,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "jsx": "preserve",
     "downlevelIteration": true,
-    "baseUrl": ".",
     "keyofStringsOnly": true,
     "sourceMap": true,
     "rootDir": "src",
@@ -24,11 +26,14 @@
     "noImplicitThis": true,
     "noImplicitAny": true,
     "importHelpers": true,
-    "skipLibCheck": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true
   },
-  "exclude": ["src/setupTests.ts"],
-  "include": ["src"]
+  "exclude": [
+    "src/setupTests.ts"
+  ],
+  "include": [
+    "src"
+  ]
 }

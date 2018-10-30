@@ -94,7 +94,7 @@
     "enzyme-adapter-react-16": "^1.6.0",
     "husky": "^1.0.1",
     "node-sass": "^4.9.4",
-    "react-scripts": "2.0.6-next.c662dfb0",
+    "react-scripts": "2.1.0",
     "redux-immutable-state-invariant": "^2.1.0",
     "sinon": "^7.1.0",
     "tslint": "^5.11.0",

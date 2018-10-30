@@ -1,4 +1,4 @@
-import IEvent from 'src/event/IEvent'
+import IEvent from '../event/IEvent'
 import IEventViewState from './IEventViewState'
 
 export default {
