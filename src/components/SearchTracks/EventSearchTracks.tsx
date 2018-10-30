@@ -11,7 +11,9 @@ import './EventSearchTracks.scss'
 
 interface IEventSearchTracksProps {
   searchResult: ISearch
+  playlistId: string
   searchTrack(text: string): IAction
+  addTrack(playlistId: string, uri: string): IAction
 }
 
 const decorate = withStyles(() => ({
@@ -28,7 +30,7 @@ class EventSearchTracks extends React.PureComponent<
   }
 
   public render() {
-    const { searchResult, classes } = this.props
+    const { searchResult, classes, addTrack, playlistId } = this.props
     return (
       <div>
         <div className="SearchSection">
@@ -48,7 +50,7 @@ class EventSearchTracks extends React.PureComponent<
         <div className="SearchResults">
           <List>
             {searchResult.items && searchResult.items.map((track, index) => (
-              <TrackItem track={track} index={index} />
+              <TrackItem playlistId={playlistId} addTrack={addTrack} track={track} key={index} />
             ))}
           </List>
         </div>

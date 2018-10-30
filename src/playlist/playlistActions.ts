@@ -12,9 +12,30 @@ export const REMOVE_TRACK_REQUEST = 'REMOVE_TRACK_REQUEST'
 export const REMOVE_TRACK_SUCCESS = 'REMOVE_TRACK_SUCCESS'
 export const REMOVE_TRACK_FAILURE = 'REMOVE_TRACK_FAILURE'
 
+export const ADD_TRACK_REQUEST = 'ADD_TRACK_REQUEST'
+export const ADD_TRACK_SUCCESS = 'ADD_TRACK_SUCCESS'
+export const ADD_TRACK_FAILURE = 'ADD_TRACK_FAILURE'
+
 export const SEARCH_TRACKS_REQUEST = 'SEARCH_TRACKS_REQUEST'
 export const SEARCH_TRACKS_SUCCESS = 'SEARCH_TRACKS_SUCCESS'
 export const SEARCH_TRACKS_FAILURE = 'SEARCH_TRACKS_FAILURE'
+
+export const addTrack = (playlistId: string, trackUri: string): IAction => ({
+  type: ADD_TRACK_REQUEST,
+  payload: {
+    playlistId,
+    trackUri,
+  }
+})
+
+export const addTrackSuccess = (): IAction => ({
+  type: ADD_TRACK_SUCCESS,
+})
+
+export const addTrackError = (error: string): IAction => ({
+  type: ADD_TRACK_FAILURE,
+  payload: error
+})
 
 export const tryRemoveTrack = (playlistId: string, trackUri: string): IAction => ({
   type: REMOVE_TRACK_REQUEST,

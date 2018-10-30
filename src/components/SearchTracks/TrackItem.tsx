@@ -8,11 +8,12 @@ import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles'
 import * as React from 'react'
 import { formatDuration } from '../../util/formatDuration'
 import ITrack from '../../track/ITrack'
-import './EventSearchTracks.scss'
+import IAction from '../../IAction'
 
 interface ITrackItemProps {
   track: ITrack
-  index: number
+  playlistId: string
+  addTrack(playlistId: string, uri: string): IAction
 }
 
 const decorate = withStyles(() => ({
@@ -43,7 +44,7 @@ class TrackItem extends React.PureComponent<
   }
 
   public render() {
-    const { classes, track, index } = this.props
+    const { classes, track } = this.props
     let trackImage = <span />
     if (track.album && track.album.images && track.album.images.length > 0) {
       trackImage = (
@@ -59,7 +60,6 @@ class TrackItem extends React.PureComponent<
 
     return (
       <ListItem
-        key={index}
         className={classes.listItem}
         dense={true}
         button={true}
@@ -120,8 +120,9 @@ class TrackItem extends React.PureComponent<
     )
   }
 
-  private handleAddTrack = (track: any) => () => {
-    return console.log(track)
+  private handleAddTrack = (track: ITrack) => () => {
+    console.log(track)
+    this.props.addTrack(this.props.playlistId, track.uri)
   }
 }
 

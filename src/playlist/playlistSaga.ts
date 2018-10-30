@@ -5,16 +5,20 @@ import {
   FETCH_PLAYLISTS_ERROR,
   FETCH_PLAYLISTS_SUCCESS,
   REMOVE_TRACK_REQUEST,
-  removeTrackError,
   SEARCH_TRACKS_REQUEST,
+  ADD_TRACK_REQUEST,
+  removeTrackError,
   searchTrackFailure,
   searchTrackSuccess,
-  trackRemoved
+  trackRemoved,
+  addTrackSuccess,
+  addTrackError
 } from './playlistActions'
 import {
   fetchUsersPlaylists,
   removeTrackFromPlaylist,
   searchForTracks,
+  addTracksToPlaylist,
 } from './playlistClient'
 
 function* fetchPlaylistsFlow(action: IAction) {
@@ -38,13 +42,25 @@ function* fetchRemoveTrackFromPlaylist(action: IAction) {
 }
 
 function* fetchSearchedTracks(action: IAction) {
-
   try {
     const res = yield call(searchForTracks, action.payload)
     yield put(searchTrackSuccess(res))
   } catch (e) {
     yield put(searchTrackFailure(e.message))
   }
+}
+
+function* fetchAddTrackToPlaylist(action: IAction) {
+  try {
+    yield call(addTracksToPlaylist, action.payload.playlistId, [action.payload.trackUri])
+    yield put(addTrackSuccess())
+  } catch (e) {
+    yield put(addTrackError(e.message))
+  }
+}
+
+export function* watchFetchAddTrackToPlaylist() {
+  yield takeEvery(ADD_TRACK_REQUEST, fetchAddTrackToPlaylist)
 }
 
 export function* watchFetchSearchTracks() {
