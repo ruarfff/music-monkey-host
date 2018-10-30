@@ -1,5 +1,5 @@
 import { WithStyles } from '@material-ui/core/styles'
-import { DateTimePicker } from 'material-ui-pickers'
+import DateTimePicker from 'material-ui-pickers/DateTimePicker'
 import * as React from 'react'
 import { decorate, IInputClasses } from '../globalStyles/Input'
 

@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid/Grid'
 import { Theme, WithStyles } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import * as React from 'react'
+import * as _ from 'lodash'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import EventInput from '../components/EventInput/EventInput'
@@ -87,12 +88,23 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
     currentStep: 0,
     anchorCoHost: null,
     eventType: 'public',
-    showSaveDialog: true
+    showSaveDialog: true,
+    name: '',
+    description: '',
+    organizer: '',
+    venue: '',
+    startDateTime: '',
+    endDateTime: '',
+    playlistUrl: '',
   }
 
   public componentDidMount() {
     this.props.eventSavingReset()
     this.props.initializeCreateForm(this.props.event, this.props.user)
+  }
+
+  public componentWillUpdate() {
+    this.setState({ organizer: this.props.event.organizer })
   }
 
   public prevStep = () => {
@@ -104,6 +116,11 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
 
   public nextStep = () => {
     const { currentStep } = this.state
+
+    const decoratedState = _.omit(this.state, 'currentStep', 'anchorCoHost', 'eventType', 'showSaveDialog')
+
+    this.props.eventContentUpdated(decoratedState)
+
     if (currentStep !== 2) {
       this.setState({ currentStep: currentStep + 1 })
     }
@@ -136,26 +153,27 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
 
   public renderFirstStep = () => {
     const {
-      event,
       eventImageUploaded,
       eventImageUploadError,
       classes
     } = this.props
+
+    const { name, description, organizer} = this.state
     return (
       <React.Fragment>
         <Grid item={true} xs={12} sm={6}>
           <EventInput
             label={'Event Name'}
             placeholder={'Provide a name for your event'}
-            value={event.name}
+            value={name}
             onChange={this.handleContentUpdated('name')}
-            error={!event.name}
+            error={!name}
             errorLabel={'Required'}
           />
           <EventInput
             label={'Event description'}
             maxRows={11}
-            value={event.description || ''}
+            value={description || ''}
             onChange={this.handleContentUpdated('description')}
           />
         </Grid>
@@ -170,8 +188,8 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
           <EventInput
             label={'Organizer'}
             placeholder={'Who is organising this event?'}
-            value={event.organizer}
-            error={!event.organizer}
+            value={organizer}
+            error={!organizer}
             errorLabel={'Required'}
             onChange={this.handleContentUpdated('organizer')}
           />
@@ -179,16 +197,15 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
         <div className="control-btn-row">
           <Button
             variant="contained"
-            color="secondary"
             onClick={this.handleCancel}
             className={classes.button}
           >
             <span className="control-btn-text-primary">Cancel</span>
           </Button>
           <Button
-            disabled={!event.name || !event.organizer}
+            disabled={!name || !organizer}
             onClick={this.nextStep}
-            color="primary"
+            color="secondary"
             variant="contained"
             className={classes.button}
           >
@@ -216,15 +233,17 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
       classes
     } = this.props
 
+    const { venue, startDateTime, endDateTime, playlistUrl } = this.state
+
     return (
       <React.Fragment>
         <Grid item={true} xs={12} sm={6}>
           <EventInput
             label={'Venue'}
             placeholder={''}
-            error={!event.venue}
+            error={!venue}
             errorLabel={'Required'}
-            value={event.venue || ''}
+            value={venue || ''}
             onChange={this.handleContentUpdated('venue')}
           />
         </Grid>
@@ -242,7 +261,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
         <Grid item={true} xs={12} sm={6}>
           <EventDateTimePicker
             disablePast={true}
-            value={event.startDateTime}
+            value={startDateTime}
             onChange={this.handleContentUpdated('startDateTime')}
             label={'Starting At'}
           />
@@ -251,7 +270,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
         <Grid item={true} xs={12} sm={6}>
           <EventDateTimePicker
             disablePast={true}
-            value={event.endDateTime}
+            value={endDateTime}
             onChange={this.handleContentUpdated('endDateTime')}
             label={'Finishing At'}
           />
@@ -262,7 +281,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             playlists={playlists}
             fetchPlaylists={fetchPlaylists}
             user={user}
-            value={event.playlistUrl}
+            value={playlistUrl}
             onPlaylistAdded={this.handleContentUpdated('playlistUrl')}
             playlistInput={playlistInput}
             selectExistingPlaylist={selectExistingPlaylist}
@@ -275,7 +294,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
         <div className="control-btn-row">
           <Button
             variant="contained"
-            color="secondary"
+            color="default"
             onClick={this.handleCancel}
             className={classes.button}
           >
@@ -283,7 +302,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
           </Button>
           <Button
             variant="contained"
-            color="secondary"
+            color="default"
             onClick={this.prevStep}
             className={classes.button}
           >
@@ -291,13 +310,13 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
           </Button>
           <Button
             disabled={
-              !event.name ||
-              !event.organizer ||
-              !event.playlistUrl ||
-              !event.venue
+              !startDateTime ||
+              !endDateTime ||
+              !playlistUrl ||
+              !venue
             }
             variant="contained"
-            color="primary"
+            color="secondary"
             onClick={this.handleSaveEvent}
             className={classes.button}
           >
@@ -363,7 +382,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
   private handleContentUpdated = (key: string) => (content: any) => {
     const eventPart = {}
     eventPart[key] = content
-    this.props.eventContentUpdated(eventPart)
+    this.setState({[key]: content})
   }
 }
 
