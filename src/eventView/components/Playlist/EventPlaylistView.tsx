@@ -66,13 +66,13 @@ class EventPlaylistView extends React.Component<
             <Tabs
               value={tabIndex}
               onChange={this.handleTabChange}
-              indicatorColor="primary"
-              textColor="primary"
+              indicatorColor="secondary"
+              textColor="secondary"
               fullWidth={true}
             >
               <Tab label="Event Playlist"/>
               <Tab label={
-                pendingSuggestions.length ? <Badge badgeContent={pendingSuggestions.length} color={'primary'} className={classes.suggestions}>
+                pendingSuggestions.length ? <Badge badgeContent={pendingSuggestions.length} color={'secondary'} className={classes.suggestions}>
                   Suggested
                 </Badge> : 'Suggested'
               }/>

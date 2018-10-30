@@ -50,7 +50,7 @@ class SharePopup extends React.PureComponent<ISharePopupProps> {
         />
         <Button
           onClick={this.togglePopup}
-          color='primary'
+          color='secondary'
           variant='contained'
         >
           SHARE EVENT

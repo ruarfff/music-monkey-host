@@ -16,7 +16,7 @@ const NoEvents: React.SFC = () => (
     </div>
     <Link to="/create-event">
       <Tooltip id="tooltip-fab" title="Create Event">
-        <Button variant="fab" color="primary" aria-label="Create Event">
+        <Button variant="fab" color="secondary" aria-label="Create Event">
           <AddIcon />
         </Button>
       </Tooltip>

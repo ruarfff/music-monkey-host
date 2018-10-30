@@ -32,8 +32,12 @@ const decorated = withStyle(() => ({
   },
   tab: {},
   tabs: {
-    color: '#AF00FF',
-    borderBottom: '1px solid #AF00FF'
+    color: '#AF00FF!important',
+    borderBottom: '1px solid #AF00FF',
+  },
+  TabIndicator: {
+    backgroundColor: '#AF00FF!important',
+    height: '1px'
   },
   content: {
     paddingTop: 0,
@@ -121,13 +125,13 @@ class EventView extends React.Component<
         <Grid className={classes.content} item={true} xs={12}>
           <AppBar
             position="static"
-            color="default"
+            color="primary"
             className={classes.tabContainer}
           >
             <Tabs
               value={tabIndex}
               onChange={this.handleTabChange}
-              TabIndicatorProps={{ className: classes.tabs }}
+              TabIndicatorProps={{ className: classes.TabIndicator }}
               centered={true}
               className={classes.tabs}
               fullWidth={true}

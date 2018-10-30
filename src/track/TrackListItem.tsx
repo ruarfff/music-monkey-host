@@ -79,7 +79,7 @@ const TrackListItem = ({
       <IconButton aria-label="Vote" onClick={handleTrackVote}>
         <Badge
           badgeContent={numberOfVotes}
-          color="primary"
+          color="secondary"
           className="TrackListItem-voting"
         >
           <FavouriteIcon />

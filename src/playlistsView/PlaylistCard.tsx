@@ -89,7 +89,7 @@ class PlaylistCard extends React.Component<
           <div>
             <a href={playlist ? playlist.external_urls.spotify : '/'} target="_blank" className={classes.link}>
               <Button
-                color='primary'
+                color='secondary'
               >
                 GO TO PLAYLIST
               </Button>
