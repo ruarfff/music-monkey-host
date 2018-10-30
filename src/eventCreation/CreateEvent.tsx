@@ -104,7 +104,11 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
   }
 
   public componentWillUpdate() {
-    this.setState({ organizer: this.props.event.organizer })
+    this.setState({
+      organizer: this.props.event.organizer,
+      startDateTime: this.props.event.startDateTime,
+      endDateTime: this.props.event.endDateTime,
+    })
   }
 
   public prevStep = () => {
