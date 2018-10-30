@@ -11,6 +11,7 @@ import * as React from 'react'
 import IAction from '../../IAction'
 import { formatDuration } from '../../util/formatDuration'
 import EventInput from '../EventInput/EventInput'
+import './EventSearchTracks.scss'
 
 interface IEventSearchTracksProps {
   searchResult: any[]
@@ -45,7 +46,6 @@ class EventSearchTracks extends React.PureComponent<
   }
 
   public render() {
-    console.log('test')
     const { searchResult } = this.props
     return (
       <div>

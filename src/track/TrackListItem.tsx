@@ -59,7 +59,6 @@ const TrackListItem = ({
   }
 
   const handleRemoveTrack = (uri: string) => () => {
-    console.log('test')
     removeTrack(uri)
   }
 

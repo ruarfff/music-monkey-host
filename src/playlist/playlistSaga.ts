@@ -8,7 +8,7 @@ import {
   removeTrackError,
   SEARCH_TRACKS_REQUEST,
   searchTrackFailure,
-  // searchTrackSuccess,
+  searchTrackSuccess,
   trackRemoved
 } from './playlistActions'
 import {
@@ -42,8 +42,7 @@ function* fetchSearchedTracks(action: IAction) {
 
   try {
     const res = yield call(searchForTracks, text)
-    console.log(res)
-    // yield put(searchTrackSuccess(res))
+    yield put(searchTrackSuccess(res))
   } catch (e) {
     yield put(searchTrackFailure(e.message))
   }

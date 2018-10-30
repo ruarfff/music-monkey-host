@@ -195,7 +195,6 @@ export default class EventPlaylist extends React.Component<
   }
 
   private handleRemoveTrack = (uri: string) => {
-    console.log(uri)
     this.props.tryRemoveTrack(this.props.playlist.id, uri)
   }
 
