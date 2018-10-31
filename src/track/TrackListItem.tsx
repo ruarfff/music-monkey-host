@@ -34,7 +34,7 @@ interface ITrackListItemProps {
   numberOfVotes: number
   onVote: ((track: ITrack) => void)
   onTrackSelected: ((track: ITrack) => void)
-  removeTrack: ((uri:string) => void)
+  removeTrack: ((uri:string, position: number) => void)
 }
 
 const TrackListItem = ({
@@ -58,8 +58,8 @@ const TrackListItem = ({
     onVote(track)
   }
 
-  const handleRemoveTrack = (uri: string) => () => {
-    removeTrack(uri)
+  const handleRemoveTrack = (uri: string, position: number) => () => {
+    removeTrack(uri, position)
   }
 
   let trackImage = <span />
@@ -110,7 +110,7 @@ const TrackListItem = ({
               <ListItemText className={classes.trackName} primary={track.name} />
             </Grid>
             <ListItemText primary={formatDuration(track.duration_ms)}/>
-            <Button onClick={handleRemoveTrack(track.uri)}>
+            <Button onClick={handleRemoveTrack(track.uri, track.track_number)}>
               REMOVE
             </Button>
           </Grid>

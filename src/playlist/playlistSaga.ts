@@ -31,10 +31,10 @@ function* fetchPlaylistsFlow(action: IAction) {
 }
 
 function* fetchRemoveTrackFromPlaylist(action: IAction) {
-  const { playlistId, trackUri } = action.payload
+  const { playlistId, trackUri, trackPosition } = action.payload
 
   try {
-    yield call(removeTrackFromPlaylist, playlistId, trackUri)
+    yield call(removeTrackFromPlaylist, playlistId, trackUri, trackPosition)
     yield put(trackRemoved())
   } catch (e) {
     yield put(removeTrackError(e.message))

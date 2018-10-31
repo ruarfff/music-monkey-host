@@ -37,11 +37,12 @@ export const addTrackError = (error: string): IAction => ({
   payload: error
 })
 
-export const tryRemoveTrack = (playlistId: string, trackUri: string): IAction => ({
+export const tryRemoveTrack = (playlistId: string, trackUri: string, trackPosition: number): IAction => ({
   type: REMOVE_TRACK_REQUEST,
   payload: {
     playlistId,
     trackUri,
+    trackPosition,
   }
 })
 

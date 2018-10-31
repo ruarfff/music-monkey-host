@@ -40,7 +40,7 @@ interface IEventPlaylistProps {
     playlist: IPlaylist,
     votes: Map<string, ITrackVoteStatus>
   ): IAction
-  tryRemoveTrack(playlistId: string, uri:string): IAction
+  tryRemoveTrack(playlistId: string, uri: string, position: number): IAction
 }
 
 export default class EventPlaylist extends React.Component<
@@ -194,8 +194,8 @@ export default class EventPlaylist extends React.Component<
     }
   }
 
-  private handleRemoveTrack = (uri: string) => {
-    this.props.tryRemoveTrack(this.props.playlist.id, uri)
+  private handleRemoveTrack = (uri: string, position: number) => {
+    this.props.tryRemoveTrack(this.props.playlist.id, uri, position)
   }
 
   private handlePlaylistDragDrop = (result: DropResult) => {
