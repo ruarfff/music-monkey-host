@@ -120,7 +120,6 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
 
   public setChanges = () => {
     const decoratedState = _.omit(this.state, 'currentStep', 'anchorCoHost', 'eventType', 'showSaveDialog')
-
     this.props.eventContentUpdated(decoratedState)
   }
 
@@ -382,7 +381,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
 
   private handleSaveEvent = () => {
     this.nextStep()
-    this.props.saveEvent(this.props.event)
+    setTimeout(() => this.props.saveEvent(this.props.event), 1000)
   }
 
   private handleContentUpdated = (key: string) => (content: any) => {

@@ -137,7 +137,7 @@ class ShareEvent extends React.PureComponent<IShareEventProps & WithStyles> {
               inviteId={event && event.invites ? event.invites[0] : ''}
               onCopyEventInvite={copyEventInvite}
             />
-            <a className={classes.link} href={event.playlistUrl}>
+            <a className={classes.link} target="_blank" href={event.playlistUrl}>
               <Button
                 variant='contained'
                 color='secondary'
