@@ -15,7 +15,7 @@
     "@material-ui/icons": "^3.0.1",
     "@types/react-jss": "^8.6.0",
     "autosuggest-highlight": "^3.1.1",
-    "aws-sdk": "^2.343.0",
+    "aws-sdk": "^2.345.0",
     "axios": "^0.18.0",
     "axios-extensions": "^3.0.3",
     "classnames": "^2.2.6",
