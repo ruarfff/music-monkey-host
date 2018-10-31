@@ -35,6 +35,7 @@ interface ITrackListItemProps {
   onVote: ((track: ITrack) => void)
   onTrackSelected: ((track: ITrack) => void)
   removeTrack: ((uri:string, position: number) => void)
+  handleShowNotification: (() => void)
 }
 
 const TrackListItem = ({
@@ -45,7 +46,8 @@ const TrackListItem = ({
   onVote,
   onTrackSelected,
   removeTrack,
-  classes
+  classes,
+  handleShowNotification
 }: ITrackListItemProps & WithStyles) => {
   if (!track) {
     return <span />
@@ -60,6 +62,7 @@ const TrackListItem = ({
 
   const handleRemoveTrack = (uri: string, position: number) => () => {
     removeTrack(uri, position)
+    handleShowNotification()
   }
 
   let trackImage = <span />

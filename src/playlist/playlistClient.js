@@ -50,7 +50,7 @@ export const replaceTracksInPlaylist = (playlistId, trackUris) => {
 
 export const removeTrackFromPlaylist = (playlistId, uri, positions) => {
   const spotifyApi = getSpotifyApi()
-  return spotifyApi.removeTracksFromPlaylist(playlistId, [{uri, positions}])
+  return spotifyApi.removeTracksFromPlaylist(playlistId, [{uri}, positions])
 }
 
 export const searchForTracks = async (searchTerm) => {

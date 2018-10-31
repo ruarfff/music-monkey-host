@@ -7,4 +7,5 @@ export default interface IPlaylistState {
   error?: Error
   isLoading: boolean
   searchResult: ISearch
+  notification: string
 }

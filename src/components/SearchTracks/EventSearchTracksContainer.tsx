@@ -8,7 +8,8 @@ import EventSearchTracks from './EventSearchTracks'
 
 const mapStateToProps = (state: IRootState) => ({
   searchResult: state.playlist.searchResult,
-  playlistId: state.eventPlaylist.playlist.id
+  playlist: state.eventPlaylist.playlist,
+  notification: state.playlist.notification
 })
 
 const mapDispatchToProps = {

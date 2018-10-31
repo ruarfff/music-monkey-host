@@ -7,5 +7,6 @@ export default {
   error: {} as Error,
   isLoading: false,
   searchResult: {} as ISearch,
-  selectedPlaylist: {} as IPlaylist
+  selectedPlaylist: {} as IPlaylist,
+  notification: '',
 } as IPlaylistState

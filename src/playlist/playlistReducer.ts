@@ -1,12 +1,15 @@
 import Action from '../IAction'
 import {
+  ADD_TRACK_FAILURE,
+  ADD_TRACK_SUCCESS,
   FETCH_PLAYLISTS,
   FETCH_PLAYLISTS_ERROR,
   FETCH_PLAYLISTS_SUCCESS,
   PLAYLIST_DESELECTED,
-  PLAYLIST_SELECTED,
+  PLAYLIST_SELECTED, REMOVE_TRACK_FAILURE,
+  REMOVE_TRACK_SUCCESS,
   SEARCH_TRACKS_FAILURE,
-  SEARCH_TRACKS_SUCCESS,
+  SEARCH_TRACKS_SUCCESS
 } from './playlistActions'
 import initialState from './playlistInitialState'
 
@@ -15,6 +18,26 @@ export default function playlists(
   { type, payload }: Action
 ) {
   switch (type) {
+    case REMOVE_TRACK_SUCCESS:
+      return {
+        ...state,
+        notification: 'Track successfully removed'
+      }
+    case REMOVE_TRACK_FAILURE:
+      return {
+        ...state,
+        notification: 'Error. Retry remove track later',
+      }
+    case ADD_TRACK_SUCCESS:
+      return {
+        ...state,
+        notification: 'Track successfully added',
+      }
+    case ADD_TRACK_FAILURE:
+      return {
+        ...state,
+        notification: 'Error. Retry add track later',
+      }
     case SEARCH_TRACKS_SUCCESS:
       return { ...state, searchResult: payload.tracks }
     case SEARCH_TRACKS_FAILURE:

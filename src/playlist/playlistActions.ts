@@ -32,9 +32,8 @@ export const addTrackSuccess = (): IAction => ({
   type: ADD_TRACK_SUCCESS,
 })
 
-export const addTrackError = (error: string): IAction => ({
+export const addTrackError = (): IAction => ({
   type: ADD_TRACK_FAILURE,
-  payload: error
 })
 
 export const tryRemoveTrack = (playlistId: string, trackUri: string, trackPosition: number): IAction => ({
@@ -50,9 +49,8 @@ export const trackRemoved = (): IAction => ({
   type: REMOVE_TRACK_SUCCESS
 })
 
-export const removeTrackError = (error: string): IAction => ({
+export const removeTrackError = (): IAction => ({
   type: REMOVE_TRACK_FAILURE,
-  payload: error
 })
 
 export const fetchPlaylists = (user: IUser): IAction => ({

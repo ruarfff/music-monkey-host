@@ -14,6 +14,7 @@ interface ITrackItemProps {
   track: ITrack
   playlistId: string
   addTrack(playlistId: string, uri: string): IAction
+  showNotification(): void
 }
 
 const decorate = withStyles(() => ({
@@ -121,8 +122,8 @@ class TrackItem extends React.PureComponent<
   }
 
   private handleAddTrack = (track: ITrack) => () => {
-    console.log(track)
     this.props.addTrack(this.props.playlistId, track.uri)
+    this.props.showNotification()
   }
 }
 

@@ -1,9 +1,12 @@
 import Button from '@material-ui/core/Button/Button'
 import Grid from '@material-ui/core/Grid/Grid'
+import IconButton from '@material-ui/core/IconButton'
 import List from '@material-ui/core/List/List'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
+import Snackbar from '@material-ui/core/Snackbar'
 import Typography from '@material-ui/core/Typography'
+import CloseIcon from '@material-ui/icons/Close'
 import DoneAll from '@material-ui/icons/DoneAll'
 import Undo from '@material-ui/icons/Undo'
 import classNames from 'classnames'
@@ -22,6 +25,7 @@ import './EventPlaylist.scss'
 interface IEventPlaylistProps {
   event: IEvent
   playlist: IPlaylist
+  notification: string
   stagedSuggestions: IDecoratedSuggestion[]
   saving: boolean
   votes: Map<string, ITrackVoteStatus>
@@ -47,7 +51,8 @@ export default class EventPlaylist extends React.Component<
   IEventPlaylistProps
 > {
   public state = {
-    anchorEl: null
+    anchorEl: null,
+    isOpen: false
   }
 
   public handleClick = (event: any) => {
@@ -64,8 +69,13 @@ export default class EventPlaylist extends React.Component<
     this.setState({ anchorEl: null })
   }
 
+
+  public handleShowNotification = () => {
+    this.setState({isOpen: true})
+  }
+
   public render() {
-    const { playlist, stagedSuggestions, saving, votes } = this.props
+    const { playlist, stagedSuggestions, saving, votes, notification } = this.props
     let stagedTracks: ITrack[] = []
 
     if (!playlist) {
@@ -83,6 +93,29 @@ export default class EventPlaylist extends React.Component<
         {saving && <LoadingSpinner />}
         {!saving && (
           <Grid container={true} spacing={8}>
+            <Snackbar
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+              autoHideDuration={4000}
+              open={this.state.isOpen}
+              onClose={this.handleCloseNotification}
+              ContentProps={{
+                'aria-describedby': 'message-id',
+              }}
+              message={<span id="message-id">{notification}</span>}
+              action={[
+                <IconButton
+                  key="close"
+                  aria-label="Close"
+                  color="inherit"
+                  onClick={this.handleCloseNotification}
+                >
+                  <CloseIcon />
+                </IconButton>
+              ]}
+            />
             <Grid
               item={true}
               sm={12}
@@ -120,6 +153,7 @@ export default class EventPlaylist extends React.Component<
                   <TrackList
                     removeTrack={this.handleRemoveTrack}
                     tracks={stagedTracks}
+                    showNotification={this.handleShowNotification}
                   />
                 </List>
               )}
@@ -133,6 +167,7 @@ export default class EventPlaylist extends React.Component<
                       votes={votes}
                       onDragEnd={this.handlePlaylistDragDrop}
                       removeTrack={this.handleRemoveTrack}
+                      showNotification={this.handleShowNotification}
                     />
                   </List>
                 )}
@@ -142,6 +177,10 @@ export default class EventPlaylist extends React.Component<
         )}
       </div>
     )
+  }
+
+  private handleCloseNotification = () => {
+    this.setState({isOpen: false})
   }
 
   private renderSaveButtons = (hasStagedTrack: boolean) => {

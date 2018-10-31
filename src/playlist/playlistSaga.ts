@@ -36,8 +36,8 @@ function* fetchRemoveTrackFromPlaylist(action: IAction) {
   try {
     yield call(removeTrackFromPlaylist, playlistId, trackUri, trackPosition)
     yield put(trackRemoved())
-  } catch (e) {
-    yield put(removeTrackError(e.message))
+  } catch (error) {
+    yield put(removeTrackError())
   }
 }
 
@@ -55,7 +55,7 @@ function* fetchAddTrackToPlaylist(action: IAction) {
     yield call(addTracksToPlaylist, action.payload.playlistId, [action.payload.trackUri])
     yield put(addTrackSuccess())
   } catch (e) {
-    yield put(addTrackError(e.message))
+    yield put(addTrackError())
   }
 }
 
