@@ -7,6 +7,7 @@ import * as React from 'react'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import EventInput from '../components/EventInput/EventInput'
+import GenrePicker from '../components/GenrePicker/GenrePicker'
 import LocationAutoComplete from '../components/location/LocationAutoComplete'
 import MapComponent from '../components/MapComponent'
 import IEvent from '../event/IEvent'
@@ -96,6 +97,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
     startDateTime: '',
     endDateTime: '',
     playlistUrl: '',
+    genre: '',
   }
 
   public componentDidMount() {
@@ -187,6 +189,11 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
           <FileUpload
             onUpload={eventImageUploaded}
             onUploadError={eventImageUploadError}
+          />
+        </Grid>
+        <Grid item={true} xs={12} sm={6}>
+          <GenrePicker
+            onChange={this.handleContentUpdated('genre')}
           />
         </Grid>
         <Grid item={true} xs={12} sm={6}>

@@ -10,6 +10,7 @@ export default interface IEvent {
   endDateTime: Moment
   eventCode?: string
   imageUrl?: string
+  genre?: string
   location?: ILocation
   name: string
   organizer: string

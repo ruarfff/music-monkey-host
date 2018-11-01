@@ -9,6 +9,7 @@ import { RouteComponentProps } from 'react-router'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import EventInput from '../components/EventInput/EventInput'
+import GenrePicker from '../components/GenrePicker/GenrePicker'
 import LocationAutoComplete from '../components/location/LocationAutoComplete'
 import MapComponent from '../components/MapComponent'
 import IEvent from '../event/IEvent'
@@ -144,7 +145,15 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
               onUploadError={eventImageUploadError}
             />
           </Grid>
+
+          <Grid className={classes.imagePickContainer} item={true} md={6}>
+            <GenrePicker
+              onChange={this.handleContentEdit('genre')}
+            />
+          </Grid>
         </Grid>
+
+
 
         <Grid container={true} spacing={24} alignItems={'flex-end'}>
           <Grid item={true} xs={12} sm={6}>
