@@ -17,7 +17,7 @@ import NotificationPopup from '../components/NotificationPopup/NotificationPopup
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import { onRsvpSaved } from '../notification'
-import { INotificationState } from '../notification/notificationInitialState'
+import { INotification, INotificationState } from '../notification/notificationInitialState'
 import IUser from '../user/IUser'
 
 const decorate = withStyles(({ transitions, zIndex }) => ({
@@ -82,6 +82,7 @@ interface IMainAppBarProps {
   handleTitleClicked(): void
   actionedNotification(index: number): IAction
   readNotification(index: number): IAction
+  updateNotification(notification: INotification): IAction
 }
 
 class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
@@ -150,7 +151,8 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
       handleTitleClicked,
       notification,
       readNotification,
-      actionedNotification
+      actionedNotification,
+      updateNotification
     } = this.props
     const { anchorEl } = this.state
     const open = Boolean(anchorEl)
@@ -186,6 +188,7 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
             notifications={notification.notifications}
             actionedNotification={actionedNotification}
             readNotification={readNotification}
+            updateNotification={updateNotification}
           />
         )}
         <IconButton

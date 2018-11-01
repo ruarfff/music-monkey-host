@@ -27,7 +27,10 @@ import {
   watchToggleDynamicVoting,
   watchToggleSuggestingPlaylists
 } from './eventView/eventViewSaga'
-import { watchFetchNotificationsByUserId } from './notification/notificationSaga'
+import {
+  watchFetchNotificationsByUserId,
+  watchUpdateNotification,
+} from './notification/notificationSaga'
 import {
   watchFetchPlaylists,
   watchFetchRemoveTrackFromPlaylist,
@@ -74,5 +77,6 @@ export default function* rootSaga() {
     watchfetchShareEmail(),
     watchFetchSearchTracks(),
     watchFetchAddTrackToPlaylist(),
+    watchUpdateNotification(),
   ])
 }

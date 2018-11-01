@@ -4,7 +4,9 @@ export interface INotification {
   context: string,
   contextId: string,
   text: string,
+  content: string
   status: string
+  notificationId: string
 }
 
 

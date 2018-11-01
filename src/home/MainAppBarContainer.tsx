@@ -5,7 +5,8 @@ import { logout } from '../auth/authActions'
 import {
   actionedNotification,
   getNotifications,
-  readNotification
+  readNotification,
+  updateNotification,
 } from '../notification/notificationActions'
 import IRootState from '../rootState'
 import MainAppBar from './MainAppBar'
@@ -26,7 +27,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
       logout,
       getNotifications,
       readNotification,
-      actionedNotification
+      actionedNotification,
+      updateNotification
     },
     dispatch
   )

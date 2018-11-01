@@ -7,6 +7,7 @@ interface INotificationPopupProps {
   notifications: INotification[]
   actionedNotification(index: number): IAction
   readNotification(index: number): IAction
+  updateNotification(notification: INotification): IAction
 }
 
 class NotificationPopup extends React.Component<INotificationPopupProps> {
@@ -23,8 +24,8 @@ class NotificationPopup extends React.Component<INotificationPopupProps> {
                 'notificationItemWrapper notificationItemWrapperHighlighted' :
                 'notificationItemWrapper'
               }
-              onClick={this.handleClickNotification(index)}
-              onMouseEnter={this.handleHoverNotification(index, notification.status)}
+              onClick={this.handleClickNotification(index, notification)}
+              onMouseEnter={this.handleHoverNotification(index, notification.status, notification)}
             >
               <span className='notificationItemText'>
                 {notification.text}
@@ -46,14 +47,22 @@ class NotificationPopup extends React.Component<INotificationPopupProps> {
     )
   }
 
-  private handleHoverNotification = (index: number, status: string) => () => {
+  private handleHoverNotification = (index: number, status: string, notification: INotification) => () => {
     if (status !== 'Read') {
       this.props.readNotification(index)
+      this.props.updateNotification({
+        ...notification,
+        status: 'Read'
+      })
     }
   }
 
-  private handleClickNotification = (index: number) => () => {
+  private handleClickNotification = (index: number, notification: INotification) => () => {
     this.props.actionedNotification(index)
+    this.props.updateNotification({
+      ...notification,
+      status: 'Actioned'
+    })
   }
 }
 
