@@ -3,10 +3,10 @@ import IAction from '../IAction'
 import {
   getNotificationsFailure,
   getNotificationsSuccess,
-  updateNotificationSuccess,
-  updateNotificationFailure,
   NOTIFICATION_FETCH_REQUEST,
   NOTIFICATION_UPDATE_REQUEST,
+  updateNotificationFailure,
+  updateNotificationSuccess,
 } from './notificationActions'
 import {
   getNotifications,
