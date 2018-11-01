@@ -36,6 +36,7 @@ const decorated = withStyle(() => ({
 }))
 
 interface IEventSummaryPlaylistProps {
+  genre?: string
   playlist: IPlaylist
   suggestion: IDecoratedSuggestion[]
 }
@@ -44,7 +45,7 @@ class EventSummaryPlaylist extends React.PureComponent<
   IEventSummaryPlaylistProps & WithStyles
 > {
   public render() {
-    const { playlist, classes, suggestion } = this.props
+    const { playlist, classes, suggestion, genre } = this.props
 
     if (!playlist) {
       return <span />
@@ -110,7 +111,7 @@ class EventSummaryPlaylist extends React.PureComponent<
                     <Typography color="textSecondary">
                       Mode: Play to Play
                     </Typography>
-                    <Typography color="textSecondary">Genre: All</Typography>
+                    <Typography color="textSecondary">Genre: {genre ? genre : 'All'}</Typography>
                   </div>
                 </Grid>
               </Grid>
