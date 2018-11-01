@@ -88,7 +88,6 @@ interface IMainAppBarProps {
 class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
   public state = {
     anchorEl: undefined,
-    notifications: 0,
     showNotification: false
   }
 
@@ -101,9 +100,9 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
   }
 
   public componentWillUpdate() {
-    const { user } = this.props
-    if (user) {
-      onRsvpSaved(user.userId, this.handleNotifications)
+    const { user, getNotifications, notification } = this.props
+    if (user && !notification.loading) {
+      onRsvpSaved(user.userId, getNotifications(user.userId))
     }
   }
 
@@ -132,10 +131,6 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
     }
   }
 
-  public handleNotifications = () => {
-    this.setState({ notifications: this.state.notifications + 1 })
-  }
-
   public toggleNotification = () => {
     this.setState({ showNotification: !this.state.showNotification })
     if (!this.props.notification.loading) {
@@ -159,6 +154,8 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
     const userHasProfileImage = !!user && !!user.image
     const userHasName = !!user && !!user.displayName
 
+    const unreadNotifications = notification.notifications.filter((n) => n.status === 'Unread')
+
     const profilePic = (
       <div className={classes.profile}>
         {location !== '/create-event' && (
@@ -176,7 +173,7 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
         <IconButton color="inherit">
           <Badge
             className={classes.notification}
-            badgeContent={this.state.notifications}
+            badgeContent={unreadNotifications ? unreadNotifications.length : 0}
             color="secondary"
             onClick={this.toggleNotification}
           >

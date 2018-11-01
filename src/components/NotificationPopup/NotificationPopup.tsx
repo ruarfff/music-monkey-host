@@ -2,6 +2,7 @@ import * as React from 'react'
 import IAction from '../../IAction'
 import { INotification } from '../../notification/notificationInitialState'
 import './NotificationPopupStyles.scss'
+import { Link } from 'react-router-dom'
 
 interface INotificationPopupProps {
   notifications: INotification[]
@@ -27,12 +28,14 @@ class NotificationPopup extends React.Component<INotificationPopupProps> {
               onClick={this.handleClickNotification(index, notification)}
               onMouseEnter={this.handleHoverNotification(index, notification.status, notification)}
             >
-              <span className='notificationItemText'>
-                {notification.text}
-              </span>
-              <span className='notificationItemLink'>
-                {notification.context}
-              </span>
+              <Link to={'events/' + notification.contextId}>
+                <span className='notificationItemText'>
+                  {notification.content}
+                </span>
+                <span className='notificationItemLink'>
+                  {notification.context}
+                </span>
+              </Link>
             </div>
           )) :
           <div

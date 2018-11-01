@@ -12,7 +12,7 @@ export const getNotifications = async (userId: string) => {
 export const updateNotification = async (notification: INotification) => {
   const updatedNotification = await http
     .put('/notifications/' + notification.notificationId,
-      { notification },
+      { ...notification },
       {withCredentials: true}
       );
   return updatedNotification

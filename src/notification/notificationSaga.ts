@@ -24,7 +24,8 @@ function* fetchNotificationsByUserId({ payload }: IAction) {
 
 function* fetchUpdateNotification({ payload }: IAction) {
   try {
-    yield call(updateNotification, payload.notificationId, payload.userId)
+    console.log(payload)
+    yield call(updateNotification, payload)
     yield put(updateNotificationSuccess())
   } catch (e) {
     yield put(updateNotificationFailure(e.message))
