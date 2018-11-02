@@ -1,7 +1,7 @@
-import { ConnectedRouter, routerActions } from 'connected-react-router'
+import { ConnectedRouter, push } from 'connected-react-router'
 import { History } from 'history'
 import * as React from 'react'
-import { Route } from 'react-router-dom'
+import { Route } from 'react-router'
 import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper'
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect'
 
@@ -27,8 +27,9 @@ const userIsNotAuthenticated = connectedRouterRedirect({
 })
 
 const userIsAuthenticated = connectedRouterRedirect({
-  authenticatedSelector: (state: IRootState) => state.auth.isAuthenticated,
-  redirectAction: routerActions.replace,
+  authenticatedSelector: (state: IRootState) =>
+    state.auth.isAuthenticated || state.auth.isAuthenticating,
+  redirectAction: push,
   redirectPath: '/login',
   wrapperDisplayName: 'UserIsAuthenticated'
 })
@@ -112,16 +113,18 @@ export const RouteWithSubRoutes = (route: any) => (
   />
 )
 
-interface IRoutesProps {
+interface IRouterProps {
   history: History
 }
 
-export const Routes: React.SFC<IRoutesProps> = ({ history }) => (
-  <ConnectedRouter history={history}>
-    <div>
-      {routes.map((route, i) => (
-        <RouteWithSubRoutes key={i} {...route} />
-      ))}
-    </div>
-  </ConnectedRouter>
-)
+export const Routes: React.SFC<IRouterProps> = ({ history }) => {
+  return (
+    <ConnectedRouter history={history}>
+      <span>
+        {routes.map((route, i) => (
+          <RouteWithSubRoutes key={i} {...route} />
+        ))}
+      </span>
+    </ConnectedRouter>
+  )
+}

@@ -3,7 +3,6 @@
     "outDir": "build/dist",
     "target": "es5",
     "allowJs": true,
-    "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -26,6 +25,7 @@
     "noImplicitThis": true,
     "noImplicitAny": true,
     "importHelpers": true,
+    "skipLibCheck": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true
