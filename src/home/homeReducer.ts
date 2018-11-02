@@ -12,17 +12,17 @@ export default function home(state = initialState, action: Action) {
   switch (action.type) {
     case LOCATION_CHANGE:
       return {
-        ...initialState,
+        ...state,
         location: action.payload.location.pathname
       }
     case SIDEBAR_OPENED:
-      return { ...initialState, sidebarIsOpen: true }
+      return { ...state, sidebarIsOpen: true }
     case SIDEBAR_CLOSED:
-      return { ...initialState, sidebarIsOpen: false }
+      return { ...state, sidebarIsOpen: false }
     case AVATAR_MENU_OPENED: // TODO: This is not being used yet in MainAppBar. Got half way there but didn't finish.
-      return { ...initialState, avatarMenuIsOpen: true }
+      return { ...state, avatarMenuIsOpen: true }
     case AVATAR_MENU_CLOSED:
-      return { ...initialState, avatarMenuIsOpen: false }
+      return { ...state, avatarMenuIsOpen: false }
     default:
       return state
   }

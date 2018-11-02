@@ -36,11 +36,7 @@ export function* loginFlow() {
     const user = yield call(loginWithCookie)
     yield put({ type: LOGIN_SUCCESS })
     yield put({ type: FETCH_USER_SUCCESS, payload: user })
-    storeTokens({
-      refreshToken: user.spotifyAuth.refreshToken,
-      accessToken: user.spotifyAuth.accessToken,
-    })
-    // yield put({ type: REFRESH_AUTH_INITIATED })
+    yield put({ type: REFRESH_AUTH_INITIATED })
   } catch (error) {
     yield put({ type: LOGIN_FAILURE, payload: error })
   }
