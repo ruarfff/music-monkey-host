@@ -36,6 +36,7 @@ import {
   watchFetchRemoveTrackFromPlaylist,
   watchFetchSearchTracks,
   watchFetchAddTrackToPlaylist,
+  watchFetchTrackFeatures,
 } from './playlist/playlistSaga'
 import { watchfetchShareEmail } from './shareEvent/shareSaga'
 import {
@@ -78,5 +79,6 @@ export default function* rootSaga() {
     watchFetchSearchTracks(),
     watchFetchAddTrackToPlaylist(),
     watchUpdateNotification(),
+    watchFetchTrackFeatures(),
   ])
 }

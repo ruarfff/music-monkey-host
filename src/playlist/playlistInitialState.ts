@@ -1,3 +1,4 @@
+import ITrackWithFeatures from '../track/ITrackWithFeatures'
 import IPlaylist from './IPlaylist'
 import IPlaylistState from './IPlaylistState'
 import ISearch from './ISearch'
@@ -9,4 +10,5 @@ export default {
   searchResult: {} as ISearch,
   selectedPlaylist: {} as IPlaylist,
   notification: '',
+  tracksWithFeatures: [] as ITrackWithFeatures[]
 } as IPlaylistState

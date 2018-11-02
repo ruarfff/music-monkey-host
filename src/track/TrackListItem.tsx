@@ -10,6 +10,7 @@ import FavouriteIcon from '@material-ui/icons/FavoriteBorder'
 import * as moment from 'moment'
 import * as React from 'react'
 import ITrack from './ITrack'
+import ITrackWithFeatures from './ITrackWithFeatures'
 import './TrackListItem.scss'
 
 // TODO:  use this: https://codepen.io/dmarcus/pen/vKdWxW
@@ -29,6 +30,7 @@ const decorate = withStyles(() => ({
 
 interface ITrackListItemProps {
   track: ITrack
+  tracksWithFeature: ITrackWithFeatures
   withVoting: boolean
   currentUserVoted: boolean
   numberOfVotes: number
@@ -40,6 +42,7 @@ interface ITrackListItemProps {
 
 const TrackListItem = ({
   track,
+  tracksWithFeature,
   withVoting,
   currentUserVoted,
   numberOfVotes,
@@ -113,6 +116,7 @@ const TrackListItem = ({
               <ListItemText className={classes.trackName} primary={track.name} />
             </Grid>
             <ListItemText primary={formatDuration(track.duration_ms)}/>
+            <ListItemText primary={tracksWithFeature && 'tempo ' + Math.round(tracksWithFeature.tempo)} />
             <Button onClick={handleRemoveTrack(track.uri, track.track_number)}>
               REMOVE
             </Button>

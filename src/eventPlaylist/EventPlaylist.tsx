@@ -18,17 +18,20 @@ import LoadingSpinner from '../loading/LoadingSpinner'
 import IPlaylist from '../playlist/IPlaylist'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import ITrack from '../track/ITrack'
+import ITrackWithFeatures from '../track/ITrackWithFeatures'
 import TrackList from '../track/TrackList'
 import ITrackVoteStatus from '../vote/ITrackVoteStatus'
 import './EventPlaylist.scss'
 
 interface IEventPlaylistProps {
   event: IEvent
+  tracksWithFeatures: ITrackWithFeatures[]
   playlist: IPlaylist
   notification: string
   stagedSuggestions: IDecoratedSuggestion[]
   saving: boolean
   votes: Map<string, ITrackVoteStatus>
+  getTracksFeatures(trackIds: string[]): IAction
   saveEventPlaylist(
     eventId: string,
     playlist: IPlaylist,
@@ -55,6 +58,15 @@ export default class EventPlaylist extends React.Component<
     isOpen: false
   }
 
+  public componentDidMount() {
+    const { playlist } = this.props
+    const trackIds = [] as string[]
+    playlist.tracks.items.map((track) => {
+      trackIds.push(track.track.id)
+    })
+    this.props.getTracksFeatures(trackIds)
+  }
+
   public handleClick = (event: any) => {
     this.setState({ anchorEl: event.currentTarget })
   }
@@ -75,7 +87,14 @@ export default class EventPlaylist extends React.Component<
   }
 
   public render() {
-    const { playlist, stagedSuggestions, saving, votes, notification } = this.props
+    const {
+      playlist,
+      stagedSuggestions,
+      saving,
+      votes,
+      notification,
+      tracksWithFeatures
+    } = this.props
     let stagedTracks: ITrack[] = []
 
     if (!playlist) {
@@ -162,6 +181,7 @@ export default class EventPlaylist extends React.Component<
                 playlist.tracks.total > 0 && (
                   <List>
                     <TrackList
+                      tracksWithFeatures={tracksWithFeatures}
                       tracks={playlist.tracks.items.map(item => item.track)}
                       withVoting={true}
                       votes={votes}

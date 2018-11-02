@@ -12,4 +12,5 @@ export default interface ITrack {
   uri: string
   album: IAlbum
   href: string
+  id: string
 }

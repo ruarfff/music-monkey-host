@@ -9,7 +9,8 @@ import {
   PLAYLIST_SELECTED, REMOVE_TRACK_FAILURE,
   REMOVE_TRACK_SUCCESS,
   SEARCH_TRACKS_FAILURE,
-  SEARCH_TRACKS_SUCCESS
+  SEARCH_TRACKS_SUCCESS, TRACK_FEATURES_FAILURE,
+  TRACK_FEATURES_SUCCESS
 } from './playlistActions'
 import initialState from './playlistInitialState'
 
@@ -18,6 +19,13 @@ export default function playlists(
   { type, payload }: Action
 ) {
   switch (type) {
+    case TRACK_FEATURES_SUCCESS:
+      return {
+        ...state,
+        tracksWithFeatures: payload.audio_features
+      }
+    case TRACK_FEATURES_FAILURE:
+      return state
     case REMOVE_TRACK_SUCCESS:
       return {
         ...state,

@@ -63,6 +63,11 @@ export const searchForTracks = async (searchTerm) => {
   return response.data
 }
 
+export const getTracksFeatures = (trackIds) => {
+  const spotifyApi = getSpotifyApi()
+  return spotifyApi.getAudioFeaturesForTracks(trackIds)
+}
+
 /**
  * Initialize the spotify api with an access token.
  * Better not to cache this and call in each method in case the cached token expires.

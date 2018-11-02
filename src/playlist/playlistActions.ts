@@ -20,6 +20,32 @@ export const SEARCH_TRACKS_REQUEST = 'SEARCH_TRACKS_REQUEST'
 export const SEARCH_TRACKS_SUCCESS = 'SEARCH_TRACKS_SUCCESS'
 export const SEARCH_TRACKS_FAILURE = 'SEARCH_TRACKS_FAILURE'
 
+export const TRACK_FEATURES_REQUEST = 'TRACK_FEATURES_REQUEST'
+export const TRACK_FEATURES_SUCCESS = 'TRACK_FEATURES_SUCCESS'
+export const TRACK_FEATURES_FAILURE = 'TRACK_FEATURES_FAILURE'
+
+
+export const getTracksFeatures = (trackIds: string[]): IAction => {
+  return {
+    type: TRACK_FEATURES_REQUEST,
+    payload: trackIds
+  }
+}
+
+export const getTracksFeaturesSuccess = (trackWithFeatures: any[]): IAction => {
+  return {
+    type: TRACK_FEATURES_SUCCESS,
+    payload: trackWithFeatures
+  }
+}
+
+export const getTracksFeaturesFailure = (error: string): IAction => {
+  return {
+    type: TRACK_FEATURES_FAILURE,
+    payload: error
+  }
+}
+
 export const addTrack = (playlistId: string, trackUri: string): IAction => ({
   type: ADD_TRACK_REQUEST,
   payload: {

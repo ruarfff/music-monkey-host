@@ -2,6 +2,7 @@ import * as React from 'react'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import ITrackVoteStatus from '../vote/ITrackVoteStatus'
 import ITrack from './ITrack'
+import ITrackWithFeatures from './ITrackWithFeatures'
 import TrackListItem from './TrackListItem'
 
 // TODO:  use this: https://codepen.io/dmarcus/pen/vKdWxW
@@ -9,6 +10,7 @@ import TrackListItem from './TrackListItem'
 
 interface ITrackListProps {
   tracks: ITrack[]
+  tracksWithFeatures?: ITrackWithFeatures[]
   withVoting?: boolean
   votes?: Map<string, ITrackVoteStatus>
   onVote?: ((track: ITrack) => void)
@@ -32,6 +34,7 @@ const getItemStyle = (isDragging: any, draggableStyle: any) => {
 
 const TrackList = ({
   tracks = [],
+  tracksWithFeatures = [],
   withVoting = false,
   votes = new Map(),
   onVote = (t: ITrack) => ({} as any),
@@ -69,6 +72,7 @@ const TrackList = ({
                       )}
                     >
                       <TrackListItem
+                        tracksWithFeature={tracksWithFeatures[i]}
                         track={track}
                         withVoting={withVoting}
                         currentUserVoted={userVoted}
