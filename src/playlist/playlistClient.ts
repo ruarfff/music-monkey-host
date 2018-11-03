@@ -42,14 +42,12 @@ export const fetchUsersPlaylists = async (user: IUser) => {
   return res.data
 }
 
-export const createPlaylist = (name: string, description = '') => {
-  const spotifyApi = getSpotifyApi()
-
-  return spotifyApi.createPlaylist({
-    description,
-    name,
-    public: true
-  })
+export const createPlaylist = async (name: string, description = '') => {
+  const res = await http.post('/playlists', { name, description }, {
+    withCredentials: true,
+    cache: false
+  } as any)
+  return res.data.body
 }
 
 export const replaceTracksInPlaylist = (

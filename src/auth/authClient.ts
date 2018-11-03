@@ -9,13 +9,10 @@ export const loginWithCookie = async () => {
 }
 
 export const refreshToken = async () => {
-  const response = await http.post(
-    '/auth/refresh',
-    { cache: false },
-    {
-      withCredentials: true
-    }
-  )
+  const response = await http.post('/auth/refresh', {}, {
+    withCredentials: true,
+    cache: false
+  } as any)
   return response.data
 }
 
