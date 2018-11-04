@@ -8,14 +8,6 @@ export const loginWithCookie = async () => {
   return response.data
 }
 
-export const refreshToken = async () => {
-  const response = await http.post('/auth/refresh', {}, {
-    withCredentials: true,
-    cache: false
-  } as any)
-  return response.data
-}
-
 export const logout = async () => {
   await http.get('/auth/logout', {
     withCredentials: true,

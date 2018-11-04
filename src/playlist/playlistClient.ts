@@ -1,38 +1,46 @@
-import SpotifyWebApi from 'spotify-web-api-js'
-import { accessTokenKey } from '../auth/authConstants'
 import http from '../http'
-import localStorage from '../storage/localStorage'
 import IUser from '../user/IUser'
 import IPlaylist from './IPlaylist'
 
-export const addTracksToPlaylist = (
+export const addTracksToPlaylist = async (
   playlistId: string,
   trackUris: string[]
 ) => {
-  const spotifyApi = getSpotifyApi()
-  return spotifyApi.addTracksToPlaylist(playlistId, trackUris)
+  const res = await http.post(
+    '/playlists/' + playlistId + '/tracks',
+    { trackUris },
+    {
+      withCredentials: true,
+      cache: false
+    } as any
+  )
+  return res.data.body
 }
 
-export const reOrderPlaylist = (
+export const reOrderPlaylist = async (
   playlist: IPlaylist,
   fromIndex: number,
   toIndex: number
 ) => {
-  const spotifyApi = getSpotifyApi()
-  let insertBefore = toIndex
-  if (fromIndex < toIndex) {
-    insertBefore++
-  }
-  return spotifyApi.reorderTracksInPlaylist(
-    playlist.id,
-    fromIndex,
-    insertBefore
+  const res = await http.put(
+    '/playlists/' + playlist.id + '/tracks',
+    {
+      fromIndex,
+      toIndex
+    },
+    {
+      withCredentials: true,
+      cache: false
+    } as any
   )
+  return res.data.body
 }
 
-export const fetchPlaylist = (playlistId: string) => {
-  const spotifyApi = getSpotifyApi()
-  return spotifyApi.getPlaylist(playlistId)
+export const fetchPlaylist = async (playlistId: string) => {
+  const res = await http.get('/playlists/' + playlistId, {
+    withCredentials: true
+  })
+  return res.data
 }
 
 export const fetchUsersPlaylists = async (user: IUser) => {
@@ -47,24 +55,37 @@ export const createPlaylist = async (name: string, description = '') => {
     withCredentials: true,
     cache: false
   } as any)
+  console.log(res)
+  console.log(JSON.stringify(res))
   return res.data.body
 }
 
-export const replaceTracksInPlaylist = (
+export const replaceTracksInPlaylist = async (
   playlistId: string,
   trackUris: string[]
 ) => {
-  const spotifyApi = getSpotifyApi()
-  return spotifyApi.replaceTracksInPlaylist(playlistId, trackUris)
+  const res = await http.put(
+    '/playlists/' + playlistId + '/tracks',
+    { trackUris },
+    {
+      withCredentials: true,
+      cache: false
+    } as any
+  )
+  return res.data.body
 }
 
-export const removeTrackFromPlaylist = (
+export const removeTrackFromPlaylist = async (
   playlistId: string,
   uri: string,
   position: number
 ) => {
-  const spotifyApi = getSpotifyApi()
-  return spotifyApi.removeTracksFromPlaylist(playlistId, [{ uri }, position])
+  const res = await http.delete('/playlists/' + playlistId + '/tracks', {
+    params: { tracks: [{ uri }, position] },
+    withCredentials: true,
+    cache: false
+  } as any)
+  return res.data.body
 }
 
 export const searchForTracks = async (searchTerm: string) => {
@@ -77,18 +98,12 @@ export const searchForTracks = async (searchTerm: string) => {
   return response.data
 }
 
-export const getTracksFeatures = (trackIds: string[]) => {
-  const spotifyApi = getSpotifyApi()
-  return spotifyApi.getAudioFeaturesForTracks(trackIds)
-}
-
-/**
- * Initialize the spotify api with an access token.
- * Better not to cache this and call in each method in case the cached token expires.
- */
-function getSpotifyApi() {
-  const token = localStorage.get(accessTokenKey)
-  const spotifyApi = new SpotifyWebApi()
-  spotifyApi.setAccessToken(token)
-  return spotifyApi
+export const getTracksFeatures = async (trackIds: string[]) => {
+  const response = await http.get(
+    `/tracks/audio-features?trackUris=${trackIds.join(',')}`,
+    {
+      withCredentials: true
+    }
+  )
+  return response.data
 }

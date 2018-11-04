@@ -16,8 +16,11 @@ import eventIcon from '../assets/event-icon.svg'
 import NotificationPopup from '../components/NotificationPopup/NotificationPopup'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
-import { onRsvpSaved } from '../notification'
-import { INotification, INotificationState } from '../notification/notificationInitialState'
+// import { onRsvpSaved } from '../notification'
+import {
+  INotification,
+  INotificationState
+} from '../notification/notificationInitialState'
 import IUser from '../user/IUser'
 
 const decorate = withStyles(({ transitions, zIndex }) => ({
@@ -99,12 +102,12 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
     this.setState({ anchorEl: undefined })
   }
 
-  public componentWillUpdate() {
-    const { user, getNotifications, notification } = this.props
-    if (user && !notification.loading) {
-      onRsvpSaved(user.userId, getNotifications(user.userId))
-    }
-  }
+  // public componentWillUpdate() {
+  //   const { user, getNotifications, notification } = this.props
+  //   if (user && !notification.loading) {
+  //     onRsvpSaved(user.userId, getNotifications(user.userId))
+  //   }
+  // }
 
   public menuName = (history: string) => {
     const { event } = this.props
@@ -154,7 +157,9 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
     const userHasProfileImage = !!user && !!user.image
     const userHasName = !!user && !!user.displayName
 
-    const unreadNotifications = notification.notifications.filter((n) => n.status === 'Unread')
+    const unreadNotifications = notification.notifications.filter(
+      n => n.status === 'Unread'
+    )
 
     const profilePic = (
       <div className={classes.profile}>

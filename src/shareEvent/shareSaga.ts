@@ -4,7 +4,7 @@ import IAction from '../IAction'
 import {
   SHARE_EMAIL_REQUEST,
   shareByEmailsFailure,
-  shareByEmailsSuccess,
+  shareByEmailsSuccess
 } from './shareActions'
 import { sendEmails } from './shareClient'
 
@@ -17,9 +17,6 @@ function* fetchShareEmail({ payload }: IAction) {
   }
 }
 
-export function* watchfetchShareEmail() {
-  yield takeEvery(
-    SHARE_EMAIL_REQUEST,
-    fetchShareEmail
-  )
+export function* watchFetchShareEmail() {
+  yield takeEvery(SHARE_EMAIL_REQUEST, fetchShareEmail)
 }
