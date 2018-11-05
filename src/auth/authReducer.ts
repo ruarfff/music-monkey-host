@@ -15,13 +15,13 @@ export default function auth(
 ): IAuthState {
   switch (type) {
     case LOGGING_IN:
-      return { ...initialState, isAuthenticating: true }
+      return { ...state, isAuthenticating: true }
     case LOGIN_SUCCESS:
-      return { ...initialState, isAuthenticating: false, isAuthenticated: true }
+      return { ...state, isAuthenticating: false, isAuthenticated: true }
     case LOGIN_FAILURE:
-      return { ...initialState, isAuthenticating: false, authError: payload }
+      return { ...state, isAuthenticating: false, authError: payload }
     case LOGGED_OUT:
-      return { ...initialState, isAuthenticated: false }
+      return { ...state, isAuthenticated: false }
     case CLEAR_AUTH_ERROR:
       return { ...state, authError: undefined }
     default:

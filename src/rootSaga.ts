@@ -1,10 +1,5 @@
 import { all } from 'redux-saga/effects'
-import {
-  watchLogin,
-  watchLogout,
-  watchRefresh,
-  watchStoreRefreshToken
-} from './auth/authSaga'
+import { watchLogin, watchLogout } from './auth/authSaga'
 import {
   watchCreateEvent,
   watchCreateEventPlaylist,
@@ -29,21 +24,21 @@ import {
 } from './eventView/eventViewSaga'
 import {
   watchFetchNotificationsByUserId,
-  watchUpdateNotification,
+  watchUpdateNotification
 } from './notification/notificationSaga'
 import {
+  watchFetchAddTrackToPlaylist,
   watchFetchPlaylists,
   watchFetchRemoveTrackFromPlaylist,
   watchFetchSearchTracks,
-  watchFetchAddTrackToPlaylist,
-  watchFetchTrackFeatures,
+  watchFetchTrackFeatures
 } from './playlist/playlistSaga'
-import { watchfetchShareEmail } from './shareEvent/shareSaga'
+import { watchFetchShareEmail } from './shareEvent/shareSaga'
 import {
   watchFetchSuggestions,
   watchRejectSuggestion
 } from './suggestion/suggestionSaga'
-import { watchupdateUserFlow } from './user/userSaga'
+import { watchUpdateUserFlow } from './user/userSaga'
 import { watchFetchEventVotes } from './vote/voteSaga'
 
 export default function* rootSaga() {
@@ -57,8 +52,6 @@ export default function* rootSaga() {
     watchFetchEventById(),
     watchEventPlaylistCreated(),
     watchFetchEvents(),
-    watchStoreRefreshToken(),
-    watchRefresh(),
     watchDeleteEvent(),
     watchRefreshEventPlaylist(),
     watchFetchSuggestions(),
@@ -72,13 +65,13 @@ export default function* rootSaga() {
     watchToggleAutoAcceptSuggestions(),
     watchToggleSuggestingPlaylists(),
     watchUpdateEvent(),
-    watchupdateUserFlow(),
+    watchUpdateUserFlow(),
     watchFetchNotificationsByUserId(),
     watchFetchRemoveTrackFromPlaylist(),
-    watchfetchShareEmail(),
+    watchFetchShareEmail(),
     watchFetchSearchTracks(),
     watchFetchAddTrackToPlaylist(),
     watchUpdateNotification(),
-    watchFetchTrackFeatures(),
+    watchFetchTrackFeatures()
   ])
 }

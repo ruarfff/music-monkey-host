@@ -10,7 +10,7 @@ const NoEvents: React.SFC = () => (
   <div className="eventsNoEventsMessage">
     <div>
       <h3>
-        Looks like you have not created any events yet. Would you like to{' '}
+        It looks like you have no upcoming events. Would you like to{' '}
         <Link to="/create-event">Create One</Link>?
       </h3>
     </div>

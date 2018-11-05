@@ -22,6 +22,6 @@ function* updateUserFlow(action: IAction) {
   }
 }
 
-export function* watchupdateUserFlow() {
+export function* watchUpdateUserFlow() {
   yield takeEvery(UPDATE_USER_REQUEST, updateUserFlow)
 }

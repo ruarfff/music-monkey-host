@@ -27,9 +27,9 @@ import IEvent from './IEvent'
 const { geocodeByAddress, getLatLng } = require('react-places-autocomplete')
 
 function savePlaylist(playlistDetails: IPlaylistDetails) {
-  const { name, description, userId } = playlistDetails
+  const { name, description } = playlistDetails
 
-  return createPlaylist(userId, name, description)
+  return createPlaylist(name, description)
 }
 
 function* createPlaylistFlow(action: IAction) {

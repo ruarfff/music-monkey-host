@@ -61,10 +61,12 @@ export default class EventPlaylist extends React.Component<
   public componentDidMount() {
     const { playlist } = this.props
     const trackIds = [] as string[]
-    playlist.tracks.items.map((track) => {
+    playlist.tracks.items.map(track => {
       trackIds.push(track.track.id)
     })
-    this.props.getTracksFeatures(trackIds)
+    if (trackIds.length > 0) {
+      this.props.getTracksFeatures(trackIds)
+    }
   }
 
   public handleClick = (event: any) => {
@@ -81,9 +83,8 @@ export default class EventPlaylist extends React.Component<
     this.setState({ anchorEl: null })
   }
 
-
   public handleShowNotification = () => {
-    this.setState({isOpen: true})
+    this.setState({ isOpen: true })
   }
 
   public render() {
@@ -115,13 +116,13 @@ export default class EventPlaylist extends React.Component<
             <Snackbar
               anchorOrigin={{
                 vertical: 'top',
-                horizontal: 'center',
+                horizontal: 'center'
               }}
               autoHideDuration={4000}
               open={this.state.isOpen}
               onClose={this.handleCloseNotification}
               ContentProps={{
-                'aria-describedby': 'message-id',
+                'aria-describedby': 'message-id'
               }}
               message={<span id="message-id">{notification}</span>}
               action={[
@@ -200,7 +201,7 @@ export default class EventPlaylist extends React.Component<
   }
 
   private handleCloseNotification = () => {
-    this.setState({isOpen: false})
+    this.setState({ isOpen: false })
   }
 
   private renderSaveButtons = (hasStagedTrack: boolean) => {
