@@ -22,6 +22,7 @@ ShallowWrapper {
     "nodeType": "class",
     "props": Object {
       "classes": Object {
+        "disabled": "EventInput-disabled-5",
         "formControl": "EventInput-formControl-4",
         "input": "EventInput-input-1",
         "label": "EventInput-label-2",
@@ -42,6 +43,7 @@ ShallowWrapper {
       "nodeType": "class",
       "props": Object {
         "classes": Object {
+          "disabled": "EventInput-disabled-5",
           "formControl": "EventInput-formControl-4",
           "input": "EventInput-input-1",
           "label": "EventInput-label-2",
