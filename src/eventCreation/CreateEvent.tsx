@@ -94,7 +94,6 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
     description: '',
     organizer: '',
     venue: '',
-    playlistUrl: '',
     genre: '',
   }
 
@@ -118,7 +117,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
     }
   }
 
-  public onChangeTime = (key: string) => (content: any) => {
+  public onDynamicChange = (key: string) => (content: any) => {
     const eventPart = {}
     eventPart[key] = content
     this.props.eventContentUpdated(eventPart)
@@ -249,7 +248,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
       classes
     } = this.props
 
-    const { venue, playlistUrl } = this.state
+    const { venue } = this.state
     return (
       <React.Fragment>
         <Grid item={true} xs={12} sm={6}>
@@ -277,7 +276,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
           <EventDateTimePicker
             disablePast={true}
             value={event.startDateTime}
-            onChange={this.onChangeTime('startDateTime')}
+            onChange={this.onDynamicChange('startDateTime')}
             label={'Starting At'}
           />
         </Grid>
@@ -286,7 +285,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
           <EventDateTimePicker
             disablePast={true}
             value={event.endDateTime}
-            onChange={this.onChangeTime('endDateTime')}
+            onChange={this.onDynamicChange('endDateTime')}
             label={'Finishing At'}
           />
         </Grid>
@@ -296,8 +295,8 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             playlists={playlists}
             fetchPlaylists={fetchPlaylists}
             user={user}
-            value={playlistUrl}
-            onPlaylistAdded={this.handleContentUpdated('playlistUrl')}
+            value={event && event.playlistUrl}
+            onPlaylistAdded={this.onDynamicChange('playlistUrl')}
             playlistInput={playlistInput}
             selectExistingPlaylist={selectExistingPlaylist}
             closeExistingPlaylist={closeExistingPlaylist}
@@ -327,7 +326,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             disabled={
               !event.startDateTime ||
               !event.endDateTime ||
-              !playlistUrl ||
+              !event.playlistUrl ||
               !venue
             }
             variant="contained"
