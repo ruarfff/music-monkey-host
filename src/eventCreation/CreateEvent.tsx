@@ -94,8 +94,6 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
     description: '',
     organizer: '',
     venue: '',
-    startDateTime: '',
-    endDateTime: '',
     playlistUrl: '',
     genre: '',
   }
@@ -118,6 +116,12 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
     if (currentStep !== 0) {
       this.setState({ currentStep: currentStep - 1 })
     }
+  }
+
+  public onChangeTime = (key: string) => (content: any) => {
+    const eventPart = {}
+    eventPart[key] = content
+    this.props.eventContentUpdated(eventPart)
   }
 
   public setChanges = () => {
@@ -245,8 +249,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
       classes
     } = this.props
 
-    const { venue, startDateTime, endDateTime, playlistUrl } = this.state
-
+    const { venue, playlistUrl } = this.state
     return (
       <React.Fragment>
         <Grid item={true} xs={12} sm={6}>
@@ -273,8 +276,8 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
         <Grid item={true} xs={12} sm={6}>
           <EventDateTimePicker
             disablePast={true}
-            value={startDateTime}
-            onChange={this.handleContentUpdated('startDateTime')}
+            value={event.startDateTime}
+            onChange={this.onChangeTime('startDateTime')}
             label={'Starting At'}
           />
         </Grid>
@@ -282,8 +285,8 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
         <Grid item={true} xs={12} sm={6}>
           <EventDateTimePicker
             disablePast={true}
-            value={endDateTime}
-            onChange={this.handleContentUpdated('endDateTime')}
+            value={event.endDateTime}
+            onChange={this.onChangeTime('endDateTime')}
             label={'Finishing At'}
           />
         </Grid>
@@ -322,8 +325,8 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
           </Button>
           <Button
             disabled={
-              !startDateTime ||
-              !endDateTime ||
+              !event.startDateTime ||
+              !event.endDateTime ||
               !playlistUrl ||
               !venue
             }
