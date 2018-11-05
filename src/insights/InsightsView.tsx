@@ -1,4 +1,5 @@
 import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography/Typography'
 import * as React from 'react'
 import LineChartWidget from '../components/Charts/LineChartWidget'
 import PieChartWidget from '../components/Charts/PieChart'
@@ -6,10 +7,9 @@ import MostPopularTracks from '../components/TraksStatistic/MostPopularTracks'
 import MostVotedTracks from '../components/TraksStatistic/MostVotedTracks'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
-import IUser from '../user/IUser'
-import Typography from '@material-ui/core/Typography/Typography'
-import ITrackVoteStatus from '../vote/ITrackVoteStatus'
 import IPlaylist from '../playlist/IPlaylist'
+import IUser from '../user/IUser'
+import ITrackVoteStatus from '../vote/ITrackVoteStatus'
 
 interface IInsightsViewProps {
   user: IUser

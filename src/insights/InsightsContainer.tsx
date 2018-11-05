@@ -1,12 +1,12 @@
 import { connect } from 'react-redux'
 import { getEvents } from '../event/eventActions'
-import IRootState from '../rootState'
-import { filterByEventPick } from './insightsActions'
 import { sortPlaylistByVotesDescending } from '../eventPlaylist/eventPlaylistActions'
+import { fetchPlaylists } from '../playlist/playlistActions'
+import IRootState from '../rootState'
+import { fetchEventVotes } from '../vote/voteActions'
+import { filterByEventPick } from './insightsActions'
 import './InsightsStyles.scss'
 import InsightsView from './InsightsView'
-import { fetchPlaylists } from '../playlist/playlistActions'
-import { fetchEventVotes } from '../vote/voteActions'
 
 const mapStateToProps = (state: IRootState) => ({
   user: state.user.data,
