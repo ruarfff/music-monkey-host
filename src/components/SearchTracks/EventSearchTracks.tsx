@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles'
 import Search from '@material-ui/icons/Search'
+import { debounce } from 'lodash'
 import * as React from 'react'
 import TrackItem from './TrackItem'
 import IAction from '../../IAction'
@@ -12,6 +13,8 @@ import EventInput from '../EventInput/EventInput'
 import IPlaylist from '../../playlist/IPlaylist'
 import ISearch from '../../playlist/ISearch'
 import './EventSearchTracks.scss'
+
+const WAIT_INTERVAL = 400
 
 interface IEventSearchTracksProps {
   searchResult: ISearch
@@ -74,7 +77,7 @@ class EventSearchTracks extends React.PureComponent<
           <EventInput
             value={this.state.searchQuery}
             label={'search'}
-            onChange={this.handleSearchInputChange}
+            onChange={this.handleSearchChange}
           />
           <Button
             className={classes.btn}
@@ -103,8 +106,23 @@ class EventSearchTracks extends React.PureComponent<
     this.props.searchTrack(this.state.searchQuery)
   }
 
-  private handleSearchInputChange = (value: string) => {
-    this.setState({searchQuery: value})
+  private handleSearchChange = (value: string) => {
+    this.handleChange(value)
+  }
+
+  private handleChange = (searchQuery: string) => {
+    this.setState({ searchQuery })
+
+    this.timer()
+  }
+
+  private timer: any = debounce(() => this.triggerChange(), WAIT_INTERVAL)
+
+  private triggerChange = () => {
+    const { searchQuery } = this.state
+    if (searchQuery !== '') {
+      this.props.searchTrack(searchQuery)
+    }
   }
 }
 
