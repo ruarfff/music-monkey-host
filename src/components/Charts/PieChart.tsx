@@ -3,6 +3,13 @@ import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import * as React from 'react'
 import { Cell, Legend, Pie, PieChart, Tooltip } from 'recharts'
+import * as _ from 'lodash'
+import IRsvp from '../../rsvp/IRsvp'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import Button from '@material-ui/core/Button'
+import IEvent from '../../event/IEvent'
+import IAction from '../../IAction'
 
 const decorate = withStyles(() => ({
   title: {
@@ -12,19 +19,62 @@ const decorate = withStyles(() => ({
 }))
 
 interface IPieChartWidgetProps {
-  data: any
+  events: IEvent[]
+  pickedEvent: string
+  filterByEventPick(id: any): IAction
 }
 
 class PieChartWidget extends React.Component<
   IPieChartWidgetProps & WithStyles
 > {
-  public render() {
-    const COLORS = ['#0088FE', '#00C49F', '#FF8042', '#FFBB28']
 
-    const { data, classes } = this.props
+  public state = {
+    anchorEl: null
+  }
+
+  public handleClick = (event: any) => {
+    this.setState({ anchorEl: event.currentTarget })
+  }
+
+  public handleClose = (id: string) => () => {
+    this.setState({ anchorEl: null })
+    this.props.filterByEventPick(id)
+  }
+
+
+  public render() {
+    const { anchorEl } = this.state
+    const COLORS = ['#0088FE', '#00C49F', '#FF8042', '#FFBB28']
+    const { events, pickedEvent, classes } = this.props
+    const data = this.guestsPieData(pickedEvent)
 
     return (
       <Paper>
+        <div>
+          <Button
+            aria-owns={anchorEl ? 'simple-menu' : undefined}
+            aria-haspopup="true"
+            onClick={this.handleClick}
+          >
+            Sort
+          </Button>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={this.handleClose('all')}
+          >
+            <MenuItem onClick={this.handleClose('all')}>All</MenuItem>
+            {events.map(
+              (event, i) =>
+                event.eventId && (
+                  <MenuItem key={i} onClick={this.handleClose(event.eventId)}>
+                    {event.name}
+                  </MenuItem>
+                )
+            )}
+          </Menu>
+        </div>
         <Typography className={classes.title}>Guest statistic</Typography>
         <PieChart width={500} height={250}>
           <Pie data={data} dataKey={'value'} innerRadius={60} outerRadius={80}>
@@ -37,6 +87,52 @@ class PieChartWidget extends React.Component<
         </PieChart>
       </Paper>
     )
+  }
+
+  private guestsPieData = (eventId: string) => {
+    const { events } = this.props
+    const selectedEvent =
+      eventId !== 'all'
+        ? events.filter(event => event.eventId === eventId)
+        : events
+
+    const allGuests = _.flattenDeep(
+      selectedEvent
+        .filter(event => event.guests && event.guests.length > 0)
+        .map(event => event.guests && event.guests.map(guest => guest.rsvp))
+    )
+
+    const pendingGuest = allGuests.filter(
+      (guest: IRsvp | undefined) => guest && guest.status === 'Pending'
+    )
+    const goingGuest = allGuests.filter(
+      (guest: IRsvp | undefined) => guest && guest.status === 'Going'
+    )
+    const notGoingGuest = allGuests.filter(
+      (guest: IRsvp | undefined) => guest && guest.status === 'Not going'
+    )
+    const maybeGuest = allGuests.filter(
+      (guest: IRsvp | undefined) => guest && guest.status === 'Maybe'
+    )
+
+    return [
+      {
+        value: pendingGuest.length,
+        name: 'Pending'
+      },
+      {
+        value: goingGuest.length,
+        name: 'Going'
+      },
+      {
+        value: notGoingGuest.length,
+        name: 'Not going'
+      },
+      {
+        value: maybeGuest.length,
+        name: 'Maybe'
+      }
+    ]
   }
 }
 

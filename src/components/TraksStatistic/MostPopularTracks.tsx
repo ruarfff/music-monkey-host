@@ -36,7 +36,7 @@ class MostPopularTracks extends React.Component<IMostPopularTracksProps> {
               .reverse()
               .slice(0, 5)
               .map((track: ITrack | undefined, i) => {
-                return !!track ? (
+                return track ? (
                   <div key={i} className={'listItem'}>
                     <div className={'imgSection'}>
                       <img
@@ -53,7 +53,7 @@ class MostPopularTracks extends React.Component<IMostPopularTracksProps> {
                     </div>
                   </div>
                 ) : (
-                  <div />
+                  <div key={i} />
                 )
               })}
         </div>
