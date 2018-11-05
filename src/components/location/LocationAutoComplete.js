@@ -50,7 +50,8 @@ const styles = theme => ({
   },
   formControl: {
     margin: 0
-  }
+  },
+  disabled: {}
 })
 
 function renderInput(inputProps, classes) {

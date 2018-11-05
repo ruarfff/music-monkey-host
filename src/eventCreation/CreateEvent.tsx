@@ -54,6 +54,9 @@ const decorate = withStyles((theme: Theme) => ({
   },
   codeInput: {
     display: 'inline-block'
+  },
+  disabled: {
+
   }
 }))
 

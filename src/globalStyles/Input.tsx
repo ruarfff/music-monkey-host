@@ -40,6 +40,9 @@ export const decorate = withStyles(() => ({
   },
   formControl: {
     margin: 0,
+  },
+  disabled: {
+
   }
 }))
 
