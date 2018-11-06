@@ -50,7 +50,10 @@ export default function eventPlaylist(
       }
     }
     case PLAYLIST_SORTED_BY_VOTES_DESCENDING: {
-      return { ...state, playlist: payload }
+      return {
+        ...state,
+        playlist: payload
+      }
     }
     default:
       return state

@@ -27,9 +27,16 @@ class MostVotedTracks extends React.Component<IMostPopularTracksProps> {
   }
 
   public componentWillReceiveProps(nextProps: IMostPopularTracksProps) {
-    if (nextProps.votes && this.state.pickedEvent.playlist) {
+    const { pickedEvent } = this.state
+    const { votes, events } = this.props
+    if (nextProps.votes !== votes && pickedEvent.playlist) {
       this.props.sortPlaylistByVotesDescending(
-        this.state.pickedEvent.playlist,
+        pickedEvent.playlist,
+        this.props.votes
+      )
+    } else if (nextProps.votes !== votes && !pickedEvent.playlist && events[0].playlist) {
+      this.props.sortPlaylistByVotesDescending(
+        events[0].playlist,
         this.props.votes
       )
     }
@@ -40,7 +47,6 @@ class MostVotedTracks extends React.Component<IMostPopularTracksProps> {
   }
 
   public handleClose = (event?: IEvent) => () => {
-    console.log(this.state)
     this.setState({ anchorEl: null })
     if (event && event.eventId) {
       this.setState({ pickedEvent: event})
@@ -87,7 +93,6 @@ class MostVotedTracks extends React.Component<IMostPopularTracksProps> {
         <div className="listWrapper">
           {playlist &&
           playlist.tracks.items
-            .reverse()
             .slice(0, 5)
             .map((item: IPlaylistItem, i) => {
               return item ? (
