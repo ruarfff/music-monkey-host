@@ -106,11 +106,11 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
   }
 
   public componentWillUpdate() {
-    this.setState({
-      organizer: this.props.event.organizer,
-      startDateTime: this.props.event.startDateTime,
-      endDateTime: this.props.event.endDateTime,
-    })
+    if (this.state.organizer === '') {
+      this.setState({
+        organizer: this.props.event.organizer
+      })
+    }
   }
 
   public prevStep = () => {
@@ -171,7 +171,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
       classes
     } = this.props
 
-    const { name, description, organizer} = this.state
+    const { name, description, organizer } = this.state
     return (
       <React.Fragment>
         <Grid item={true} xs={12} sm={6}>
@@ -206,7 +206,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
           <EventInput
             label={'Organizer'}
             placeholder={'Who is organising this event?'}
-            value={organizer}
+            value={organizer ? organizer : this.props.event.organizer}
             error={!organizer}
             errorLabel={'Required'}
             onChange={this.handleContentUpdated('organizer')}

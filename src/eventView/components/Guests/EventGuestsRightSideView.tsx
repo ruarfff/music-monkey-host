@@ -69,8 +69,8 @@ class EventGuestsRightSideView extends React.PureComponent<
               Guest List
             </Typography>
             <Grid container={true} justify={'space-evenly'}>
-              {event.guests.map(eventGuest =>
-                this.renderEventGuest(eventGuest, classes)
+              {event.guests.map((eventGuest, index) =>
+                this.renderEventGuest(eventGuest, classes, index)
               )}
             </Grid>
           </Grid>
@@ -87,10 +87,10 @@ class EventGuestsRightSideView extends React.PureComponent<
     )
   }
 
-  private renderEventGuest = (eventGuest: IEventGuest, classes: any) => {
+  private renderEventGuest = (eventGuest: IEventGuest, classes: any, index: number) => {
     const { user } = eventGuest
     return (
-      <Grid item={true} key={user.userId}>
+      <Grid item={true} key={index}>
         {user.image && <Avatar alt={user.displayName} src={user.image} />}
         {!user.image && <AccountCircle className={classes.noAvatar} />}
       </Grid>

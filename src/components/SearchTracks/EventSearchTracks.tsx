@@ -106,11 +106,7 @@ class EventSearchTracks extends React.PureComponent<
     this.props.searchTrack(this.state.searchQuery)
   }
 
-  private handleSearchChange = (value: string) => {
-    this.handleChange(value)
-  }
-
-  private handleChange = (searchQuery: string) => {
+  private handleSearchChange = (searchQuery: string) => {
     this.setState({ searchQuery })
 
     this.timer()
