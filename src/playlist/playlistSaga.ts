@@ -2,27 +2,31 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import IAction from '../IAction';
 import {
   ADD_TRACK_REQUEST,
-  addTrackError,
-  addTrackSuccess,
   FETCH_PLAYLISTS,
   FETCH_PLAYLISTS_ERROR,
   FETCH_PLAYLISTS_SUCCESS,
+  REMOVE_TRACK_REQUEST,
+  SEARCH_TRACKS_REQUEST,
+  TRACK_FEATURES_REQUEST,
+  addTrackError,
+  addTrackSuccess,
   getTracksFeaturesFailure,
   getTracksFeaturesSuccess,
-  REMOVE_TRACK_REQUEST,
   removeTrackError,
-  SEARCH_TRACKS_REQUEST,
   searchTrackFailure,
   searchTrackSuccess,
-  TRACK_FEATURES_REQUEST,
   trackRemoved,
 } from './playlistActions'
+import {
+  EVENT_PLAYLIST_FETCHED
+} from '../eventPlaylist/eventPlaylistActions'
 import {
   addTracksToPlaylist,
   fetchUsersPlaylists,
   getTracksFeatures,
   removeTrackFromPlaylist,
   searchForTracks,
+  fetchPlaylist,
 } from './playlistClient'
 
 function* fetchPlaylistsFlow(action: IAction) {
@@ -55,8 +59,11 @@ function* fetchSearchedTracks(action: IAction) {
 
 function* fetchAddTrackToPlaylist(action: IAction) {
   try {
+    console.log(action)
     yield call(addTracksToPlaylist, action.payload.playlistId, [action.payload.trackUri])
+    const playlist = yield call(fetchPlaylist, action.payload.playlistId)
     yield put(addTrackSuccess())
+    yield put({ type: EVENT_PLAYLIST_FETCHED, payload: playlist })
   } catch (e) {
     yield put(addTrackError())
   }

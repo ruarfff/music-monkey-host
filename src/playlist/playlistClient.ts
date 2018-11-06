@@ -37,6 +37,7 @@ export const reOrderPlaylist = async (
 }
 
 export const fetchPlaylist = async (playlistId: string) => {
+  console.log(playlistId)
   const res = await http.get('/playlists/' + playlistId, {
     withCredentials: true
   })
