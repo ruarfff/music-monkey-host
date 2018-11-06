@@ -1,4 +1,5 @@
 import IAction from '../IAction'
+import { REMOVE_TRACK_SUCCESS } from '../playlist/playlistActions'
 import arrayMove from '../util/arrayMove'
 import {
   EVENT_PLAYLIST_FETCHED,
@@ -10,7 +11,6 @@ import {
 } from './eventPlaylistActions'
 import initialState from './eventPlaylistInitialState'
 import IEventPlaylistState from './IEventPlaylistState'
-import { REMOVE_TRACK_SUCCESS } from '../playlist/playlistActions'
 
 export default function eventPlaylist(
   state: IEventPlaylistState = initialState,
