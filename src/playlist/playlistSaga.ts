@@ -59,7 +59,6 @@ function* fetchSearchedTracks(action: IAction) {
 
 function* fetchAddTrackToPlaylist(action: IAction) {
   try {
-    console.log(action)
     yield call(addTracksToPlaylist, action.payload.playlistId, [action.payload.trackUri])
     const playlist = yield call(fetchPlaylist, action.payload.playlistId)
     yield put(addTrackSuccess())
