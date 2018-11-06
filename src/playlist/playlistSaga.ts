@@ -1,32 +1,32 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import IAction from '../IAction';
-import {
-  ADD_TRACK_REQUEST,
-  FETCH_PLAYLISTS,
-  FETCH_PLAYLISTS_ERROR,
-  FETCH_PLAYLISTS_SUCCESS,
-  REMOVE_TRACK_REQUEST,
-  SEARCH_TRACKS_REQUEST,
-  TRACK_FEATURES_REQUEST,
-  addTrackError,
-  addTrackSuccess,
-  getTracksFeaturesFailure,
-  getTracksFeaturesSuccess,
-  removeTrackError,
-  searchTrackFailure,
-  searchTrackSuccess,
-  trackRemoved,
-} from './playlistActions'
 import {
   EVENT_PLAYLIST_FETCHED
 } from '../eventPlaylist/eventPlaylistActions'
+import IAction from '../IAction';
+import {
+  ADD_TRACK_REQUEST,
+  addTrackError,
+  addTrackSuccess,
+  FETCH_PLAYLISTS,
+  FETCH_PLAYLISTS_ERROR,
+  FETCH_PLAYLISTS_SUCCESS,
+  getTracksFeaturesFailure,
+  getTracksFeaturesSuccess,
+  REMOVE_TRACK_REQUEST,
+  removeTrackError,
+  SEARCH_TRACKS_REQUEST,
+  searchTrackFailure,
+  searchTrackSuccess,
+  TRACK_FEATURES_REQUEST,
+  trackRemoved,
+} from './playlistActions'
 import {
   addTracksToPlaylist,
+  fetchPlaylist,
   fetchUsersPlaylists,
   getTracksFeatures,
   removeTrackFromPlaylist,
   searchForTracks,
-  fetchPlaylist,
 } from './playlistClient'
 
 function* fetchPlaylistsFlow(action: IAction) {
