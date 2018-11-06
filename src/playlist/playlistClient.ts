@@ -81,7 +81,7 @@ export const removeTrackFromPlaylist = async (
   position: number
 ) => {
   const res = await http.delete('/playlists/' + playlistId + '/tracks', {
-    params: { tracks: [{ uri }, position] },
+    data: { tracks: [{ uri }, position] },
     withCredentials: true,
     cache: false
   } as any)

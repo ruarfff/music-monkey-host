@@ -10,6 +10,7 @@ import {
 } from './eventPlaylistActions'
 import initialState from './eventPlaylistInitialState'
 import IEventPlaylistState from './IEventPlaylistState'
+import { REMOVE_TRACK_SUCCESS } from '../playlist/playlistActions'
 
 export default function eventPlaylist(
   state: IEventPlaylistState = initialState,
@@ -27,6 +28,11 @@ export default function eventPlaylist(
         saveEventPlaylistError: payload
       }
     case EVENT_PLAYLIST_FETCHED:
+      return {
+        ...state,
+        playlist: payload
+      }
+    case REMOVE_TRACK_SUCCESS:
       return {
         ...state,
         playlist: payload

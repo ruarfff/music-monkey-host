@@ -71,8 +71,9 @@ export const tryRemoveTrack = (playlistId: string, trackUri: string, trackPositi
   }
 })
 
-export const trackRemoved = (): IAction => ({
-  type: REMOVE_TRACK_SUCCESS
+export const trackRemoved = (playlist: IPlaylist): IAction => ({
+  type: REMOVE_TRACK_SUCCESS,
+  payload: playlist
 })
 
 export const removeTrackError = (): IAction => ({
