@@ -39,7 +39,7 @@ const Home = ({
       )}
 
       {userLoading && <LoadingSpinner />}
-      {userError && <LoginError />}
+      {userError.message && <LoginError />}
     </div>
   </div>
 )

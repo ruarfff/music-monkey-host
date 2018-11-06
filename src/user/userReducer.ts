@@ -14,7 +14,12 @@ export default function user(state = emptyUser, { type, payload }: Action) {
     case FETCH_USER:
       return { ...state, isLoading: true }
     case FETCH_USER_SUCCESS:
-      return { ...state, data: payload, isLoading: false }
+      return {
+        ...state,
+        data: payload,
+        isLoading: false,
+        error: new Error()
+      }
     case FETCH_USER_ERROR:
       return { ...state, error: payload }
     case UPDATE_USER_REQUEST:
