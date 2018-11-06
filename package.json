@@ -61,7 +61,7 @@
     "@types/autosuggest-highlight": "^3.1.0",
     "@types/classnames": "^2.2.3",
     "@types/dropzone": "^5.0.2",
-    "@types/enzyme": "^3.1.14",
+    "@types/enzyme": "^3.1.15",
     "@types/enzyme-adapter-react-16": "^1.0.2",
     "@types/google-map-react": "^0.23.8",
     "@types/history": "^4.7.2",
