@@ -1,12 +1,14 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import IAction from '../IAction'
 import {
+  actionedNotification,
   getNotificationsFailure,
   getNotificationsSuccess,
   NOTIFICATION_FETCH_REQUEST,
   NOTIFICATION_UPDATE_REQUEST,
+  readNotification,
   updateNotificationFailure,
-  updateNotificationSuccess,
+  updateNotificationSuccess
 } from './notificationActions'
 import {
   getNotifications,
@@ -24,9 +26,14 @@ function* fetchNotificationsByUserId({ payload }: IAction) {
 
 function* fetchUpdateNotification({ payload }: IAction) {
   try {
-    console.log(payload)
+    console.log(payload, 'fetch notification')
     yield call(updateNotification, payload)
     yield put(updateNotificationSuccess())
+    if (payload.status === 'Read') {
+      yield put(readNotification(payload.notificationId))
+    } else {
+      yield put(actionedNotification(payload.notificationId))
+    }
   } catch (e) {
     yield put(updateNotificationFailure(e.message))
   }

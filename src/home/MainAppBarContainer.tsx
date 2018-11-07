@@ -3,9 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import { logout } from '../auth/authActions'
 import {
-  actionedNotification,
   getNotifications,
-  readNotification,
   updateNotification,
 } from '../notification/notificationActions'
 import IRootState from '../rootState'
@@ -26,8 +24,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     {
       logout,
       getNotifications,
-      readNotification,
-      actionedNotification,
       updateNotification
     },
     dispatch

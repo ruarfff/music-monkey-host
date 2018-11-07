@@ -83,8 +83,6 @@ interface IMainAppBarProps {
   logout(): IAction
   getNotifications(id: string): IAction
   handleTitleClicked(): void
-  actionedNotification(id: string): IAction
-  readNotification(id: string): IAction
   updateNotification(notification: INotification): IAction
 }
 
@@ -104,8 +102,8 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
 
   public componentWillUpdate() {
     const { user, getNotifications, notification } = this.props
-    if (user && !notification.loading) {
-      onRsvpSaved(user.userId, () => (getNotifications(user.userId)))
+    if (user.userId && !notification.loading) {
+      onRsvpSaved(user.userId, getNotifications(user.userId))
     }
   }
 
@@ -148,8 +146,6 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
       location,
       handleTitleClicked,
       notification,
-      readNotification,
-      actionedNotification,
       updateNotification
     } = this.props
     const { anchorEl } = this.state
@@ -192,8 +188,6 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
         {this.state.showNotification && (
           <NotificationPopup
             notifications={notification.notifications}
-            actionedNotification={actionedNotification}
-            readNotification={readNotification}
             updateNotification={updateNotification}
           />
         )}
