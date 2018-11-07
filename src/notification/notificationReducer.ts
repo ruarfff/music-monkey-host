@@ -34,8 +34,8 @@ export default function notification(
         notifications: payload.data
       }
     case READ_NOTIFICATION:
-      let modifiedNotifications = state.notifications.map((n, index) => {
-        if (index === payload) {
+      let modifiedNotifications = state.notifications.map((n) => {
+        if (n.notificationId === payload && n.status !== 'Actioned') {
           return {
             ...n,
             status: 'Read'
@@ -49,7 +49,11 @@ export default function notification(
       }
     case ACTIONED_NOTIFICATION:
       modifiedNotifications = _.cloneDeep(state.notifications)
-      modifiedNotifications.splice(payload, 1)
+      const itemToRemove = modifiedNotifications
+        .findIndex(n => n.notificationId === payload)
+
+      modifiedNotifications.splice(itemToRemove,1)
+
       return {
         ...state,
         notifications: modifiedNotifications

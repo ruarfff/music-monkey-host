@@ -16,7 +16,7 @@ import eventIcon from '../assets/event-icon.svg'
 import NotificationPopup from '../components/NotificationPopup/NotificationPopup'
 import IEvent from '../event/IEvent'
 import IAction from '../IAction'
-// import { onRsvpSaved } from '../notification'
+import { onRsvpSaved } from '../notification'
 import {
   INotification,
   INotificationState
@@ -83,8 +83,8 @@ interface IMainAppBarProps {
   logout(): IAction
   getNotifications(id: string): IAction
   handleTitleClicked(): void
-  actionedNotification(index: number): IAction
-  readNotification(index: number): IAction
+  actionedNotification(id: string): IAction
+  readNotification(id: string): IAction
   updateNotification(notification: INotification): IAction
 }
 
@@ -102,12 +102,12 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
     this.setState({ anchorEl: undefined })
   }
 
-  // public componentWillUpdate() {
-  //   const { user, getNotifications, notification } = this.props
-  //   if (user && !notification.loading) {
-  //     onRsvpSaved(user.userId, getNotifications(user.userId))
-  //   }
-  // }
+  public componentWillUpdate() {
+    const { user, getNotifications, notification } = this.props
+    if (user && !notification.loading) {
+      onRsvpSaved(user.userId, () => (getNotifications(user.userId)))
+    }
+  }
 
   public menuName = (history: string) => {
     const { event } = this.props
@@ -135,10 +135,10 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
   }
 
   public toggleNotification = () => {
-    this.setState({ showNotification: !this.state.showNotification })
-    if (!this.props.notification.loading) {
+    if (!this.props.notification.loading && !this.state.showNotification) {
       this.props.getNotifications(this.props.user.userId)
     }
+    this.setState({ showNotification: !this.state.showNotification })
   }
 
   public render() {
@@ -175,12 +175,16 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
             </Button>
           </Link>
         )}
-        <IconButton color="inherit">
+        <IconButton
+          aria-owns={open ? 'menu-appbar' : undefined}
+          aria-haspopup="true"
+          color="inherit"
+          onClick={this.toggleNotification}
+        >
           <Badge
             className={classes.notification}
             badgeContent={unreadNotifications ? unreadNotifications.length : 0}
             color="secondary"
-            onClick={this.toggleNotification}
           >
             <NotificationsIcon />
           </Badge>

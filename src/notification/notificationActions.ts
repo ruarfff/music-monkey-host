@@ -53,16 +53,16 @@ export const getNotificationsFailure = (error: string): IAction => {
   }
 }
 
-export const readNotification = (noteIndex: number): IAction => {
+export const readNotification = (notificationId: string): IAction => {
   return {
     type: READ_NOTIFICATION,
-    payload: noteIndex
+    payload: notificationId
   }
 }
 
-export const actionedNotification = (noteIndex: number): IAction => {
+export const actionedNotification = (notificationId: string): IAction => {
   return {
     type: ACTIONED_NOTIFICATION,
-    payload: noteIndex
+    payload: notificationId
   }
 }

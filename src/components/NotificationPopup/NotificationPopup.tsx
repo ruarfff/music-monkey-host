@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom'
 
 interface INotificationPopupProps {
   notifications: INotification[]
-  actionedNotification(index: number): IAction
-  readNotification(index: number): IAction
+  actionedNotification(id: string): IAction
+  readNotification(id: string): IAction
   updateNotification(notification: INotification): IAction
 }
 
@@ -15,28 +15,28 @@ class NotificationPopup extends React.Component<INotificationPopupProps> {
   public render() {
     const { notifications } = this.props
     const filteredNotifications = notifications.filter(n => n.status !== 'Actioned')
+    console.log(filteredNotifications)
     return (
       <div className='notificationWrapper'>
         {
           filteredNotifications.length > 0 ? filteredNotifications.map((notification: INotification, index: number) => (
-            <div
-              key={index}
-              className={notification.status === 'Read' ?
-                'notificationItemWrapper notificationItemWrapperHighlighted' :
-                'notificationItemWrapper'
-              }
-              onClick={this.handleClickNotification(index, notification)}
-              onMouseEnter={this.handleHoverNotification(index, notification.status, notification)}
-            >
-              <Link to={'events/' + notification.contextId}>
+            <Link key={index} to={`/events/${notification.contextId}`}>
+              <div
+                className={notification.status === 'Read' ?
+                  'notificationItemWrapper notificationItemWrapperHighlighted' :
+                  'notificationItemWrapper'
+                }
+                onClick={this.handleClickNotification(notification)}
+                onMouseEnter={this.handleHoverNotification(notification.status, notification)}
+              >
                 <span className='notificationItemText'>
                   {notification.content}
                 </span>
                 <span className='notificationItemLink'>
                   {notification.context}
                 </span>
-              </Link>
-            </div>
+              </div>
+            </Link>
           )) :
           <div
             className='notificationItemWrapper'
@@ -50,9 +50,9 @@ class NotificationPopup extends React.Component<INotificationPopupProps> {
     )
   }
 
-  private handleHoverNotification = (index: number, status: string, notification: INotification) => () => {
+  private handleHoverNotification = (status: string, notification: INotification) => () => {
     if (status !== 'Read') {
-      this.props.readNotification(index)
+      this.props.readNotification(notification.notificationId)
       this.props.updateNotification({
         ...notification,
         status: 'Read'
@@ -60,8 +60,8 @@ class NotificationPopup extends React.Component<INotificationPopupProps> {
     }
   }
 
-  private handleClickNotification = (index: number, notification: INotification) => () => {
-    this.props.actionedNotification(index)
+  private handleClickNotification = (notification: INotification) => () => {
+    this.props.actionedNotification(notification.notificationId)
     this.props.updateNotification({
       ...notification,
       status: 'Actioned'
