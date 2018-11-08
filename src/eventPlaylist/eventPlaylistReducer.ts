@@ -1,3 +1,4 @@
+import * as _ from 'lodash'
 import IAction from '../IAction'
 import { REMOVE_TRACK_SUCCESS } from '../playlist/playlistActions'
 import arrayMove from '../util/arrayMove'
@@ -28,9 +29,10 @@ export default function eventPlaylist(
         saveEventPlaylistError: payload
       }
     case EVENT_PLAYLIST_FETCHED:
+      const newPlaylist = _.cloneDeep(payload)
       return {
         ...state,
-        playlist: payload
+        playlist: newPlaylist
       }
     case REMOVE_TRACK_SUCCESS:
       return {

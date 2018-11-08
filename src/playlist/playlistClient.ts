@@ -37,7 +37,6 @@ export const reOrderPlaylist = async (
 }
 
 export const fetchPlaylist = async (playlistId: string) => {
-  console.log(playlistId)
   const res = await http.get('/playlists/' + playlistId, {
     withCredentials: true
   })
@@ -56,8 +55,6 @@ export const createPlaylist = async (name: string, description = '') => {
     withCredentials: true,
     cache: false
   } as any)
-  console.log(res)
-  console.log(JSON.stringify(res))
   return res.data.body
 }
 

@@ -1,4 +1,5 @@
 import IAction from '../IAction'
+import ITrack from '../track/ITrack'
 import IUser from '../user/IUser'
 import IPlaylist from './IPlaylist'
 
@@ -46,11 +47,11 @@ export const getTracksFeaturesFailure = (error: string): IAction => {
   }
 }
 
-export const addTrack = (playlistId: string, trackUri: string): IAction => ({
+export const addTrack = (playlistId: string, track: ITrack): IAction => ({
   type: ADD_TRACK_REQUEST,
   payload: {
     playlistId,
-    trackUri,
+    track,
   }
 })
 

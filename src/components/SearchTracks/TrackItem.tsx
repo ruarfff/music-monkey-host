@@ -13,7 +13,7 @@ import IAction from '../../IAction'
 interface ITrackItemProps {
   track: ITrack
   playlistId: string
-  addTrack(playlistId: string, uri: string): IAction
+  addTrack(playlistId: string, track: ITrack): IAction
   showNotification(): void
 }
 
@@ -122,7 +122,7 @@ class TrackItem extends React.PureComponent<
   }
 
   private handleAddTrack = (track: ITrack) => () => {
-    this.props.addTrack(this.props.playlistId, track.uri)
+    this.props.addTrack(this.props.playlistId, track)
     this.props.showNotification()
   }
 }

@@ -12,6 +12,7 @@ import IAction from '../../IAction'
 import EventInput from '../EventInput/EventInput'
 import IPlaylist from '../../playlist/IPlaylist'
 import ISearch from '../../playlist/ISearch'
+import ITrack from '../../track/ITrack'
 import './EventSearchTracks.scss'
 
 const WAIT_INTERVAL = 400
@@ -21,7 +22,7 @@ interface IEventSearchTracksProps {
   playlist: IPlaylist
   notification: string
   searchTrack(text: string): IAction
-  addTrack(playlistId: string, uri: string): IAction
+  addTrack(playlistId: string, track: ITrack): IAction
 }
 
 const decorate = withStyles(() => ({

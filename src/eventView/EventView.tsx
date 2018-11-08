@@ -85,7 +85,7 @@ class EventView extends React.Component<
     subscribeToSuggestionsAccepted(eventId, this.handleSuggestionNotification)
     this.props.fetchEventVotes(eventId)
     subscribeToVotesModified(eventId, this.handleEventVotesModified)
-    onGuestUpdate(eventId, () => console.log('test'))
+    onGuestUpdate(eventId, () => this.handleUpdateGuests)
   }
 
   public render() {
@@ -169,12 +169,12 @@ class EventView extends React.Component<
     this.setState({ tabIndex: index })
   }
 
-  // private handleUpdateGuests = () => {
-  //   const eventId = this.props.match.params.eventId
-  //   if (eventId) {
-  //     this.props.getEventById(eventId)
-  //   }
-  // }
+  private handleUpdateGuests = () => {
+    const eventId = this.props.match.params.eventId
+    if (eventId) {
+      this.props.getEventById(eventId)
+    }
+  }
 
   private handleSuggestionNotification = () => {
     const eventId = this.props.match.params.eventId

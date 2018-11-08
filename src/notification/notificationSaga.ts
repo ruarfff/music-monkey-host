@@ -26,7 +26,6 @@ function* fetchNotificationsByUserId({ payload }: IAction) {
 
 function* fetchUpdateNotification({ payload }: IAction) {
   try {
-    console.log(payload, 'fetch notification')
     yield call(updateNotification, payload)
     yield put(updateNotificationSuccess())
     if (payload.status === 'Read') {
