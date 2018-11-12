@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles'
 import Search from '@material-ui/icons/Search'
-import { debounce } from 'lodash'
+import { debounce, isEmpty } from 'lodash'
 import * as React from 'react'
 import TrackItem from './TrackItem'
 import IAction from '../../IAction'
@@ -49,6 +49,15 @@ class EventSearchTracks extends React.PureComponent<
 
   public render() {
     const { searchResult, classes, addTrack, playlist, notification } = this.props
+    const playlistTracks = playlist.tracks.items.map((track) => track.track.uri)
+
+    let filteredSearch
+
+    if(!isEmpty(searchResult)) {
+      filteredSearch = searchResult.items.filter((searchedTrack) => playlistTracks.indexOf(searchedTrack.uri) === -1)
+      console.log(filteredSearch)
+    }
+
     return (
       <div>
         <Snackbar
@@ -90,7 +99,7 @@ class EventSearchTracks extends React.PureComponent<
 
         <div className="SearchResults">
           <List>
-            {searchResult.items && searchResult.items.map((track, index) => (
+            {filteredSearch && filteredSearch.map((track, index) => (
               <TrackItem
                 showNotification={this.handleShowNotification}
                 playlistId={playlist.id} addTrack={addTrack}
