@@ -21,14 +21,13 @@ export default function eventPlaylist(
   { type, payload }: IAction
 ) {
   switch (type) {
-    case ADD_TRACK_SUCCESS: {
-      const newPlaylist = _.cloneDeep(state.playlist)
+    case ADD_TRACK_SUCCESS:
+      let newPlaylist = _.cloneDeep(state.playlist)
       newPlaylist.tracks.items.push({
         added_at: '',
         track: payload
       })
       return { ...state, playlist: newPlaylist}
-    }
     case SAVE_EVENT_PLAYLIST:
       return { ...state, savingEventPlaylist: true }
     case SAVE_EVENT_PLAYLIST_SUCCESS:
@@ -40,7 +39,7 @@ export default function eventPlaylist(
         saveEventPlaylistError: payload
       }
     case EVENT_PLAYLIST_FETCHED:
-      const newPlaylist = _.cloneDeep(payload)
+      newPlaylist = _.cloneDeep(payload)
       return {
         ...state,
         playlist: newPlaylist
