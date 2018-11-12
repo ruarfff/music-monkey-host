@@ -63,11 +63,23 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
   public state = {
     isEdit: false,
     showAvatarEditor: false,
-    email: this.props.user.email,
-    phone: this.props.user.phone,
-    facebookId: this.props.user.facebookId,
-    twitterId: this.props.user.twitterId,
-    instagramId: this.props.user.instagramId,
+    email: '',
+    phone: '',
+    facebookId: '',
+    twitterId: '',
+    instagramId: '',
+  }
+
+  public componentWillReceiveProps(newProps: IAccountDetailsProps) {
+    if (_.isEqual(newProps.user, this.props.user)) {
+      this.setState({
+        email: this.props.user.email,
+        phone: this.props.user.phone,
+        facebookId: this.props.user.facebookId,
+        twitterId: this.props.user.twitterId,
+        instagramId: this.props.user.instagramId,
+      })
+    }
   }
 
   public toggleEditAvatarModal = () => {
@@ -179,7 +191,7 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
             <Grid className={classes.input}>
               {!isEdit ? this.state.instagramId :
                 <EventInput
-                  value={this.state.instagramId}
+                  value={user.instagramId}
                   onChange={this.handleEdit('instagramId')}
                 />
               }
@@ -198,7 +210,7 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
             <Grid className={classes.input}>
               {!isEdit ? this.state.facebookId :
                 <EventInput
-                  value={this.state.facebookId}
+                  value={user.facebookId}
                   onChange={this.handleEdit('facebookId')}
                 />
               }
@@ -217,7 +229,7 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
             <Grid className={classes.input}>
               {!isEdit ? this.state.twitterId :
                 <EventInput
-                  value={this.state.twitterId}
+                  value={user.twitterId}
                   onChange={this.handleEdit('twitterId')}
                 />
               }
