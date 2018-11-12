@@ -39,10 +39,9 @@ export default function eventPlaylist(
         saveEventPlaylistError: payload
       }
     case EVENT_PLAYLIST_FETCHED:
-      newPlaylist = _.cloneDeep(payload)
       return {
         ...state,
-        playlist: newPlaylist
+        playlist: payload
       }
     case REMOVE_TRACK_SUCCESS:
       return {
