@@ -1,6 +1,9 @@
 import * as _ from 'lodash'
 import IAction from '../IAction'
-import { REMOVE_TRACK_SUCCESS } from '../playlist/playlistActions'
+import {
+  ADD_TRACK_SUCCESS,
+  REMOVE_TRACK_SUCCESS
+} from '../playlist/playlistActions'
 import arrayMove from '../util/arrayMove'
 import {
   EVENT_PLAYLIST_FETCHED,
@@ -18,6 +21,14 @@ export default function eventPlaylist(
   { type, payload }: IAction
 ) {
   switch (type) {
+    case ADD_TRACK_SUCCESS: {
+      const newPlaylist = _.cloneDeep(state.playlist)
+      newPlaylist.tracks.items.push({
+        added_at: '',
+        track: payload
+      })
+      return { ...state, playlist: newPlaylist}
+    }
     case SAVE_EVENT_PLAYLIST:
       return { ...state, savingEventPlaylist: true }
     case SAVE_EVENT_PLAYLIST_SUCCESS:

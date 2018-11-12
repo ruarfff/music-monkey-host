@@ -1,8 +1,4 @@
-import * as _ from 'lodash'
 import { call, put, takeEvery } from 'redux-saga/effects'
-import {
-  EVENT_PLAYLIST_FETCHED
-} from '../eventPlaylist/eventPlaylistActions'
 import IAction from '../IAction';
 import {
   ADD_TRACK_REQUEST,
@@ -61,11 +57,8 @@ function* fetchSearchedTracks(action: IAction) {
 function* fetchAddTrackToPlaylist(action: IAction) {
   try {
     yield call(addTracksToPlaylist, action.payload.playlistId, [action.payload.track.uri])
-    const playlist = yield call(fetchPlaylist, action.payload.playlistId)
-    yield put(addTrackSuccess())
-    playlist.tracks.items.push({track: action.payload.track})
-    
-    yield put({ type: EVENT_PLAYLIST_FETCHED, payload: playlist })
+    yield call(fetchPlaylist, action.payload.playlistId)
+    yield put(addTrackSuccess(action.payload.track))
   } catch (e) {
     yield put(addTrackError())
   }

@@ -55,8 +55,9 @@ export const addTrack = (playlistId: string, track: ITrack): IAction => ({
   }
 })
 
-export const addTrackSuccess = (): IAction => ({
+export const addTrackSuccess = (track: ITrack): IAction => ({
   type: ADD_TRACK_SUCCESS,
+  payload: track,
 })
 
 export const addTrackError = (): IAction => ({
