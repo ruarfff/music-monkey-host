@@ -22,7 +22,7 @@ export default function eventPlaylist(
 ) {
   switch (type) {
     case ADD_TRACK_SUCCESS:
-      let newPlaylist = _.cloneDeep(state.playlist)
+      const newPlaylist = _.cloneDeep(state.playlist)
       newPlaylist.tracks.items.push({
         added_at: '',
         track: payload
