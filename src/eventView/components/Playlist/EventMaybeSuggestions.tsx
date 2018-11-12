@@ -62,7 +62,7 @@ class EventMaybeSuggestions extends React.PureComponent<
     if (!filteredSuggestions || filteredSuggestions.length < 1) {
       return (
         <Typography align="center" variant="subtitle1">
-          Currently no Rejected Suggestions
+          Currently no Maybe Suggestions
         </Typography>
       )
     }
