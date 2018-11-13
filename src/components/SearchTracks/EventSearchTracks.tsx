@@ -54,8 +54,8 @@ class EventSearchTracks extends React.PureComponent<
     let filteredSearch
 
     if(!isEmpty(searchResult)) {
-      filteredSearch = searchResult.items.filter((searchedTrack) => playlistTracks.indexOf(searchedTrack.uri) === -1)
-      console.log(filteredSearch)
+      filteredSearch = searchResult.items
+        .filter((searchedTrack) => playlistTracks.indexOf(searchedTrack.uri) === -1)
     }
 
     return (
