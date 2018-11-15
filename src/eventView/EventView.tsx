@@ -78,7 +78,7 @@ class EventView extends React.Component<
     tabIndex: 0
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     const eventId = this.props.match.params.eventId
 
     this.props.getEventById(eventId)
