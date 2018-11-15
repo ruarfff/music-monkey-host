@@ -106,10 +106,10 @@ class PieChartWidget extends React.Component<
       (guest: IRsvp | undefined) => guest && guest.status === 'Pending'
     )
     const goingGuest = allGuests.filter(
-      (guest: IRsvp | undefined) => guest && guest.status === 'Going'
+      (guest: IRsvp | undefined) => guest && guest.status === 'I\'m Going'
     )
     const notGoingGuest = allGuests.filter(
-      (guest: IRsvp | undefined) => guest && guest.status === 'Not going'
+      (guest: IRsvp | undefined) => guest && guest.status === 'I\'m not going'
     )
     const maybeGuest = allGuests.filter(
       (guest: IRsvp | undefined) => guest && guest.status === 'Maybe'
