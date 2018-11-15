@@ -78,12 +78,26 @@ class EventView extends React.Component<
     tabIndex: 0
   }
 
-  public componentDidMount() {
+  componentDidMount() {
     const eventId = this.props.match.params.eventId
+
     this.props.getEventById(eventId)
-    this.props.getEventSuggestions(eventId)
-    subscribeToSuggestionsAccepted(eventId, this.handleSuggestionNotification)
     this.props.fetchEventVotes(eventId)
+    this.props.getEventSuggestions(eventId)
+  }
+
+  public componentWillReceiveProps(newProps: IEventViewProps) {
+    const eventId = newProps.match.params.eventId
+    if (isEmpty(newProps.event) && !newProps.loading) {
+      this.props.getEventById(eventId)
+      this.props.fetchEventVotes(eventId)
+      this.props.getEventSuggestions(eventId)
+    }
+  }
+
+  public componentWillUpdate() {
+    const eventId = this.props.match.params.eventId
+    subscribeToSuggestionsAccepted(eventId, this.handleSuggestionNotification)
     subscribeToVotesModified(eventId, this.handleEventVotesModified)
     onGuestUpdate(eventId, () => this.handleUpdateGuests)
   }
@@ -96,6 +110,8 @@ class EventView extends React.Component<
       copiedToClipboard,
       acknowledgeEventInviteCopied
     } = this.props
+
+    console.log(isEmpty(event), event)
     const shouldShowEvent: boolean = !loading && !isEmpty(event)
 
     return (
