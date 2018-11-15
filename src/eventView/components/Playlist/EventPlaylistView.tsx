@@ -13,7 +13,6 @@ import EventPlaylist from '../../../eventPlaylist/EventPlaylistContainer'
 import EventPlaylistSummary from '../../../eventPlaylist/EventPlaylistSummaryContainer'
 import IDecoratedSuggestion from '../../../suggestion/IDecoratedSuggestion'
 // import EventCohostPlaylist from './EventCohostPlaylistContainer'
-import EventMaybeSuggestions from './EventMaybeSuggestionsContainer'
 import EventRejectedSuggestions from './EventRejectedSuggestionsContainer'
 import EventSuggestions from './EventSuggestionsContainer'
 import './Styles/EventPlaylistView.scss'
@@ -77,8 +76,6 @@ class EventPlaylistView extends React.Component<
                 </Badge> : 'Suggested'
               }/>
               <Tab label="Rejected" />
-              <Tab label="Maybe"/>
-              {/*<Tab label="My tracks" />*/}
               <Tab label="Add track" />
               {/*{cohost && <Tab label="Cohost tracks" />}*/}
             </Tabs>
@@ -99,16 +96,6 @@ class EventPlaylistView extends React.Component<
             </TabContainer>
           )}
           {tabIndex === 3 && (
-            <TabContainer dir={'x'}>
-              <EventMaybeSuggestions />
-            </TabContainer>
-          )}
-          {/*{tabIndex === 4 && (*/}
-            {/*<TabContainer dir={'x'}>*/}
-              {/*<EventRejectedSuggestions />*/}
-            {/*</TabContainer>*/}
-          {/*)}*/}
-          {tabIndex === 4 && (
             <TabContainer dir={'x'}>
               <EventSearchTracksContainer />
             </TabContainer>
