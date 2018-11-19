@@ -1,11 +1,15 @@
 import Action from '../IAction'
 import IPlaylist from './IPlaylist'
 import {
+  ADD_TRACK_FAILURE,
+  ADD_TRACK_SUCCESS,
   FETCH_PLAYLISTS,
   FETCH_PLAYLISTS_ERROR,
   FETCH_PLAYLISTS_SUCCESS,
   PLAYLIST_DESELECTED,
-  PLAYLIST_SELECTED
+  PLAYLIST_SELECTED,
+  REMOVE_TRACK_FAILURE,
+  REMOVE_TRACK_SUCCESS,
 } from './playlistActions'
 import initialState from './playlistInitialState'
 import playlist from './playlistReducer'
@@ -18,6 +22,35 @@ it('should handle FETCH_PLAYLIST', () => {
   expect(playlist(initialState, { type: FETCH_PLAYLISTS })).toEqual({
     ...initialState,
     isLoading: true
+  })
+})
+
+it('should handle ADD_TRACK_FAILURE', () => {
+  expect(playlist(initialState, {type: ADD_TRACK_FAILURE})).toEqual({
+    ...initialState,
+    notification: 'Error. Retry add track later',
+  })
+})
+
+it('should handle ADD_TRACK_SUCCESS', () => {
+  expect(playlist(initialState, {type: ADD_TRACK_SUCCESS})).toEqual({
+    ...initialState,
+    notification: 'Track successfully added',
+  })
+})
+
+
+it('should handle REMOVE_TRACK_FAILURE', () => {
+  expect(playlist(initialState, {type: REMOVE_TRACK_FAILURE})).toEqual({
+    ...initialState,
+    notification: 'Error. Retry remove track later',
+  })
+})
+
+it('should handle REMOVE_TRACK_SUCCESS', () => {
+  expect(playlist(initialState, {type: REMOVE_TRACK_SUCCESS})).toEqual({
+    ...initialState,
+    notification: 'Track successfully removed'
   })
 })
 

@@ -3,7 +3,8 @@ import {
   LOGGED_OUT,
   LOGGING_IN,
   LOGIN_FAILURE,
-  LOGIN_SUCCESS
+  LOGIN_SUCCESS,
+  CLEAR_AUTH_ERROR
 } from './authActions'
 import initialState from './authInitialState'
 import auth from './authReducer'
@@ -56,6 +57,20 @@ describe('authReducer', () => {
     ).toEqual({
       ...initialState,
       isAuthenticated: false
+    })
+  })
+
+  it('should handle CLEAR_AUTH_ERROR', () => {
+    expect(
+      auth(
+        {...initialState, authError: 'test'},
+        {
+          type: CLEAR_AUTH_ERROR
+        }
+      )
+    ).toEqual({
+      ...initialState,
+      authError: undefined
     })
   })
 })
