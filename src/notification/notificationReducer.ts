@@ -7,7 +7,8 @@ import {
   NOTIFICATION_FETCH_SUCCESS,
   READ_NOTIFICATION
 } from './notificationActions'
-import initialState, {INotificationState} from './notificationInitialState'
+import initialState, { INotification, INotificationState } from './notificationInitialState'
+import moment from 'moment'
 
 export default function notification(
   state: INotificationState = initialState,
@@ -28,10 +29,15 @@ export default function notification(
       }
 
     case NOTIFICATION_FETCH_SUCCESS:
+      const decoratedNotifications = payload.data.map((n:INotification) => ({
+        ...n,
+        updatedAt: moment(n.updatedAt),
+        createdAt: moment(n.createdAt),
+      }))
       return {
         ...state,
         loading: false,
-        notifications: payload.data
+        notifications: decoratedNotifications
       }
     case READ_NOTIFICATION:
       let modifiedNotifications = state.notifications.map((n) => {

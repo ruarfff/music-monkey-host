@@ -1,3 +1,5 @@
+import { Moment } from 'moment'
+
 export interface INotification {
   userId: string,
   type: string,
@@ -7,6 +9,8 @@ export interface INotification {
   content: string
   status: string
   notificationId: string
+  updatedAt: any
+  createdAt: Moment
 }
 
 

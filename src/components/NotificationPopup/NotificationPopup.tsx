@@ -7,7 +7,8 @@ import './NotificationPopupStyles.scss'
 import { Link } from 'react-router-dom'
 
 interface INotificationPopupProps {
-  showNotification: boolean
+  notificationAnchor: any
+  showNotification: any
   notifications: INotification[]
   updateNotification(notification: INotification): IAction
   toggleNotification(): void
@@ -19,7 +20,9 @@ class NotificationPopup extends React.Component<INotificationPopupProps> {
     const filteredNotifications = notifications.filter(n => n.status !== 'Actioned')
     return (
       <Menu
-        aria-owns={open ? 'menu-notification' : undefined}
+        id='menu-notification'
+        anchorEl={this.props.notificationAnchor}
+        aria-owns={showNotification ? 'menu-notification' : undefined}
         aria-haspopup="true"
         open={showNotification}
         className='notificationWrapper'
@@ -43,15 +46,19 @@ class NotificationPopup extends React.Component<INotificationPopupProps> {
               }
             >
               <Link
+                to={`/events/${notification.contextId}`}
                 onClick={this.handleClickNotification(notification)}
                 onMouseEnter={this.handleHoverNotification(notification.status, notification)}
-                to={`/events/${notification.contextId}`}
               >
                 <span className='notificationItemText'>
-                  {notification.content}
+                  {notification.content + ' '}
                 </span>
                 <span className='notificationItemLink'>
-                  {notification.context}
+                  {notification.context + ' '}
+                </span>
+                <span>
+                  {(notification && notification.createdAt) &&
+                  notification.createdAt.format('ddd, MM, D')}
                 </span>
               </Link>
             </MenuItem>

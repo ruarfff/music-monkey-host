@@ -88,6 +88,7 @@ interface IMainAppBarProps {
 
 class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
   public state = {
+    notificationAnchor: undefined,
     anchorEl: undefined,
     showNotification: false
   }
@@ -132,8 +133,11 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
     }
   }
 
-  public toggleNotification = () => {
-    this.setState({ showNotification: !this.state.showNotification })
+  public toggleNotification = (event?: any) => {
+    this.setState({
+      showNotification: !this.state.showNotification,
+      notificationAnchor: event.currentTarget
+    })
   }
 
   public render() {
@@ -169,7 +173,7 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
           </Link>
         )}
         <IconButton
-          aria-owns={open ? 'menu-notification' : undefined}
+          aria-owns={this.state.showNotification ? 'menu-notification' : undefined}
           aria-haspopup="true"
           color="inherit"
           onClick={this.toggleNotification}
@@ -181,13 +185,15 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
           >
             <NotificationsIcon />
           </Badge>
+          <NotificationPopup
+            notificationAnchor={this.state.notificationAnchor}
+            toggleNotification={this.toggleNotification}
+            showNotification={this.state.showNotification}
+            notifications={notification.notifications}
+            updateNotification={updateNotification}
+          />
         </IconButton>
-        <NotificationPopup
-          toggleNotification={this.toggleNotification}
-          showNotification={this.state.showNotification}
-          notifications={notification.notifications}
-          updateNotification={updateNotification}
-        />
+
         <IconButton
           aria-owns={open ? 'menu-appbar' : undefined}
           aria-haspopup="true"
