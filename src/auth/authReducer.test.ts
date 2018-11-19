@@ -1,10 +1,10 @@
 import Action from '../IAction'
 import {
+  CLEAR_AUTH_ERROR,
   LOGGED_OUT,
   LOGGING_IN,
   LOGIN_FAILURE,
-  LOGIN_SUCCESS,
-  CLEAR_AUTH_ERROR
+  LOGIN_SUCCESS
 } from './authActions'
 import initialState from './authInitialState'
 import auth from './authReducer'
