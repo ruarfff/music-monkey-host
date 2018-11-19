@@ -1,4 +1,5 @@
 import * as _ from 'lodash'
+import moment from 'moment'
 import Action from '../IAction'
 import {
   ACTIONED_NOTIFICATION,
@@ -8,7 +9,6 @@ import {
   READ_NOTIFICATION
 } from './notificationActions'
 import initialState, { INotification, INotificationState } from './notificationInitialState'
-import moment from 'moment'
 
 export default function notification(
   state: INotificationState = initialState,
