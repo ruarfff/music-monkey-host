@@ -100,10 +100,10 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
     this.setState({ anchorEl: undefined })
   }
 
-  public componentWillUpdate() {
+  public componentWillReceiveProps(newProps: IMainAppBarProps) {
     const { user, getNotifications, notification } = this.props
-    if (user.userId && !notification.loading) {
-      onRsvpSaved(user.userId, getNotifications(user.userId))
+    if (user.userId !== newProps.user.userId && !notification.loading) {
+      onRsvpSaved(newProps.user.userId, getNotifications(newProps.user.userId))
     }
   }
 
@@ -133,9 +133,6 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
   }
 
   public toggleNotification = () => {
-    if (!this.props.notification.loading && !this.state.showNotification) {
-      this.props.getNotifications(this.props.user.userId)
-    }
     this.setState({ showNotification: !this.state.showNotification })
   }
 
@@ -172,7 +169,7 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
           </Link>
         )}
         <IconButton
-          aria-owns={open ? 'menu-appbar' : undefined}
+          aria-owns={open ? 'menu-notification' : undefined}
           aria-haspopup="true"
           color="inherit"
           onClick={this.toggleNotification}
@@ -185,12 +182,12 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        {this.state.showNotification && (
-          <NotificationPopup
-            notifications={notification.notifications}
-            updateNotification={updateNotification}
-          />
-        )}
+        <NotificationPopup
+          toggleNotification={this.toggleNotification}
+          showNotification={this.state.showNotification}
+          notifications={notification.notifications}
+          updateNotification={updateNotification}
+        />
         <IconButton
           aria-owns={open ? 'menu-appbar' : undefined}
           aria-haspopup="true"
