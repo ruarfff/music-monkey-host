@@ -4,6 +4,7 @@ import IDecoratedSuggestion from './IDecoratedSuggestion'
 import ISuggestion from './ISuggestion'
 import ISuggestionState from './ISuggestionState'
 import {
+  CLEAR_STAGED_SUGGESTIONS,
   FETCH_SUGGESTIONS_FAILED,
   FETCH_SUGGESTIONS_INITIATED,
   FETCH_SUGGESTIONS_SUCCESS,
@@ -11,8 +12,7 @@ import {
   RESET_STAGED_SUGGESTIONS,
   STAGE_ALL_SUGGESTIONS,
   STAGE_MULTIPLE_SUGGESTIONS,
-  STAGE_SUGGESTION,
-  CLEAR_STAGED_SUGGESTIONS
+  STAGE_SUGGESTION
 } from './suggestionActions'
 import initialState from './suggestionInitialState'
 
