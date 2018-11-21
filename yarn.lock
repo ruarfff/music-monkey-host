@@ -1068,10 +1068,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.3.tgz#3918b73ceed484e58367be5acb79d1775239e393"
   integrity sha512-sfGmOtSMSbQ/AKG8V9xD1gmjquC9awIIZ/Kj309pHb2n3bcRAcGMQv5nJ6gCXZVsneGE4+ve8DXKRCsrg3TFzg==
 
-"@types/nuka-carousel@^4.2.3":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@types/nuka-carousel/-/nuka-carousel-4.3.0.tgz#e068766e4168f33142e7cbd229ef62be0dd34b17"
-  integrity sha512-8C9rBAhUiT4hOW4/u0IvqXrWIIMUxyt8IHYivfPwY7YLJjpy0f3rib2qq4DgnPqDjMYNvkP67kt7UcRsNSugJQ==
+"@types/nuka-carousel@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@types/nuka-carousel/-/nuka-carousel-4.4.0.tgz#01939b98208e3eb590a36026cd9c8dcb84d6b0de"
+  integrity sha512-isOUi7stKY9QUwF6XXu1NBZu2QDrrXFnpwA0C03QdR+8DOyzhGWxnIcDUEtPIksVFcRVN7tLormSLjkIDJsI0Q==
   dependencies:
     "@types/react" "*"
 
