@@ -38,6 +38,9 @@ const decorated = withStyle(() => ({
     borderRadius: '4px',
     border: '3px solid #3AABD1',
     marginRight: '20px'
+  },
+  guestName: {
+    width: '100%',
   }
 }))
 
@@ -124,8 +127,8 @@ class EventGuests extends React.PureComponent<IEventGuestsProps & WithStyles> {
           >
             <MenuItem onClick={this.handleClickMenuItem}>All</MenuItem>
             <MenuItem onClick={this.handleClickMenuItem}>Pending</MenuItem>
-            <MenuItem onClick={this.handleClickMenuItem}>Going</MenuItem>
-            <MenuItem onClick={this.handleClickMenuItem}>Not Going</MenuItem>
+            <MenuItem onClick={this.handleClickMenuItem}>I'm Going</MenuItem>
+            <MenuItem onClick={this.handleClickMenuItem}>I'm not going</MenuItem>
             <MenuItem onClick={this.handleClickMenuItem}>Maybe</MenuItem>
           </Menu>
         </Grid>
@@ -163,7 +166,7 @@ class EventGuests extends React.PureComponent<IEventGuestsProps & WithStyles> {
       >
         {user.image && <Avatar alt={user.displayName} src={user.image} />}
         {!user.image && <AccountCircle className={classes.noAvatar} />}
-        <Typography align={'center'}>{name}</Typography>
+        <Typography className={classes.guestName} align={'center'}>{name}</Typography>
       </Grid>
     )
   }
