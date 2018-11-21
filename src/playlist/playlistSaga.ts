@@ -39,7 +39,9 @@ function* fetchRemoveTrackFromPlaylist(action: IAction) {
   const { playlistId, trackUri, trackPosition } = action.payload
   try {
     const newPlaylist = yield call(removeTrackFromPlaylist, playlistId, trackUri, trackPosition)
-    yield put(trackRemoved(newPlaylist))
+    if (!!newPlaylist) {
+      yield put(trackRemoved(newPlaylist))
+    }
   } catch (error) {
     yield put(removeTrackError())
   }

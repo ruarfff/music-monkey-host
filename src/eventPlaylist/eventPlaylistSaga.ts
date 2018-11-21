@@ -10,8 +10,7 @@ import {
 import { addTracksToPlaylist } from '../playlist/playlistClient'
 import IDecoratedSuggestion from '../suggestion/IDecoratedSuggestion'
 import {
-  FETCH_SUGGESTIONS_INITIATED,
-  RESET_STAGED_SUGGESTIONS
+  CLEAR_STAGED_SUGGESTIONS
 } from '../suggestion/suggestionActions'
 import { acceptSuggestions } from '../suggestion/suggestionClient'
 import ITrackVoteStatus from '../vote/ITrackVoteStatus'
@@ -70,9 +69,8 @@ function* saveEventPlaylistFlow(action: IAction) {
   try {
     const eventId = yield call(saveEventPlaylist, action.payload)
     yield put({ type: SAVE_EVENT_PLAYLIST_SUCCESS })
-    yield put({ type: RESET_STAGED_SUGGESTIONS })
+    yield put({ type: CLEAR_STAGED_SUGGESTIONS })
     yield put({ type: EVENT_FETCH_BY_ID_INITIATED, payload: eventId })
-    yield put({ type: FETCH_SUGGESTIONS_INITIATED, payload: eventId })
   } catch (err) {
     yield put({ type: SAVE_EVENT_PLAYLIST_ERROR, payload: err })
   }

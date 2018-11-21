@@ -11,7 +11,8 @@ import {
   RESET_STAGED_SUGGESTIONS,
   STAGE_ALL_SUGGESTIONS,
   STAGE_MULTIPLE_SUGGESTIONS,
-  STAGE_SUGGESTION
+  STAGE_SUGGESTION,
+  CLEAR_STAGED_SUGGESTIONS
 } from './suggestionActions'
 import initialState from './suggestionInitialState'
 
@@ -140,6 +141,11 @@ export default function suggestion(
         stagedSuggestions: [...state.stagedSuggestions, ...pendingSetToStaged]
       }
     }
+    case CLEAR_STAGED_SUGGESTIONS:
+      return {
+        ...state,
+        stagedSuggestions: [],
+      }
     case RESET_STAGED_SUGGESTIONS: {
       const unStaged = state.stagedSuggestions.map(s => ({
         ...s,
