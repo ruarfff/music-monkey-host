@@ -83,7 +83,7 @@ export const removeTrackFromPlaylist = async (
     withCredentials: true,
     cache: false
   } as any)
-  return res.data.body
+  return res.data
 }
 
 export const searchForTracks = async (searchTerm: string) => {
