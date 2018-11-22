@@ -99,7 +99,7 @@ class EventView extends React.Component<
     const eventId = this.props.match.params.eventId
     subscribeToSuggestionsAccepted(eventId, this.handleSuggestionNotification)
     subscribeToVotesModified(eventId, this.handleEventVotesModified)
-    onGuestUpdate(eventId, () => this.handleUpdateGuests)
+    onGuestUpdate(eventId, this.handleUpdateGuests)
   }
 
   public render() {

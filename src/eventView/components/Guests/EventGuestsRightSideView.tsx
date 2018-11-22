@@ -21,6 +21,9 @@ const decorated = withStyle(() => ({
   guestListTitle: {
     fontSize: '20px',
     marginBottom: '20px'
+  },
+  guestName: {
+    width: '100%',
   }
 }))
 
@@ -89,10 +92,16 @@ class EventGuestsRightSideView extends React.PureComponent<
 
   private renderEventGuest = (eventGuest: IEventGuest, classes: any, index: number) => {
     const { user } = eventGuest
+    const name = !user.displayName
+      ? user.isGuest
+        ? 'Logged in as guest'
+        : 'Anonymous'
+      : user.displayName
     return (
       <Grid item={true} key={index}>
         {user.image && <Avatar alt={user.displayName} src={user.image} />}
         {!user.image && <AccountCircle className={classes.noAvatar} />}
+        <Typography className={classes.guestName} align={'center'}>{name}</Typography>
       </Grid>
     )
   }
