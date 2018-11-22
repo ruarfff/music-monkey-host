@@ -16,6 +16,7 @@ import './CreateEvent.scss'
 
 const decorate = withStyles((theme: Theme) => ({
   btn: {
+    color: 'white',
     width: '100%'
   },
   img: {
