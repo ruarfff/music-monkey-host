@@ -24,6 +24,11 @@ const decorated = withStyle(() => ({
   },
   guestName: {
     width: '100%',
+  },
+  guestWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 }))
 
@@ -98,9 +103,16 @@ class EventGuestsRightSideView extends React.PureComponent<
         : 'Anonymous'
       : user.displayName
     return (
-      <Grid item={true} key={index}>
-        {user.image && <Avatar alt={user.displayName} src={user.image} />}
-        {!user.image && <AccountCircle className={classes.noAvatar} />}
+      <Grid
+        item={true}
+        className={classes.guestWrapper}
+        key={index}
+        direction={'column'}
+      >
+        {user.image ?
+          <Avatar alt={user.displayName} src={user.image} /> :
+          <AccountCircle className={classes.noAvatar} />
+        }
         <Typography className={classes.guestName} align={'center'}>{name}</Typography>
       </Grid>
     )
