@@ -84,7 +84,7 @@
     "@types/react-router-dom": "^4.3.1",
     "@types/react-swipeable-views": "^0.12.1",
     "@types/react-test-renderer": "^16.0.3",
-    "@types/recharts": "^1.1.0",
+    "@types/recharts": "^1.1.1",
     "@types/redux-auth-wrapper": "^2.0.7",
     "@types/redux-immutable-state-invariant": "^2.0.4",
     "@types/redux-logger": "^3.0.6",
