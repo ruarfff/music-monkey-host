@@ -16,12 +16,13 @@ interface INotificationPopupProps {
 
 class NotificationPopup extends React.Component<INotificationPopupProps> {
   public render() {
-    const { notifications, showNotification, toggleNotification } = this.props
-    const filteredNotifications = notifications.filter(n => n.status !== 'Actioned')
+    const { notifications, showNotification, toggleNotification, notificationAnchor } = this.props
+    const filteredNotifications = notifications
+      .filter(n => n.status !== 'Actioned')
     return (
       <Menu
         id='menu-notification'
-        anchorEl={this.props.notificationAnchor}
+        anchorEl={notificationAnchor ? notificationAnchor : ''}
         aria-owns={showNotification ? 'menu-notification' : undefined}
         aria-haspopup="true"
         open={showNotification}
@@ -40,27 +41,27 @@ class NotificationPopup extends React.Component<INotificationPopupProps> {
           filteredNotifications.length > 0 ? filteredNotifications.map((notification: INotification, index: number) => (
             <MenuItem
               key={index}
+              onClick={this.handleClickNotification(notification)}
+              onMouseEnter={this.handleHoverNotification(notification.status, notification)}
               className={notification.status === 'Read' ?
                 'notificationItemWrapper notificationItemWrapperHighlighted' :
                 'notificationItemWrapper'
               }
             >
+              <span className='notificationItemText'>
+                {notification.content + ' '}
+              </span>
               <Link
                 to={`/events/${notification.contextId}`}
-                onClick={this.handleClickNotification(notification)}
-                onMouseEnter={this.handleHoverNotification(notification.status, notification)}
               >
-                <span className='notificationItemText'>
-                  {notification.content + ' '}
-                </span>
                 <span className='notificationItemLink'>
                   {notification.context + ' '}
                 </span>
-                <span>
-                  {(notification && notification.createdAt) &&
-                  notification.createdAt.format('ddd, MM, D')}
-                </span>
               </Link>
+              <span>
+                {(notification && notification.createdAt) &&
+                notification.createdAt.format('ddd, MM, D')}
+              </span>
             </MenuItem>
           )) :
           <MenuItem
