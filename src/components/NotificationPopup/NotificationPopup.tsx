@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { sortBy } from 'lodash'
 import IAction from '../../IAction'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -17,8 +18,8 @@ interface INotificationPopupProps {
 class NotificationPopup extends React.Component<INotificationPopupProps> {
   public render() {
     const { notifications, showNotification, toggleNotification, notificationAnchor } = this.props
-    const filteredNotifications = notifications
-      .filter(n => n.status !== 'Actioned')
+    const filteredNotifications = sortBy(notifications
+      .filter(n => n.status !== 'Actioned'), 'createdAt').reverse()
     return (
       <Menu
         id='menu-notification'
@@ -49,13 +50,13 @@ class NotificationPopup extends React.Component<INotificationPopupProps> {
               }
             >
               <span className='notificationItemText'>
-                {notification.content + ' '}
+                {notification.content}
               </span>
               <Link
                 to={`/events/${notification.contextId}`}
               >
                 <span className='notificationItemLink'>
-                  {notification.context + ' '}
+                  {notification.context}
                 </span>
               </Link>
               <span>
