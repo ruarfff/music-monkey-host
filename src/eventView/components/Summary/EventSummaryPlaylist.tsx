@@ -37,6 +37,7 @@ const decorated = withStyle(() => ({
 
 interface IEventSummaryPlaylistProps {
   genre?: string
+  eventImg?: string
   playlist: IPlaylist
   suggestion: IDecoratedSuggestion[]
 }
@@ -45,7 +46,7 @@ class EventSummaryPlaylist extends React.PureComponent<
   IEventSummaryPlaylistProps & WithStyles
 > {
   public render() {
-    const { playlist, classes, suggestion, genre } = this.props
+    const { playlist, classes, suggestion, genre, eventImg } = this.props
 
     if (!playlist) {
       return <span />
@@ -69,8 +70,12 @@ class EventSummaryPlaylist extends React.PureComponent<
 
     const formattedDuration = this.formatDuration(durationSeconds)
 
-    const image =
-      playlist.images && playlist.images.length ? playlist.images[0].url : null
+    let image = eventImg && eventImg
+
+
+    if (!eventImg) {
+      image = playlist.images && playlist.images.length ? playlist.images[0].url : ''
+    }
 
     return (
       <Grid className={classes.playlistWrapper} container={true} spacing={16}>

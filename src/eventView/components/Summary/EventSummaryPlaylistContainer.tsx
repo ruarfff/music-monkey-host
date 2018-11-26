@@ -5,7 +5,8 @@ import EventSummaryPlaylist from './EventSummaryPlaylist'
 const mapStateToProps = (state: IRootState) => ({
   playlist: state.eventPlaylist.playlist,
   suggestion: state.suggestion.acceptedSuggestions,
-  genre: state.eventView.event.genre
+  genre: state.eventView.event.genre,
+  eventImg: state.eventView.event.imageUrl
 })
 
 const mapDispatchToProps = { }
