@@ -20,5 +20,6 @@ export default interface IEvent {
   venue?: string
   invites?: string[]
   guests?: IEventGuest[]
+  dataUrl?: string
   settings: IEventSettings
 }

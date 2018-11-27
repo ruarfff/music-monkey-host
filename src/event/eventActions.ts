@@ -66,8 +66,8 @@ export const eventContentUpdated = (event: IEvent): Action => ({
   type: EVENT_CONTENT_UPDATED
 })
 
-export const eventImageUploaded = (imageUrl: string): Action => ({
-  payload: imageUrl,
+export const eventImageUploaded = (img: any): Action => ({
+  payload: img,
   type: EVENT_IMAGE_UPLOADED
 })
 

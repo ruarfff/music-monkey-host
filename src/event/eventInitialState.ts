@@ -21,6 +21,7 @@ export default {
       .add(3, 'hours')
       .startOf('hour'),
     eventCode: '',
+    dataUrl: '',
     imageUrl: '',
     location: { address: '', latLng: { lat: 0, lng: 0 } },
     name: '',

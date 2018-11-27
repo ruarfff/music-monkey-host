@@ -44,7 +44,10 @@ function upload(file: any) {
         if (err) {
           reject(err)
         } else {
-          resolve(`https://${bucket}.s3.amazonaws.com/${key}${fileName}`)
+          resolve({
+            imgUrl:`https://${bucket}.s3.amazonaws.com/${key}${fileName}`,
+            dataUrl: file.dataURL
+          })
         }
       }
     )
