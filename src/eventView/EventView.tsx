@@ -111,7 +111,6 @@ class EventView extends React.Component<
       acknowledgeEventInviteCopied
     } = this.props
 
-    console.log(isEmpty(event), event)
     const shouldShowEvent: boolean = !loading && !isEmpty(event)
 
     return (
@@ -167,7 +166,7 @@ class EventView extends React.Component<
               <EventTracksView />
             </TabContainer>
           )}
-          {tabIndex === 2 && (
+          {tabIndex=== 2 && (
             <TabContainer className={classes.content} dir={'x'}>
               <EventGuests />
             </TabContainer>
