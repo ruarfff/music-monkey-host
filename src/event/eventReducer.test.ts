@@ -100,11 +100,14 @@ describe('eventReducer', () => {
       expect(
         events(initialState, {
           type: EVENT_IMAGE_UPLOADED,
-          payload: 'image_url'
+          payload: {
+            imgUrl: 'image_url',
+            dataUrl: 'data_url'
+          }
         })
       ).toEqual({
         ...initialState,
-        savingEvent: { ...initialState.savingEvent, imageUrl: 'image_url' }
+        savingEvent: { ...initialState.savingEvent, imageUrl: 'image_url', dataUrl: 'data_url' }
       })
     })
 
