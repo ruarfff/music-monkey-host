@@ -1,6 +1,6 @@
 import IAction from '../IAction'
-import ISuggestion from './ISuggestion'
 import IDecoratedSuggestion from './IDecoratedSuggestion'
+import ISuggestion from './ISuggestion'
 
 export const FETCH_SUGGESTIONS_INITIATED = 'FETCH_SUGGESTIONS_INITIATED'
 export const FETCH_SUGGESTIONS_SUCCESS = 'FETCH_SUGGESTIONS_SUCCESS'

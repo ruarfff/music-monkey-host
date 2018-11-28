@@ -165,7 +165,10 @@ describe('suggestionReducer', () => {
       suggestion(
         {
           ...initialState,
-          pendingSuggestions: [
+        },
+        {
+          type: STAGE_ALL_SUGGESTIONS,
+          payload: [
             {
               suggestion: { suggestionId: 'na' } as ISuggestion
             } as IDecoratedSuggestion,
@@ -176,9 +179,6 @@ describe('suggestionReducer', () => {
               } as ISuggestion
             } as IDecoratedSuggestion
           ]
-        },
-        {
-          type: STAGE_ALL_SUGGESTIONS
         }
       )
     ).toEqual({

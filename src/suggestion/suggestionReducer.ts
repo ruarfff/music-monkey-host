@@ -129,12 +129,18 @@ export default function suggestion(
       }
     }
     case STAGE_ALL_SUGGESTIONS: {
+      const pendingSetToStaged = payload.map(
+        (decoratedSuggestion: IDecoratedSuggestion) => ({
+          ...decoratedSuggestion,
+          suggestion: { ...decoratedSuggestion.suggestion, staged: true }
+        })
+      )
       return {
         ...state,
         pendingSuggestions: [],
         stagedSuggestions: [
           ...state.stagedSuggestions,
-          ...payload
+          ...pendingSetToStaged
         ]
       }
     }
