@@ -7,6 +7,7 @@ import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
 import * as React from 'react'
+import { isEmpty, uniqBy } from 'lodash'
 import EventSearchTracksContainer from '../../../components/SearchTracks/EventSearchTracksContainer'
 import IEvent from '../../../event/IEvent'
 import EventPlaylist from '../../../eventPlaylist/EventPlaylistContainer'
@@ -16,6 +17,7 @@ import IDecoratedSuggestion from '../../../suggestion/IDecoratedSuggestion'
 import EventRejectedSuggestions from './EventRejectedSuggestionsContainer'
 import EventSuggestions from './EventSuggestionsContainer'
 import './Styles/EventPlaylistView.scss'
+import IPlaylist from '../../../playlist/IPlaylist'
 
 const decorate = withStyles(() => ({
   tabsWrapper: {
@@ -28,6 +30,7 @@ const decorate = withStyles(() => ({
 
 interface IEventPlaylistViewProps {
   event: IEvent
+  playlist: IPlaylist
   acceptedSuggestions: IDecoratedSuggestion[]
   stagedSuggestions: IDecoratedSuggestion[]
   pendingSuggestions: IDecoratedSuggestion[]
@@ -53,7 +56,17 @@ class EventPlaylistView extends React.Component<
 
   public render() {
     const { tabIndex } = this.state
-    const { classes, pendingSuggestions } = this.props
+    const { classes, pendingSuggestions, playlist } = this.props
+
+    const playlistTracks = playlist.tracks.items.map((track) => track.track.uri)
+
+    let filteredSuggestions = pendingSuggestions
+
+    if(!isEmpty(pendingSuggestions)) {
+      filteredSuggestions = uniqBy(pendingSuggestions
+        .filter((suggestedTrack) => playlistTracks.indexOf(suggestedTrack.track.uri) === -1), 'track.uri')
+    }
+
     // const cohost = true
     return (
       <Grid container={true} spacing={24}>
@@ -71,7 +84,12 @@ class EventPlaylistView extends React.Component<
             >
               <Tab label="Event Playlist"/>
               <Tab label={
-                pendingSuggestions.length ? <Badge badgeContent={pendingSuggestions.length} color={'secondary'} className={classes.suggestions}>
+                pendingSuggestions.length ?
+                <Badge
+                  badgeContent={filteredSuggestions.length}
+                  color={'secondary'}
+                  className={classes.suggestions}
+                >
                   Suggested
                 </Badge> : 'Suggested'
               }/>

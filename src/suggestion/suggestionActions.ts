@@ -1,5 +1,6 @@
 import IAction from '../IAction'
 import ISuggestion from './ISuggestion'
+import IDecoratedSuggestion from './IDecoratedSuggestion'
 
 export const FETCH_SUGGESTIONS_INITIATED = 'FETCH_SUGGESTIONS_INITIATED'
 export const FETCH_SUGGESTIONS_SUCCESS = 'FETCH_SUGGESTIONS_SUCCESS'
@@ -32,8 +33,9 @@ export const stageMultipleSuggestions = (
   payload: suggestions
 })
 
-export const stageAllSuggestions = (): IAction => ({
-  type: STAGE_ALL_SUGGESTIONS
+export const stageAllSuggestions = (suggestions: IDecoratedSuggestion[]): IAction => ({
+  type: STAGE_ALL_SUGGESTIONS,
+  payload: suggestions
 })
 
 export const resetStagedSuggestions = (): IAction => ({
