@@ -27,15 +27,17 @@ const Home = ({
   <div className="Home-root">
     <MainAppLeftMenu path={locationPath} />
     <div className="Home-right-side">
-      <MainAppBar />
       {!isEmpty(user) && (
-        <main className="Home-content">
-          <div className="Home-toolbar" />
-          <Route exact={true} path="/" component={Events} />
-          {routes.map((route, i) => (
-            <RouteWithSubRoutes key={i} {...route} />
-          ))}
-        </main>
+        <React.Fragment>
+          <MainAppBar />
+          <main className="Home-content">
+            <div className="Home-toolbar" />
+            <Route exact={true} path="/" component={Events} />
+            {routes.map((route, i) => (
+              <RouteWithSubRoutes key={i} {...route} />
+            ))}
+          </main>
+        </React.Fragment>
       )}
 
       {userLoading && <LoadingSpinner />}
