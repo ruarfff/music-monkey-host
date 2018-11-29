@@ -6,17 +6,17 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import Tab from '@material-ui/core/Tab/Tab'
 import Tabs from '@material-ui/core/Tabs/Tabs'
 import Typography from '@material-ui/core/Typography/Typography'
-import * as React from 'react'
 import { isEmpty, uniqBy } from 'lodash'
+import * as React from 'react'
 import EventSearchTracksContainer from '../../../components/SearchTracks/EventSearchTracksContainer'
 import IEvent from '../../../event/IEvent'
 import EventPlaylist from '../../../eventPlaylist/EventPlaylistContainer'
 import EventPlaylistSummary from '../../../eventPlaylist/EventPlaylistSummaryContainer'
+import IPlaylist from '../../../playlist/IPlaylist'
 import IDecoratedSuggestion from '../../../suggestion/IDecoratedSuggestion'
 import EventRejectedSuggestions from './EventRejectedSuggestionsContainer'
 import EventSuggestions from './EventSuggestionsContainer'
 import './Styles/EventPlaylistView.scss'
-import IPlaylist from '../../../playlist/IPlaylist'
 
 const decorate = withStyles(() => ({
   tabsWrapper: {
@@ -54,16 +54,20 @@ class EventPlaylistView extends React.Component<
     const { tabIndex } = this.state
     const { classes, pendingSuggestions, playlist } = this.props
 
-    const playlistTracks = playlist.tracks.items.map((track) => track.track.uri)
+    const playlistTracks = playlist.tracks.items.map(track => track.track.uri)
 
     let filteredSuggestions = pendingSuggestions
 
-    if(!isEmpty(pendingSuggestions)) {
-      filteredSuggestions = uniqBy(pendingSuggestions
-        .filter((suggestedTrack) => playlistTracks.indexOf(suggestedTrack.track.uri) === -1), 'track.uri')
+    if (!isEmpty(pendingSuggestions)) {
+      filteredSuggestions = uniqBy(
+        pendingSuggestions.filter(
+          suggestedTrack =>
+            playlistTracks.indexOf(suggestedTrack.track.uri) === -1
+        ),
+        'track.uri'
+      )
     }
 
-    // const cohost = true
     return (
       <Grid container={true} spacing={24}>
         <Grid item={true} sm={12}>
