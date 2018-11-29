@@ -10,7 +10,6 @@ import Toolbar from '@material-ui/core/Toolbar/Toolbar'
 import Typography from '@material-ui/core/Typography/Typography'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import NotificationsIcon from '@material-ui/icons/Notifications'
-import { isEmpty } from 'lodash'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import eventIcon from '../assets/event-icon.svg'
@@ -102,12 +101,9 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
     this.setState({ anchorEl: undefined })
   }
 
-  public componentWillReceiveProps(newProps: IMainAppBarProps) {
-    const { user, getNotifications, notification } = this.props
-    const uploadedUserId = newProps.user.userId
-    if (isEmpty(user) && !notification.loading && uploadedUserId !== user.userId) {
-      onRsvpSaved(uploadedUserId, getNotifications(uploadedUserId))
-    }
+  public componentDidMount() {
+    const { user, getNotifications } = this.props
+    onRsvpSaved(user.userId, getNotifications(user.userId))
   }
 
   public menuName = (history: string) => {

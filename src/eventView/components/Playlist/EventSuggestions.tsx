@@ -14,12 +14,14 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import DoneAll from '@material-ui/icons/DoneAll'
 import classNames from 'classnames'
 import * as React from 'react'
+import { isEmpty, uniqBy } from 'lodash'
 import IAction from '../../../IAction'
 import IDecoratedSuggestion from '../../../suggestion/IDecoratedSuggestion'
 import ISuggestion from '../../../suggestion/ISuggestion'
 import ITrack from '../../../track/ITrack'
 import { formatDuration } from '../../../util/formatDuration'
 import './Styles/EventSuggestions.scss'
+import IPlaylist from '../../../playlist/IPlaylist'
 
 const decorate = withStyles(() => ({
   reject: {
@@ -51,7 +53,8 @@ const decorate = withStyles(() => ({
 
 interface IEventSuggestionsProps {
   suggestions: IDecoratedSuggestion[]
-  stageAllSuggestions(): IAction
+  playlist: IPlaylist
+  stageAllSuggestions(suggestions: IDecoratedSuggestion[]): IAction
   stageSuggestion(suggestion: ISuggestion): IAction
   rejectSuggestion(suggestion: ISuggestion): IAction
 }
@@ -70,7 +73,7 @@ class EventSuggestions extends React.Component<
   }
 
   public render() {
-    const { suggestions } = this.props
+    const { suggestions, playlist } = this.props
     if (!suggestions || suggestions.length < 1) {
       return (
         <Typography align="center" variant="subtitle1">
@@ -78,15 +81,24 @@ class EventSuggestions extends React.Component<
         </Typography>
       )
     }
+    const playlistTracks = playlist.tracks.items.map((track) => track.track.uri)
+
+    let filteredSuggestions = suggestions
+
+    if(!isEmpty(suggestions)) {
+      filteredSuggestions = uniqBy(suggestions
+        .filter((suggestedTrack) => playlistTracks.indexOf(suggestedTrack.track.uri) === -1), 'track.uri')
+    }
+
     return (
       <div className="EventSuggestions-root">
         <Grid container={true} spacing={24}>
           <Grid item={true} sm={12}>
-            {this.renderAcceptButtons()}
+            {this.renderAcceptButtons(filteredSuggestions)}
           </Grid>
           <Grid item={true} sm={12}>
             <List>
-              {suggestions.map((decoratedSuggestion, index) =>
+              {filteredSuggestions.map((decoratedSuggestion, index) =>
                 this.renderSuggestion(decoratedSuggestion, index)
               )}
             </List>
@@ -231,18 +243,18 @@ class EventSuggestions extends React.Component<
     }, 700)
   }
 
-  private handleAcceptAllClicked = () => {
-    this.props.stageAllSuggestions()
+  private handleAcceptAllClicked = (filteredSuggestions: IDecoratedSuggestion[]) => () => {
+    this.props.stageAllSuggestions(filteredSuggestions)
   }
 
-  private renderAcceptButtons = () => {
+  private renderAcceptButtons = (filteredSuggestions: IDecoratedSuggestion[]) => {
     return (
       <div>
         <Button
           className="EventSuggestions-button"
           variant="contained"
           color="primary"
-          onClick={this.handleAcceptAllClicked}
+          onClick={this.handleAcceptAllClicked(filteredSuggestions)}
         >
           <DoneAll
             className={classNames(

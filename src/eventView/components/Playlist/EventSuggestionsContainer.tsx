@@ -8,7 +8,8 @@ import {
 import EventSuggestions from './EventSuggestions'
 
 const mapStateToProps = (state: IRootState) => ({
-  suggestions: state.suggestion.pendingSuggestions
+  suggestions: state.suggestion.pendingSuggestions,
+  playlist: state.eventPlaylist.playlist
 })
 
 const mapDispatchToProps = {

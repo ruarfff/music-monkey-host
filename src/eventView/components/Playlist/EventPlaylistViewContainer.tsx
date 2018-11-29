@@ -6,7 +6,8 @@ const mapStateToProps = (state: IRootState) => ({
   event: state.eventView.event,
   acceptedSuggestions: state.suggestion.acceptedSuggestions,
   stagedSuggestions: state.suggestion.stagedSuggestions,
-  pendingSuggestions: state.suggestion.pendingSuggestions
+  pendingSuggestions: state.suggestion.pendingSuggestions,
+  playlist: state.eventPlaylist.playlist
 })
 
 const mapDispatchToProps = {}
