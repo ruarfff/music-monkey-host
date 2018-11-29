@@ -26,7 +26,7 @@ const decorated = withStyle(() => ({
     width: '130px',
     height: '160px',
     borderRadius: '4px',
-    border: '3px solid #FFB000',
+    border: '3px solid #ffb000',
     marginRight: '20px'
   },
   noAvatar: {
@@ -36,7 +36,7 @@ const decorated = withStyle(() => ({
     width: '130px',
     height: '160px',
     borderRadius: '4px',
-    border: '3px solid #3AABD1',
+    border: '3px solid #3aabd1',
     marginRight: '20px'
   },
   guestName: {
@@ -131,18 +131,18 @@ class EventGuests extends React.PureComponent<IEventGuestsProps & WithStyles> {
             <MenuItem onClick={this.handleClickMenuItem}>I'm not going</MenuItem>
             <MenuItem onClick={this.handleClickMenuItem}>Maybe</MenuItem>
           </Menu>
+          <SharePopup
+            clearMessage={this.props.clearMessage}
+            message={this.props.message}
+            inviteId={inviteId}
+            onCopyEventInvite={copyEventInvite}
+          />
         </Grid>
         <Grid container={true} className={classes.guestsContainer} spacing={24}>
           {filteredGuests.map(eventGuest =>
             this.renderEventGuest(eventGuest, classes)
           )}
         </Grid>
-        <SharePopup
-          clearMessage={this.props.clearMessage}
-          message={this.props.message}
-          inviteId={inviteId}
-          onCopyEventInvite={copyEventInvite}
-        />
       </div>
     )
   }
@@ -158,7 +158,7 @@ class EventGuests extends React.PureComponent<IEventGuestsProps & WithStyles> {
       <Grid
         key={user.userId}
         className={
-          rsvp.status === 'going' ? classes.guestWrapper : classes.pending
+          rsvp.status === 'I\'m Going' ? classes.guestWrapper : classes.pending
         }
         item={true}
         container={true}
@@ -166,7 +166,12 @@ class EventGuests extends React.PureComponent<IEventGuestsProps & WithStyles> {
       >
         {user.image && <Avatar alt={user.displayName} src={user.image} />}
         {!user.image && <AccountCircle className={classes.noAvatar} />}
-        <Typography className={classes.guestName} align={'center'}>{name}</Typography>
+        <Typography className={classes.guestName} align={'center'}>
+          {name}
+        </Typography>
+        <Typography className={classes.guestName} align={'center'}>
+          {eventGuest.rsvp.status}
+          </Typography>
       </Grid>
     )
   }
