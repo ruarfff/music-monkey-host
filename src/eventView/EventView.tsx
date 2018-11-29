@@ -19,7 +19,7 @@ import {
   subscribeToVotesModified
 } from '../notification'
 import EventGuests from './components/Guests/EventGuestsContainer'
-import EventTracksView from './components/Playlist/EventPlaylistViewContainer'
+import EventPlaylistView from './components/Playlist/EventPlaylistViewContainer'
 import EventSummaryView from './components/Summary/EventSummaryViewContainer'
 import './EventView.scss'
 
@@ -33,7 +33,7 @@ const decorated = withStyle(() => ({
   tab: {},
   tabs: {
     color: '#AF00FF!important',
-    borderBottom: '1px solid #AF00FF',
+    borderBottom: '1px solid #AF00FF'
   },
   TabIndicator: {
     backgroundColor: '#AF00FF!important',
@@ -116,10 +116,9 @@ class EventView extends React.Component<
     return (
       <div className="eventViewWrapper">
         {loading && <LoadingSpinner />}
-        {loading &&
-          !isEmpty(error) && (
-            <EventFetchError onTryAgain={this.handleGetEvent} />
-          )}
+        {loading && !isEmpty(error) && (
+          <EventFetchError onTryAgain={this.handleGetEvent} />
+        )}
         {shouldShowEvent && this.renderEventView()}
         {copiedToClipboard && (
           <InviteCopyAlert
@@ -163,10 +162,10 @@ class EventView extends React.Component<
           )}
           {tabIndex === 1 && (
             <TabContainer className={classes.content} dir={'x'}>
-              <EventTracksView />
+              <EventPlaylistView />
             </TabContainer>
           )}
-          {tabIndex=== 2 && (
+          {tabIndex === 2 && (
             <TabContainer className={classes.content} dir={'x'}>
               <EventGuests />
             </TabContainer>

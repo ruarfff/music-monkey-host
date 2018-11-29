@@ -12,7 +12,6 @@ import IEvent from '../../../event/IEvent'
 import EventPlaylist from '../../../eventPlaylist/EventPlaylistContainer'
 import EventPlaylistSummary from '../../../eventPlaylist/EventPlaylistSummaryContainer'
 import IDecoratedSuggestion from '../../../suggestion/IDecoratedSuggestion'
-// import EventCohostPlaylist from './EventCohostPlaylistContainer'
 import EventRejectedSuggestions from './EventRejectedSuggestionsContainer'
 import EventSuggestions from './EventSuggestionsContainer'
 import './Styles/EventPlaylistView.scss'
@@ -35,10 +34,7 @@ interface IEventPlaylistViewProps {
 
 function TabContainer({ children, dir }: any) {
   return (
-    <Typography
-      component="div"
-      dir={dir}
-    >
+    <Typography component="div" dir={dir}>
       {children}
     </Typography>
   )
@@ -54,7 +50,6 @@ class EventPlaylistView extends React.Component<
   public render() {
     const { tabIndex } = this.state
     const { classes, pendingSuggestions } = this.props
-    // const cohost = true
     return (
       <Grid container={true} spacing={24}>
         <Grid item={true} sm={12}>
@@ -69,15 +64,24 @@ class EventPlaylistView extends React.Component<
               textColor="secondary"
               fullWidth={true}
             >
-              <Tab label="Event Playlist"/>
-              <Tab label={
-                pendingSuggestions.length ? <Badge badgeContent={pendingSuggestions.length} color={'secondary'} className={classes.suggestions}>
-                  Suggested
-                </Badge> : 'Suggested'
-              }/>
+              <Tab label="Event Playlist" />
+              <Tab
+                label={
+                  pendingSuggestions.length ? (
+                    <Badge
+                      badgeContent={pendingSuggestions.length}
+                      color={'secondary'}
+                      className={classes.suggestions}
+                    >
+                      Maybe
+                    </Badge>
+                  ) : (
+                    'Maybe'
+                  )
+                }
+              />
               <Tab label="Rejected" />
               <Tab label="Add track" />
-              {/*{cohost && <Tab label="Cohost tracks" />}*/}
             </Tabs>
           </AppBar>
           {tabIndex === 0 && (
@@ -100,11 +104,6 @@ class EventPlaylistView extends React.Component<
               <EventSearchTracksContainer />
             </TabContainer>
           )}
-          {/*{(tabIndex === 6 && cohost) && (*/}
-          {/*<TabContainer dir={'x'}>*/}
-          {/*<EventCohostPlaylist />*/}
-          {/*</TabContainer>*/}
-          {/*)}*/}
         </Grid>
       </Grid>
     )
