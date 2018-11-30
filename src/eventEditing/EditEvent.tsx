@@ -148,12 +148,11 @@ class EditEvent extends React.PureComponent<IEditEventProps & WithStyles> {
 
           <Grid className={classes.imagePickContainer} item={true} md={6}>
             <GenrePicker
+              value={eventEdit.genre}
               onChange={this.handleContentEdit('genre')}
             />
           </Grid>
         </Grid>
-
-
 
         <Grid container={true} spacing={24} alignItems={'flex-end'}>
           <Grid item={true} xs={12} sm={6}>

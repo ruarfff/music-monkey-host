@@ -4,6 +4,7 @@ import options from './genras'
 import './GenrePicker.scss'
 
 interface IGenrePickerProps {
+  value?: string
   onChange(value: string): void
 }
 
@@ -21,7 +22,16 @@ class GenrePicker extends React.PureComponent<IGenrePickerProps> {
     selectedOption: null,
   }
 
+  public componentWillReceiveProps(newProps: IGenrePickerProps) {
+    this.setState({
+      value: this.props.value,
+      label: this.props.value
+    })
+  }
+
   public render() {
+    const { selectedOption } = this.state
+    const { value } = this.props
     return(
       <React.Fragment>
         <Select
@@ -29,7 +39,7 @@ class GenrePicker extends React.PureComponent<IGenrePickerProps> {
           options={options}
           styles={customStyles}
           onChange={this.handleChange}
-          value={this.state.selectedOption}
+          value={value ? { value, label: value } : selectedOption}
           placeholder={'Select genre'}
         />
       </React.Fragment>
