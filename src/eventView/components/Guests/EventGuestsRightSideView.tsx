@@ -105,6 +105,7 @@ class EventGuestsRightSideView extends React.PureComponent<
     return (
       <Grid
         item={true}
+        container={true}
         className={classes.guestWrapper}
         key={index}
         direction={'column'}
