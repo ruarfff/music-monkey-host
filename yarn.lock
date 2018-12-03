@@ -5019,10 +5019,10 @@ globule@^1.0.0:
     lodash "~4.17.10"
     minimatch "~3.0.2"
 
-google-map-react@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/google-map-react/-/google-map-react-1.1.0.tgz#ecb8c1c05548c5b564b69ae0518afc784e4f40dc"
-  integrity sha512-wLIbEM1N2lWFJHEDBv01NJB50VcDT4vgTDESZWM7YOCjo/9/Ada6J8bkNUHMw/wgrzc+To7hVOaSgrqmcROWpQ==
+google-map-react@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/google-map-react/-/google-map-react-1.1.1.tgz#ffff4f21cf15bc25696ee523c614793054bb9b20"
+  integrity sha512-fLMZKLGv3s6BFfyAJmz7mY5a41tfYGhNFNtwebF4qMKCqKCWq+fvrjxv65erSN01KOfldCCuVG9FawI44cuNyA==
   dependencies:
     "@mapbox/point-geometry" "^0.1.0"
     eventemitter3 "^1.1.0"
