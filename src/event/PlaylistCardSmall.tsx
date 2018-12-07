@@ -66,23 +66,22 @@ class PlaylistCard extends React.Component<IEventBigCardProps & WithStyles> {
 
     return (
       <Card className={classes.card}>
-        <div className={classes.imgContainer}>
-          <img className={classes.img} src={image} alt=""/>
-        </div>
+        <a href={playlist ? playlist.external_urls.spotify : '/'} target="_blank" className={classes.link}>
+          <div className={classes.imgContainer}>
+            <img className={classes.img} src={image} alt=""/>
+          </div>
 
-        <Typography className={classes.title}>
-          {playlist && playlist.name}
-        </Typography>
-        <div>
-          <a href={playlist ? playlist.external_urls.spotify : '/'} target="_blank" className={classes.link}>
+          <Typography className={classes.title}>
+            {playlist && playlist.name}
+          </Typography>
+          <div>
             <Button
               color='primary'
             >
               GO TO PLAYLIST
             </Button>
-          </a>
-        </div>
-
+          </div>
+        </a>
       </Card>
     )
   }
