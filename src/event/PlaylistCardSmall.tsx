@@ -11,7 +11,11 @@ const decorate = withStyles((theme: Theme) => ({
     height: '210px',
     marginLeft: '1em',
     marginRight: '1em',
-    width: '210px'
+    width: '210px',
+
+    '&:hover': {
+      boxShadow: '0px 1px 1px black',
+    },
   },
   title: {
     marginBottom: '5px',

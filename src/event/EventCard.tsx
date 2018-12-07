@@ -22,6 +22,9 @@ const decorate = withStyles((theme: Theme) => ({
     width: '200px',
     paddingLeft: '15px',
     paddingTop: '15px',
+    '&:hover': {
+      boxShadow: '0px 1px 1px black',
+    },
   },
   media: {
     height: 0,
