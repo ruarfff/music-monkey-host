@@ -13,6 +13,9 @@ import SubMenuIconHighlighted from '../../assets/subitem-highlighted.svg'
 import SubMenuIcon from '../../assets/submenu-icon.svg'
 
 const decorate = withStyles(({}) => ({
+  listIcon: {
+    marginRight: '-5px',
+  },
   listItemText: {
     color: 'white',
     textDecoration: 'none',
@@ -125,7 +128,7 @@ class LeftMenuItem extends React.Component<ILeftMenuItemProps & WithStyles> {
           onClick={this.handleToggleDropdown}
           selected={pathName === currentPath && true}
         >
-          <ListItemIcon>
+          <ListItemIcon className={classes.listIcon}>
             <img src={icon} />
           </ListItemIcon>
           <ListItemText

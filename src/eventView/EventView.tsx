@@ -25,7 +25,7 @@ import './EventView.scss'
 
 const decorated = withStyle(() => ({
   tabContainer: {
-    background: 'white',
+    background: 'transparent',
     boxShadow: 'none',
     borderBottom: '1px solid #d6d6d6',
     marginBottom: '10px'
