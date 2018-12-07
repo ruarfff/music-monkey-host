@@ -26,6 +26,7 @@ const decorated = withStyle(() => ({
     width: '100%',
   },
   guestWrapper: {
+    width: '70px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
