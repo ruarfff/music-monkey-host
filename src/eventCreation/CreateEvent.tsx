@@ -168,10 +168,22 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
     const {
       eventImageUploaded,
       eventImageUploadError,
+      locationChanged,
+      locationSelected,
+      selectCreatePlaylist,
+      selectExistingPlaylist,
+      fetchPlaylists,
+      user,
+      playlistInput,
+      playlists,
+      closeExistingPlaylist,
+      closeCreatePlaylist,
+      createEventPlaylist,
+      event,
       classes
     } = this.props
 
-    const { name, description, organizer } = this.state
+    const { name, description, organizer, venue } = this.state
     return (
       <React.Fragment>
         <Grid item={true} xs={12} sm={6}>
@@ -197,11 +209,28 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             onUploadError={eventImageUploadError}
           />
         </Grid>
+
         <Grid item={true} xs={12} sm={6}>
-          <GenrePicker
-            onChange={this.handleContentUpdated('genre')}
+          <LocationAutoComplete
+            value={event.location ? event.location.address || '' : ''}
+            onSelect={locationSelected}
+            onChange={locationChanged}
+            placeholder="Search for place"
+            formClass="CreateEvent-formItem"
           />
         </Grid>
+
+        <Grid item={true} xs={12} sm={6}>
+          <EventInput
+            label={'Venue'}
+            placeholder={''}
+            error={!venue}
+            errorLabel={'Required'}
+            value={venue || ''}
+            onChange={this.handleContentUpdated('venue')}
+          />
+        </Grid>
+
         <Grid item={true} xs={12} sm={6}>
           <EventInput
             label={'Organizer'}
@@ -210,6 +239,21 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             error={!organizer}
             errorLabel={'Required'}
             onChange={this.handleContentUpdated('organizer')}
+          />
+        </Grid>
+        <Grid item={true} xs={12} sm={12}>
+          <PlaylistSelection
+            playlists={playlists}
+            fetchPlaylists={fetchPlaylists}
+            user={user}
+            value={event && event.playlistUrl}
+            onPlaylistAdded={this.onDynamicChange('playlistUrl')}
+            playlistInput={playlistInput}
+            selectExistingPlaylist={selectExistingPlaylist}
+            closeExistingPlaylist={closeExistingPlaylist}
+            selectCreatePlaylist={selectCreatePlaylist}
+            closeCreatePlaylist={closeCreatePlaylist}
+            createEventPlaylist={createEventPlaylist}
           />
         </Grid>
         <div className="control-btn-row">
@@ -221,7 +265,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             <span className="control-btn-text-primary">Cancel</span>
           </Button>
           <Button
-            disabled={!name || !organizer}
+            disabled={!name || !organizer || !venue || !event.playlistUrl}
             onClick={this.nextStep}
             color="secondary"
             variant="contained"
@@ -237,43 +281,13 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
   public renderSecondStep = () => {
     const {
       event,
-      selectCreatePlaylist,
-      selectExistingPlaylist,
-      fetchPlaylists,
-      user,
-      locationChanged,
-      locationSelected,
-      playlistInput,
-      playlists,
-      closeExistingPlaylist,
-      closeCreatePlaylist,
-      createEventPlaylist,
       classes
     } = this.props
 
-    const { venue } = this.state
     return (
       <React.Fragment>
-        <Grid item={true} xs={12} sm={6}>
-          <EventInput
-            label={'Venue'}
-            placeholder={''}
-            error={!venue}
-            errorLabel={'Required'}
-            value={venue || ''}
-            onChange={this.handleContentUpdated('venue')}
-          />
-        </Grid>
 
-        <Grid item={true} xs={12} sm={6}>
-          <LocationAutoComplete
-            value={event.location ? event.location.address || '' : ''}
-            onSelect={locationSelected}
-            onChange={locationChanged}
-            placeholder="Search for place"
-            formClass="CreateEvent-formItem"
-          />
-        </Grid>
+        {event.location && this.renderMap(event.location.latLng)}
 
         <Grid item={true} xs={12} sm={6}>
           <EventDateTimePicker
@@ -292,20 +306,10 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             label={'Finishing At'}
           />
         </Grid>
-        {event.location && this.renderMap(event.location.latLng)}
-        <Grid item={true} xs={12} sm={12}>
-          <PlaylistSelection
-            playlists={playlists}
-            fetchPlaylists={fetchPlaylists}
-            user={user}
-            value={event && event.playlistUrl}
-            onPlaylistAdded={this.onDynamicChange('playlistUrl')}
-            playlistInput={playlistInput}
-            selectExistingPlaylist={selectExistingPlaylist}
-            closeExistingPlaylist={closeExistingPlaylist}
-            selectCreatePlaylist={selectCreatePlaylist}
-            closeCreatePlaylist={closeCreatePlaylist}
-            createEventPlaylist={createEventPlaylist}
+
+        <Grid item={true} xs={12} sm={6}>
+          <GenrePicker
+            onChange={this.handleContentUpdated('genre')}
           />
         </Grid>
         <div className="control-btn-row">
@@ -328,9 +332,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
           <Button
             disabled={
               !event.startDateTime ||
-              !event.endDateTime ||
-              !event.playlistUrl ||
-              !venue
+              !event.endDateTime
             }
             variant="contained"
             color="secondary"
@@ -372,16 +374,40 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
       <React.Fragment>
         <CreateEventSteps step={this.state.currentStep} />
         <form className="CreateEvent-root" noValidate={true} autoComplete="off">
-          <Grid
-            container={true}
-            spacing={24}
-            alignItems="center"
-            direction="row"
-          >
-            {this.state.currentStep === 0 && this.renderFirstStep()}
-            {this.state.currentStep === 1 && this.renderSecondStep()}
-            {this.state.currentStep === 2 && this.renderThirdStep()}
-          </Grid>
+            {
+              <div hidden={this.state.currentStep !== 0}>
+                <Grid
+                  container={true}
+                  spacing={24}
+                  alignItems="center"
+                  direction="row"
+                >
+                  {this.renderFirstStep()}
+                </Grid>
+              </div>
+            }
+            {
+              <div hidden={this.state.currentStep !== 1}>
+                <Grid
+                  container={true}
+                  spacing={24}
+                  alignItems="center"
+                  direction="row"
+                >
+                  {this.renderSecondStep()}
+                </Grid>
+              </div>
+            }
+            {this.state.currentStep === 2 &&
+              <Grid
+                container={true}
+                spacing={24}
+                alignItems="center"
+                direction="row"
+              >
+                { this.renderThirdStep()}
+              </Grid>
+            }
         </form>
       </React.Fragment>
     )

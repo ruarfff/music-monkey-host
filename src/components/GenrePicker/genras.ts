@@ -21,4 +21,5 @@ export default [
   { value: 'Rock', label: 'Rock' },
   { value: 'Singer / Songwriter (inc. Folk)', label: 'Singer / Songwriter (inc. Folk)' },
   { value: 'World Music / Beats', label: 'World Music / Beats' },
+  { value: '', label: '' },
 ];

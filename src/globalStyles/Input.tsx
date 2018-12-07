@@ -27,6 +27,8 @@ export const decorate = withStyles(() => ({
     borderRadius: '4px',
     border: '1px solid #979797',
     paddingLeft: '16px',
+    alignItems: 'start',
+    display: 'flex',
     minHeight: '240px',
     '&:hover:not($disabled):before': {
       borderBottom: '1px solid #979797!important',

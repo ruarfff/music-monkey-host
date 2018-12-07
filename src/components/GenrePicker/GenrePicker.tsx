@@ -35,6 +35,7 @@ class GenrePicker extends React.PureComponent<IGenrePickerProps> {
     return(
       <React.Fragment>
         <Select
+          onInputChange={this.handleInputChange}
           className="select"
           options={options}
           styles={customStyles}
@@ -46,7 +47,12 @@ class GenrePicker extends React.PureComponent<IGenrePickerProps> {
     )
   }
 
+  private handleInputChange = (inputText: any) => {
+    options[options.length-1] = { value: inputText, label: inputText }
+  }
+
   private handleChange = (selectedOption: any) => {
+    console.log(selectedOption)
     this.setState({ selectedOption })
     this.props.onChange(selectedOption.value)
   }

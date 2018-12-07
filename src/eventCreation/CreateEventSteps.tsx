@@ -8,13 +8,16 @@ const decorate = withStyles((theme: Theme) => ({
   stepsContainer: {
     display: 'flex',
     justifyContent: 'space-between',
-    fontSize: '14px',
     lineHeight: '16px',
     color: '#979797',
     padding: '20px 35px'
   },
+  stepsText: {
+    fontSize: '18px',
+  },
   highlight: {
     color: '#FFB000',
+    fontSize: '18px',
   }
 }))
 
@@ -37,13 +40,13 @@ class EventCard extends React.Component<
         direction="row"
         className={classes.stepsContainer}
       >
-        <Typography className={step === 0 ? classes.highlight : ''}>
+        <Typography className={step === 0 ? classes.highlight : classes.stepsText}>
           STEP 1: CREATE EVENT
         </Typography>
-        <Typography className={step === 1 ? classes.highlight : ''}>
+        <Typography className={step === 1 ? classes.highlight : classes.stepsText}>
           STEP 2: ADD DETAILS
         </Typography>
-        <Typography className={step === 2 ? classes.highlight : ''}>
+        <Typography className={step === 2 ? classes.highlight : classes.stepsText}>
           STEP 3: SHARE EVENT
         </Typography>
       </Grid>

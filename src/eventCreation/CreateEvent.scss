@@ -9,7 +9,7 @@
 }
 
 div.filepicker {
-  background: url("../assets/load-image.png") no-repeat center;
+  background: url("../assets/partycover.png") no-repeat center;
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -42,7 +42,7 @@ div.filepicker {
 
 .dropzone .dz-message {
   cursor: pointer;
-  background: rgba(111, 203, 214, 0.5);
+  background: rgba(111, 203, 214, 0.9);
   padding: 10px 16px;
   border-radius: 4px;
   text-transform: uppercase;
