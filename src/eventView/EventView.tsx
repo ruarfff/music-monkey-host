@@ -30,10 +30,12 @@ const decorated = withStyle(() => ({
     borderBottom: '1px solid #d6d6d6',
     marginBottom: '10px'
   },
-  tab: {},
+  tab: {
+    color: '#979797'
+  },
   tabs: {
     color: '#AF00FF!important',
-    borderBottom: '1px solid #AF00FF'
+    borderBottom: '1px solid #979797'
   },
   TabIndicator: {
     backgroundColor: '#AF00FF!important',
@@ -145,6 +147,8 @@ class EventView extends React.Component<
             <Tabs
               value={tabIndex}
               onChange={this.handleTabChange}
+              indicatorColor={'primary'}
+              textColor={'primary'}
               TabIndicatorProps={{ className: classes.TabIndicator }}
               centered={true}
               className={classes.tabs}
