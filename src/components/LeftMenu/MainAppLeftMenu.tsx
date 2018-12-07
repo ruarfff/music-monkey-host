@@ -55,7 +55,9 @@ class MainAppLeftMenu extends React.Component<IMainAppLeftMenuProps> {
       <div className="Home-left-menu-wrapper">
         <div className="Home-left-menu">
           <div className="Home-logo-container">
-            <img src={logo} alt="" />
+            <Link to={'/'}>
+              <img src={logo} alt="" />
+            </Link>
           </div>
           <List>
             <Link to={'/'}>
