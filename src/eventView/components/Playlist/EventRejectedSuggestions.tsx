@@ -23,10 +23,6 @@ const decorate = withStyles(() => ({
     background: '#27AE60',
     color: 'white'
   },
-  maybe: {
-    background: '#56CCF2',
-    color: 'white'
-  },
   trackBand: {
     padding: 0,
     fontWeight: 800
@@ -175,13 +171,6 @@ class EventRejectedSuggestions extends React.PureComponent<
             onClick={this.handleSuggestionAccepted(decoratedSuggestion)}
           >
             ACCEPT
-          </Button>
-          <Button
-            className={classes.maybe}
-            variant="contained"
-            onClick={this.handleSuggestionAccepted(decoratedSuggestion)}
-          >
-            MAYBE
           </Button>
         </ListItemSecondaryAction>
       </ListItem>

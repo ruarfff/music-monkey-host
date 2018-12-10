@@ -6,7 +6,7 @@ import List from '@material-ui/core/List/List'
 import ListItem from '@material-ui/core/ListItem/ListItem'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction/ListItemSecondaryAction'
 import ListItemText from '@material-ui/core/ListItemText/ListItemText'
-import Slide from '@material-ui/core/Slide'
+// import Slide from '@material-ui/core/Slide'
 import { WithStyles } from '@material-ui/core/styles'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography/Typography'
@@ -139,12 +139,12 @@ class EventSuggestions extends React.Component<
     }
 
     return (
-      <Slide
+      <Grid
         key={index}
-        in={track.uri !== this.state.tracksBeingRemoved.uri}
-        direction="right"
-        mountOnEnter={true}
-        unmountOnExit={true}
+        // in={track.uri !== this.state.tracksBeingRemoved.uri}
+        // direction="right"
+        // mountOnEnter={false}
+        // unmountOnExit={true}
       >
         <ListItem className={classes.listItem} dense={true} button={true}>
           {trackImage}
@@ -209,7 +209,7 @@ class EventSuggestions extends React.Component<
             </Button>
           </ListItemSecondaryAction>
         </ListItem>
-      </Slide>
+      </Grid>
     )
   }
 
