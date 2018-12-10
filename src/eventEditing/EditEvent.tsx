@@ -30,7 +30,6 @@ const decorate = withStyles(() => ({
     marginTop: '16px'
   },
   button: {
-    color: 'white',
     marginLeft: '10px'
   },
   addCoHost: {

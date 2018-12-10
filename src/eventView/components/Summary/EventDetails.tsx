@@ -34,9 +34,6 @@ const decorated = withStyle(() => ({
     cursor: 'pointer',
     marginBottom: '10px'
   },
-  button: {
-    color: 'white'
-  },
   endDate: {}
 }))
 
@@ -181,7 +178,6 @@ class EventDetails extends React.PureComponent<
                 variant="contained"
                 color="secondary"
                 to={location.pathname + '/edit'}
-                className={classes.button}
               >
                 Edit Event
               </LinkButton>

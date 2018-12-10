@@ -6,14 +6,7 @@ import * as React from 'react'
 import IAction from '../../IAction'
 import InviteLink from '../InviteLink/InviteLink'
 import ShareEventByEmail from './ShareEventByEmailContainer'
-import { withStyles, WithStyles } from '@material-ui/core'
 import './SharePopup.scss'
-
-const decorated = withStyles(() => ({
-  button: {
-    color: 'white',
-  }
-}))
 
 interface ISharePopupProps {
   message: string
@@ -22,7 +15,7 @@ interface ISharePopupProps {
   clearMessage(): IAction
 }
 
-class SharePopup extends React.PureComponent<ISharePopupProps & WithStyles> {
+class SharePopup extends React.PureComponent<ISharePopupProps> {
   public state = {
     showPopup: false,
     showMessage: this.props.message !== ''
@@ -33,7 +26,7 @@ class SharePopup extends React.PureComponent<ISharePopupProps & WithStyles> {
   }
 
   public render() {
-    const { inviteId, onCopyEventInvite, classes } = this.props
+    const { inviteId, onCopyEventInvite } = this.props
     const { showPopup, showMessage } = this.state
     return (
       <React.Fragment>
@@ -59,7 +52,6 @@ class SharePopup extends React.PureComponent<ISharePopupProps & WithStyles> {
           onClick={this.togglePopup}
           color='secondary'
           variant='contained'
-          className={classes.button}
         >
           SHARE EVENT
         </Button>
@@ -109,4 +101,4 @@ class SharePopup extends React.PureComponent<ISharePopupProps & WithStyles> {
   }
 }
 
-export default decorated(SharePopup)
+export default SharePopup

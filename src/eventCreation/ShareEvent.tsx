@@ -15,10 +15,6 @@ import IAction from '../IAction'
 import './CreateEvent.scss'
 
 const decorate = withStyles((theme: Theme) => ({
-  btn: {
-    color: 'white',
-    width: '100%'
-  },
   img: {
     width: '100%',
     maxWidth: '500px',
@@ -143,7 +139,7 @@ class ShareEvent extends React.PureComponent<IShareEventProps & WithStyles> {
                 variant='contained'
                 color='secondary'
                 target='_blank'
-                className={classes.btn}
+                fullWidth={true}
               >
                 GO TO PLAYLIST
               </Button>
@@ -152,7 +148,7 @@ class ShareEvent extends React.PureComponent<IShareEventProps & WithStyles> {
               <Button
                 variant="contained"
                 color='secondary'
-                className={classes.btn}
+                fullWidth={true}
               >
                 GO TO EVENT
               </Button>

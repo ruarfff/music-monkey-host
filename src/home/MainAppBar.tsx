@@ -60,8 +60,6 @@ const decorate = withStyles(({ transitions, zIndex }) => ({
   },
   addEventBtn: {
     textTransform: 'uppercase',
-    backgroundColor: '#FFB000',
-    color: 'white',
     padding: '8px 18px'
   },
   notification: {
@@ -165,6 +163,7 @@ class MainAppBar extends React.Component<IMainAppBarProps & WithStyles> {
             <Button
               variant="contained"
               size="small"
+              color='secondary'
               className={classes.addEventBtn}
             >
               <img className={classes.imageInButton} src={eventIcon} alt="" />
