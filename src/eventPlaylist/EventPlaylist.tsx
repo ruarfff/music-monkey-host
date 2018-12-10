@@ -145,9 +145,8 @@ export default class EventPlaylist extends React.Component<
             >
               <Typography>Tracks</Typography>
 
-              {hasStagedTrack && this.renderSaveButtons(hasStagedTrack)}
-
-              <div>
+              <div className='EventPlaylist-rightSideButtons'>
+                {hasStagedTrack && this.renderSaveButtons(hasStagedTrack)}
                 <Button
                   aria-owns={anchorEl ? 'simple-menu' : undefined}
                   aria-haspopup="true"
