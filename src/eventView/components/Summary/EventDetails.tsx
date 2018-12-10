@@ -68,7 +68,7 @@ class EventDetails extends React.PureComponent<
               Event Details
             </Typography>
           </Grid>
-          <Grid className="EventDetails-title-container" item={true} xs={6}>
+          <Grid className="EventDetails-title-container" item={true} xs={12}>
             <img
               className="EventDetails-img"
               src={event.imageUrl}
@@ -76,7 +76,7 @@ class EventDetails extends React.PureComponent<
             />
           </Grid>
 
-          <Grid className="EventDetails-info" item={true} xs={6}>
+          <Grid className="EventDetails-info" item={true} xs={12}>
             <Typography
               className={classes.eventName}
               variant="h5"

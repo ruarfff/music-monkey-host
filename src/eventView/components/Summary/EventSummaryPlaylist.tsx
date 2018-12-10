@@ -14,6 +14,9 @@ const decorated = withStyle(() => ({
     padding: '30px 30px 30px 30px',
     height: '100%'
   },
+  playlistView: {
+    marginBottom: '50px',
+  },
   spotifyLink: {
     color: '#FFB000'
   },
@@ -79,7 +82,7 @@ class EventSummaryPlaylist extends React.PureComponent<
 
     return (
       <Grid className={classes.playlistWrapper} container={true} spacing={16}>
-        <Grid item={true} xs={6}>
+        <Grid item={true} xs={12} className={classes.playlistView}>
           <Grid container={true} alignItems={'center'}>
             <Grid item={true} xs={12}>
               <Typography gutterBottom={true} variant="subtitle1">
@@ -134,7 +137,7 @@ class EventSummaryPlaylist extends React.PureComponent<
             </Grid>
           </Grid>
         </Grid>
-        <Grid item={true} xs={6}>
+        <Grid item={true} xs={12}>
           <Typography className={classes.recentlyTitle} variant="caption">
             Recently Requested Tracks
           </Typography>

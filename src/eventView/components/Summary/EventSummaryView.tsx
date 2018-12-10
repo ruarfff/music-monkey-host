@@ -11,6 +11,7 @@ import './Styles/EventSummaryView.scss'
 const decorated = withStyle(() => ({
   content: {
     height: '100%',
+    margin: '-12px -8px'
   },
   leftSideContent: {
     borderRight: '1px solid #979797',
@@ -36,11 +37,21 @@ class EventSummaryView extends React.PureComponent<IEventSummaryViewProps & With
           item={true}
           direction={'column'}
           justify={'flex-start'}
-          sm={8}
+          sm={4}
         >
           <div className="eventDetailsWrapper">
             <EventDetails />
           </div>
+        </Grid>
+        <Grid
+          className={classes.leftSideContent}
+          container={true}
+          spacing={24}
+          item={true}
+          direction={'column'}
+          justify={'flex-start'}
+          sm={4}
+        >
           <div className="eventPlaylistWrapper">
             <EventSummaryPlaylist />
           </div>
