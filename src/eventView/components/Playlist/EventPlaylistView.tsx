@@ -20,7 +20,9 @@ import './Styles/EventPlaylistView.scss'
 
 const decorate = withStyles(() => ({
   tabsWrapper: {
-    padding: '25px!important'
+    margin: '25px!important',
+    padding: '0!important',
+    background: 'white',
   },
   suggestions: {
     right: '-20px!important'
@@ -37,7 +39,15 @@ interface IEventPlaylistViewProps {
 
 function TabContainer({ children, dir }: any) {
   return (
-    <Typography component="div" dir={dir}>
+    <Typography
+      component="div"
+      dir={dir}
+      style={{
+        padding: '10px',
+        boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2), ' +
+        '0px 4px 5px 0px rgba(0, 0, 0, 0.14), ' +
+        '0px 1px 10px 0px rgba(0, 0, 0, 0.12)'
+      }}>
       {children}
     </Typography>
   )
@@ -74,7 +84,7 @@ class EventPlaylistView extends React.Component<
           <EventPlaylistSummary />
         </Grid>
         <Grid className={classes.tabsWrapper} item={true} sm={12}>
-          <AppBar position="static" color="default">
+          <AppBar position="static" color="inherit">
             <Tabs
               value={tabIndex}
               onChange={this.handleTabChange}
