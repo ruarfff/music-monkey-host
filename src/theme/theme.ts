@@ -15,6 +15,12 @@ const theme = createMuiTheme({
         color: 'white',
       }
     },
+    MuiBadge: {
+      colorSecondary: {
+        color: 'white',
+        backgroundColor: styles.secondaryLight,
+      },
+    },
   },
   palette: {
     primary: {
