@@ -64,6 +64,9 @@ class Events extends React.Component<IEventsProps> {
       </IconButton>
     )
 
+    console.log(events.length, !playlist,
+      upcomingPlaylists.length, playlist)
+
     return (
       <React.Fragment>
         {!playlist && events.length === 0 && <NoEvents />}
@@ -84,6 +87,12 @@ class Events extends React.Component<IEventsProps> {
             slidesToScroll={1}
             renderCenterLeftControls={leftControl}
             renderCenterRightControls={rightControls}
+            withoutControls={
+              (
+                (!(events.length > 5) && !playlist) ||
+                (!(upcomingPlaylists.length > 5) && playlist)
+              ) && true
+            }
           >
             {events.length > 0 &&
               !playlist &&
