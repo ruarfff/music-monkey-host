@@ -33,6 +33,7 @@ const InviteLink = (props: IInviteLinkProps & WithStyles) => {
         variant={'contained'}
         className={classes.button}
         onClick={togglePopup}
+        fullWidth={true}
       >
         Copy Link
       </Button>

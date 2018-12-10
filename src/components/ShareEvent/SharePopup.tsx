@@ -76,10 +76,12 @@ class SharePopup extends React.PureComponent<ISharePopupProps & WithStyles> {
                 id='fbLink'
                 href={'https://www.facebook.com/sharer/sharer.php?u=guests.musicmonkey.io/invite/' + inviteId}
                 target="_blank"
+                className='shareFacebookBtn'
               >
                 <Button
                   onClick={this.togglePopup}
                   variant='contained'
+                  fullWidth={true}
                 >
                   SHARE ON FACEBOOK
                 </Button>

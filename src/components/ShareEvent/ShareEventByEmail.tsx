@@ -1,6 +1,7 @@
 import Button from '@material-ui/core/Button'
 import * as React from 'react'
 import EventInput from '../EventInput/EventInput'
+import './SharePopup.scss'
 
 interface IShareEventByEmailProps {
   shareByEmails(emails: string[]): void
@@ -16,7 +17,7 @@ class ShareEventByEmail extends React.PureComponent<IShareEventByEmailProps> {
   public render() {
     const { emails, validation } = this.state
     return (
-      <div>
+      <div className='emailShareWrapper'>
         <EventInput
           value={emails}
           maxRows={2}
@@ -26,6 +27,7 @@ class ShareEventByEmail extends React.PureComponent<IShareEventByEmailProps> {
         />
         <Button
           disabled={!validation}
+          fullWidth={true}
           onClick={this.handleSubmit}
         >
           SHARE
