@@ -22,6 +22,7 @@ const s3 = new AWS.S3({
 })
 
 const djsConfig = {
+  addRemoveLinks: true,
   autoProcessQueue: false,
   dictDefaultMessage: 'Add Image',
   maxFiles: 1,
@@ -55,7 +56,7 @@ function upload(file: any) {
 }
 
 const componentConfig = {
-  postUrl: 'upload'
+  postUrl: 'upload',
 }
 
 interface IFileUploadProps {
