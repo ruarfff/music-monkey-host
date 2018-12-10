@@ -20,6 +20,9 @@ const theme = createMuiTheme({
         color: 'white',
         backgroundColor: styles.secondaryLight,
       },
+      colorSecondary: {
+        color: 'white',
+      },
     },
   },
   palette: {
