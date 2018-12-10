@@ -95,7 +95,7 @@ class EventPlaylistView extends React.Component<
               <Tab label="Event Playlist" />
               <Tab
                 label={
-                  pendingSuggestions.length ? (
+                  filteredSuggestions.length > 0 ? (
                     <Badge
                       badgeContent={filteredSuggestions.length}
                       color={'secondary'}

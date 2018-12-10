@@ -74,15 +74,8 @@ class EventSuggestions extends React.Component<
 
   public render() {
     const { suggestions, playlist } = this.props
-    if (!suggestions || suggestions.length < 1) {
-      return (
-        <Typography align="center" variant="subtitle1">
-          Currently no Suggestions
-        </Typography>
-      )
-    }
-    const playlistTracks = playlist.tracks.items.map((track) => track.track.uri)
 
+    const playlistTracks = playlist.tracks.items.map((track) => track.track.uri)
     let filteredSuggestions = suggestions
 
     if(!isEmpty(suggestions)) {
@@ -90,11 +83,21 @@ class EventSuggestions extends React.Component<
         .filter((suggestedTrack) => playlistTracks.indexOf(suggestedTrack.track.uri) === -1), 'track.uri')
     }
 
+    if (!filteredSuggestions || filteredSuggestions.length < 1) {
+      return (
+        <Typography align="center" variant="subtitle1">
+          Currently no Suggestions
+        </Typography>
+      )
+    }
+
+
     return (
       <div className="EventSuggestions-root">
         <Grid container={true} spacing={24}>
           <Grid item={true} sm={12}>
-            {this.renderAcceptButtons(filteredSuggestions)}
+            {filteredSuggestions.length > 0 &&
+            this.renderAcceptButtons(filteredSuggestions)}
           </Grid>
           <Grid item={true} sm={12}>
             <List>

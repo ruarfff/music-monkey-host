@@ -98,14 +98,12 @@ class TrackItem extends React.PureComponent<
           </Grid>
 
           <Grid item={true} md={4}>
-            {track.preview_url && (
-              <audio
-                src={track.preview_url}
-                controls={true}
-                className="EventSuggestions-audio"
-                preload="none"
-              />
-            )}
+            <audio
+              src={track.preview_url ? track.preview_url : ''}
+              controls={true}
+              className="EventSuggestions-audio"
+              preload="none"
+            />
           </Grid>
         </Grid>
         <ListItemSecondaryAction>
