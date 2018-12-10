@@ -26,6 +26,8 @@ class ShareEventByEmail extends React.PureComponent<IShareEventByEmailProps> {
           onChange={this.handleEmailChange('emails')}
         />
         <Button
+          variant={'contained'}
+          color={'secondary'}
           disabled={!validation}
           fullWidth={true}
           onClick={this.handleSubmit}

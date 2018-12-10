@@ -6,6 +6,16 @@ const theme = createMuiTheme({
   typography: {
     useNextVariants: true
   },
+  overrides: {
+    MuiButton: {
+      containedPrimary: {
+        color: 'white',
+      },
+      containedSecondary: {
+        color: 'white',
+      }
+    },
+  },
   palette: {
     primary: {
       main: styles.primaryMain
