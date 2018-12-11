@@ -93,6 +93,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
     anchorCoHost: null,
     eventType: 'public',
     showSaveDialog: true,
+    showRequiredDialog: true,
     name: '',
     description: '',
     organizer: '',
@@ -132,11 +133,35 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
   }
 
   public nextStep = () => {
-    const { currentStep } = this.state
-    this.setChanges()
-    if (currentStep !== 2) {
-      this.setState({ currentStep: currentStep + 1 })
+    const {
+      currentStep,
+      name,
+      organizer,
+      venue
+    } = this.state
+
+    if (currentStep === 0 &&
+      !name ||
+      !organizer ||
+      !venue ||
+      !this.props.event.playlistUrl
+    ) {
+      this.showRequiredDialog()
+    } else {
+      this.setChanges()
+      if (currentStep !== 2) {
+        this.setState({ currentStep: currentStep + 1 })
+      }
     }
+  }
+
+  public showRequiredDialog = () => {
+    this.setState({ showRequiredDialog: false })
+    SweetAlert.fire({
+      confirmButtonColor: '#8f0a00',
+      title: 'fill in all required fields',
+      type: 'error'
+    }).then()
   }
 
   public showSavedDialogue = () => {
@@ -146,18 +171,6 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
       title: 'Event Saved!',
       type: 'success'
     }).then()
-  }
-
-  public handleClick = (event: any) => {
-    this.setState({ anchorCoHost: event.currentTarget })
-  }
-
-  public handleClose = () => {
-    this.setState({ anchorCoHost: null })
-  }
-
-  public handleEventType = (event: any) => {
-    this.setState({ [event.target.name]: event.target.value })
   }
 
   public renderMap = (coords: any) => {
@@ -265,7 +278,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             <span className="control-btn-text-primary">Cancel</span>
           </Button>
           <Button
-            disabled={!name || !organizer || !venue || !event.playlistUrl}
+            // disabled={!name || !organizer || !venue || !event.playlistUrl}
             onClick={this.nextStep}
             color="secondary"
             variant="contained"
