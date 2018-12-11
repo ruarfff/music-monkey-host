@@ -48,21 +48,12 @@ const decorate = withStyles((theme: Theme) => ({
   }
 }))
 
-type IEventCardClasses =
-  | 'card'
-  | 'title'
-  | 'link'
-  | 'eventDescription'
-  | 'img'
-  | 'imgContainer'
-  | 'cardContent'
-
 interface IEventBigCardProps {
   event: IEvent
 }
 
 class EventBigCard extends React.Component<
-  IEventBigCardProps & WithStyles<IEventCardClasses>
+  IEventBigCardProps & WithStyles
 > {
   public render() {
     const { event, classes } = this.props
