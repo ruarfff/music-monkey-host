@@ -209,7 +209,7 @@ export default class EventPlaylist extends React.Component<
         <div className="EventPlaylist-playlist-action">
           <Button
             variant="contained"
-            color="primary"
+            color="secondary"
             disabled={!hasStagedTrack}
             onClick={this.handleSavePlaylist}
           >
