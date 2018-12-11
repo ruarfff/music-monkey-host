@@ -2,6 +2,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 
 export const decorate = withStyles(() => ({
   input: {
+    backgroundColor: 'white',
     borderRadius: '4px',
     border: '1px solid #979797',
     paddingLeft: '16px',
@@ -21,9 +22,11 @@ export const decorate = withStyles(() => ({
     '&:hover:not($disabled):before': {
       borderBottom: 'none!important',
     },
-    paddingTop: '4px'
+    paddingTop: '4px',
+    zIndex: 10,
   },
   textArea: {
+    backgroundColor: 'white',
     borderRadius: '4px',
     border: '1px solid #979797',
     paddingLeft: '16px',
