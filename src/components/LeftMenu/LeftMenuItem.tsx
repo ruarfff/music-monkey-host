@@ -9,8 +9,8 @@ import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-import SubMenuIconHighlighted from '../../assets/subitem-highlighted.svg'
-import SubMenuIcon from '../../assets/submenu-icon.svg'
+// import SubMenuIconHighlighted from '../../assets/subitem-highlighted.svg'
+// import SubMenuIcon from '../../assets/submenu-icon.svg'
 
 const decorate = withStyles(({}) => ({
   listIcon: {
@@ -41,11 +41,11 @@ const decorate = withStyles(({}) => ({
     textDecoration: 'none',
     fontSize: '12px'
   },
-  subListItem: {
-    paddingLeft: '78px'
-  },
   collapse: {
     background: '#8300bf'
+  },
+  subListItemHighlighted: {
+    backgroundColor: '#3AABD1',
   }
 }))
 
@@ -76,12 +76,18 @@ class LeftMenuItem extends React.Component<ILeftMenuItemProps & WithStyles> {
     const { classes, currentPath } = this.props
 
     return (
-      <ListItem className={classes.subListItem} button={true}>
-        <ListItemIcon>
-          <img
-            src={link !== currentPath ? SubMenuIcon : SubMenuIconHighlighted}
-          />
-        </ListItemIcon>
+      <ListItem
+        className={
+          link !== currentPath ?
+          '' :
+          classes.subListItemHighlighted
+        }
+        button={true}>
+        {/*<ListItemIcon>*/}
+          {/*<img*/}
+            {/*src={link !== currentPath ? SubMenuIcon : SubMenuIconHighlighted}*/}
+          {/*/>*/}
+        {/*</ListItemIcon>*/}
         <ListItemText
           inset={true}
           primary={
