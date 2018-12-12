@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux'
 import {
   closeCreatePlaylist,
   closeExistingPlaylist,
-  editEventRequest,
   createEventPlaylist,
+  editEventRequest,
   eventContentUpdated,
   eventImageUploaded,
   eventImageUploadError,
