@@ -10,6 +10,7 @@ import EventInput from '../components/EventInput/EventInput'
 import GenrePicker from '../components/GenrePicker/GenrePicker'
 import LocationAutoComplete from '../components/location/LocationAutoComplete'
 import MapComponent from '../components/MapComponent'
+import EventSearchTracks from '../components/SearchTracks/EventSearchTracksContainer'
 import IEvent from '../event/IEvent'
 import IPlaylistInput from '../event/IPlaylistInput'
 import IAction from '../IAction'
@@ -22,7 +23,6 @@ import CreateEventSteps from './CreateEventSteps'
 import EventDateTimePicker from './EventDateTimePicker'
 import PlaylistSelection from './PlaylistSelection'
 import ShareEvent from './ShareEvent'
-import EventSearchTracks from '../components/SearchTracks/EventSearchTracksContainer'
 
 const decorate = withStyles((theme: Theme) => ({
   button: {
