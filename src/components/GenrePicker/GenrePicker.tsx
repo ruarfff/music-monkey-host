@@ -52,7 +52,6 @@ class GenrePicker extends React.PureComponent<IGenrePickerProps> {
   }
 
   private handleChange = (selectedOption: any) => {
-    console.log(selectedOption)
     this.setState({ selectedOption })
     this.props.onChange(selectedOption.value)
   }

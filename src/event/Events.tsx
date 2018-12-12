@@ -64,9 +64,6 @@ class Events extends React.Component<IEventsProps> {
       </IconButton>
     )
 
-    console.log(events.length, !playlist,
-      upcomingPlaylists.length, playlist)
-
     return (
       <React.Fragment>
         {!playlist && events.length === 0 && <NoEvents />}
