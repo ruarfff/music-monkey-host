@@ -187,11 +187,12 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
 
   public pickStep = (step: number) => {
     const {
+      currentStep,
       name,
       organizer,
       venue
     } = this.state
-    if (step === 0 && (
+    if (currentStep === 0 && (
         !name ||
         !organizer ||
         !venue ||
