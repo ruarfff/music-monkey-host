@@ -22,6 +22,7 @@ import CreateEventSteps from './CreateEventSteps'
 import EventDateTimePicker from './EventDateTimePicker'
 import PlaylistSelection from './PlaylistSelection'
 import ShareEvent from './ShareEvent'
+import EventSearchTracks from '../components/SearchTracks/EventSearchTracksContainer'
 
 const decorate = withStyles((theme: Theme) => ({
   button: {
@@ -268,6 +269,18 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             closeCreatePlaylist={closeCreatePlaylist}
             createEventPlaylist={createEventPlaylist}
           />
+        </Grid>
+        <Grid item={true} xs={12} sm={12}>
+
+          {event.playlistUrl &&
+            playlists.map((playlist: IPlaylist) =>
+              event.playlistUrl === playlist.external_urls.spotify &&
+              <>
+                <span>Add tracks to playlist</span>
+                <EventSearchTracks playlist={playlist}/>
+              </>
+            )
+          }
         </Grid>
         <div className="control-btn-row">
           <Button

@@ -129,7 +129,7 @@ class EventPlaylistView extends React.Component<
           )}
           {tabIndex === 3 && (
             <TabContainer dir={'x'}>
-              <EventSearchTracksContainer />
+              <EventSearchTracksContainer playlist={playlist} />
             </TabContainer>
           )}
         </Grid>
