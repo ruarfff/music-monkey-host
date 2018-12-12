@@ -484,7 +484,6 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
 
   private handleSaveEvent = () => {
     this.nextStep()
-    console.log(this.props.event.createdAt)
     if (this.props.event.createdAt !== undefined) {
       this.props.editEventRequest(this.props.event)
     } else {
