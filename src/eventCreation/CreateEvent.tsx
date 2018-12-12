@@ -79,6 +79,7 @@ interface ICreateEventProps {
   initializeCreateForm(event: IEvent, user: IUser): IAction
   locationChanged(address: string): IAction
   locationSelected(address: string): IAction
+  editEventRequest(event: IEvent): IAction
   saveEvent(event: IEvent): IAction
   selectCreatePlaylist(): IAction
   selectExistingPlaylist(): IAction
@@ -95,6 +96,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
     eventType: 'public',
     showSaveDialog: true,
     showRequiredDialog: true,
+    showFinishCreatingEventDialog: true,
     name: '',
     description: '',
     organizer: '',
@@ -160,7 +162,16 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
     this.setState({ showRequiredDialog: false })
     SweetAlert.fire({
       confirmButtonColor: '#8f0a00',
-      title: 'fill in all required fields',
+      title: 'Fill in all required fields',
+      type: 'error'
+    }).then()
+  }
+
+  public showFinishCreatingEventDialog = () => {
+    this.setState({ showFinishCreatingEventDialog: false })
+    SweetAlert.fire({
+      confirmButtonColor: '#8f0a00',
+      title: 'Finish creating of event',
       type: 'error'
     }).then()
   }
@@ -172,6 +183,28 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
       title: 'Event Saved!',
       type: 'success'
     }).then()
+  }
+
+  public pickStep = (step: number) => {
+    const {
+      name,
+      organizer,
+      venue
+    } = this.state
+    if (step === 0 && (
+        !name ||
+        !organizer ||
+        !venue ||
+        !this.props.event.playlistUrl
+      )
+    ) {
+      this.showRequiredDialog()
+    } else if(step === 2 && this.props.event.createdAt === undefined) {
+      this.showFinishCreatingEventDialog()
+    } else {
+      this.setState({ currentStep: step })
+      this.setChanges()
+    }
   }
 
   public renderMap = (coords: any) => {
@@ -273,12 +306,12 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
         <Grid item={true} xs={12} sm={12}>
 
           {event.playlistUrl &&
-            playlists.map((playlist: IPlaylist) =>
+            playlists.map((playlist: IPlaylist, key) =>
               event.playlistUrl === playlist.external_urls.spotify &&
-              <>
+              <React.Fragment key={key}>
                 <span>Add tracks to playlist</span>
                 <EventSearchTracks playlist={playlist}/>
-              </>
+              </React.Fragment>
             )
           }
         </Grid>
@@ -365,7 +398,13 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             onClick={this.handleSaveEvent}
             className={classes.button}
           >
-            <span className="control-btn-text-secondary">Create Event</span>
+            <span className="control-btn-text-secondary">
+              {
+                this.props.event.createdAt === undefined ?
+                  'Create Event' :
+                  'Edit Event'
+              }
+              </span>
           </Button>
         </div>
       </React.Fragment>
@@ -398,7 +437,7 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
   public render() {
     return (
       <React.Fragment>
-        <CreateEventSteps step={this.state.currentStep} />
+        <CreateEventSteps pickStep={this.pickStep} step={this.state.currentStep} />
         <form className="CreateEvent-root" noValidate={true} autoComplete="off">
             {
               <div hidden={this.state.currentStep !== 0}>
@@ -445,7 +484,14 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
 
   private handleSaveEvent = () => {
     this.nextStep()
-    setTimeout(() => this.props.saveEvent(this.props.event), 1000)
+    console.log(this.props.event.createdAt)
+    if (this.props.event.createdAt !== undefined) {
+      this.props.editEventRequest(this.props.event)
+    } else {
+      setTimeout(() => {
+        this.props.saveEvent(this.props.event)
+      }, 1000)
+    }
   }
 
   private handleContentUpdated = (key: string) => (content: any) => {

@@ -22,4 +22,5 @@ export default interface IEvent {
   guests?: IEventGuest[]
   dataUrl?: string
   settings: IEventSettings
+  createdAt?: string
 }

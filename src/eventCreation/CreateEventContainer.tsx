@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import {
   closeCreatePlaylist,
   closeExistingPlaylist,
+  editEventRequest,
   createEventPlaylist,
   eventContentUpdated,
   eventImageUploaded,
@@ -54,7 +55,8 @@ const mapDispatchToProps = (dispatch: any) => ({
       fetchPlaylists,
       eventSavingReset,
       copyEventInvite,
-      acknowledgeEventInviteCopied
+      acknowledgeEventInviteCopied,
+      editEventRequest,
     },
     dispatch
   )

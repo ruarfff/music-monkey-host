@@ -32,7 +32,7 @@ export default {
       .startOf('hour'),
     venue: '',
     invites: [],
-    settings: {} as IEventSettings
+    settings: {} as IEventSettings,
   },
   eventsLoading: false,
   showSavedDialogue: false,
