@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
+import { getEvents } from '../event/eventActions'
 import IRootState from '../rootState'
 import { updateUserRequest } from '../user/userActions'
-import { getEvents } from '../event/eventActions'
 import './accountStyles.scss'
 import AccountView from './AccountView'
 

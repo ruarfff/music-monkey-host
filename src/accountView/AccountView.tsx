@@ -1,17 +1,17 @@
+import AppBar from '@material-ui/core/AppBar'
 import Grid from '@material-ui/core/Grid'
-import withStyles from '@material-ui/core/styles/withStyles'
 import { WithStyles } from '@material-ui/core/styles/withStyles'
+import withStyles from '@material-ui/core/styles/withStyles'
+import Tab from '@material-ui/core/Tab'
+import Tabs from '@material-ui/core/Tabs'
 import * as React from 'react'
+import IEvent from '../event/IEvent'
 import IAction from '../IAction'
 import IUser from '../user/IUser'
 import AccountDetails from './AccountDetails'
-import AppBar from '@material-ui/core/AppBar'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
-import IEvent from '../event/IEvent'
-import MyPlaylists from './MyPlaylists'
 import MyEvents from './MyEvents'
 import MyGuests from './MyGuests'
+import MyPlaylists from './MyPlaylists'
 
 const decorate = withStyles(() => ({
   accountWrapper: {
@@ -52,10 +52,6 @@ class AccountView extends React.Component<IAccountViewProps & WithStyles> {
 
   public componentDidMount() {
     this.props.getEvents()
-  }
-
-  private handleTabChange = (event: any, index: number) => {
-    this.setState({ tabIndex: index })
   }
 
   public render() {
@@ -115,6 +111,10 @@ class AccountView extends React.Component<IAccountViewProps & WithStyles> {
         </Grid>
       </Grid>
     )
+  }
+
+  private handleTabChange = (event: any, index: number) => {
+    this.setState({ tabIndex: index })
   }
 }
 
