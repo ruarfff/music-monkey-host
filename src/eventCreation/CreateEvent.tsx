@@ -216,8 +216,6 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
     const {
       eventImageUploaded,
       eventImageUploadError,
-      locationChanged,
-      locationSelected,
       selectCreatePlaylist,
       selectExistingPlaylist,
       fetchPlaylists,
@@ -259,16 +257,6 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
         </Grid>
 
         <Grid item={true} xs={12} sm={6}>
-          <LocationAutoComplete
-            value={event.location ? event.location.address || '' : ''}
-            onSelect={locationSelected}
-            onChange={locationChanged}
-            placeholder="Search for place"
-            formClass="CreateEvent-formItem"
-          />
-        </Grid>
-
-        <Grid item={true} xs={12} sm={6}>
           <EventInput
             label={'Venue'}
             placeholder={''}
@@ -287,6 +275,11 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
             error={!organizer}
             errorLabel={'Required'}
             onChange={this.handleContentUpdated('organizer')}
+          />
+        </Grid>
+        <Grid item={true} xs={12} sm={6}>
+          <GenrePicker
+            onChange={this.handleContentUpdated('genre')}
           />
         </Grid>
         <Grid item={true} xs={12} sm={12}>
@@ -341,12 +334,22 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
   public renderSecondStep = () => {
     const {
       event,
-      classes
+      classes,
+      locationChanged,
+      locationSelected,
     } = this.props
 
     return (
       <React.Fragment>
-
+        <Grid item={true} xs={12} sm={12}>
+          <LocationAutoComplete
+            value={event.location ? event.location.address || '' : ''}
+            onSelect={locationSelected}
+            onChange={locationChanged}
+            placeholder="Search for place"
+            formClass="CreateEvent-formItem"
+          />
+        </Grid>
         {event.location && this.renderMap(event.location.latLng)}
 
         <Grid item={true} xs={12} sm={6}>
@@ -367,11 +370,6 @@ class CreateEvent extends React.PureComponent<ICreateEventProps & WithStyles> {
           />
         </Grid>
 
-        <Grid item={true} xs={12} sm={6}>
-          <GenrePicker
-            onChange={this.handleContentUpdated('genre')}
-          />
-        </Grid>
         <div className="control-btn-row">
           <Button
             variant="contained"
