@@ -23,3 +23,14 @@
   justify-content: space-between;
   padding: 0 10px;
 }
+
+.tabContainer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  background: white;
+  overflow-y: scroll;
+  height: 100vh;
+  justify-content: space-around;
+  padding-bottom: 10px;
+}

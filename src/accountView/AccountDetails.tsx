@@ -98,7 +98,7 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
         />}
         <Grid
           item={true}
-          md={6}
+          md={12}
           container={true}
         >
           <Grid
@@ -171,7 +171,7 @@ class AccountDetails extends React.Component<IAccountDetailsProps & WithStyles> 
 
         <Grid
           item={true}
-          md={6}
+          md={12}
           container={true}
           direction={'column'}
         >
