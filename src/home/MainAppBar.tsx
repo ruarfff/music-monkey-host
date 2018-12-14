@@ -33,7 +33,7 @@ const decorate = withStyles(({ transitions, zIndex }) => ({
     zIndex: zIndex.drawer + 1,
     position: 'relative',
     boxShadow: 'none',
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     color: 'black',
     paddingTop: '30px'
   },
