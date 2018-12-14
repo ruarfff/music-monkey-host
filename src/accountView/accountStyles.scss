@@ -34,3 +34,18 @@
   justify-content: space-around;
   padding-bottom: 10px;
 }
+
+.guestsContainer {
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.guestWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: 80px;
+}
