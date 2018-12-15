@@ -23,7 +23,7 @@
     "connected-react-router": "^6.0.0",
     "google-map-react": "^1.1.1",
     "lodash": "^4.17.11",
-    "material-ui-pickers": "^1.0.1",
+    "material-ui-pickers": "^2.0.4",
     "moment": "^2.22.1",
     "npm-run-all": "^4.1.5",
     "nuka-carousel": "^4.4.3",
