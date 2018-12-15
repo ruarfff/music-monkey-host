@@ -1,4 +1,4 @@
-import { ConnectedRouter, push } from 'connected-react-router'
+import { push } from 'connected-react-router'
 import { History } from 'history'
 import * as React from 'react'
 import { Route } from 'react-router'
@@ -119,12 +119,10 @@ interface IRouterProps {
 
 export const Routes: React.SFC<IRouterProps> = ({ history }) => {
   return (
-    <ConnectedRouter history={history}>
-      <span>
-        {routes.map((route, i) => (
-          <RouteWithSubRoutes key={i} {...route} />
-        ))}
-      </span>
-    </ConnectedRouter>
+    <span>
+      {routes.map((route, i) => (
+        <RouteWithSubRoutes key={i} {...route} />
+      ))}
+    </span>
   )
 }

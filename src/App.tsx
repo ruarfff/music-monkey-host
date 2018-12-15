@@ -1,15 +1,17 @@
+import Utils from '@date-io/moment'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createGenerateClassName, jssPreset } from '@material-ui/core/styles'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
+import { ConnectedRouter } from 'connected-react-router'
 import { History } from 'history'
 import { create } from 'jss'
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider'
-import MomentUtils from 'material-ui-pickers/utils/moment-utils'
 import * as React from 'react'
 import { CookiesProvider } from 'react-cookie'
 import JssProvider from 'react-jss/lib/JssProvider'
 import { Provider } from 'react-redux'
 import { Store } from 'redux'
+import './App.scss'
 import { Routes } from './routes'
 
 import theme from './theme/theme'
@@ -33,11 +35,13 @@ class App extends React.PureComponent<IAppProps> {
         <React.Fragment>
           <CssBaseline />
           <MuiThemeProvider theme={theme}>
-            <MuiPickersUtilsProvider utils={MomentUtils}>
+            <MuiPickersUtilsProvider utils={Utils}>
               <Provider store={store}>
-                <CookiesProvider>
-                  <Routes history={history} />
-                </CookiesProvider>
+                <ConnectedRouter history={history}>
+                  <CookiesProvider>
+                    <Routes history={history} />
+                  </CookiesProvider>
+                </ConnectedRouter>
               </Provider>
             </MuiPickersUtilsProvider>
           </MuiThemeProvider>

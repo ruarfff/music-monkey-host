@@ -15,11 +15,11 @@ class MostPopularTracks extends React.Component<IMostPopularTracksProps> {
 
     const popularTracks = _.sortBy(
       _.uniqBy(
-        _.flattenDeep(
-          events.map(
-            event =>
-              event.playlist &&
-              event.playlist.tracks.items.map(track => track.track)
+        _.flattenDeep<ITrack>(
+          events.map(event =>
+            event.playlist
+              ? event.playlist.tracks.items.map(track => track.track)
+              : []
           )
         ),
         'uri'

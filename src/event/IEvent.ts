@@ -6,12 +6,13 @@ import IEventSettings from './IEventSettings'
 
 export default interface IEvent {
   eventId?: string
-  description?: string
+  description: string
+  dataUrl: string
   endDateTime: Moment
-  eventCode?: string
-  imageUrl?: string
-  genre?: string
-  location?: ILocation
+  eventCode: string
+  imageUrl: string
+  genre: string
+  location: ILocation
   name: string
   organizer: string
   playlistUrl: string
@@ -19,8 +20,7 @@ export default interface IEvent {
   startDateTime: any
   venue?: string
   invites?: string[]
-  guests?: IEventGuest[]
-  dataUrl?: string
+  guests: IEventGuest[]
   settings: IEventSettings
   createdAt?: string
 }

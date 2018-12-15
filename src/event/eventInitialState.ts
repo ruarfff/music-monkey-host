@@ -7,8 +7,8 @@ export default {
     location: undefined,
     imageUpload: undefined,
     saving: undefined,
-    playlistCreation: undefined,
-    fetchEvents: undefined
+    fetchEvents: undefined,
+    playlistCreation: undefined
   },
   events: [],
   playlistInput: {
@@ -17,12 +17,13 @@ export default {
   },
   savingEvent: {
     description: '',
+    dataUrl: '',
     endDateTime: moment()
       .add(3, 'hours')
       .startOf('hour'),
     eventCode: '',
-    dataUrl: '',
     imageUrl: '',
+    genre: 'None',
     location: { address: '', latLng: { lat: 0, lng: 0 } },
     name: '',
     organizer: '',
@@ -32,7 +33,8 @@ export default {
       .startOf('hour'),
     venue: '',
     invites: [],
-    settings: {} as IEventSettings,
+    guests: [],
+    settings: {} as IEventSettings
   },
   eventsLoading: false,
   showSavedDialogue: false,

@@ -5,52 +5,43 @@ import * as React from 'react'
 import IEvent from '../event/IEvent'
 import IEventGuest from '../event/IEventGuest'
 
-interface IMyPlaylistsProps {
+interface IMyGuestsProps {
   events: IEvent[]
 }
 
-class MyPlaylists extends React.PureComponent<IMyPlaylistsProps> {
-
-  public renderGuests = (guest: IEventGuest, key: number) => {
-    return (
-      <div key={key} className='guestWrapper'>
-        {guest.user.image &&
-          <Avatar
-            alt={guest.user.displayName}
-            src={guest.user.image}
-          />
-        }
-        {!guest.user.image && <AccountCircle />}
-        <div>
-          {guest.user.displayName}
-        </div>
-      </div>
-    )
-  }
-
-  public render() {
-    const { events } = this.props
-    const guests = uniqBy(flattenDeep(events.map((event) => event.guests)), 'userId')
-
-    return (
-      <>
-        <div className='guestsContainer'>
-          {
-            guests.length > 0 ? guests.map((guest, key) => {
-              if (guest) {
-                return this.renderGuests(guest, key)
-              } else {
-                return
-              }
-            }) :
-            <div>
-              You don't have any guests
-            </div>
-          }
-        </div>
-      </>
-    )
-  }
+const renderGuests = (guest: IEventGuest, key: number) => {
+  return (
+    <div key={key} className="guestWrapper">
+      {guest.user.image && (
+        <Avatar alt={guest.user.displayName} src={guest.user.image} />
+      )}
+      {!guest.user.image && <AccountCircle />}
+      <div>{guest.user.displayName}</div>
+    </div>
+  )
 }
 
-export default MyPlaylists
+export default ({ events }: IMyGuestsProps) => {
+  const guests: IEventGuest[] = flattenDeep<IEventGuest>(
+    events.map(event => event.guests)
+  )
+
+  // TODO: We should guarantee uniqueness from api
+  const uniqueGuests: IEventGuest[] = uniqBy<IEventGuest>(guests, 'userId')
+
+  return (
+    <div className="guestsContainer">
+      {uniqueGuests.length > 0 ? (
+        uniqueGuests.map((guest: IEventGuest, key: number) => {
+          if (guest) {
+            return renderGuests(guest, key)
+          } else {
+            return
+          }
+        })
+      ) : (
+        <h3>You don't have any guests</h3>
+      )}
+    </div>
+  )
+}

@@ -1,15 +1,15 @@
+import Button from '@material-ui/core/Button'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 import Paper from '@material-ui/core/Paper'
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
+import _ from 'lodash'
 import * as React from 'react'
 import { Cell, Legend, Pie, PieChart, Tooltip } from 'recharts'
-import * as _ from 'lodash'
-import IRsvp from '../../rsvp/IRsvp'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import Button from '@material-ui/core/Button'
 import IEvent from '../../event/IEvent'
 import IAction from '../../IAction'
+import IRsvp from '../../rsvp/IRsvp'
 
 const decorate = withStyles(() => ({
   title: {
@@ -27,7 +27,6 @@ interface IPieChartWidgetProps {
 class PieChartWidget extends React.Component<
   IPieChartWidgetProps & WithStyles
 > {
-
   public state = {
     anchorEl: null
   }
@@ -40,7 +39,6 @@ class PieChartWidget extends React.Component<
     this.setState({ anchorEl: null })
     this.props.filterByEventPick(id)
   }
-
 
   public render() {
     const { anchorEl } = this.state
@@ -96,7 +94,7 @@ class PieChartWidget extends React.Component<
         ? events.filter(event => event.eventId === eventId)
         : events
 
-    const allGuests = _.flattenDeep(
+    const allGuests = _.flattenDeep<IRsvp>(
       selectedEvent
         .filter(event => event.guests && event.guests.length > 0)
         .map(event => event.guests && event.guests.map(guest => guest.rsvp))
@@ -106,10 +104,10 @@ class PieChartWidget extends React.Component<
       (guest: IRsvp | undefined) => guest && guest.status === 'Pending'
     )
     const goingGuest = allGuests.filter(
-      (guest: IRsvp | undefined) => guest && guest.status === 'I\'m Going'
+      (guest: IRsvp | undefined) => guest && guest.status === "I'm Going"
     )
     const notGoingGuest = allGuests.filter(
-      (guest: IRsvp | undefined) => guest && guest.status === 'I\'m not going'
+      (guest: IRsvp | undefined) => guest && guest.status === "I'm not going"
     )
     const maybeGuest = allGuests.filter(
       (guest: IRsvp | undefined) => guest && guest.status === 'Maybe'

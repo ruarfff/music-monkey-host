@@ -9,12 +9,10 @@ import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-// import SubMenuIconHighlighted from '../../assets/subitem-highlighted.svg'
-// import SubMenuIcon from '../../assets/submenu-icon.svg'
 
 const decorate = withStyles(({}) => ({
   listIcon: {
-    marginRight: '-5px',
+    marginRight: '-5px'
   },
   listItemText: {
     color: 'white',
@@ -45,7 +43,7 @@ const decorate = withStyles(({}) => ({
     background: '#8300bf'
   },
   subListItemHighlighted: {
-    backgroundColor: '#3AABD1',
+    backgroundColor: '#3AABD1'
   }
 }))
 
@@ -77,16 +75,13 @@ class LeftMenuItem extends React.Component<ILeftMenuItemProps & WithStyles> {
 
     return (
       <ListItem
-        className={
-          link !== currentPath ?
-          '' :
-          classes.subListItemHighlighted
-        }
-        button={true}>
+        className={link !== currentPath ? '' : classes.subListItemHighlighted}
+        button={true}
+      >
         {/*<ListItemIcon>*/}
-          {/*<img*/}
-            {/*src={link !== currentPath ? SubMenuIcon : SubMenuIconHighlighted}*/}
-          {/*/>*/}
+        {/*<img*/}
+        {/*src={link !== currentPath ? SubMenuIcon : SubMenuIconHighlighted}*/}
+        {/*/>*/}
         {/*</ListItemIcon>*/}
         <ListItemText
           inset={true}
@@ -163,7 +158,7 @@ class LeftMenuItem extends React.Component<ILeftMenuItemProps & WithStyles> {
           >
             <List
               className={highlihgtSub ? classes.highlightedListItem : ''}
-              component="div"
+              component="article"
               disablePadding={true}
             >
               {collapsedList &&

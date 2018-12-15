@@ -3,7 +3,7 @@ import IEventErrors from './IEventErrors'
 import IPlaylistInput from './IPlaylistInput'
 
 export default interface IEventState {
-  errors?: IEventErrors
+  errors: IEventErrors
   events: IEvent[]
   playlistInput: IPlaylistInput
   savingEvent: IEvent
