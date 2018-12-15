@@ -1227,10 +1227,10 @@
     "@types/react" "*"
     "@types/recharts-scale" "*"
 
-"@types/redux-auth-wrapper@^2.0.7":
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/@types/redux-auth-wrapper/-/redux-auth-wrapper-2.0.8.tgz#efcd1524a9bd416e693bf2bdb8f4c15cfa7e8771"
-  integrity sha512-3NLLQ2BvtIRWMQar5Vz5yqpY43VcI01d97Ed9FH8e0FI4NTHtVclrloMfqFzX6DW4Uwjzlho4rmk8dIM725vsg==
+"@types/redux-auth-wrapper@^2.0.9":
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/@types/redux-auth-wrapper/-/redux-auth-wrapper-2.0.9.tgz#8a1beb8e171605adc4e0b2a7b0840b896358f8d1"
+  integrity sha512-LrsE5X1aV/d4ZqUjFTifopEvGbFC4jNjbOGd/UgoYsZ43AsQu6JKy3Y4W5OZX5BrslifdwTSVSrADYdOmthveA==
   dependencies:
     "@types/history" "*"
     "@types/react" "*"
