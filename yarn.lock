@@ -1017,10 +1017,10 @@
     "@types/cheerio" "*"
     "@types/react" "*"
 
-"@types/google-map-react@^0.23.8":
-  version "0.23.9"
-  resolved "https://registry.yarnpkg.com/@types/google-map-react/-/google-map-react-0.23.9.tgz#ea7faa6fc70cb594ab8c05ae1afe16b6a1d483b4"
-  integrity sha512-onjBkiVo+dR9c7+o2wG+dIUSsRtJlrQAVK6JQ9QHpn+NSpFnlRrqP2EO6intJNKV+ciVx2cevscP18+b6rwH2A==
+"@types/google-map-react@^0.23.10":
+  version "0.23.10"
+  resolved "https://registry.yarnpkg.com/@types/google-map-react/-/google-map-react-0.23.10.tgz#3c6c50c47856eccb069a4514df3b14b358819304"
+  integrity sha512-YMWDnd+xy6CQ5UKOqdxrg1tKnJEjkW7oll6EPaxupKkVjy9neHui2/c0lcJszj519sSRYzqg8GReUCRepljBPg==
   dependencies:
     "@types/react" "*"
 
