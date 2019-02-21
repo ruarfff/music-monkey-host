@@ -1251,10 +1251,10 @@
     "@types/theming" "*"
     csstype "^2.0.0"
 
-"@types/react-places-autocomplete@^6.1.1":
-  version "6.1.3"
-  resolved "https://registry.yarnpkg.com/@types/react-places-autocomplete/-/react-places-autocomplete-6.1.3.tgz#181d77f3b0be23a8962738d60bfa8de7299356bf"
-  integrity sha512-sQj5x9pBG7mFkwsWZ6oVm5VOnW6C+gW8VMXkXdsGjJngBJD06tZBDpCk0U8nTfUbUz/2w9Hb8idK/d+DDdbMpA==
+"@types/react-places-autocomplete@^7.2.5":
+  version "7.2.5"
+  resolved "https://registry.yarnpkg.com/@types/react-places-autocomplete/-/react-places-autocomplete-7.2.5.tgz#03e59d87ee65c52b73144695f4c4f082d2cc1f70"
+  integrity sha512-XIQOvg07V7b2Ejv+xpHEeIGFUQI/GePejaJnFIXnUUfO2rEL97QE3AsP7be/ikwIjxecCZ3kPClhTzcQaAAucg==
   dependencies:
     "@types/googlemaps" "*"
     "@types/react" "*"
